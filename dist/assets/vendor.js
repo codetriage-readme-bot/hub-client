@@ -66738,20 +66738,40 @@ function createDeprecatedModule(moduleId) {
 createDeprecatedModule('ember/resolver');
 createDeprecatedModule('resolver');
 
-;define('ember-ajax/errors', ['exports', 'ember'], function (exports, _ember) {
+;define('ember-ajax/ajax-request', ['exports', 'ember', 'ember-ajax/mixins/ajax-request'], function (exports, _ember, _emberAjaxMixinsAjaxRequest) {
+  'use strict';
+
+  exports['default'] = _ember['default'].Object.extend(_emberAjaxMixinsAjaxRequest['default']);
+});
+define('ember-ajax/errors', ['exports', 'ember'], function (exports, _ember) {
   'use strict';
 
   exports.AjaxError = AjaxError;
   exports.InvalidError = InvalidError;
   exports.UnauthorizedError = UnauthorizedError;
   exports.ForbiddenError = ForbiddenError;
+  exports.BadRequestError = BadRequestError;
+  exports.NotFoundError = NotFoundError;
+  exports.TimeoutError = TimeoutError;
+  exports.AbortError = AbortError;
+  exports.ServerError = ServerError;
+  exports.isAjaxError = isAjaxError;
+  exports.isUnauthorizedError = isUnauthorizedError;
+  exports.isForbiddenError = isForbiddenError;
+  exports.isInvalidError = isInvalidError;
+  exports.isBadRequestError = isBadRequestError;
+  exports.isNotFoundError = isNotFoundError;
+  exports.isTimeoutError = isTimeoutError;
+  exports.isAbortError = isAbortError;
+  exports.isServerError = isServerError;
+  exports.isSuccess = isSuccess;
 
   var EmberError = _ember['default'].Error;
 
   /**
-    @class AjaxError
-    @namespace DS
-  */
+   * @class AjaxError
+   * @private
+   */
 
   function AjaxError(errors) {
     var message = arguments.length <= 1 || arguments[1] === undefined ? 'Ajax operation failed' : arguments[1];
@@ -66766,11 +66786,21 @@ createDeprecatedModule('resolver');
 
   AjaxError.prototype = Object.create(EmberError.prototype);
 
+  /**
+   * @class InvalidError
+   * @public
+   */
+
   function InvalidError(errors) {
     AjaxError.call(this, errors, 'Request was rejected because it was invalid');
   }
 
   InvalidError.prototype = Object.create(AjaxError.prototype);
+
+  /**
+   * @class UnauthorizedError
+   * @public
+   */
 
   function UnauthorizedError(errors) {
     AjaxError.call(this, errors, 'Ajax authorization failed');
@@ -66778,11 +66808,223 @@ createDeprecatedModule('resolver');
 
   UnauthorizedError.prototype = Object.create(AjaxError.prototype);
 
+  /**
+   * @class ForbiddenError
+   * @public
+   */
+
   function ForbiddenError(errors) {
     AjaxError.call(this, errors, 'Request was rejected because user is not permitted to perform this operation.');
   }
 
   ForbiddenError.prototype = Object.create(AjaxError.prototype);
+
+  /**
+   * @class BadRequestError
+   * @public
+   */
+
+  function BadRequestError(errors) {
+    AjaxError.call(this, errors, 'Request was formatted incorrectly.');
+  }
+
+  BadRequestError.prototype = Object.create(AjaxError.prototype);
+
+  /**
+   * @class NotFoundError
+   * @public
+   */
+
+  function NotFoundError(errors) {
+    AjaxError.call(this, errors, 'Resource was not found.');
+  }
+
+  NotFoundError.prototype = Object.create(AjaxError.prototype);
+
+  /**
+   * @class TimeoutError
+   * @public
+   */
+
+  function TimeoutError() {
+    AjaxError.call(this, null, 'The ajax operation timed out');
+  }
+
+  TimeoutError.prototype = Object.create(AjaxError.prototype);
+
+  /**
+   * @class AbortError
+   * @public
+   */
+
+  function AbortError() {
+    AjaxError.call(this, null, 'The ajax operation was aborted');
+  }
+
+  AbortError.prototype = Object.create(AjaxError.prototype);
+
+  /**
+   * @class ServerError
+   * @public
+   */
+
+  function ServerError(errors) {
+    AjaxError.call(this, errors, 'Request was rejected due to server error');
+  }
+
+  ServerError.prototype = Object.create(AjaxError.prototype);
+
+  /**
+   * Checks if the given error is or inherits from AjaxError
+   * @method isAjaxError
+   * @public
+   * @param  {Error} error
+   * @return {Boolean}
+   */
+
+  function isAjaxError(error) {
+    return error instanceof AjaxError;
+  }
+
+  /**
+   * Checks if the given status code or AjaxError object represents an
+   * unauthorized request error
+   * @method isUnauthorizedError
+   * @public
+   * @param  {Number | AjaxError} error
+   * @return {Boolean}
+   */
+
+  function isUnauthorizedError(error) {
+    if (isAjaxError(error)) {
+      return error instanceof UnauthorizedError;
+    } else {
+      return error === 401;
+    }
+  }
+
+  /**
+   * Checks if the given status code or AjaxError object represents a forbidden
+   * request error
+   * @method isForbiddenError
+   * @public
+   * @param  {Number | AjaxError} error
+   * @return {Boolean}
+   */
+
+  function isForbiddenError(error) {
+    if (isAjaxError(error)) {
+      return error instanceof ForbiddenError;
+    } else {
+      return error === 403;
+    }
+  }
+
+  /**
+   * Checks if the given status code or AjaxError object represents an invalid
+   * request error
+   * @method isInvalidError
+   * @public
+   * @param  {Number | AjaxError} error
+   * @return {Boolean}
+   */
+
+  function isInvalidError(error) {
+    if (isAjaxError(error)) {
+      return error instanceof InvalidError;
+    } else {
+      return error === 422;
+    }
+  }
+
+  /**
+   * Checks if the given status code or AjaxError object represents a bad request
+   * error
+   * @method isBadRequestError
+   * @public
+   * @param  {Number | AjaxError} error
+   * @return {Boolean}
+   */
+
+  function isBadRequestError(error) {
+    if (isAjaxError(error)) {
+      return error instanceof BadRequestError;
+    } else {
+      return error === 400;
+    }
+  }
+
+  /**
+   * Checks if the given status code or AjaxError object represents a
+   * "not found" error
+   * @method isNotFoundError
+   * @public
+   * @param  {Number | AjaxError} error
+   * @return {Boolean}
+   */
+
+  function isNotFoundError(error) {
+    if (isAjaxError(error)) {
+      return error instanceof NotFoundError;
+    } else {
+      return error === 404;
+    }
+  }
+
+  /**
+   * Checks if the given status code or AjaxError object represents a
+   * "timeout" error
+   * @method isTimeoutError
+   * @public
+   * @param  {AjaxError} error
+   * @return {Boolean}
+   */
+
+  function isTimeoutError(error) {
+    return error instanceof TimeoutError;
+  }
+
+  /**
+   * Checks if the given status code or AjaxError object represents an
+   * "abort" error
+   * @method isAbortError
+   * @public
+   * @param  {AjaxError} error
+   * @return {Boolean}
+   */
+
+  function isAbortError(error) {
+    return error instanceof AbortError;
+  }
+
+  /**
+   * Checks if the given status code or AjaxError object represents a server error
+   * @method isServerError
+   * @public
+   * @param  {Number | AjaxError} error
+   * @return {Boolean}
+   */
+
+  function isServerError(error) {
+    if (isAjaxError(error)) {
+      return error instanceof ServerError;
+    } else {
+      return error >= 500 && error < 600;
+    }
+  }
+
+  /**
+   * Checks if the given status code represents a successful request
+   * @method isSuccess
+   * @public
+   * @param  {Number} status
+   * @return {Boolean}
+   */
+
+  function isSuccess(status) {
+    var s = parseInt(status, 10);
+    return s >= 200 && s < 300 || s === 304;
+  }
 });
 define('ember-ajax/index', ['exports', 'ember-ajax/request'], function (exports, _emberAjaxRequest) {
   'use strict';
@@ -66794,253 +67036,184 @@ define('ember-ajax/index', ['exports', 'ember-ajax/request'], function (exports,
     }
   });
 });
-define('ember-ajax/make-promise', ['exports', 'ember'], function (exports, _ember) {
+define('ember-ajax/mixins/ajax-request', ['exports', 'ember', 'ember-ajax/errors', 'ember-ajax/utils/parse-response-headers', 'ember-ajax/utils/url-helpers', 'ember-ajax/utils/ajax'], function (exports, _ember, _emberAjaxErrors, _emberAjaxUtilsParseResponseHeaders, _emberAjaxUtilsUrlHelpers, _emberAjaxUtilsAjax) {
   'use strict';
 
-  exports['default'] = makePromise;
-
-  var run = _ember['default'].run;
-  var RSVP = _ember['default'].RSVP;
-
-  function makePromise(settings) {
-    var type = settings.type || 'GET';
-    return new RSVP.Promise(function (resolve, reject) {
-      settings.success = makeSuccess(resolve);
-      settings.error = makeError(reject);
-      _ember['default'].$.ajax(settings);
-    }, 'ember-ajax: ' + type + ' to ' + settings.url);
-  }
-
-  function makeSuccess(resolve) {
-    return function success(response, textStatus, jqXHR) {
-      run(null, resolve, {
-        response: response,
-        textStatus: textStatus,
-        jqXHR: jqXHR
-      });
-    };
-  }
-
-  function makeError(reject) {
-    return function error(jqXHR, textStatus, errorThrown) {
-      run(null, reject, {
-        jqXHR: jqXHR,
-        textStatus: textStatus,
-        errorThrown: errorThrown
-      });
-    };
-  }
-});
-define('ember-ajax/raw', ['exports', 'ember-ajax/make-promise', 'ember-ajax/utils/parse-args', 'ember'], function (exports, _emberAjaxMakePromise, _emberAjaxUtilsParseArgs, _ember) {
-  'use strict';
-
-  var _slicedToArray = (function () {
-    function sliceIterator(arr, i) {
-      var _arr = [];var _n = true;var _d = false;var _e = undefined;try {
-        for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
-          _arr.push(_s.value);if (i && _arr.length === i) break;
-        }
-      } catch (err) {
-        _d = true;_e = err;
-      } finally {
-        try {
-          if (!_n && _i['return']) _i['return']();
-        } finally {
-          if (_d) throw _e;
-        }
-      }return _arr;
-    }return function (arr, i) {
-      if (Array.isArray(arr)) {
-        return arr;
-      } else if (Symbol.iterator in Object(arr)) {
-        return sliceIterator(arr, i);
-      } else {
-        throw new TypeError('Invalid attempt to destructure non-iterable instance');
-      }
-    };
-  })();
-
-  exports['default'] = raw;
-
-  var deprecate = _ember['default'].deprecate;
-
-  /*
-   * Same as `request` except it resolves an object with `{response, textStatus,
-   * jqXHR}`, useful if you need access to the jqXHR object for headers, etc.
-   */
-  function raw() {
-    deprecate('ember-ajax/raw is deprecated and will be removed in ember-ajax@2.0.0', false, { id: 'ember-ajax.raw' });
-
-    var _parseArgs$apply = _emberAjaxUtilsParseArgs['default'].apply(null, arguments);
-
-    var _parseArgs$apply2 = _slicedToArray(_parseArgs$apply, 3);
-
-    var url = _parseArgs$apply2[0];
-    var type = _parseArgs$apply2[1];
-    var settings = _parseArgs$apply2[2];
-
-    if (!settings) {
-      settings = {};
-    }
-    settings.url = url;
-    settings.type = type;
-    return (0, _emberAjaxMakePromise['default'])(settings);
-  }
-});
-define('ember-ajax/request', ['exports', 'ember-ajax/raw', 'ember'], function (exports, _emberAjaxRaw, _ember) {
-  'use strict';
-
-  exports['default'] = request;
-
-  var deprecate = _ember['default'].deprecate;
-
-  /*
-   * jQuery.ajax wrapper, supports the same signature except providing
-   * `success` and `error` handlers will throw an error (use promises instead)
-   * and it resolves only the response (no access to jqXHR or textStatus).
-   */
-  function request() {
-    deprecate('ember-ajax/request is deprecated and will be removed in ember-ajax@2.0.0', false, { id: 'ember-ajax.raw' });
-    return _emberAjaxRaw['default'].apply(undefined, arguments).then(function (result) {
-      return result.response;
-    }, null, 'ember-ajax: unwrap raw ajax response');
-  }
-});
-define('ember-ajax/services/ajax', ['exports', 'ember', 'ember-ajax/errors', 'ember-ajax/utils/parse-response-headers'], function (exports, _ember, _emberAjaxErrors, _emberAjaxUtilsParseResponseHeaders) {
-  'use strict';
-
-  var deprecate = _ember['default'].deprecate;
+  var $ = _ember['default'].$;
+  var EmberError = _ember['default'].Error;
+  var Mixin = _ember['default'].Mixin;
+  var Promise = _ember['default'].RSVP.Promise;
   var get = _ember['default'].get;
-  var isBlank = _ember['default'].isBlank;
+  var isNone = _ember['default'].isNone;
+  var merge = _ember['default'].merge;
+  var run = _ember['default'].run;
+  var Test = _ember['default'].Test;
+  var testing = _ember['default'].testing;
 
-  /**
-    ### Headers customization
-  
-    Some APIs require HTTP headers, e.g. to provide an API key. Arbitrary
-    headers can be set as key/value pairs on the `RESTAdapter`'s `headers`
-    object and Ember Data will send them along with each ajax request.
-  
-    ```app/services/ajax
-    import AjaxService from 'ember-ajax/services/ajax';
-  
-    export default AjaxService.extend({
-      headers: {
-        "API_KEY": "secret key",
-        "ANOTHER_HEADER": "Some header value"
-      }
+  var JSONAPIContentType = 'application/vnd.api+json';
+
+  function isJSONAPIContentType(header) {
+    if (isNone(header)) {
+      return false;
+    }
+    return header.indexOf(JSONAPIContentType) === 0;
+  }
+
+  function startsWithSlash(string) {
+    return string.charAt(0) === '/';
+  }
+
+  function endsWithSlash(string) {
+    return string.charAt(string.length - 1) === '/';
+  }
+
+  function stripSlashes(path) {
+    // make sure path starts with `/`
+    if (startsWithSlash(path)) {
+      path = path.substring(1);
+    }
+
+    // remove end `/`
+    if (endsWithSlash(path)) {
+      path = path.slice(0, -1);
+    }
+    return path;
+  }
+
+  var pendingRequestCount = 0;
+  if (testing) {
+    Test.registerWaiter(function () {
+      return pendingRequestCount === 0;
     });
-    ```
-  
-    `headers` can also be used as a computed property to support dynamic
-    headers.
-  
-    ```app/services/ajax.js
-    import Ember from 'ember';
-    import AjaxService from 'ember-ajax/services/ajax';
-  
-    export default AjaxService.extend({
-      session: Ember.inject.service(),
-      headers: Ember.computed("session.authToken", function() {
-        return {
-          "API_KEY": this.get("session.authToken"),
-          "ANOTHER_HEADER": "Some header value"
-        };
-      })
-    });
-    ```
-  
-    In some cases, your dynamic headers may require data from some
-    object outside of Ember's observer system (for example
-    `document.cookie`). You can use the
-    [volatile](/api/classes/Ember.ComputedProperty.html#method_volatile)
-    function to set the property into a non-cached mode causing the headers to
-    be recomputed with every request.
-  
-    ```app/services/ajax.js
-    import Ember from 'ember';
-    import AjaxService from 'ember-ajax/services/ajax';
-  
-    export default AjaxService.extend({
-      session: Ember.inject.service(),
-      headers: Ember.computed("session.authToken", function() {
-        return {
-          "API_KEY": Ember.get(document.cookie.match(/apiKey\=([^;]*)/), "1"),
-          "ANOTHER_HEADER": "Some header value"
-        };
-      }).volatile()
-    });
-    ```
-  
-  **/
-  exports['default'] = _ember['default'].Service.extend({
+  }
+
+  exports['default'] = Mixin.create({
 
     request: function request(url, options) {
       var _this = this;
 
-      var opts;
+      var hash = this.options(url, options);
+      return new Promise(function (resolve, reject) {
+        _this.raw(url, hash).then(function (_ref) {
+          var response = _ref.response;
 
-      if (arguments.length > 2 || typeof options === 'string') {
-        deprecate('ember-ajax/ajax#request calling request with `type` is deprecated and will be removed in ember-ajax@1.0.0. If you want to specify a type pass an object like {type: \'DELETE\'}', false, { id: 'ember-ajax.service.request' });
+          resolve(response);
+        })['catch'](function (_ref2) {
+          var response = _ref2.response;
 
-        if (arguments.length > 2) {
-          opts = arguments[2];
-          opts.type = options;
-        } else {
-          opts = { type: options };
+          reject(response);
+        });
+      }, 'ember-ajax: ' + hash.type + ' ' + hash.url + ' response');
+    },
+
+    raw: function raw(url, options) {
+      var _this2 = this;
+
+      var hash = this.options(url, options);
+      var requestData = {
+        type: hash.type,
+        url: hash.url
+      };
+
+      if (isJSONAPIContentType(hash.headers['Content-Type']) && requestData.type !== 'GET') {
+        if (typeof hash.data === 'object') {
+          hash.data = JSON.stringify(hash.data);
         }
-      } else {
-        opts = options;
       }
 
-      var hash = this.options(url, opts);
-
-      return new _ember['default'].RSVP.Promise(function (resolve, reject) {
-
+      return new Promise(function (resolve, reject) {
         hash.success = function (payload, textStatus, jqXHR) {
-          var response = _this.handleResponse(jqXHR.status, (0, _emberAjaxUtilsParseResponseHeaders['default'])(jqXHR.getAllResponseHeaders()), payload);
+          var response = _this2.handleResponse(jqXHR.status, (0, _emberAjaxUtilsParseResponseHeaders['default'])(jqXHR.getAllResponseHeaders()), payload, requestData);
 
-          if (response instanceof _emberAjaxErrors.AjaxError) {
-            reject(response);
+          pendingRequestCount--;
+
+          if ((0, _emberAjaxErrors.isAjaxError)(response)) {
+            run.join(null, reject, { payload: payload, textStatus: textStatus, jqXHR: jqXHR, response: response });
           } else {
-            resolve(response);
+            run.join(null, resolve, { payload: payload, textStatus: textStatus, jqXHR: jqXHR, response: response });
           }
         };
 
         hash.error = function (jqXHR, textStatus, errorThrown) {
-          var error = undefined;
+          var payload = _this2.parseErrorResponse(jqXHR.responseText) || errorThrown;
+          var response = undefined;
 
-          if (!(error instanceof Error)) {
-            if (errorThrown instanceof Error) {
-              error = errorThrown;
-            } else {
-              error = _this.handleResponse(jqXHR.status, (0, _emberAjaxUtilsParseResponseHeaders['default'])(jqXHR.getAllResponseHeaders()), _this.parseErrorResponse(jqXHR.responseText) || errorThrown);
-            }
+          if (errorThrown instanceof Error) {
+            response = errorThrown;
+          } else if (textStatus === 'timeout') {
+            response = new _emberAjaxErrors.TimeoutError();
+          } else if (textStatus === 'abort') {
+            response = new _emberAjaxErrors.AbortError();
+          } else {
+            response = _this2.handleResponse(jqXHR.status, (0, _emberAjaxUtilsParseResponseHeaders['default'])(jqXHR.getAllResponseHeaders()), payload, requestData);
           }
-          reject(error);
+
+          pendingRequestCount--;
+
+          run.join(null, reject, { payload: payload, textStatus: textStatus, jqXHR: jqXHR, errorThrown: errorThrown, response: response });
         };
 
-        _ember['default'].$.ajax(hash);
-      }, 'ember-ajax: ' + hash.type + ' to ' + url);
+        pendingRequestCount++;
+
+        (0, _emberAjaxUtilsAjax['default'])(hash);
+      }, 'ember-ajax: ' + hash.type + ' ' + hash.url);
     },
 
-    // calls `request()` but forces `options.type` to `POST`
+    /**
+     * calls `request()` but forces `options.type` to `POST`
+     * @public
+     */
     post: function post(url, options) {
       return this.request(url, this._addTypeToOptionsFor(options, 'POST'));
     },
 
-    // calls `request()` but forces `options.type` to `PUT`
+    /**
+     * calls `request()` but forces `options.type` to `PUT`
+     * @public
+     */
     put: function put(url, options) {
       return this.request(url, this._addTypeToOptionsFor(options, 'PUT'));
     },
 
-    // calls `request()` but forces `options.type` to `PATCH`
+    /**
+     * calls `request()` but forces `options.type` to `PATCH`
+     * @public
+     */
     patch: function patch(url, options) {
       return this.request(url, this._addTypeToOptionsFor(options, 'PATCH'));
     },
 
-    // calls `request()` but forces `options.type` to `DELETE`
+    /**
+     * calls `request()` but forces `options.type` to `DELETE`
+     * @public
+     */
     del: function del(url, options) {
       return this.request(url, this._addTypeToOptionsFor(options, 'DELETE'));
+    },
+
+    /**
+     * calls `request()` but forces `options.type` to `DELETE`
+     * alias for `del()`
+     * @public
+     */
+    'delete': function _delete() {
+      return this.del.apply(this, arguments);
+    },
+
+    /**
+     * Wrap the `.get` method so that we issue a warning if
+     *
+     * Since `.get` is both an AJAX pattern _and_ an Ember pattern, we want to try
+     * to warn users when they try using `.get` to make a request
+     *
+     * @method get
+     * @public
+     */
+    get: function get(url) {
+      if (arguments.length > 1 || url.charAt(0) === '/') {
+        throw new EmberError('It seems you tried to use `.get` to make a request! Use the `.request` method instead.');
+      }
+      return this._super.apply(this, arguments);
     },
 
     // forcibly manipulates the options hash to include the HTTP method on the type key
@@ -67051,264 +67224,685 @@ define('ember-ajax/services/ajax', ['exports', 'ember', 'ember-ajax/errors', 'em
     },
 
     /**
-      @method options
-      @private
-      @param {String} url
-      @param {Object} options
-      @return {Object}
-    */
-    options: function options(url, _options) {
-      var hash = _options || {};
-      hash.url = this._buildURL(url);
-      hash.type = hash.type || 'GET';
-      hash.dataType = hash.dataType || 'json';
-      hash.context = this;
-
-      var headers = get(this, 'headers');
-      if (headers !== undefined) {
-        hash.beforeSend = function (xhr) {
-          Object.keys(headers).forEach(function (key) {
-            return xhr.setRequestHeader(key, headers[key]);
-          });
-        };
-      }
-
-      return hash;
-    },
-
-    _buildURL: function _buildURL(url) {
-      var host = get(this, 'host');
-      if (isBlank(host)) {
-        return url;
-      }
-      var startsWith = String.prototype.startsWith || function (searchString, position) {
-        position = position || 0;
-        return this.indexOf(searchString, position) === position;
-      };
-      if (startsWith.call(url, '/')) {
-        return '' + host + url;
-      } else {
-        return host + '/' + url;
-      }
+     * @method _getFullHeadersHash
+     * @private
+     * @param {Object} headers
+     * @return {Object}
+     */
+    _getFullHeadersHash: function _getFullHeadersHash(headers) {
+      var classHeaders = get(this, 'headers') || {};
+      var _headers = merge({}, classHeaders);
+      return merge(_headers, headers);
     },
 
     /**
-     Takes an ajax response, and returns the json payload or an error.
-      By default this hook just returns the json payload passed to it.
-     You might want to override it in two cases:
-      1. Your API might return useful results in the response headers.
-     Response headers are passed in as the second argument.
-      2. Your API might return errors as successful responses with status code
-     200 and an Errors text or object.
-     @method handleResponse
-     @param  {Number} status
-     @param  {Object} headers
-     @param  {Object} payload
-     @return {Object | DS.AdapterError} response
-    */
-    handleResponse: function handleResponse(status, headers, payload) {
-      if (this.isSuccess(status, headers, payload)) {
-        return payload;
-      } else if (this.isUnauthorized(status, headers, payload)) {
-        return new _emberAjaxErrors.UnauthorizedError(payload.errors);
-      } else if (this.isForbidden(status, headers, payload)) {
-        return new _emberAjaxErrors.ForbiddenError(payload.errors);
-      } else if (this.isInvalid(status, headers, payload)) {
-        return new _emberAjaxErrors.InvalidError(payload.errors);
+     * @method options
+     * @private
+     * @param {String} url
+     * @param {Object} options
+     * @return {Object}
+     */
+    options: function options(url) {
+      var _options = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+
+      _options.url = this._buildURL(url, _options);
+      _options.type = _options.type || 'GET';
+      _options.dataType = _options.dataType || 'json';
+
+      if (this._shouldSendHeaders(_options)) {
+        _options.headers = this._getFullHeadersHash(_options.headers);
+      } else {
+        _options.headers = _options.headers || {};
       }
 
+      return _options;
+    },
+
+    /**
+     * Build a URL for a request
+     *
+     * If the provided `url` is deemed to be a complete URL, it will be returned
+     * directly.  If it is not complete, then the segment provided will be combined
+     * with the `host` and `namespace` options of the request class to create the
+     * full URL.
+     *
+     * @private
+     * @param {string} url the url, or url segment, to request
+     * @param {object} [options] the options for the request being made
+     * @param {object.host} [host] the host to use for this request
+     * @returns {string} the URL to make a request to
+     */
+    _buildURL: function _buildURL(url) {
+      var options = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+
+      var urlObject = new _emberAjaxUtilsUrlHelpers.RequestURL(url);
+
+      // If the URL passed is not relative, return the whole URL
+      if (urlObject.isComplete) {
+        return urlObject.href;
+      }
+
+      var host = options.host || get(this, 'host');
+      var namespace = get(this, 'namespace');
+      if (namespace) {
+        namespace = stripSlashes(namespace);
+      }
+
+      var fullUrl = '';
+      // Add the host, if it exists
+      if (host) {
+        fullUrl += host;
+      }
+      // Add the namespace, if it exists
+      if (namespace) {
+        if (!endsWithSlash(fullUrl)) {
+          fullUrl += '/';
+        }
+        fullUrl += namespace;
+      }
+      // Add the URL segment, if it exists
+      if (url) {
+        if (!startsWithSlash(url)) {
+          fullUrl += '/';
+        }
+        fullUrl += url;
+      }
+
+      return fullUrl;
+    },
+
+    _normalizePath: function _normalizePath(path) {
+      if (path) {
+        // make sure path starts with `/`
+        if (path.charAt(0) !== '/') {
+          path = '/' + path;
+        }
+
+        // remove end `/`
+        if (path.charAt(path.length - 1) === '/') {
+          path = path.slice(0, -1);
+        }
+      }
+      return path;
+    },
+
+    /**
+     * Takes an ajax response, and returns the json payload or an error.
+     *
+     * By default this hook just returns the json payload passed to it.
+     * You might want to override it in two cases:
+     *
+     * 1. Your API might return useful results in the response headers.
+     *    Response headers are passed in as the second argument.
+     *
+     * 2. Your API might return errors as successful responses with status code
+     *    200 and an Errors text or object.
+     *
+     * @method handleResponse
+     * @private
+     * @param  {Number} status
+     * @param  {Object} headers
+     * @param  {Object} payload
+     * @param  {Object} requestData the original request information
+     * @return {Object | AjaxError} response
+     */
+    handleResponse: function handleResponse(status, headers, payload, requestData) {
+      payload = payload || {};
       var errors = this.normalizeErrorResponse(status, headers, payload);
 
-      return new _emberAjaxErrors.AjaxError(errors);
+      if (this.isSuccess(status, headers, payload)) {
+        return payload;
+      } else if (this.isUnauthorizedError(status, headers, payload)) {
+        return new _emberAjaxErrors.UnauthorizedError(errors);
+      } else if (this.isForbiddenError(status, headers, payload)) {
+        return new _emberAjaxErrors.ForbiddenError(errors);
+      } else if (this.isInvalidError(status, headers, payload)) {
+        return new _emberAjaxErrors.InvalidError(errors);
+      } else if (this.isBadRequestError(status, headers, payload)) {
+        return new _emberAjaxErrors.BadRequestError(errors);
+      } else if (this.isNotFoundError(status, headers, payload)) {
+        return new _emberAjaxErrors.NotFoundError(errors);
+      } else if (this.isServerError(status, headers, payload)) {
+        return new _emberAjaxErrors.ServerError(errors);
+      }
+
+      var detailedMessage = this.generateDetailedMessage(status, headers, payload, requestData);
+      return new _emberAjaxErrors.AjaxError(errors, detailedMessage);
     },
 
     /**
-     Default `handleResponse` implementation uses this hook to decide if the
-     response is a an authorized error.
-     @method isUnauthorized
-     @param  {Number} status
-     @param  {Object} headers
-     @param  {Object} payload
-     @return {Boolean}
-    */
-    isUnauthorized: function isUnauthorized(status /*, headers, payload */) {
-      return status === 401;
-    },
-
-    /**
-       Default `handleResponse` implementation uses this hook to decide if the
-       response is a forbidden error.
-       @method isForbidden
-       @param  {Number} status
-       @param  {Object} headers
-       @param  {Object} payload
-       @return {Boolean}
+     * Match the host to a provided array of strings or regexes that can match to a host
+     *
+     * @method matchHosts
+     * @private
+     * @param {String} host the host you are sending too
+     * @param {RegExp | String} matcher a string or regex that you can match the host to.
+     * @returns {Boolean} if the host passed the matcher
      */
-    isForbidden: function isForbidden(status /*, headers, payload */) {
-      return status === 403;
+    _matchHosts: function _matchHosts(host, matcher) {
+      if (matcher.constructor === RegExp) {
+        return matcher.test(host);
+      } else if (typeof matcher === 'string') {
+        return matcher === host;
+      } else {
+        _ember['default'].Logger.warn('trustedHosts only handles strings or regexes.', matcher, 'is neither.');
+        return false;
+      }
     },
 
     /**
-      Default `handleResponse` implementation uses this hook to decide if the
-      response is a an invalid error.
-      @method isInvalid
-      @param  {Number} status
-      @param  {Object} headers
-      @param  {Object} payload
-      @return {Boolean}
-    */
-    isInvalid: function isInvalid(status /*, headers, payload */) {
-      return status === 422;
+     * Determine whether the headers should be added for this request
+     *
+     * This hook is used to help prevent sending headers to every host, regardless
+     * of the destination, since this could be a security issue if authentication
+     * tokens are accidentally leaked to third parties.
+     *
+     * To avoid that problem, subclasses should utilize the `headers` computed
+     * property to prevent authentication from being sent to third parties, or
+     * implement this hook for more fine-grain control over when headers are sent.
+     *
+     * By default, the headers are sent if the host of the request matches the
+     * `host` property designated on the class.
+     *
+     * @method _shouldSendHeaders
+     * @private
+     * @property {Object} hash request options hash
+     * @returns {Boolean} whether or not headers should be sent
+     */
+    _shouldSendHeaders: function _shouldSendHeaders(_ref3) {
+      var _this3 = this;
+
+      var url = _ref3.url;
+      var host = _ref3.host;
+
+      url = url || '';
+      host = host || get(this, 'host') || '';
+
+      var urlObject = new _emberAjaxUtilsUrlHelpers.RequestURL(url);
+      var trustedHosts = get(this, 'trustedHosts') || _ember['default'].A();
+
+      // Add headers on relative URLs
+      if (!urlObject.isComplete) {
+        return true;
+      } else if (trustedHosts.find(function (matcher) {
+        return _this3._matchHosts(urlObject.hostname, matcher);
+      })) {
+        return true;
+      }
+
+      // Add headers on matching host
+      var hostObject = new _emberAjaxUtilsUrlHelpers.RequestURL(host);
+      return urlObject.sameHost(hostObject);
     },
 
     /**
-     Default `handleResponse` implementation uses this hook to decide if the
-     response is a success.
-     @method isSuccess
-     @param  {Number} status
-     @param  {Object} headers
-     @param  {Object} payload
-     @return {Boolean}
-    */
-    isSuccess: function isSuccess(status /*, headers, payload */) {
-      return status >= 200 && status < 300 || status === 304;
+     * Generates a detailed ("friendly") error message, with plenty
+     * of information for debugging (good luck!)
+     * @method generateDetailedMessage
+     * @private
+     * @param  {Number} status
+     * @param  {Object} headers
+     * @param  {Object} payload
+     * @param  {Object} requestData the original request information
+     * @return {Object} request information
+     */
+    generateDetailedMessage: function generateDetailedMessage(status, headers, payload, requestData) {
+      var shortenedPayload = undefined;
+      var payloadContentType = headers['Content-Type'] || 'Empty Content-Type';
+
+      if (payloadContentType === 'text/html' && payload.length > 250) {
+        shortenedPayload = '[Omitted Lengthy HTML]';
+      } else {
+        shortenedPayload = JSON.stringify(payload);
+      }
+
+      var requestDescription = requestData.type + ' ' + requestData.url;
+      var payloadDescription = 'Payload (' + payloadContentType + ')';
+
+      return ['Ember Data Request ' + requestDescription + ' returned a ' + status, payloadDescription, shortenedPayload].join('\n');
     },
 
     /**
-      @method parseErrorResponse
-      @private
-      @param {String} responseText
-      @return {Object}
-    */
+     * Default `handleResponse` implementation uses this hook to decide if the
+     * response is a an authorized error.
+     * @method isUnauthorizedError
+     * @private
+     * @param {Number} status
+     * @param {Object} headers
+     * @param {Object} payload
+     * @return {Boolean}
+     */
+    isUnauthorizedError: function isUnauthorizedError(status) {
+      return (0, _emberAjaxErrors.isUnauthorizedError)(status);
+    },
+
+    /**
+     * Default `handleResponse` implementation uses this hook to decide if the
+     * response is a forbidden error.
+     * @method isForbiddenError
+     * @private
+     * @param {Number} status
+     * @param {Object} headers
+     * @param {Object} payload
+     * @return {Boolean}
+     */
+    isForbiddenError: function isForbiddenError(status) {
+      return (0, _emberAjaxErrors.isForbiddenError)(status);
+    },
+
+    /**
+     * Default `handleResponse` implementation uses this hook to decide if the
+     * response is a an invalid error.
+     * @method isInvalidError
+     * @private
+     * @param {Number} status
+     * @param {Object} headers
+     * @param {Object} payload
+     * @return {Boolean}
+     */
+    isInvalidError: function isInvalidError(status) {
+      return (0, _emberAjaxErrors.isInvalidError)(status);
+    },
+
+    /**
+     * Default `handleResponse` implementation uses this hook to decide if the
+     * response is a bad request error.
+     * @method isBadRequestError
+     * @private
+     * @param {Number} status
+     * @param {Object} headers
+     * @param {Object} payload
+     * @return {Boolean}
+     */
+    isBadRequestError: function isBadRequestError(status) {
+      return (0, _emberAjaxErrors.isBadRequestError)(status);
+    },
+
+    /**
+     * Default `handleResponse` implementation uses this hook to decide if the
+     * response is a "not found" error.
+     * @method isNotFoundError
+     * @private
+     * @param {Number} status
+     * @param {Object} headers
+     * @param {Object} payload
+     * @return {Boolean}
+     */
+    isNotFoundError: function isNotFoundError(status) {
+      return (0, _emberAjaxErrors.isNotFoundError)(status);
+    },
+
+    /**
+     * Default `handleResponse` implementation uses this hook to decide if the
+     * response is a server error.
+     * @method isServerError
+     * @private
+     * @param {Number} status
+     * @param {Object} headers
+     * @param {Object} payload
+     * @return {Boolean}
+     */
+    isServerError: function isServerError(status) {
+      return (0, _emberAjaxErrors.isServerError)(status);
+    },
+
+    /**
+     * Default `handleResponse` implementation uses this hook to decide if the
+     * response is a success.
+     * @method isSuccess
+     * @private
+     * @param {Number} status
+     * @param {Object} headers
+     * @param {Object} payload
+     * @return {Boolean}
+     */
+    isSuccess: function isSuccess(status) {
+      return (0, _emberAjaxErrors.isSuccess)(status);
+    },
+
+    /**
+     * @method parseErrorResponse
+     * @private
+     * @param {String} responseText
+     * @return {Object}
+     */
     parseErrorResponse: function parseErrorResponse(responseText) {
       var json = responseText;
 
       try {
-        json = _ember['default'].$.parseJSON(responseText);
+        json = $.parseJSON(responseText);
       } catch (e) {}
 
       return json;
     },
 
     /**
-      @method normalizeErrorResponse
-      @private
-      @param  {Number} status
-      @param  {Object} headers
-      @param  {Object} payload
-      @return {Object} errors payload
-    */
+     * @method normalizeErrorResponse
+     * @private
+     * @param  {Number} status
+     * @param  {Object} headers
+     * @param  {Object} payload
+     * @return {Array} errors payload
+     */
     normalizeErrorResponse: function normalizeErrorResponse(status, headers, payload) {
       if (payload && typeof payload === 'object' && payload.errors) {
-        return payload.errors;
+        if (!_ember['default'].isArray(payload.errors)) {
+          return payload.errors;
+        }
+
+        return payload.errors.map(function (error) {
+          var ret = merge({}, error);
+
+          if (typeof ret.status === 'number') {
+            ret.status = '' + ret.status;
+          }
+
+          return ret;
+        });
       } else {
         return [{
           status: '' + status,
-          title: "The backend responded with an error",
-          detail: '' + payload
+          title: 'The backend responded with an error',
+          detail: payload
         }];
       }
     }
   });
 });
-define("ember-ajax/utils/parse-args", ["exports"], function (exports) {
-  "use strict";
+define('ember-ajax/raw', ['exports', 'ember-ajax/ajax-request'], function (exports, _emberAjaxAjaxRequest) {
+  'use strict';
 
-  var _slicedToArray = (function () {
-    function sliceIterator(arr, i) {
-      var _arr = [];var _n = true;var _d = false;var _e = undefined;try {
-        for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
-          _arr.push(_s.value);if (i && _arr.length === i) break;
-        }
-      } catch (err) {
-        _d = true;_e = err;
-      } finally {
-        try {
-          if (!_n && _i["return"]) _i["return"]();
-        } finally {
-          if (_d) throw _e;
-        }
-      }return _arr;
-    }return function (arr, i) {
-      if (Array.isArray(arr)) {
-        return arr;
-      } else if (Symbol.iterator in Object(arr)) {
-        return sliceIterator(arr, i);
-      } else {
-        throw new TypeError("Invalid attempt to destructure non-iterable instance");
-      }
-    };
-  })();
+  exports['default'] = raw;
 
-  exports["default"] = parseArgs;
-
-  function parseArgs() {
-    var args = [].slice.apply(arguments);
-    if (args.length === 1) {
-      if (typeof args[0] === "string") {
-        var _args = _slicedToArray(args, 1);
-
-        var url = _args[0];
-
-        return [url];
-      } else {
-        var _args2 = _slicedToArray(args, 1);
-
-        var options = _args2[0];
-        var url = options.url;
-
-        delete options.url;
-        var type = options.type || options.method;
-        delete options.type;
-        delete options.method;
-        return [url, type, options];
-      }
-    }
-    if (args.length === 2) {
-      var _args3 = _slicedToArray(args, 1);
-
-      var url = _args3[0];
-
-      if (typeof args[1] === 'object') {
-        var options = args[1];
-        var type = options.type || options.method;
-        delete options.type;
-        delete options.method;
-        return [url, type, options];
-      } else {
-        var type = args[1];
-        return [url, type];
-      }
-    }
-    return args;
+  /**
+   * Same as `request` except it resolves an object with
+   *
+   *   {response, textStatus, jqXHR}
+   *
+   * Useful if you need access to the jqXHR object for headers, etc.
+   *
+   * @public
+   */
+  function raw() {
+    var ajax = new _emberAjaxAjaxRequest['default']();
+    return ajax.raw.apply(ajax, arguments);
   }
+});
+define('ember-ajax/request', ['exports', 'ember-ajax/ajax-request'], function (exports, _emberAjaxAjaxRequest) {
+  'use strict';
+
+  exports['default'] = request;
+
+  /**
+   * Helper function that allows you to use the default `ember-ajax` to make
+   * requests without using the service.
+   *
+   * Note: Unlike `ic-ajax`'s `request` helper function, this will *not* return a
+   * jqXHR object in the error handler.  If you need jqXHR, you can use the `raw`
+   * function instead.
+   *
+   * @public
+   */
+  function request() {
+    var ajax = new _emberAjaxAjaxRequest['default']();
+    return ajax.request.apply(ajax, arguments);
+  }
+});
+define('ember-ajax/services/ajax', ['exports', 'ember', 'ember-ajax/mixins/ajax-request'], function (exports, _ember, _emberAjaxMixinsAjaxRequest) {
+  'use strict';
+
+  var Service = _ember['default'].Service;
+
+  /**
+   * ### Headers customization
+   *
+   * Some APIs require HTTP headers, e.g. to provide an API key. Arbitrary
+   * headers can be set as key/value pairs on the `RESTAdapter`'s `headers`
+   * object and Ember Data will send them along with each ajax request.
+   *
+   * ```app/services/ajax
+   * import AjaxService from 'ember-ajax/services/ajax';
+   *
+   * export default AjaxService.extend({
+   *   headers: {
+   *     "API_KEY": "secret key",
+   *     "ANOTHER_HEADER": "Some header value"
+   *   }
+   * });
+   * ```
+   *
+   * `headers` can also be used as a computed property to support dynamic
+   * headers.
+   *
+   * ```app/services/ajax.js
+   * import Ember from 'ember';
+   * import AjaxService from 'ember-ajax/services/ajax';
+   *
+   * export default AjaxService.extend({
+   *   session: Ember.inject.service(),
+   *   headers: Ember.computed("session.authToken", function() {
+   *     return {
+   *       "API_KEY": this.get("session.authToken"),
+   *       "ANOTHER_HEADER": "Some header value"
+   *     };
+   *   })
+   * });
+   * ```
+   *
+   * In some cases, your dynamic headers may require data from some
+   * object outside of Ember's observer system (for example
+   * `document.cookie`). You can use the
+   * [volatile](/api/classes/Ember.ComputedProperty.html#method_volatile)
+   * function to set the property into a non-cached mode causing the headers to
+   * be recomputed with every request.
+   *
+   * ```app/services/ajax.js
+   * import Ember from 'ember';
+   * import AjaxService from 'ember-ajax/services/ajax';
+   *
+   * export default AjaxService.extend({
+   *   session: Ember.inject.service(),
+   *   headers: Ember.computed("session.authToken", function() {
+   *     return {
+   *       "API_KEY": Ember.get(document.cookie.match(/apiKey\=([^;]*)/), "1"),
+   *       "ANOTHER_HEADER": "Some header value"
+   *     };
+   *   }).volatile()
+   * });
+   * ```
+   * @public
+   */
+  exports['default'] = Service.extend(_emberAjaxMixinsAjaxRequest['default']);
+});
+define('ember-ajax/utils/ajax', ['exports', 'ember', 'ember-ajax/utils/is-fastboot'], function (exports, _ember, _emberAjaxUtilsIsFastboot) {
+  /* global najax */
+  'use strict';
+
+  var $ = _ember['default'].$;
+
+  exports['default'] = _emberAjaxUtilsIsFastboot['default'] ? najax : $.ajax;
+});
+define('ember-ajax/utils/is-fastboot', ['exports'], function (exports) {
+  /* global FastBoot */
+  'use strict';
+
+  var isFastBoot = typeof FastBoot !== 'undefined';
+  exports['default'] = isFastBoot;
 });
 define('ember-ajax/utils/parse-response-headers', ['exports'], function (exports) {
   'use strict';
 
   exports['default'] = parseResponseHeaders;
 
-  function parseResponseHeaders(headerStr) {
-    var headers = Object.create(null);
-    if (!headerStr) {
+  function _toArray(arr) {
+    return Array.isArray(arr) ? arr : Array.from(arr);
+  }
+
+  var CLRF = '\r\n';
+  function parseResponseHeaders(headersString) {
+    var headers = {};
+
+    if (!headersString) {
       return headers;
     }
 
-    var headerPairs = headerStr.split('\r\n');
-    for (var i = 0; i < headerPairs.length; i++) {
-      var headerPair = headerPairs[i];
-      // Can't use split() here because it does the wrong thing
-      // if the header value has the string ": " in it.
-      var index = headerPair.indexOf(': ');
-      if (index > 0) {
-        var key = headerPair.substring(0, index);
-        var val = headerPair.substring(index + 2);
-        headers[key] = val;
+    var headerPairs = headersString.split(CLRF);
+
+    headerPairs.forEach(function (header) {
+      var _header$split = header.split(':');
+
+      var _header$split2 = _toArray(_header$split);
+
+      var field = _header$split2[0];
+
+      var value = _header$split2.slice(1);
+
+      field = field.trim();
+      value = value.join(':').trim();
+
+      if (value) {
+        headers[field] = value;
       }
-    }
+    });
 
     return headers;
   }
+});
+define('ember-ajax/utils/url-helpers', ['exports', 'ember-ajax/utils/is-fastboot'], function (exports, _emberAjaxUtilsIsFastboot) {
+  'use strict';
+
+  var _createClass = (function () {
+    function defineProperties(target, props) {
+      for (var i = 0; i < props.length; i++) {
+        var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ('value' in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+      }
+    }return function (Constructor, protoProps, staticProps) {
+      if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+    };
+  })();
+
+  function _classCallCheck(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+      throw new TypeError('Cannot call a class as a function');
+    }
+  }
+
+  /* global require, module, URL */
+
+  var completeUrlRegex = /^(http|https)/;
+
+  /*
+   * Isomorphic URL parsing
+   * Borrowed from
+   * http://www.sitepoint.com/url-parsing-isomorphic-javascript/
+   */
+  var isNode = typeof module === 'object' && module.exports;
+  var url = getUrlModule();
+
+  /**
+   * Get the node url module or an anchor element
+   *
+   * @private
+   * @return {Object|HTMLAnchorElement} Object to parse urls
+   */
+  function getUrlModule() {
+    if (_emberAjaxUtilsIsFastboot['default']) {
+      // ember-fastboot-server provides the node url module as URL global
+      return URL;
+    }
+
+    if (isNode) {
+      return require('url');
+    }
+
+    return document.createElement('a');
+  }
+
+  /**
+   * Parse a URL string into an object that defines its structure
+   *
+   * The returned object will have the following properties:
+   *
+   *   href: the full URL
+   *   protocol: the request protocol
+   *   hostname: the target for the request
+   *   port: the port for the request
+   *   pathname: any URL after the host
+   *   search: query parameters
+   *   hash: the URL hash
+   *
+   * @private
+   * @return {Object} URL structure
+   */
+  function parseUrl(str) {
+    var fullObject = undefined;
+    if (isNode || _emberAjaxUtilsIsFastboot['default']) {
+      fullObject = url.parse(str);
+    } else {
+      url.href = str;
+      fullObject = url;
+    }
+    var desiredProps = {};
+    desiredProps.href = fullObject.href;
+    desiredProps.protocol = fullObject.protocol;
+    desiredProps.hostname = fullObject.hostname;
+    desiredProps.port = fullObject.port;
+    desiredProps.pathname = fullObject.pathname;
+    desiredProps.search = fullObject.search;
+    desiredProps.hash = fullObject.hash;
+    return desiredProps;
+  }
+
+  /**
+   * RequestURL
+   *
+   * Converts a URL string into an object for easy comparison to other URLs
+   *
+   * @public
+   */
+
+  var RequestURL = (function () {
+    function RequestURL(url) {
+      _classCallCheck(this, RequestURL);
+
+      this.url = url;
+    }
+
+    _createClass(RequestURL, [{
+      key: 'sameHost',
+      value: function sameHost(other) {
+        var _this = this;
+
+        return ['protocol', 'hostname', 'port'].reduce(function (previous, prop) {
+          return previous && _this[prop] === other[prop];
+        }, true);
+      }
+    }, {
+      key: 'url',
+      get: function get() {
+        return this._url;
+      },
+      set: function set(value) {
+        this._url = value;
+
+        var explodedUrl = parseUrl(value);
+        for (var prop in explodedUrl) {
+          this[prop] = explodedUrl[prop];
+        }
+
+        return this._url;
+      }
+    }, {
+      key: 'isComplete',
+      get: function get() {
+        return this.url.match(completeUrlRegex);
+      }
+    }]);
+
+    return RequestURL;
+  })();
+
+  exports.RequestURL = RequestURL;
 });
 define('ember-cli-app-version/components/app-version', ['exports', 'ember', 'ember-cli-app-version/templates/app-version'], function (exports, _ember, _emberCliAppVersionTemplatesAppVersion) {
   'use strict';

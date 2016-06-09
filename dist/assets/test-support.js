@@ -6437,10 +6437,16 @@ jQuery(document).ready(function() {
   testContainer.style.position = containerPosition;
 });
 
-/* globals jQuery,QUnit */
+/* globals jQuery, QUnit, require, requirejs */
 
 jQuery(document).ready(function() {
-  var TestLoaderModule = require('ember-cli/test-loader');
+  var testLoaderModulePath = 'ember-cli-test-loader/test-support/index';
+
+  if (!requirejs.entries[testLoaderModulePath]) {
+    testLoaderModulePath = 'ember-cli/test-loader';
+  }
+
+  var TestLoaderModule = require(testLoaderModulePath);
   var TestLoader = TestLoaderModule['default'];
   var addModuleExcludeMatcher = TestLoaderModule['addModuleExcludeMatcher'];
   var addModuleIncludeMatcher = TestLoaderModule['addModuleIncludeMatcher'];
@@ -6463,12 +6469,22 @@ jQuery(document).ready(function() {
     };
   }
 
+  var moduleLoadFailures = [];
+
   TestLoader.prototype.moduleLoadFailure = function(moduleName, error) {
+    moduleLoadFailures.push(error);
+
     QUnit.module('TestLoader Failures');
     QUnit.test(moduleName + ': could not be loaded', function() {
       throw error;
     });
   };
+
+  QUnit.done(function() {
+    if (moduleLoadFailures.length) {
+      throw new Error('\n' + moduleLoadFailures.join('\n'));
+    }
+  });
 
   var autostart = QUnit.config.autostart !== false;
   QUnit.config.autostart = false;
