@@ -42,6 +42,7 @@
     "loader.js": "^4.0.1"
   },
   "dependencies": {
-    "autoprefixer": "^6.3.6"
+    "autoprefixer": "^6.3.6",
+    "lost": "^6.8.1"
   }
 }

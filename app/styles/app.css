@@ -1,3 +1,4 @@
 body {
-  display: flex
+  display: flex;
+  lost-column: 1/3;
 }

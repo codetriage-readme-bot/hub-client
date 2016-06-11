@@ -17,6 +17,9 @@ module.exports = function(defaults) {
                   'last 2 versions'
                 ]
               }
+            },
+            {
+              module: require('lost')
             }
           ]
         }
