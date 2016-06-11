@@ -4,7 +4,7 @@ define('client/tests/app.jshint', ['exports'], function (exports) {
   QUnit.module('JSHint | app.js');
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'app.js should pass jshint.\napp.js: line 1, col 1, \'import\' is only available in ES6 (use \'esversion: 6\').\napp.js: line 2, col 1, \'import\' is only available in ES6 (use \'esversion: 6\').\napp.js: line 3, col 1, \'import\' is only available in ES6 (use \'esversion: 6\').\napp.js: line 4, col 1, \'import\' is only available in ES6 (use \'esversion: 6\').\napp.js: line 18, col 1, \'export\' is only available in ES6 (use \'esversion: 6\').\n\n5 errors');
+    assert.ok(true, 'app.js should pass jshint.');
   });
 });
 define('client/tests/authenticators/devise.jshint', ['exports'], function (exports) {
@@ -13,7 +13,7 @@ define('client/tests/authenticators/devise.jshint', ['exports'], function (expor
   QUnit.module('JSHint | authenticators/devise.js');
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'authenticators/devise.js should pass jshint.\nauthenticators/devise.js: line 1, col 1, \'import\' is only available in ES6 (use \'esversion: 6\').\nauthenticators/devise.js: line 2, col 1, \'import\' is only available in ES6 (use \'esversion: 6\').\nauthenticators/devise.js: line 4, col 1, \'const\' is available in ES6 (use \'esversion: 6\') or Mozilla JS extensions (use moz).\nauthenticators/devise.js: line 4, col 1, \'destructuring binding\' is available in ES6 (use \'esversion: 6\') or Mozilla JS extensions (use moz).\nauthenticators/devise.js: line 6, col 1, \'export\' is only available in ES6 (use \'esversion: 6\').\nauthenticators/devise.js: line 9, col 3, \'concise methods\' is available in ES6 (use \'esversion: 6\') or Mozilla JS extensions (use moz).\nauthenticators/devise.js: line 10, col 45, \'arrow function syntax (=>)\' is only available in ES6 (use \'esversion: 6\').\nauthenticators/devise.js: line 20, col 3, \'concise methods\' is available in ES6 (use \'esversion: 6\') or Mozilla JS extensions (use moz).\nauthenticators/devise.js: line 21, col 45, \'arrow function syntax (=>)\' is only available in ES6 (use \'esversion: 6\').\nauthenticators/devise.js: line 22, col 7, \'const\' is available in ES6 (use \'esversion: 6\') or Mozilla JS extensions (use moz).\nauthenticators/devise.js: line 22, col 7, \'destructuring binding\' is available in ES6 (use \'esversion: 6\') or Mozilla JS extensions (use moz).\nauthenticators/devise.js: line 23, col 7, \'const\' is available in ES6 (use \'esversion: 6\') or Mozilla JS extensions (use moz).\nauthenticators/devise.js: line 23, col 30, \'object short notation\' is available in ES6 (use \'esversion: 6\') or Mozilla JS extensions (use moz).\n\n13 errors');
+    assert.ok(true, 'authenticators/devise.js should pass jshint.');
   });
 });
 define('client/tests/controllers/application.jshint', ['exports'], function (exports) {
@@ -22,7 +22,7 @@ define('client/tests/controllers/application.jshint', ['exports'], function (exp
   QUnit.module('JSHint | controllers/application.js');
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'controllers/application.js should pass jshint.\ncontrollers/application.js: line 1, col 1, \'import\' is only available in ES6 (use \'esversion: 6\').\ncontrollers/application.js: line 3, col 1, \'export\' is only available in ES6 (use \'esversion: 6\').\ncontrollers/application.js: line 7, col 5, \'concise methods\' is available in ES6 (use \'esversion: 6\') or Mozilla JS extensions (use moz).\n\n3 errors');
+    assert.ok(true, 'controllers/application.js should pass jshint.');
   });
 });
 define('client/tests/controllers/login.jshint', ['exports'], function (exports) {
@@ -31,7 +31,7 @@ define('client/tests/controllers/login.jshint', ['exports'], function (exports) 
   QUnit.module('JSHint | controllers/login.js');
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'controllers/login.js should pass jshint.\ncontrollers/login.js: line 1, col 1, \'import\' is only available in ES6 (use \'esversion: 6\').\ncontrollers/login.js: line 3, col 1, \'export\' is only available in ES6 (use \'esversion: 6\').\ncontrollers/login.js: line 7, col 5, \'concise methods\' is available in ES6 (use \'esversion: 6\') or Mozilla JS extensions (use moz).\n\n3 errors');
+    assert.ok(true, 'controllers/login.js should pass jshint.');
   });
 });
 define('client/tests/helpers/destroy-app', ['exports', 'ember'], function (exports, _ember) {
@@ -176,7 +176,7 @@ define('client/tests/resolver.jshint', ['exports'], function (exports) {
   QUnit.module('JSHint | resolver.js');
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'resolver.js should pass jshint.\nresolver.js: line 1, col 1, \'import\' is only available in ES6 (use \'esversion: 6\').\nresolver.js: line 3, col 1, \'export\' is only available in ES6 (use \'esversion: 6\').\n\n2 errors');
+    assert.ok(true, 'resolver.js should pass jshint.');
   });
 });
 define('client/tests/router.jshint', ['exports'], function (exports) {
@@ -185,7 +185,7 @@ define('client/tests/router.jshint', ['exports'], function (exports) {
   QUnit.module('JSHint | router.js');
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'router.js should pass jshint.\nrouter.js: line 1, col 1, \'import\' is only available in ES6 (use \'esversion: 6\').\nrouter.js: line 2, col 1, \'import\' is only available in ES6 (use \'esversion: 6\').\nrouter.js: line 13, col 1, \'export\' is only available in ES6 (use \'esversion: 6\').\n\n3 errors');
+    assert.ok(true, 'router.js should pass jshint.');
   });
 });
 define('client/tests/routes/application.jshint', ['exports'], function (exports) {
@@ -194,7 +194,7 @@ define('client/tests/routes/application.jshint', ['exports'], function (exports)
   QUnit.module('JSHint | routes/application.js');
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'routes/application.js should pass jshint.\nroutes/application.js: line 1, col 1, \'import\' is only available in ES6 (use \'esversion: 6\').\nroutes/application.js: line 2, col 1, \'import\' is only available in ES6 (use \'esversion: 6\').\nroutes/application.js: line 4, col 1, \'export\' is only available in ES6 (use \'esversion: 6\').\n\n3 errors');
+    assert.ok(true, 'routes/application.js should pass jshint.');
   });
 });
 define('client/tests/routes/login.jshint', ['exports'], function (exports) {
@@ -203,7 +203,7 @@ define('client/tests/routes/login.jshint', ['exports'], function (exports) {
   QUnit.module('JSHint | routes/login.js');
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'routes/login.js should pass jshint.\nroutes/login.js: line 1, col 1, \'import\' is only available in ES6 (use \'esversion: 6\').\nroutes/login.js: line 2, col 1, \'import\' is only available in ES6 (use \'esversion: 6\').\nroutes/login.js: line 4, col 1, \'export\' is only available in ES6 (use \'esversion: 6\').\n\n3 errors');
+    assert.ok(true, 'routes/login.js should pass jshint.');
   });
 });
 define('client/tests/routes/protected.jshint', ['exports'], function (exports) {
@@ -212,7 +212,7 @@ define('client/tests/routes/protected.jshint', ['exports'], function (exports) {
   QUnit.module('JSHint | routes/protected.js');
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'routes/protected.js should pass jshint.\nroutes/protected.js: line 1, col 1, \'import\' is only available in ES6 (use \'esversion: 6\').\nroutes/protected.js: line 2, col 1, \'import\' is only available in ES6 (use \'esversion: 6\').\nroutes/protected.js: line 4, col 1, \'export\' is only available in ES6 (use \'esversion: 6\').\n\n3 errors');
+    assert.ok(true, 'routes/protected.js should pass jshint.');
   });
 });
 define('client/tests/test-helper', ['exports', 'client/tests/helpers/resolver', 'ember-qunit'], function (exports, _clientTestsHelpersResolver, _emberQunit) {
