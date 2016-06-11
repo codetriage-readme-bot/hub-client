@@ -66708,8 +66708,6 @@ requireModule("ember");
   generateModule('rsvp', { 'default': Ember.RSVP });
 })();
 
-;Ember.libraries.register('Ember Simple Auth', '1.1.0');
-
 ;/* globals define */
 define('ember/load-initializers', ['exports', 'ember-load-initializers', 'ember'], function(exports, loadInitializers, Ember) {
   Ember['default'].deprecate(
@@ -66737,6 +66735,8 @@ function createDeprecatedModule(moduleId) {
 
 createDeprecatedModule('ember/resolver');
 createDeprecatedModule('resolver');
+
+;Ember.libraries.register('Ember Simple Auth', '1.1.0');
 
 ;define('ember-ajax/ajax-request', ['exports', 'ember', 'ember-ajax/mixins/ajax-request'], function (exports, _ember, _emberAjaxMixinsAjaxRequest) {
   'use strict';
