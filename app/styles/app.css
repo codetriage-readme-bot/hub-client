@@ -1,3 +1,5 @@
+@import './components/nav-bar.css';
+
 body {
   display: flex;
   lost-column: 1/3;
