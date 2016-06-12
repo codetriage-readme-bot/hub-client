@@ -349,7 +349,7 @@ define("client/templates/application", ["exports"], function (exports) {
             "column": 0
           },
           "end": {
-            "line": 6,
+            "line": 8,
             "column": 0
           }
         },
@@ -361,14 +361,21 @@ define("client/templates/application", ["exports"], function (exports) {
       hasRendered: false,
       buildFragment: function buildFragment(dom) {
         var el0 = dom.createDocumentFragment();
-        var el1 = dom.createElement("h2");
-        dom.setAttribute(el1, "id", "title");
-        var el2 = dom.createTextNode("Welcome to Ember");
+        var el1 = dom.createElement("div");
+        dom.setAttribute(el1, "class", "row");
+        var el2 = dom.createTextNode("\n  ");
         dom.appendChild(el1, el2);
-        dom.appendChild(el0, el1);
-        var el1 = dom.createTextNode("\n\n");
-        dom.appendChild(el0, el1);
-        var el1 = dom.createComment("");
+        var el2 = dom.createElement("div");
+        dom.setAttribute(el2, "class", "column-12");
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createComment("");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n  ");
+        dom.appendChild(el2, el3);
+        dom.appendChild(el1, el2);
+        var el2 = dom.createTextNode("\n");
+        dom.appendChild(el1, el2);
         dom.appendChild(el0, el1);
         var el1 = dom.createTextNode("\n\n");
         dom.appendChild(el0, el1);
@@ -380,11 +387,11 @@ define("client/templates/application", ["exports"], function (exports) {
       },
       buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
         var morphs = new Array(2);
-        morphs[0] = dom.createMorphAt(fragment, 2, 2, contextualElement);
-        morphs[1] = dom.createMorphAt(fragment, 4, 4, contextualElement);
+        morphs[0] = dom.createMorphAt(dom.childAt(fragment, [0, 1]), 1, 1);
+        morphs[1] = dom.createMorphAt(fragment, 2, 2, contextualElement);
         return morphs;
       },
-      statements: [["content", "nav-bar", ["loc", [null, [3, 0], [3, 11]]]], ["content", "outlet", ["loc", [null, [5, 0], [5, 10]]]]],
+      statements: [["content", "nav-bar", ["loc", [null, [3, 4], [3, 15]]]], ["content", "outlet", ["loc", [null, [7, 0], [7, 10]]]]],
       locals: [],
       templates: []
     };
@@ -393,42 +400,6 @@ define("client/templates/application", ["exports"], function (exports) {
 define("client/templates/components/nav-bar", ["exports"], function (exports) {
   exports["default"] = Ember.HTMLBars.template((function () {
     var child0 = (function () {
-      var child0 = (function () {
-        return {
-          meta: {
-            "fragmentReason": false,
-            "revision": "Ember@2.5.1",
-            "loc": {
-              "source": null,
-              "start": {
-                "line": 5,
-                "column": 8
-              },
-              "end": {
-                "line": 5,
-                "column": 41
-              }
-            },
-            "moduleName": "client/templates/components/nav-bar.hbs"
-          },
-          isEmpty: false,
-          arity: 0,
-          cachedFragment: null,
-          hasRendered: false,
-          buildFragment: function buildFragment(dom) {
-            var el0 = dom.createDocumentFragment();
-            var el1 = dom.createTextNode("Protected");
-            dom.appendChild(el0, el1);
-            return el0;
-          },
-          buildRenderNodes: function buildRenderNodes() {
-            return [];
-          },
-          statements: [],
-          locals: [],
-          templates: []
-        };
-      })();
       return {
         meta: {
           "fragmentReason": false,
@@ -454,10 +425,6 @@ define("client/templates/components/nav-bar", ["exports"], function (exports) {
           var el0 = dom.createDocumentFragment();
           var el1 = dom.createTextNode("        ");
           dom.appendChild(el0, el1);
-          var el1 = dom.createComment("");
-          dom.appendChild(el0, el1);
-          var el1 = dom.createTextNode("\n        ");
-          dom.appendChild(el0, el1);
           var el1 = dom.createElement("button");
           var el2 = dom.createTextNode("Logout");
           dom.appendChild(el1, el2);
@@ -467,16 +434,15 @@ define("client/templates/components/nav-bar", ["exports"], function (exports) {
           return el0;
         },
         buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
-          var element0 = dom.childAt(fragment, [3]);
-          var morphs = new Array(3);
-          morphs[0] = dom.createMorphAt(fragment, 1, 1, contextualElement);
+          var element0 = dom.childAt(fragment, [1]);
+          var morphs = new Array(2);
+          morphs[0] = dom.createElementMorph(element0);
           morphs[1] = dom.createElementMorph(element0);
-          morphs[2] = dom.createElementMorph(element0);
           return morphs;
         },
-        statements: [["block", "link-to", ["protected"], [], 0, null, ["loc", [null, [5, 8], [5, 53]]]], ["element", "action", ["invalidateSession"], [], ["loc", [null, [6, 16], [6, 46]]]], ["element", "bind-attr", [], ["class", "navbar__link"], ["loc", [null, [6, 47], [6, 81]]]]],
+        statements: [["element", "action", ["invalidateSession"], [], ["loc", [null, [6, 16], [6, 46]]]], ["element", "bind-attr", [], ["class", "navbar__link"], ["loc", [null, [6, 47], [6, 81]]]]],
         locals: [],
-        templates: [child0]
+        templates: []
       };
     })();
     var child1 = (function () {
@@ -759,7 +725,7 @@ catch(err) {
 /* jshint ignore:start */
 
 if (!runningTests) {
-  require("client/app")["default"].create({"name":"client","version":"0.0.0+07240471"});
+  require("client/app")["default"].create({"name":"client","version":"0.0.0+10fcc804"});
 }
 
 /* jshint ignore:end */

@@ -23,6 +23,15 @@ module.exports = function(defaults) {
             },
             {
               module: require('postcss-partial-import')
+            },
+            {
+              module: require('postcss-mixins')
+            },
+            {
+              module: require('postcss-nested')
+            },
+            {
+              module: require('postcss-simple-vars')
             }
           ]
         }

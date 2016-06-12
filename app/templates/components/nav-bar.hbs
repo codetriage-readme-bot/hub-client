@@ -2,7 +2,7 @@
   <ul class="nav-bar">
     <li class="nav-bar__list">
       {{#if session.isAuthenticated}}
-        {{#link-to 'protected'}}Protected{{/link-to}}
+{{!--         {{#link-to 'protected'}}Protected{{/link-to}} --}}
         <button {{action 'invalidateSession'}} {{bind-attr class='navbar__link'}}>Logout</button>
       {{else}}
         {{#link-to 'login'}}Login{{/link-to}}
