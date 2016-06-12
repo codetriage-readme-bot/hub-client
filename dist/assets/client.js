@@ -338,8 +338,7 @@ define("client/templates/application", ["exports"], function (exports) {
     return {
       meta: {
         "fragmentReason": {
-          "name": "missing-wrapper",
-          "problems": ["multiple-nodes", "wrong-type"]
+          "name": "triple-curlies"
         },
         "revision": "Ember@2.5.1",
         "loc": {
@@ -349,7 +348,7 @@ define("client/templates/application", ["exports"], function (exports) {
             "column": 0
           },
           "end": {
-            "line": 8,
+            "line": 11,
             "column": 0
           }
         },
@@ -362,36 +361,44 @@ define("client/templates/application", ["exports"], function (exports) {
       buildFragment: function buildFragment(dom) {
         var el0 = dom.createDocumentFragment();
         var el1 = dom.createElement("div");
-        dom.setAttribute(el1, "class", "row");
+        dom.setAttribute(el1, "class", "container-fluid");
         var el2 = dom.createTextNode("\n  ");
         dom.appendChild(el1, el2);
         var el2 = dom.createElement("div");
-        dom.setAttribute(el2, "class", "column-12");
+        dom.setAttribute(el2, "class", "row");
         var el3 = dom.createTextNode("\n    ");
         dom.appendChild(el2, el3);
-        var el3 = dom.createComment("");
+        var el3 = dom.createElement("div");
+        dom.setAttribute(el3, "class", "column-12");
+        var el4 = dom.createTextNode("\n      ");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createComment("");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createTextNode("\n    ");
+        dom.appendChild(el3, el4);
         dom.appendChild(el2, el3);
         var el3 = dom.createTextNode("\n  ");
         dom.appendChild(el2, el3);
         dom.appendChild(el1, el2);
-        var el2 = dom.createTextNode("\n");
+        var el2 = dom.createTextNode("\n\n  ");
         dom.appendChild(el1, el2);
-        dom.appendChild(el0, el1);
-        var el1 = dom.createTextNode("\n\n");
-        dom.appendChild(el0, el1);
-        var el1 = dom.createComment("");
+        var el2 = dom.createComment("");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createTextNode("\n\n");
+        dom.appendChild(el1, el2);
         dom.appendChild(el0, el1);
         var el1 = dom.createTextNode("\n");
         dom.appendChild(el0, el1);
         return el0;
       },
       buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+        var element0 = dom.childAt(fragment, [0]);
         var morphs = new Array(2);
-        morphs[0] = dom.createMorphAt(dom.childAt(fragment, [0, 1]), 1, 1);
-        morphs[1] = dom.createMorphAt(fragment, 2, 2, contextualElement);
+        morphs[0] = dom.createMorphAt(dom.childAt(element0, [1, 1]), 1, 1);
+        morphs[1] = dom.createMorphAt(element0, 3, 3);
         return morphs;
       },
-      statements: [["content", "nav-bar", ["loc", [null, [3, 4], [3, 15]]]], ["content", "outlet", ["loc", [null, [7, 0], [7, 10]]]]],
+      statements: [["content", "nav-bar", ["loc", [null, [4, 6], [4, 17]]]], ["content", "outlet", ["loc", [null, [8, 2], [8, 12]]]]],
       locals: [],
       templates: []
     };
@@ -407,11 +414,11 @@ define("client/templates/components/nav-bar", ["exports"], function (exports) {
           "loc": {
             "source": null,
             "start": {
-              "line": 4,
-              "column": 6
+              "line": 19,
+              "column": 0
             },
             "end": {
-              "line": 7,
+              "line": 22,
               "column": 6
             }
           },
@@ -440,7 +447,7 @@ define("client/templates/components/nav-bar", ["exports"], function (exports) {
           morphs[1] = dom.createElementMorph(element0);
           return morphs;
         },
-        statements: [["element", "action", ["invalidateSession"], [], ["loc", [null, [6, 16], [6, 46]]]], ["element", "bind-attr", [], ["class", "navbar__link"], ["loc", [null, [6, 47], [6, 81]]]]],
+        statements: [["element", "action", ["invalidateSession"], [], ["loc", [null, [21, 16], [21, 46]]]], ["element", "bind-attr", [], ["class", "navbar__link"], ["loc", [null, [21, 47], [21, 81]]]]],
         locals: [],
         templates: []
       };
@@ -454,11 +461,11 @@ define("client/templates/components/nav-bar", ["exports"], function (exports) {
             "loc": {
               "source": null,
               "start": {
-                "line": 8,
+                "line": 23,
                 "column": 8
               },
               "end": {
-                "line": 8,
+                "line": 23,
                 "column": 33
               }
             },
@@ -489,11 +496,11 @@ define("client/templates/components/nav-bar", ["exports"], function (exports) {
           "loc": {
             "source": null,
             "start": {
-              "line": 7,
+              "line": 22,
               "column": 6
             },
             "end": {
-              "line": 9,
+              "line": 24,
               "column": 6
             }
           },
@@ -518,7 +525,7 @@ define("client/templates/components/nav-bar", ["exports"], function (exports) {
           morphs[0] = dom.createMorphAt(fragment, 1, 1, contextualElement);
           return morphs;
         },
-        statements: [["block", "link-to", ["login"], [], 0, null, ["loc", [null, [8, 8], [8, 45]]]]],
+        statements: [["block", "link-to", ["login"], [], 0, null, ["loc", [null, [23, 8], [23, 45]]]]],
         locals: [],
         templates: [child0]
       };
@@ -526,7 +533,8 @@ define("client/templates/components/nav-bar", ["exports"], function (exports) {
     return {
       meta: {
         "fragmentReason": {
-          "name": "triple-curlies"
+          "name": "missing-wrapper",
+          "problems": ["multiple-nodes", "wrong-type"]
         },
         "revision": "Ember@2.5.1",
         "loc": {
@@ -536,7 +544,7 @@ define("client/templates/components/nav-bar", ["exports"], function (exports) {
             "column": 0
           },
           "end": {
-            "line": 13,
+            "line": 25,
             "column": 0
           }
         },
@@ -548,21 +556,83 @@ define("client/templates/components/nav-bar", ["exports"], function (exports) {
       hasRendered: false,
       buildFragment: function buildFragment(dom) {
         var el0 = dom.createDocumentFragment();
-        var el1 = dom.createElement("div");
-        dom.setAttribute(el1, "class", "nav-bar-container");
+        var el1 = dom.createElement("nav");
+        dom.setAttribute(el1, "class", "navbar navbar-light bg-faded");
+        var el2 = dom.createTextNode("\n  ");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createElement("a");
+        dom.setAttribute(el2, "class", "navbar-brand");
+        dom.setAttribute(el2, "href", "#");
+        var el3 = dom.createTextNode("Navbar");
+        dom.appendChild(el2, el3);
+        dom.appendChild(el1, el2);
         var el2 = dom.createTextNode("\n  ");
         dom.appendChild(el1, el2);
         var el2 = dom.createElement("ul");
-        dom.setAttribute(el2, "class", "nav-bar");
+        dom.setAttribute(el2, "class", "nav navbar-nav");
         var el3 = dom.createTextNode("\n    ");
         dom.appendChild(el2, el3);
         var el3 = dom.createElement("li");
-        dom.setAttribute(el3, "class", "nav-bar__list");
-        var el4 = dom.createTextNode("\n");
+        dom.setAttribute(el3, "class", "nav-item active");
+        var el4 = dom.createTextNode("\n      ");
         dom.appendChild(el3, el4);
-        var el4 = dom.createComment("");
+        var el4 = dom.createElement("a");
+        dom.setAttribute(el4, "class", "nav-link");
+        dom.setAttribute(el4, "href", "#");
+        var el5 = dom.createTextNode("Home ");
+        dom.appendChild(el4, el5);
+        var el5 = dom.createElement("span");
+        dom.setAttribute(el5, "class", "sr-only");
+        var el6 = dom.createTextNode("(current)");
+        dom.appendChild(el5, el6);
+        dom.appendChild(el4, el5);
         dom.appendChild(el3, el4);
-        var el4 = dom.createTextNode("    ");
+        var el4 = dom.createTextNode("\n    ");
+        dom.appendChild(el3, el4);
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("li");
+        dom.setAttribute(el3, "class", "nav-item");
+        var el4 = dom.createTextNode("\n      ");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createElement("a");
+        dom.setAttribute(el4, "class", "nav-link");
+        dom.setAttribute(el4, "href", "#");
+        var el5 = dom.createTextNode("Features");
+        dom.appendChild(el4, el5);
+        dom.appendChild(el3, el4);
+        var el4 = dom.createTextNode("\n    ");
+        dom.appendChild(el3, el4);
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("li");
+        dom.setAttribute(el3, "class", "nav-item");
+        var el4 = dom.createTextNode("\n      ");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createElement("a");
+        dom.setAttribute(el4, "class", "nav-link");
+        dom.setAttribute(el4, "href", "#");
+        var el5 = dom.createTextNode("Pricing");
+        dom.appendChild(el4, el5);
+        dom.appendChild(el3, el4);
+        var el4 = dom.createTextNode("\n    ");
+        dom.appendChild(el3, el4);
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("li");
+        dom.setAttribute(el3, "class", "nav-item");
+        var el4 = dom.createTextNode("\n      ");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createElement("a");
+        dom.setAttribute(el4, "class", "nav-link");
+        dom.setAttribute(el4, "href", "#");
+        var el5 = dom.createTextNode("About");
+        dom.appendChild(el4, el5);
+        dom.appendChild(el3, el4);
+        var el4 = dom.createTextNode("\n    ");
         dom.appendChild(el3, el4);
         dom.appendChild(el2, el3);
         var el3 = dom.createTextNode("\n  ");
@@ -571,16 +641,19 @@ define("client/templates/components/nav-bar", ["exports"], function (exports) {
         var el2 = dom.createTextNode("\n");
         dom.appendChild(el1, el2);
         dom.appendChild(el0, el1);
-        var el1 = dom.createTextNode("\n");
+        var el1 = dom.createTextNode("\n\n");
+        dom.appendChild(el0, el1);
+        var el1 = dom.createComment("");
         dom.appendChild(el0, el1);
         return el0;
       },
       buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
         var morphs = new Array(1);
-        morphs[0] = dom.createMorphAt(dom.childAt(fragment, [0, 1, 1]), 1, 1);
+        morphs[0] = dom.createMorphAt(fragment, 2, 2, contextualElement);
+        dom.insertBoundary(fragment, null);
         return morphs;
       },
-      statements: [["block", "if", [["get", "session.isAuthenticated", ["loc", [null, [4, 12], [4, 35]]]]], [], 0, 1, ["loc", [null, [4, 6], [9, 13]]]]],
+      statements: [["block", "if", [["get", "session.isAuthenticated", ["loc", [null, [19, 6], [19, 29]]]]], [], 0, 1, ["loc", [null, [19, 0], [24, 13]]]]],
       locals: [],
       templates: [child0, child1]
     };
@@ -725,7 +798,7 @@ catch(err) {
 /* jshint ignore:start */
 
 if (!runningTests) {
-  require("client/app")["default"].create({"name":"client","version":"0.0.0+10fcc804"});
+  require("client/app")["default"].create({"name":"client","version":"0.0.0+984c16f2"});
 }
 
 /* jshint ignore:end */
