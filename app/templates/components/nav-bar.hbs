@@ -1,13 +1,13 @@
 <nav class="navbar navbar-light bg-faded">
-  {{link-to 'Graph Next Analytics' 'application' class="navbar-brand"}}
+  {{link-to 'Home' 'application' class="navbar-brand"}}
   <div class="pull-xs-right">
     <ul class="nav navbar-nav">
       {{#if session.isAuthenticated}}
         <li class="nav-item">
-          {{#link-to 'protected' class="nav-link"}}Protected{{/link-to}}
+          {{#link-to 'dashboard' class="nav-link"}}Dashboard{{/link-to}}
         </li>
         <li class="nav-item">
-          <button {{action 'invalidateSession'}} class="nav-link">Logout</button>
+          <a {{action 'invalidateSession'}} class="nav-link">Logout</a>
         </li>
       {{else}}
         <li class="nav-item">

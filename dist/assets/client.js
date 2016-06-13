@@ -88,6 +88,9 @@ define('client/components/nav-bar', ['exports', 'ember'], function (exports, _em
     }
   });
 });
+define('client/components/side-bar', ['exports', 'ember'], function (exports, _ember) {
+  exports['default'] = _ember['default'].Component.extend({});
+});
 define('client/controllers/application', ['exports', 'ember'], function (exports, _ember) {
   exports['default'] = _ember['default'].Controller.extend({
     session: _ember['default'].inject.service('session'),
@@ -304,8 +307,9 @@ define('client/router', ['exports', 'ember', 'client/config/environment'], funct
   });
 
   Router.map(function () {
-    this.route('protected');
     this.route('login');
+    this.route('landing-page', { path: '/' });
+    this.route('dashboard');
   });
 
   exports['default'] = Router;
@@ -313,11 +317,14 @@ define('client/router', ['exports', 'ember', 'client/config/environment'], funct
 define('client/routes/application', ['exports', 'ember', 'ember-simple-auth/mixins/application-route-mixin'], function (exports, _ember, _emberSimpleAuthMixinsApplicationRouteMixin) {
   exports['default'] = _ember['default'].Route.extend(_emberSimpleAuthMixinsApplicationRouteMixin['default']);
 });
-define('client/routes/login', ['exports', 'ember', 'ember-simple-auth/mixins/unauthenticated-route-mixin'], function (exports, _ember, _emberSimpleAuthMixinsUnauthenticatedRouteMixin) {
+define('client/routes/dashboard', ['exports', 'ember', 'ember-simple-auth/mixins/authenticated-route-mixin'], function (exports, _ember, _emberSimpleAuthMixinsAuthenticatedRouteMixin) {
+  exports['default'] = _ember['default'].Route.extend(_emberSimpleAuthMixinsAuthenticatedRouteMixin['default'], {});
+});
+define('client/routes/landing-page', ['exports', 'ember', 'ember-simple-auth/mixins/unauthenticated-route-mixin'], function (exports, _ember, _emberSimpleAuthMixinsUnauthenticatedRouteMixin) {
   exports['default'] = _ember['default'].Route.extend(_emberSimpleAuthMixinsUnauthenticatedRouteMixin['default']);
 });
-define('client/routes/protected', ['exports', 'ember', 'ember-simple-auth/mixins/authenticated-route-mixin'], function (exports, _ember, _emberSimpleAuthMixinsAuthenticatedRouteMixin) {
-  exports['default'] = _ember['default'].Route.extend(_emberSimpleAuthMixinsAuthenticatedRouteMixin['default'], {});
+define('client/routes/login', ['exports', 'ember', 'ember-simple-auth/mixins/unauthenticated-route-mixin'], function (exports, _ember, _emberSimpleAuthMixinsUnauthenticatedRouteMixin) {
+  exports['default'] = _ember['default'].Route.extend(_emberSimpleAuthMixinsUnauthenticatedRouteMixin['default']);
 });
 define('client/services/ajax', ['exports', 'ember-ajax/services/ajax'], function (exports, _emberAjaxServicesAjax) {
   Object.defineProperty(exports, 'default', {
@@ -338,7 +345,8 @@ define("client/templates/application", ["exports"], function (exports) {
     return {
       meta: {
         "fragmentReason": {
-          "name": "triple-curlies"
+          "name": "missing-wrapper",
+          "problems": ["multiple-nodes"]
         },
         "revision": "Ember@2.5.1",
         "loc": {
@@ -348,7 +356,7 @@ define("client/templates/application", ["exports"], function (exports) {
             "column": 0
           },
           "end": {
-            "line": 10,
+            "line": 9,
             "column": 0
           }
         },
@@ -361,30 +369,30 @@ define("client/templates/application", ["exports"], function (exports) {
       buildFragment: function buildFragment(dom) {
         var el0 = dom.createDocumentFragment();
         var el1 = dom.createElement("div");
-        dom.setAttribute(el1, "class", "container-fluid");
-        var el2 = dom.createTextNode("\n  ");
-        dom.appendChild(el1, el2);
-        var el2 = dom.createElement("div");
-        dom.setAttribute(el2, "class", "row");
-        var el3 = dom.createTextNode("\n    ");
-        dom.appendChild(el2, el3);
-        var el3 = dom.createElement("div");
-        dom.setAttribute(el3, "class", "column-12");
-        var el4 = dom.createTextNode("\n      ");
-        dom.appendChild(el3, el4);
-        var el4 = dom.createComment("");
-        dom.appendChild(el3, el4);
-        var el4 = dom.createTextNode("\n    ");
-        dom.appendChild(el3, el4);
-        dom.appendChild(el2, el3);
-        var el3 = dom.createTextNode("\n  ");
-        dom.appendChild(el2, el3);
-        dom.appendChild(el1, el2);
+        dom.setAttribute(el1, "class", "nav-bar-wrapper");
         var el2 = dom.createTextNode("\n  ");
         dom.appendChild(el1, el2);
         var el2 = dom.createComment("");
         dom.appendChild(el1, el2);
-        var el2 = dom.createTextNode("\n\n");
+        var el2 = dom.createTextNode("\n");
+        dom.appendChild(el1, el2);
+        dom.appendChild(el0, el1);
+        var el1 = dom.createTextNode("\n");
+        dom.appendChild(el0, el1);
+        var el1 = dom.createElement("div");
+        dom.setAttribute(el1, "class", "body-wrapper");
+        var el2 = dom.createTextNode("\n  ");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createElement("div");
+        dom.setAttribute(el2, "class", "container-fluid");
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createComment("");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n  ");
+        dom.appendChild(el2, el3);
+        dom.appendChild(el1, el2);
+        var el2 = dom.createTextNode("\n");
         dom.appendChild(el1, el2);
         dom.appendChild(el0, el1);
         var el1 = dom.createTextNode("\n");
@@ -392,13 +400,12 @@ define("client/templates/application", ["exports"], function (exports) {
         return el0;
       },
       buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
-        var element0 = dom.childAt(fragment, [0]);
         var morphs = new Array(2);
-        morphs[0] = dom.createMorphAt(dom.childAt(element0, [1, 1]), 1, 1);
-        morphs[1] = dom.createMorphAt(element0, 3, 3);
+        morphs[0] = dom.createMorphAt(dom.childAt(fragment, [0]), 1, 1);
+        morphs[1] = dom.createMorphAt(dom.childAt(fragment, [2, 1]), 1, 1);
         return morphs;
       },
-      statements: [["content", "nav-bar", ["loc", [null, [4, 6], [4, 17]]]], ["content", "outlet", ["loc", [null, [7, 2], [7, 12]]]]],
+      statements: [["content", "nav-bar", ["loc", [null, [2, 2], [2, 13]]]], ["content", "outlet", ["loc", [null, [6, 4], [6, 14]]]]],
       locals: [],
       templates: []
     };
@@ -431,7 +438,7 @@ define("client/templates/components/nav-bar", ["exports"], function (exports) {
           hasRendered: false,
           buildFragment: function buildFragment(dom) {
             var el0 = dom.createDocumentFragment();
-            var el1 = dom.createTextNode("Protected");
+            var el1 = dom.createTextNode("Dashboard");
             dom.appendChild(el0, el1);
             return el0;
           },
@@ -483,7 +490,7 @@ define("client/templates/components/nav-bar", ["exports"], function (exports) {
           dom.setAttribute(el1, "class", "nav-item");
           var el2 = dom.createTextNode("\n          ");
           dom.appendChild(el1, el2);
-          var el2 = dom.createElement("button");
+          var el2 = dom.createElement("a");
           dom.setAttribute(el2, "class", "nav-link");
           var el3 = dom.createTextNode("Logout");
           dom.appendChild(el2, el3);
@@ -502,7 +509,7 @@ define("client/templates/components/nav-bar", ["exports"], function (exports) {
           morphs[1] = dom.createElementMorph(element0);
           return morphs;
         },
-        statements: [["block", "link-to", ["protected"], ["class", "nav-link"], 0, null, ["loc", [null, [7, 10], [7, 72]]]], ["element", "action", ["invalidateSession"], [], ["loc", [null, [10, 18], [10, 48]]]]],
+        statements: [["block", "link-to", ["dashboard"], ["class", "nav-link"], 0, null, ["loc", [null, [7, 10], [7, 72]]]], ["element", "action", ["invalidateSession"], [], ["loc", [null, [10, 13], [10, 43]]]]],
         locals: [],
         templates: [child0]
       };
@@ -655,9 +662,223 @@ define("client/templates/components/nav-bar", ["exports"], function (exports) {
         morphs[1] = dom.createMorphAt(dom.childAt(element1, [3, 1]), 1, 1);
         return morphs;
       },
-      statements: [["inline", "link-to", ["Graph Next Analytics", "application"], ["class", "navbar-brand"], ["loc", [null, [2, 2], [2, 71]]]], ["block", "if", [["get", "session.isAuthenticated", ["loc", [null, [5, 12], [5, 35]]]]], [], 0, 1, ["loc", [null, [5, 6], [16, 13]]]]],
+      statements: [["inline", "link-to", ["Home", "application"], ["class", "navbar-brand"], ["loc", [null, [2, 2], [2, 55]]]], ["block", "if", [["get", "session.isAuthenticated", ["loc", [null, [5, 12], [5, 35]]]]], [], 0, 1, ["loc", [null, [5, 6], [16, 13]]]]],
       locals: [],
       templates: [child0, child1]
+    };
+  })());
+});
+define("client/templates/components/side-bar", ["exports"], function (exports) {
+  exports["default"] = Ember.HTMLBars.template((function () {
+    return {
+      meta: {
+        "fragmentReason": {
+          "name": "triple-curlies"
+        },
+        "revision": "Ember@2.5.1",
+        "loc": {
+          "source": null,
+          "start": {
+            "line": 1,
+            "column": 0
+          },
+          "end": {
+            "line": 7,
+            "column": 0
+          }
+        },
+        "moduleName": "client/templates/components/side-bar.hbs"
+      },
+      isEmpty: false,
+      arity: 0,
+      cachedFragment: null,
+      hasRendered: false,
+      buildFragment: function buildFragment(dom) {
+        var el0 = dom.createDocumentFragment();
+        var el1 = dom.createElement("div");
+        dom.setAttribute(el1, "class", "list-group");
+        var el2 = dom.createTextNode("\n  ");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createElement("a");
+        dom.setAttribute(el2, "href", "#");
+        dom.setAttribute(el2, "class", "list-group-item active");
+        var el3 = dom.createTextNode("Ideas");
+        dom.appendChild(el2, el3);
+        dom.appendChild(el1, el2);
+        var el2 = dom.createTextNode("\n  ");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createElement("a");
+        dom.setAttribute(el2, "href", "#");
+        dom.setAttribute(el2, "class", "list-group-item");
+        var el3 = dom.createTextNode("Team");
+        dom.appendChild(el2, el3);
+        dom.appendChild(el1, el2);
+        var el2 = dom.createTextNode("\n  ");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createElement("a");
+        dom.setAttribute(el2, "href", "#");
+        dom.setAttribute(el2, "class", "list-group-item");
+        var el3 = dom.createTextNode("Users");
+        dom.appendChild(el2, el3);
+        dom.appendChild(el1, el2);
+        var el2 = dom.createTextNode("\n  ");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createElement("a");
+        dom.setAttribute(el2, "href", "#");
+        dom.setAttribute(el2, "class", "list-group-item");
+        var el3 = dom.createTextNode("Analytics");
+        dom.appendChild(el2, el3);
+        dom.appendChild(el1, el2);
+        var el2 = dom.createTextNode("\n");
+        dom.appendChild(el1, el2);
+        dom.appendChild(el0, el1);
+        var el1 = dom.createTextNode("\n");
+        dom.appendChild(el0, el1);
+        return el0;
+      },
+      buildRenderNodes: function buildRenderNodes() {
+        return [];
+      },
+      statements: [],
+      locals: [],
+      templates: []
+    };
+  })());
+});
+define("client/templates/dashboard", ["exports"], function (exports) {
+  exports["default"] = Ember.HTMLBars.template((function () {
+    return {
+      meta: {
+        "fragmentReason": {
+          "name": "triple-curlies"
+        },
+        "revision": "Ember@2.5.1",
+        "loc": {
+          "source": null,
+          "start": {
+            "line": 1,
+            "column": 0
+          },
+          "end": {
+            "line": 9,
+            "column": 0
+          }
+        },
+        "moduleName": "client/templates/dashboard.hbs"
+      },
+      isEmpty: false,
+      arity: 0,
+      cachedFragment: null,
+      hasRendered: false,
+      buildFragment: function buildFragment(dom) {
+        var el0 = dom.createDocumentFragment();
+        var el1 = dom.createElement("div");
+        dom.setAttribute(el1, "class", "row");
+        var el2 = dom.createTextNode("\n  ");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createElement("div");
+        dom.setAttribute(el2, "class", "col-md-3");
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createComment("");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n  ");
+        dom.appendChild(el2, el3);
+        dom.appendChild(el1, el2);
+        var el2 = dom.createTextNode("\n  ");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createElement("div");
+        dom.setAttribute(el2, "class", "col-md-9");
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createComment("");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n  ");
+        dom.appendChild(el2, el3);
+        dom.appendChild(el1, el2);
+        var el2 = dom.createTextNode("\n");
+        dom.appendChild(el1, el2);
+        dom.appendChild(el0, el1);
+        var el1 = dom.createTextNode("\n");
+        dom.appendChild(el0, el1);
+        return el0;
+      },
+      buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+        var element0 = dom.childAt(fragment, [0]);
+        var morphs = new Array(2);
+        morphs[0] = dom.createMorphAt(dom.childAt(element0, [1]), 1, 1);
+        morphs[1] = dom.createMorphAt(dom.childAt(element0, [3]), 1, 1);
+        return morphs;
+      },
+      statements: [["content", "side-bar", ["loc", [null, [3, 4], [3, 16]]]], ["content", "outlet", ["loc", [null, [6, 4], [6, 14]]]]],
+      locals: [],
+      templates: []
+    };
+  })());
+});
+define("client/templates/landing-page", ["exports"], function (exports) {
+  exports["default"] = Ember.HTMLBars.template((function () {
+    return {
+      meta: {
+        "fragmentReason": {
+          "name": "triple-curlies"
+        },
+        "revision": "Ember@2.5.1",
+        "loc": {
+          "source": null,
+          "start": {
+            "line": 1,
+            "column": 0
+          },
+          "end": {
+            "line": 7,
+            "column": 0
+          }
+        },
+        "moduleName": "client/templates/landing-page.hbs"
+      },
+      isEmpty: false,
+      arity: 0,
+      cachedFragment: null,
+      hasRendered: false,
+      buildFragment: function buildFragment(dom) {
+        var el0 = dom.createDocumentFragment();
+        var el1 = dom.createElement("div");
+        dom.setAttribute(el1, "class", "jumbotron jumbotron-fluid");
+        var el2 = dom.createTextNode("\n  ");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createElement("div");
+        dom.setAttribute(el2, "class", "container");
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("h1");
+        dom.setAttribute(el3, "class", "display-3");
+        var el4 = dom.createTextNode("Fluid jumbotron");
+        dom.appendChild(el3, el4);
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("p");
+        dom.setAttribute(el3, "class", "lead");
+        var el4 = dom.createTextNode("This is a modified jumbotron that occupies the entire horizontal space of its parent.");
+        dom.appendChild(el3, el4);
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n  ");
+        dom.appendChild(el2, el3);
+        dom.appendChild(el1, el2);
+        var el2 = dom.createTextNode("\n");
+        dom.appendChild(el1, el2);
+        dom.appendChild(el0, el1);
+        var el1 = dom.createTextNode("\n");
+        dom.appendChild(el0, el1);
+        return el0;
+      },
+      buildRenderNodes: function buildRenderNodes() {
+        return [];
+      },
+      statements: [],
+      locals: [],
+      templates: []
     };
   })());
 });
@@ -768,48 +989,6 @@ define("client/templates/login", ["exports"], function (exports) {
     };
   })());
 });
-define("client/templates/protected", ["exports"], function (exports) {
-  exports["default"] = Ember.HTMLBars.template((function () {
-    return {
-      meta: {
-        "fragmentReason": false,
-        "revision": "Ember@2.5.1",
-        "loc": {
-          "source": null,
-          "start": {
-            "line": 1,
-            "column": 0
-          },
-          "end": {
-            "line": 2,
-            "column": 0
-          }
-        },
-        "moduleName": "client/templates/protected.hbs"
-      },
-      isEmpty: false,
-      arity: 0,
-      cachedFragment: null,
-      hasRendered: false,
-      buildFragment: function buildFragment(dom) {
-        var el0 = dom.createDocumentFragment();
-        var el1 = dom.createElement("div");
-        var el2 = dom.createTextNode("This is protected!");
-        dom.appendChild(el1, el2);
-        dom.appendChild(el0, el1);
-        var el1 = dom.createTextNode("\n");
-        dom.appendChild(el0, el1);
-        return el0;
-      },
-      buildRenderNodes: function buildRenderNodes() {
-        return [];
-      },
-      statements: [],
-      locals: [],
-      templates: []
-    };
-  })());
-});
 /* jshint ignore:start */
 
 
@@ -842,7 +1021,7 @@ catch(err) {
 /* jshint ignore:start */
 
 if (!runningTests) {
-  require("client/app")["default"].create({"name":"client","version":"0.0.0+984c16f2"});
+  require("client/app")["default"].create({"name":"client","version":"0.0.0+222d5231"});
 }
 
 /* jshint ignore:end */

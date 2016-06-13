@@ -6,8 +6,9 @@ var Router = Ember.Router.extend({
 });
 
 Router.map(function() {
-  this.route('protected');
   this.route('login');
+  this.route('landing-page', { path: '/' });
+  this.route('dashboard');
 });
 
 export default Router;

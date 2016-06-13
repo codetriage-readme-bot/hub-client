@@ -19,9 +19,6 @@ module.exports = function(defaults) {
               }
             },
             {
-              module: require('lost')
-            },
-            {
               module: require('postcss-partial-import')
             },
             {
