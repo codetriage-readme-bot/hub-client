@@ -28,6 +28,7 @@ define('client/authenticators/devise', ['exports', 'ember-simple-auth/authentica
   var run = _ember['default'].run;
   exports['default'] = _emberSimpleAuthAuthenticatorsDevise['default'].extend({
     session: _ember['default'].inject.service('session'),
+    serverTokenEndpoint: '/auth/sign_in',
 
     restore: function restore(data) {
       return new RSVP.Promise(function (resolve, reject) {
@@ -296,6 +297,12 @@ define('client/instance-initializers/ember-simple-auth', ['exports', 'ember-simp
       (0, _emberSimpleAuthInstanceInitializersSetupSessionRestoration['default'])(instance);
     }
   };
+});
+define('client/models/user', ['exports', 'ember-data/model'], function (exports, _emberDataModel) {
+  // import attr from 'ember-data/attr';
+  // import { belongsTo, hasMany } from 'ember-data/relationships';
+
+  exports['default'] = _emberDataModel['default'].extend({});
 });
 define('client/resolver', ['exports', 'ember-resolver'], function (exports, _emberResolver) {
   exports['default'] = _emberResolver['default'];
@@ -1021,7 +1028,7 @@ catch(err) {
 /* jshint ignore:start */
 
 if (!runningTests) {
-  require("client/app")["default"].create({"name":"client","version":"0.0.0+222d5231"});
+  require("client/app")["default"].create({"name":"client","version":"0.0.0+ad7b80ff"});
 }
 
 /* jshint ignore:end */
