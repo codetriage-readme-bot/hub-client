@@ -486,6 +486,15 @@ define('client/tests/integration/components/side-bar-test.jshint', ['exports'], 
     assert.ok(true, 'integration/components/side-bar-test.js should pass jshint.');
   });
 });
+define('client/tests/models/user.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint | models/user.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'models/user.js should pass jshint.');
+  });
+});
 define('client/tests/resolver.jshint', ['exports'], function (exports) {
   'use strict';
 
@@ -595,6 +604,28 @@ define('client/tests/unit/controllers/login-test.jshint', ['exports'], function 
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
     assert.ok(true, 'unit/controllers/login-test.js should pass jshint.');
+  });
+});
+define('client/tests/unit/models/user-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
+
+  (0, _emberQunit.moduleForModel)('user', 'Unit | Model | user', {
+    // Specify the other units that are required for this test.
+    needs: []
+  });
+
+  (0, _emberQunit.test)('it exists', function (assert) {
+    var model = this.subject();
+    // let store = this.store();
+    assert.ok(!!model);
+  });
+});
+define('client/tests/unit/models/user-test.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint | unit/models/user-test.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'unit/models/user-test.js should pass jshint.');
   });
 });
 define('client/tests/unit/routes/application-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {

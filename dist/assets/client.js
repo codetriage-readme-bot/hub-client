@@ -28,6 +28,7 @@ define('client/authenticators/devise', ['exports', 'ember-simple-auth/authentica
   var run = _ember['default'].run;
   exports['default'] = _emberSimpleAuthAuthenticatorsDevise['default'].extend({
     session: _ember['default'].inject.service('session'),
+    serverTokenEndpoint: '/auth/sign_in',
 
     restore: function restore(data) {
       return new RSVP.Promise(function (resolve, reject) {
