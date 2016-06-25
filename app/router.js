@@ -11,6 +11,7 @@ Router.map(function() {
   this.route('dashboard');
   this.route('users', function() {
     this.route('user', {path: ':id'});
+    this.route('all');
   });
 });
 

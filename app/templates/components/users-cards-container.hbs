@@ -1,0 +1,17 @@
+<div class="col-md-6">
+  <div class="card text-xs-center">
+    <div class="card-header">
+      User
+    </div>
+    <div class="card-block">
+      <h4 class="card-title">
+        {{#link-to 'users.user' user}}
+          {{user.name}}
+        {{/link-to}}
+      </h4>
+    </div>
+    <div class="card-footer text-muted">
+      {{user.email}}
+    </div>
+  </div>
+</div>
