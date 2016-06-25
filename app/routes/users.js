@@ -1,6 +1,10 @@
 import Ember from 'ember';
 
 export default Ember.Route.extend({
+  beforeModel() {
+    this.transitionTo('users.all');
+  },
+
   model() {
     return this.store.findAll('user');
   },

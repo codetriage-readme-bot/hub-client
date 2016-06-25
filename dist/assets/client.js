@@ -363,6 +363,10 @@ define('client/routes/users/user', ['exports', 'ember'], function (exports, _emb
 });
 define('client/routes/users', ['exports', 'ember'], function (exports, _ember) {
   exports['default'] = _ember['default'].Route.extend({
+    beforeModel: function beforeModel() {
+      this.transitionTo('users.all');
+    },
+
     model: function model() {
       return this.store.findAll('user');
     },
