@@ -9,6 +9,9 @@ Router.map(function() {
   this.route('login');
   this.route('landing-page', { path: '/' });
   this.route('dashboard');
+  this.route('users', function() {
+    this.route('user', {path: ':id'});
+  });
 });
 
 export default Router;
