@@ -23,7 +23,14 @@ var runningTests = false;
 
   requirejs = require = requireModule = function(name) {
     stats.require++;
-    return findModule(name, '(require)').module.exports;
+    var pending = [];
+    var mod = findModule(name, '(require)', pending);
+
+    for (var i = pending.length - 1; i >= 0; i--) {
+      pending[i].exports();
+    }
+
+    return mod.module.exports;
   };
 
   function resetStats() {
@@ -31,18 +38,19 @@ var runningTests = false;
       define: 0,
       require: 0,
       reify: 0,
-      build: 0,
+      findDeps: 0,
       modules: 0,
       exports: 0,
-      ensureBuild: 0,
       resolve: 0,
       resolveRelative: 0,
       findModule: 0,
+      pendingQueueLength: 0
     };
     requirejs._stats = stats;
   }
 
   var stats;
+
   resetStats();
 
   loader = {
@@ -73,8 +81,6 @@ var runningTests = false;
 
   var registry = {};
   var seen = {};
-  var FAILED = false;
-  var LOADED = true;
 
   var uuid = 0;
 
@@ -86,17 +92,18 @@ var runningTests = false;
   var defaultDeps = ['require', 'exports', 'module'];
 
   function Module(name, deps, callback, alias) {
-    stats.modules ++;
+    stats.modules++;
     this.id        = uuid++;
     this.name      = name;
     this.deps      = !deps.length && callback.length ? defaultDeps : deps;
     this.module    = { exports: {} };
     this.callback  = callback;
-    this.state     = undefined;
     this.finalized = false;
     this.hasExportsAsDep = false;
     this.isAlias = alias;
     this.reified = new Array(deps.length);
+    this._foundDeps = false;
+    this.isPending = false;
   }
 
   Module.prototype.makeDefaultExport = function() {
@@ -109,46 +116,66 @@ var runningTests = false;
   };
 
   Module.prototype.exports = function() {
-    stats.exports ++;
-    if (this.finalized) {
-      return this.module.exports;
-    } else {
-      if (loader.wrapModules) {
-        this.callback = loader.wrapModules(this.name, this.callback);
-      }
-      var result = this.callback.apply(this, this.reified);
-      if (!(this.hasExportsAsDep && result === undefined)) {
-        this.module.exports = result;
-      }
-      this.makeDefaultExport();
-      this.finalized = true;
-      return this.module.exports;
+    if (this.finalized) { return this.module.exports; }
+    stats.exports++;
+
+    this.finalized = true;
+    this.isPending = false;
+
+    if (loader.wrapModules) {
+      this.callback = loader.wrapModules(this.name, this.callback);
     }
+
+    this.reify();
+
+    var result = this.callback.apply(this, this.reified);
+
+    if (!(this.hasExportsAsDep && result === undefined)) {
+      this.module.exports = result;
+    }
+    this.makeDefaultExport();
+    return this.module.exports;
   };
 
   Module.prototype.unsee = function() {
     this.finalized = false;
-    this.state = undefined;
+    this._foundDeps = false;
+    this.isPending = false;
     this.module = { exports: {}};
   };
 
   Module.prototype.reify = function() {
     stats.reify++;
-    var deps = this.deps;
-    var dep;
     var reified = this.reified;
+    for (var i = 0; i < reified.length; i++) {
+      var mod = reified[i];
+      reified[i] = mod.exports ? mod.exports : mod.module.exports();
+    }
+  };
+
+  Module.prototype.findDeps = function(pending) {
+    if (this._foundDeps) {
+      return;
+    }
+
+    stats.findDeps++;
+    this._foundDeps = true;
+    this.isPending = true;
+
+    var deps = this.deps;
 
     for (var i = 0; i < deps.length; i++) {
-      dep = deps[i];
+      var dep = deps[i];
+      var entry = this.reified[i] = { exports: undefined, module: undefined };
       if (dep === 'exports') {
         this.hasExportsAsDep = true;
-        reified[i] = this.module.exports;
+        entry.exports = this.module.exports;
       } else if (dep === 'require') {
-        reified[i] = this.makeRequire();
+        entry.exports = this.makeRequire();
       } else if (dep === 'module') {
-        reified[i] = this.module;
+        entry.exports = this.module;
       } else {
-        reified[i] = findModule(resolve(dep, this.name), this.name).module.exports;
+        entry.module = findModule(resolve(dep, this.name), this.name, pending);
       }
     }
   };
@@ -163,16 +190,6 @@ var runningTests = false;
       return has(resolve(dep, name));
     }
     return r;
-  };
-
-  Module.prototype.build = function() {
-    stats.ensureBuild++;
-    if (this.state === FAILED || this.state === LOADED) { return; }
-    stats.build++;
-    this.state = FAILED;
-    this.reify()
-    this.exports();
-    this.state = LOADED;
   };
 
   define = function(name, deps, callback) {
@@ -210,7 +227,7 @@ var runningTests = false;
     throw new Error('Could not find module `' + name + '` imported from `' + referrer + '`');
   }
 
-  function findModule(name, referrer) {
+  function findModule(name, referrer, pending) {
     stats.findModule++;
     var mod = registry[name] || registry[name + '/index'];
 
@@ -220,7 +237,11 @@ var runningTests = false;
 
     if (!mod) { missingModule(name, referrer); }
 
-    mod.build();
+    if (pending && !mod.finalized && !mod.isPending) {
+      mod.findDeps(pending);
+      pending.push(mod);
+      stats.pendingQueueLength++;
+    }
     return mod;
   }
 
@@ -256,7 +277,7 @@ var runningTests = false;
   requirejs.entries = requirejs._eak_seen = registry;
   requirejs.has = has;
   requirejs.unsee = function(moduleName) {
-    findModule(moduleName, '(unsee)').unsee();
+    findModule(moduleName, '(unsee)', false).unsee();
   };
 
   requirejs.clear = function() {
@@ -81765,7 +81786,7 @@ define('ember-data/serializers/json-api', ['exports', 'ember', 'ember-data/-priv
         var value = snapshot.attr(key);
         if (type) {
           var transform = this.transformFor(type);
-          value = transform.serialize(value);
+          value = transform.serialize(value, attribute.options);
         }
 
         var payloadKey = this._getMappedKey(key, snapshot.type);
@@ -84074,7 +84095,7 @@ define('ember-data/transform', ['exports', 'ember'], function (exports, _ember) 
 define("ember-data/version", ["exports"], function (exports) {
   "use strict";
 
-  exports["default"] = "2.6.0";
+  exports["default"] = "2.6.1";
 });
 define('ember-getowner-polyfill/fake-owner', ['exports', 'ember'], function (exports, _ember) {
   'use strict';
