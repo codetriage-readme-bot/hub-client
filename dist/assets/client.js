@@ -117,17 +117,6 @@ define('client/controllers/application', ['exports', 'ember'], function (exports
     }
   });
 });
-define('client/controllers/signin', ['exports', 'ember'], function (exports, _ember) {
-  exports['default'] = _ember['default'].Controller.extend({
-    session: _ember['default'].inject.service('session'),
-
-    actions: {
-      authenticate: function authenticate() {
-        this.get('session').authenticate('authenticator:devise', this.get('email'), this.get('password'));
-      }
-    }
-  });
-});
 define('client/helpers/pluralize', ['exports', 'ember-inflector/lib/helpers/pluralize'], function (exports, _emberInflectorLibHelpersPluralize) {
   exports['default'] = _emberInflectorLibHelpersPluralize['default'];
 });
@@ -398,6 +387,17 @@ define('client/services/ajax', ['exports', 'ember-ajax/services/ajax'], function
 });
 define('client/services/session', ['exports', 'ember-simple-auth/services/session'], function (exports, _emberSimpleAuthServicesSession) {
   exports['default'] = _emberSimpleAuthServicesSession['default'];
+});
+define('client/services/signin', ['exports', 'ember'], function (exports, _ember) {
+  exports['default'] = _ember['default'].Service.extend({
+    session: _ember['default'].inject.service('session'),
+
+    actions: {
+      authenticate: function authenticate() {
+        this.get('session').authenticate('authenticator:devise', this.get('email'), this.get('password'));
+      }
+    }
+  });
 });
 define('client/session-stores/application', ['exports', 'ember-simple-auth/session-stores/adaptive'], function (exports, _emberSimpleAuthSessionStoresAdaptive) {
   exports['default'] = _emberSimpleAuthSessionStoresAdaptive['default'].extend();

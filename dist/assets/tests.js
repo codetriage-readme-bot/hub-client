@@ -61,15 +61,6 @@ define('client/tests/controllers/application.jshint', ['exports'], function (exp
     assert.ok(true, 'controllers/application.js should pass jshint.');
   });
 });
-define('client/tests/controllers/signin.jshint', ['exports'], function (exports) {
-  'use strict';
-
-  QUnit.module('JSHint | controllers/signin.js');
-  QUnit.test('should pass jshint', function (assert) {
-    assert.expect(1);
-    assert.ok(true, 'controllers/signin.js should pass jshint.');
-  });
-});
 define('client/tests/helpers/destroy-app', ['exports', 'ember'], function (exports, _ember) {
   exports['default'] = destroyApp;
 
@@ -892,6 +883,15 @@ define('client/tests/routes/users.jshint', ['exports'], function (exports) {
     assert.ok(true, 'routes/users.js should pass jshint.');
   });
 });
+define('client/tests/services/signin.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint | services/signin.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'services/signin.js should pass jshint.');
+  });
+});
 define('client/tests/test-helper', ['exports', 'client/tests/helpers/resolver', 'ember-qunit'], function (exports, _clientTestsHelpersResolver, _emberQunit) {
 
   (0, _emberQunit.setResolver)(_clientTestsHelpersResolver['default']);
@@ -1137,6 +1137,28 @@ define('client/tests/unit/routes/users-test.jshint', ['exports'], function (expo
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
     assert.ok(true, 'unit/routes/users-test.js should pass jshint.');
+  });
+});
+define('client/tests/unit/services/signin-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
+
+  (0, _emberQunit.moduleFor)('service:signin', 'Unit | Service | signin', {
+    // Specify the other units that are required for this test.
+    // needs: ['service:foo']
+  });
+
+  // Replace this with your real tests.
+  (0, _emberQunit.test)('it exists', function (assert) {
+    var service = this.subject();
+    assert.ok(service);
+  });
+});
+define('client/tests/unit/services/signin-test.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint | unit/services/signin-test.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'unit/services/signin-test.js should pass jshint.');
   });
 });
 /* jshint ignore:start */
