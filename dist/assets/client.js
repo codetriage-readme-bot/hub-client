@@ -410,7 +410,7 @@ define("client/templates/application", ["exports"], function (exports) {
           "name": "missing-wrapper",
           "problems": ["multiple-nodes"]
         },
-        "revision": "Ember@2.5.1",
+        "revision": "Ember@2.6.0",
         "loc": {
           "source": null,
           "start": {
@@ -476,11 +476,47 @@ define("client/templates/application", ["exports"], function (exports) {
 define("client/templates/components/nav-bar", ["exports"], function (exports) {
   exports["default"] = Ember.HTMLBars.template((function () {
     var child0 = (function () {
+      return {
+        meta: {
+          "fragmentReason": false,
+          "revision": "Ember@2.6.0",
+          "loc": {
+            "source": null,
+            "start": {
+              "line": 2,
+              "column": 2
+            },
+            "end": {
+              "line": 2,
+              "column": 55
+            }
+          },
+          "moduleName": "client/templates/components/nav-bar.hbs"
+        },
+        isEmpty: false,
+        arity: 0,
+        cachedFragment: null,
+        hasRendered: false,
+        buildFragment: function buildFragment(dom) {
+          var el0 = dom.createDocumentFragment();
+          var el1 = dom.createTextNode("Home");
+          dom.appendChild(el0, el1);
+          return el0;
+        },
+        buildRenderNodes: function buildRenderNodes() {
+          return [];
+        },
+        statements: [],
+        locals: [],
+        templates: []
+      };
+    })();
+    var child1 = (function () {
       var child0 = (function () {
         return {
           meta: {
             "fragmentReason": false,
-            "revision": "Ember@2.5.1",
+            "revision": "Ember@2.6.0",
             "loc": {
               "source": null,
               "start": {
@@ -516,7 +552,7 @@ define("client/templates/components/nav-bar", ["exports"], function (exports) {
         return {
           meta: {
             "fragmentReason": false,
-            "revision": "Ember@2.5.1",
+            "revision": "Ember@2.6.0",
             "loc": {
               "source": null,
               "start": {
@@ -551,7 +587,7 @@ define("client/templates/components/nav-bar", ["exports"], function (exports) {
       return {
         meta: {
           "fragmentReason": false,
-          "revision": "Ember@2.5.1",
+          "revision": "Ember@2.6.0",
           "loc": {
             "source": null,
             "start": {
@@ -624,12 +660,12 @@ define("client/templates/components/nav-bar", ["exports"], function (exports) {
         templates: [child0, child1]
       };
     })();
-    var child1 = (function () {
+    var child2 = (function () {
       var child0 = (function () {
         return {
           meta: {
             "fragmentReason": false,
-            "revision": "Ember@2.5.1",
+            "revision": "Ember@2.6.0",
             "loc": {
               "source": null,
               "start": {
@@ -664,7 +700,7 @@ define("client/templates/components/nav-bar", ["exports"], function (exports) {
       return {
         meta: {
           "fragmentReason": false,
-          "revision": "Ember@2.5.1",
+          "revision": "Ember@2.6.0",
           "loc": {
             "source": null,
             "start": {
@@ -714,7 +750,7 @@ define("client/templates/components/nav-bar", ["exports"], function (exports) {
         "fragmentReason": {
           "name": "triple-curlies"
         },
-        "revision": "Ember@2.5.1",
+        "revision": "Ember@2.6.0",
         "loc": {
           "source": null,
           "start": {
@@ -772,9 +808,9 @@ define("client/templates/components/nav-bar", ["exports"], function (exports) {
         morphs[1] = dom.createMorphAt(dom.childAt(element1, [3, 1]), 1, 1);
         return morphs;
       },
-      statements: [["inline", "link-to", ["Home", "application"], ["class", "navbar-brand"], ["loc", [null, [2, 2], [2, 55]]]], ["block", "if", [["get", "session.isAuthenticated", ["loc", [null, [5, 12], [5, 35]]]]], [], 0, 1, ["loc", [null, [5, 6], [19, 13]]]]],
+      statements: [["block", "link-to", ["application"], ["class", "navbar-brand"], 0, null, ["loc", [null, [2, 2], [2, 55]]]], ["block", "if", [["get", "session.isAuthenticated", ["loc", [null, [5, 12], [5, 35]]]]], [], 1, 2, ["loc", [null, [5, 6], [19, 13]]]]],
       locals: [],
-      templates: [child0, child1]
+      templates: [child0, child1, child2]
     };
   })());
 });
@@ -784,7 +820,7 @@ define("client/templates/components/side-bar", ["exports"], function (exports) {
       return {
         meta: {
           "fragmentReason": false,
-          "revision": "Ember@2.5.1",
+          "revision": "Ember@2.6.0",
           "loc": {
             "source": null,
             "start": {
@@ -821,7 +857,7 @@ define("client/templates/components/side-bar", ["exports"], function (exports) {
         "fragmentReason": {
           "name": "triple-curlies"
         },
-        "revision": "Ember@2.5.1",
+        "revision": "Ember@2.6.0",
         "loc": {
           "source": null,
           "start": {
@@ -896,7 +932,7 @@ define("client/templates/components/signin-form", ["exports"], function (exports
         "fragmentReason": {
           "name": "triple-curlies"
         },
-        "revision": "Ember@2.5.1",
+        "revision": "Ember@2.6.0",
         "loc": {
           "source": null,
           "start": {
@@ -1002,7 +1038,7 @@ define("client/templates/components/users-cards-container", ["exports"], functio
       return {
         meta: {
           "fragmentReason": false,
-          "revision": "Ember@2.5.1",
+          "revision": "Ember@2.6.0",
           "loc": {
             "source": null,
             "start": {
@@ -1045,7 +1081,7 @@ define("client/templates/components/users-cards-container", ["exports"], functio
         "fragmentReason": {
           "name": "triple-curlies"
         },
-        "revision": "Ember@2.5.1",
+        "revision": "Ember@2.6.0",
         "loc": {
           "source": null,
           "start": {
@@ -1137,7 +1173,7 @@ define("client/templates/dashboard", ["exports"], function (exports) {
         "fragmentReason": {
           "name": "triple-curlies"
         },
-        "revision": "Ember@2.5.1",
+        "revision": "Ember@2.6.0",
         "loc": {
           "source": null,
           "start": {
@@ -1208,7 +1244,7 @@ define("client/templates/landing-page", ["exports"], function (exports) {
         "fragmentReason": {
           "name": "triple-curlies"
         },
-        "revision": "Ember@2.5.1",
+        "revision": "Ember@2.6.0",
         "loc": {
           "source": null,
           "start": {
@@ -1275,7 +1311,7 @@ define("client/templates/signin", ["exports"], function (exports) {
           "name": "missing-wrapper",
           "problems": ["wrong-type"]
         },
-        "revision": "Ember@2.5.1",
+        "revision": "Ember@2.6.0",
         "loc": {
           "source": null,
           "start": {
@@ -1322,7 +1358,7 @@ define("client/templates/users/all", ["exports"], function (exports) {
             "name": "missing-wrapper",
             "problems": ["wrong-type"]
           },
-          "revision": "Ember@2.5.1",
+          "revision": "Ember@2.6.0",
           "loc": {
             "source": null,
             "start": {
@@ -1364,7 +1400,7 @@ define("client/templates/users/all", ["exports"], function (exports) {
       return {
         meta: {
           "fragmentReason": false,
-          "revision": "Ember@2.5.1",
+          "revision": "Ember@2.6.0",
           "loc": {
             "source": null,
             "start": {
@@ -1402,7 +1438,7 @@ define("client/templates/users/all", ["exports"], function (exports) {
           "name": "missing-wrapper",
           "problems": ["wrong-type"]
         },
-        "revision": "Ember@2.5.1",
+        "revision": "Ember@2.6.0",
         "loc": {
           "source": null,
           "start": {
@@ -1446,7 +1482,7 @@ define("client/templates/users/user", ["exports"], function (exports) {
         "fragmentReason": {
           "name": "triple-curlies"
         },
-        "revision": "Ember@2.5.1",
+        "revision": "Ember@2.6.0",
         "loc": {
           "source": null,
           "start": {
@@ -1507,7 +1543,7 @@ define("client/templates/users", ["exports"], function (exports) {
         "fragmentReason": {
           "name": "triple-curlies"
         },
-        "revision": "Ember@2.5.1",
+        "revision": "Ember@2.6.0",
         "loc": {
           "source": null,
           "start": {
@@ -1603,7 +1639,7 @@ catch(err) {
 /* jshint ignore:start */
 
 if (!runningTests) {
-  require("client/app")["default"].create({"name":"client","version":"0.0.0+3145dfd9"});
+  require("client/app")["default"].create({"name":"client","version":"0.0.0+4d283218"});
 }
 
 /* jshint ignore:end */
