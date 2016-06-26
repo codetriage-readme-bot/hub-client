@@ -34,6 +34,15 @@ define('client/tests/components/side-bar.jshint', ['exports'], function (exports
     assert.ok(true, 'components/side-bar.js should pass jshint.');
   });
 });
+define('client/tests/components/signin-form.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint | components/signin-form.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'components/signin-form.js should pass jshint.');
+  });
+});
 define('client/tests/components/users-cards-container.jshint', ['exports'], function (exports) {
   'use strict';
 
@@ -52,13 +61,13 @@ define('client/tests/controllers/application.jshint', ['exports'], function (exp
     assert.ok(true, 'controllers/application.js should pass jshint.');
   });
 });
-define('client/tests/controllers/login.jshint', ['exports'], function (exports) {
+define('client/tests/controllers/signin.jshint', ['exports'], function (exports) {
   'use strict';
 
-  QUnit.module('JSHint | controllers/login.js');
+  QUnit.module('JSHint | controllers/signin.js');
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'controllers/login.js should pass jshint.');
+    assert.ok(true, 'controllers/signin.js should pass jshint.');
   });
 });
 define('client/tests/helpers/destroy-app', ['exports', 'ember'], function (exports, _ember) {
@@ -495,6 +504,155 @@ define('client/tests/integration/components/side-bar-test.jshint', ['exports'], 
     assert.ok(true, 'integration/components/side-bar-test.js should pass jshint.');
   });
 });
+define('client/tests/integration/components/signin-form-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
+
+  (0, _emberQunit.moduleForComponent)('signin-form', 'Integration | Component | signin form', {
+    integration: true
+  });
+
+  (0, _emberQunit.test)('it renders', function (assert) {
+    // Set any properties with this.set('myProperty', 'value');
+    // Handle any actions with this.on('myAction', function(val) { ... });
+
+    this.render(Ember.HTMLBars.template((function () {
+      return {
+        meta: {
+          'fragmentReason': {
+            'name': 'missing-wrapper',
+            'problems': ['wrong-type']
+          },
+          'revision': 'Ember@2.5.1',
+          'loc': {
+            'source': null,
+            'start': {
+              'line': 1,
+              'column': 0
+            },
+            'end': {
+              'line': 1,
+              'column': 15
+            }
+          }
+        },
+        isEmpty: false,
+        arity: 0,
+        cachedFragment: null,
+        hasRendered: false,
+        buildFragment: function buildFragment(dom) {
+          var el0 = dom.createDocumentFragment();
+          var el1 = dom.createComment('');
+          dom.appendChild(el0, el1);
+          return el0;
+        },
+        buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+          var morphs = new Array(1);
+          morphs[0] = dom.createMorphAt(fragment, 0, 0, contextualElement);
+          dom.insertBoundary(fragment, 0);
+          dom.insertBoundary(fragment, null);
+          return morphs;
+        },
+        statements: [['content', 'signin-form', ['loc', [null, [1, 0], [1, 15]]]]],
+        locals: [],
+        templates: []
+      };
+    })()));
+
+    assert.equal(this.$().text().trim(), '');
+
+    // Template block usage:
+    this.render(Ember.HTMLBars.template((function () {
+      var child0 = (function () {
+        return {
+          meta: {
+            'fragmentReason': false,
+            'revision': 'Ember@2.5.1',
+            'loc': {
+              'source': null,
+              'start': {
+                'line': 2,
+                'column': 4
+              },
+              'end': {
+                'line': 4,
+                'column': 4
+              }
+            }
+          },
+          isEmpty: false,
+          arity: 0,
+          cachedFragment: null,
+          hasRendered: false,
+          buildFragment: function buildFragment(dom) {
+            var el0 = dom.createDocumentFragment();
+            var el1 = dom.createTextNode('      template block text\n');
+            dom.appendChild(el0, el1);
+            return el0;
+          },
+          buildRenderNodes: function buildRenderNodes() {
+            return [];
+          },
+          statements: [],
+          locals: [],
+          templates: []
+        };
+      })();
+
+      return {
+        meta: {
+          'fragmentReason': {
+            'name': 'missing-wrapper',
+            'problems': ['wrong-type']
+          },
+          'revision': 'Ember@2.5.1',
+          'loc': {
+            'source': null,
+            'start': {
+              'line': 1,
+              'column': 0
+            },
+            'end': {
+              'line': 5,
+              'column': 2
+            }
+          }
+        },
+        isEmpty: false,
+        arity: 0,
+        cachedFragment: null,
+        hasRendered: false,
+        buildFragment: function buildFragment(dom) {
+          var el0 = dom.createDocumentFragment();
+          var el1 = dom.createTextNode('\n');
+          dom.appendChild(el0, el1);
+          var el1 = dom.createComment('');
+          dom.appendChild(el0, el1);
+          var el1 = dom.createTextNode('  ');
+          dom.appendChild(el0, el1);
+          return el0;
+        },
+        buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+          var morphs = new Array(1);
+          morphs[0] = dom.createMorphAt(fragment, 1, 1, contextualElement);
+          return morphs;
+        },
+        statements: [['block', 'signin-form', [], [], 0, null, ['loc', [null, [2, 4], [4, 20]]]]],
+        locals: [],
+        templates: [child0]
+      };
+    })()));
+
+    assert.equal(this.$().text().trim(), 'template block text');
+  });
+});
+define('client/tests/integration/components/signin-form-test.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint | integration/components/signin-form-test.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'integration/components/signin-form-test.js should pass jshint.');
+  });
+});
 define('client/tests/integration/components/users-cards-container-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
 
   (0, _emberQunit.moduleForComponent)('users-cards-container', 'Integration | Component | users cards container', {
@@ -698,13 +856,13 @@ define('client/tests/routes/landing-page.jshint', ['exports'], function (exports
     assert.ok(true, 'routes/landing-page.js should pass jshint.');
   });
 });
-define('client/tests/routes/login.jshint', ['exports'], function (exports) {
+define('client/tests/routes/signin.jshint', ['exports'], function (exports) {
   'use strict';
 
-  QUnit.module('JSHint | routes/login.js');
+  QUnit.module('JSHint | routes/signin.js');
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'routes/login.js should pass jshint.');
+    assert.ok(true, 'routes/signin.js should pass jshint.');
   });
 });
 define('client/tests/routes/users/all.jshint', ['exports'], function (exports) {
@@ -769,9 +927,9 @@ define('client/tests/unit/controllers/application-test.jshint', ['exports'], fun
     assert.ok(true, 'unit/controllers/application-test.js should pass jshint.');
   });
 });
-define('client/tests/unit/controllers/login-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
+define('client/tests/unit/controllers/signin-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
 
-  (0, _emberQunit.moduleFor)('controller:login', {
+  (0, _emberQunit.moduleFor)('controller:signin', {
     // Specify the other units that are required for this test.
     // needs: ['controller:foo']
   });
@@ -782,13 +940,13 @@ define('client/tests/unit/controllers/login-test', ['exports', 'ember-qunit'], f
     assert.ok(controller);
   });
 });
-define('client/tests/unit/controllers/login-test.jshint', ['exports'], function (exports) {
+define('client/tests/unit/controllers/signin-test.jshint', ['exports'], function (exports) {
   'use strict';
 
-  QUnit.module('JSHint | unit/controllers/login-test.js');
+  QUnit.module('JSHint | unit/controllers/signin-test.js');
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'unit/controllers/login-test.js should pass jshint.');
+    assert.ok(true, 'unit/controllers/signin-test.js should pass jshint.');
   });
 });
 define('client/tests/unit/models/user-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
@@ -876,27 +1034,6 @@ define('client/tests/unit/routes/landing-page-test.jshint', ['exports'], functio
     assert.ok(true, 'unit/routes/landing-page-test.js should pass jshint.');
   });
 });
-define('client/tests/unit/routes/login-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
-
-  (0, _emberQunit.moduleFor)('route:login', 'Unit | Route | login', {
-    // Specify the other units that are required for this test.
-    // needs: ['controller:foo']
-  });
-
-  (0, _emberQunit.test)('it exists', function (assert) {
-    var route = this.subject();
-    assert.ok(route);
-  });
-});
-define('client/tests/unit/routes/login-test.jshint', ['exports'], function (exports) {
-  'use strict';
-
-  QUnit.module('JSHint | unit/routes/login-test.js');
-  QUnit.test('should pass jshint', function (assert) {
-    assert.expect(1);
-    assert.ok(true, 'unit/routes/login-test.js should pass jshint.');
-  });
-});
 define('client/tests/unit/routes/protected-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
 
   (0, _emberQunit.moduleFor)('route:protected', 'Unit | Route | protected', {
@@ -916,6 +1053,27 @@ define('client/tests/unit/routes/protected-test.jshint', ['exports'], function (
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
     assert.ok(true, 'unit/routes/protected-test.js should pass jshint.');
+  });
+});
+define('client/tests/unit/routes/signin-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
+
+  (0, _emberQunit.moduleFor)('route:login', 'Unit | Route | signin', {
+    // Specify the other units that are required for this test.
+    // needs: ['controller:foo']
+  });
+
+  (0, _emberQunit.test)('it exists', function (assert) {
+    var route = this.subject();
+    assert.ok(route);
+  });
+});
+define('client/tests/unit/routes/signin-test.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint | unit/routes/signin-test.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'unit/routes/signin-test.js should pass jshint.');
   });
 });
 define('client/tests/unit/routes/users/all-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {

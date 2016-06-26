@@ -92,6 +92,17 @@ define('client/components/nav-bar', ['exports', 'ember'], function (exports, _em
 define('client/components/side-bar', ['exports', 'ember'], function (exports, _ember) {
   exports['default'] = _ember['default'].Component.extend({});
 });
+define('client/components/signin-form', ['exports', 'ember'], function (exports, _ember) {
+  exports['default'] = _ember['default'].Component.extend({
+    session: _ember['default'].inject.service('session'),
+
+    actions: {
+      authenticate: function authenticate() {
+        this.get('session').authenticate('authenticator:devise', this.get('email'), this.get('password'));
+      }
+    }
+  });
+});
 define('client/components/users-cards-container', ['exports', 'ember'], function (exports, _ember) {
   exports['default'] = _ember['default'].Component.extend({});
 });
@@ -106,7 +117,7 @@ define('client/controllers/application', ['exports', 'ember'], function (exports
     }
   });
 });
-define('client/controllers/login', ['exports', 'ember'], function (exports, _ember) {
+define('client/controllers/signin', ['exports', 'ember'], function (exports, _ember) {
   exports['default'] = _ember['default'].Controller.extend({
     session: _ember['default'].inject.service('session'),
 
@@ -319,7 +330,7 @@ define('client/router', ['exports', 'ember', 'client/config/environment'], funct
   });
 
   Router.map(function () {
-    this.route('login');
+    this.route('signin');
     this.route('landing-page', { path: '/' });
     this.route('dashboard');
     this.route('users', function () {
@@ -339,7 +350,7 @@ define('client/routes/dashboard', ['exports', 'ember', 'ember-simple-auth/mixins
 define('client/routes/landing-page', ['exports', 'ember', 'ember-simple-auth/mixins/unauthenticated-route-mixin'], function (exports, _ember, _emberSimpleAuthMixinsUnauthenticatedRouteMixin) {
   exports['default'] = _ember['default'].Route.extend(_emberSimpleAuthMixinsUnauthenticatedRouteMixin['default']);
 });
-define('client/routes/login', ['exports', 'ember', 'ember-simple-auth/mixins/unauthenticated-route-mixin'], function (exports, _ember, _emberSimpleAuthMixinsUnauthenticatedRouteMixin) {
+define('client/routes/signin', ['exports', 'ember', 'ember-simple-auth/mixins/unauthenticated-route-mixin'], function (exports, _ember, _emberSimpleAuthMixinsUnauthenticatedRouteMixin) {
   exports['default'] = _ember['default'].Route.extend(_emberSimpleAuthMixinsUnauthenticatedRouteMixin['default']);
 });
 define('client/routes/users/all', ['exports', 'ember'], function (exports, _ember) {
@@ -627,7 +638,7 @@ define("client/templates/components/nav-bar", ["exports"], function (exports) {
               },
               "end": {
                 "line": 17,
-                "column": 52
+                "column": 55
               }
             },
             "moduleName": "client/templates/components/nav-bar.hbs"
@@ -638,7 +649,7 @@ define("client/templates/components/nav-bar", ["exports"], function (exports) {
           hasRendered: false,
           buildFragment: function buildFragment(dom) {
             var el0 = dom.createDocumentFragment();
-            var el1 = dom.createTextNode("Login");
+            var el1 = dom.createTextNode("Sign In");
             dom.appendChild(el0, el1);
             return el0;
           },
@@ -693,7 +704,7 @@ define("client/templates/components/nav-bar", ["exports"], function (exports) {
           morphs[0] = dom.createMorphAt(dom.childAt(fragment, [1]), 1, 1);
           return morphs;
         },
-        statements: [["block", "link-to", ["login"], ["class", "nav-link"], 0, null, ["loc", [null, [17, 10], [17, 64]]]]],
+        statements: [["block", "link-to", ["signin"], ["class", "nav-link"], 0, null, ["loc", [null, [17, 10], [17, 67]]]]],
         locals: [],
         templates: [child0]
       };
@@ -875,6 +886,113 @@ define("client/templates/components/side-bar", ["exports"], function (exports) {
       statements: [["block", "link-to", ["users.all"], ["class", "list-group-item"], 0, null, ["loc", [null, [5, 2], [5, 67]]]]],
       locals: [],
       templates: [child0]
+    };
+  })());
+});
+define("client/templates/components/signin-form", ["exports"], function (exports) {
+  exports["default"] = Ember.HTMLBars.template((function () {
+    return {
+      meta: {
+        "fragmentReason": {
+          "name": "triple-curlies"
+        },
+        "revision": "Ember@2.5.1",
+        "loc": {
+          "source": null,
+          "start": {
+            "line": 1,
+            "column": 0
+          },
+          "end": {
+            "line": 15,
+            "column": 0
+          }
+        },
+        "moduleName": "client/templates/components/signin-form.hbs"
+      },
+      isEmpty: false,
+      arity: 0,
+      cachedFragment: null,
+      hasRendered: false,
+      buildFragment: function buildFragment(dom) {
+        var el0 = dom.createDocumentFragment();
+        var el1 = dom.createElement("div");
+        dom.setAttribute(el1, "class", "col-md-4 col-md-offset-4");
+        var el2 = dom.createTextNode("\n  ");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createElement("form");
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("fieldset");
+        dom.setAttribute(el3, "class", "form-group");
+        var el4 = dom.createTextNode("\n      ");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createElement("label");
+        dom.setAttribute(el4, "for", "exampleInputEmail1");
+        var el5 = dom.createTextNode("Email address");
+        dom.appendChild(el4, el5);
+        dom.appendChild(el3, el4);
+        var el4 = dom.createTextNode("\n      ");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createComment("");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createTextNode("\n      ");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createElement("small");
+        dom.setAttribute(el4, "class", "text-muted");
+        var el5 = dom.createTextNode("We'll never share your email with anyone else.");
+        dom.appendChild(el4, el5);
+        dom.appendChild(el3, el4);
+        var el4 = dom.createTextNode("\n    ");
+        dom.appendChild(el3, el4);
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("fieldset");
+        dom.setAttribute(el3, "class", "form-group");
+        var el4 = dom.createTextNode("\n      ");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createElement("label");
+        dom.setAttribute(el4, "for", "exampleInputPassword1");
+        var el5 = dom.createTextNode("Password");
+        dom.appendChild(el4, el5);
+        dom.appendChild(el3, el4);
+        var el4 = dom.createTextNode("\n      ");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createComment("");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createTextNode("\n    ");
+        dom.appendChild(el3, el4);
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("button");
+        dom.setAttribute(el3, "type", "submit");
+        dom.setAttribute(el3, "class", "btn btn-primary");
+        var el4 = dom.createTextNode("Submit");
+        dom.appendChild(el3, el4);
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n  ");
+        dom.appendChild(el2, el3);
+        dom.appendChild(el1, el2);
+        var el2 = dom.createTextNode("\n");
+        dom.appendChild(el1, el2);
+        dom.appendChild(el0, el1);
+        var el1 = dom.createTextNode("\n");
+        dom.appendChild(el0, el1);
+        return el0;
+      },
+      buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+        var element0 = dom.childAt(fragment, [0, 1]);
+        var morphs = new Array(3);
+        morphs[0] = dom.createElementMorph(element0);
+        morphs[1] = dom.createMorphAt(dom.childAt(element0, [1]), 3, 3);
+        morphs[2] = dom.createMorphAt(dom.childAt(element0, [3]), 3, 3);
+        return morphs;
+      },
+      statements: [["element", "action", ["authenticate"], ["on", "submit"], ["loc", [null, [2, 8], [2, 45]]]], ["inline", "input", [], ["value", ["subexpr", "@mut", [["get", "email", ["loc", [null, [5, 20], [5, 25]]]]], [], []], "type", "email", "class", "form-control", "id", "exampleInputEmail1", "placeholder", "Enter email"], ["loc", [null, [5, 6], [5, 111]]]], ["inline", "input", [], ["value", ["subexpr", "@mut", [["get", "password", ["loc", [null, [10, 20], [10, 28]]]]], [], []], "type", "password", "class", "form-control", "id", "exampleInputPassword1", "placeholder", "Password"], ["loc", [null, [10, 6], [10, 117]]]]],
+      locals: [],
+      templates: []
     };
   })());
 });
@@ -1149,12 +1267,13 @@ define("client/templates/landing-page", ["exports"], function (exports) {
     };
   })());
 });
-define("client/templates/login", ["exports"], function (exports) {
+define("client/templates/signin", ["exports"], function (exports) {
   exports["default"] = Ember.HTMLBars.template((function () {
     return {
       meta: {
         "fragmentReason": {
-          "name": "triple-curlies"
+          "name": "missing-wrapper",
+          "problems": ["wrong-type"]
         },
         "revision": "Ember@2.5.1",
         "loc": {
@@ -1164,11 +1283,11 @@ define("client/templates/login", ["exports"], function (exports) {
             "column": 0
           },
           "end": {
-            "line": 15,
+            "line": 2,
             "column": 0
           }
         },
-        "moduleName": "client/templates/login.hbs"
+        "moduleName": "client/templates/signin.hbs"
       },
       isEmpty: false,
       arity: 0,
@@ -1176,81 +1295,19 @@ define("client/templates/login", ["exports"], function (exports) {
       hasRendered: false,
       buildFragment: function buildFragment(dom) {
         var el0 = dom.createDocumentFragment();
-        var el1 = dom.createElement("div");
-        dom.setAttribute(el1, "class", "col-md-4 col-md-offset-4");
-        var el2 = dom.createTextNode("\n  ");
-        dom.appendChild(el1, el2);
-        var el2 = dom.createElement("form");
-        var el3 = dom.createTextNode("\n    ");
-        dom.appendChild(el2, el3);
-        var el3 = dom.createElement("fieldset");
-        dom.setAttribute(el3, "class", "form-group");
-        var el4 = dom.createTextNode("\n      ");
-        dom.appendChild(el3, el4);
-        var el4 = dom.createElement("label");
-        dom.setAttribute(el4, "for", "exampleInputEmail1");
-        var el5 = dom.createTextNode("Email address");
-        dom.appendChild(el4, el5);
-        dom.appendChild(el3, el4);
-        var el4 = dom.createTextNode("\n      ");
-        dom.appendChild(el3, el4);
-        var el4 = dom.createComment("");
-        dom.appendChild(el3, el4);
-        var el4 = dom.createTextNode("\n      ");
-        dom.appendChild(el3, el4);
-        var el4 = dom.createElement("small");
-        dom.setAttribute(el4, "class", "text-muted");
-        var el5 = dom.createTextNode("We'll never share your email with anyone else.");
-        dom.appendChild(el4, el5);
-        dom.appendChild(el3, el4);
-        var el4 = dom.createTextNode("\n    ");
-        dom.appendChild(el3, el4);
-        dom.appendChild(el2, el3);
-        var el3 = dom.createTextNode("\n    ");
-        dom.appendChild(el2, el3);
-        var el3 = dom.createElement("fieldset");
-        dom.setAttribute(el3, "class", "form-group");
-        var el4 = dom.createTextNode("\n      ");
-        dom.appendChild(el3, el4);
-        var el4 = dom.createElement("label");
-        dom.setAttribute(el4, "for", "exampleInputPassword1");
-        var el5 = dom.createTextNode("Password");
-        dom.appendChild(el4, el5);
-        dom.appendChild(el3, el4);
-        var el4 = dom.createTextNode("\n      ");
-        dom.appendChild(el3, el4);
-        var el4 = dom.createComment("");
-        dom.appendChild(el3, el4);
-        var el4 = dom.createTextNode("\n    ");
-        dom.appendChild(el3, el4);
-        dom.appendChild(el2, el3);
-        var el3 = dom.createTextNode("\n    ");
-        dom.appendChild(el2, el3);
-        var el3 = dom.createElement("button");
-        dom.setAttribute(el3, "type", "submit");
-        dom.setAttribute(el3, "class", "btn btn-primary");
-        var el4 = dom.createTextNode("Submit");
-        dom.appendChild(el3, el4);
-        dom.appendChild(el2, el3);
-        var el3 = dom.createTextNode("\n  ");
-        dom.appendChild(el2, el3);
-        dom.appendChild(el1, el2);
-        var el2 = dom.createTextNode("\n");
-        dom.appendChild(el1, el2);
+        var el1 = dom.createComment("");
         dom.appendChild(el0, el1);
         var el1 = dom.createTextNode("\n");
         dom.appendChild(el0, el1);
         return el0;
       },
       buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
-        var element0 = dom.childAt(fragment, [0, 1]);
-        var morphs = new Array(3);
-        morphs[0] = dom.createElementMorph(element0);
-        morphs[1] = dom.createMorphAt(dom.childAt(element0, [1]), 3, 3);
-        morphs[2] = dom.createMorphAt(dom.childAt(element0, [3]), 3, 3);
+        var morphs = new Array(1);
+        morphs[0] = dom.createMorphAt(fragment, 0, 0, contextualElement);
+        dom.insertBoundary(fragment, 0);
         return morphs;
       },
-      statements: [["element", "action", ["authenticate"], ["on", "submit"], ["loc", [null, [2, 8], [2, 45]]]], ["inline", "input", [], ["value", ["subexpr", "@mut", [["get", "email", ["loc", [null, [5, 20], [5, 25]]]]], [], []], "type", "email", "class", "form-control", "id", "exampleInputEmail1", "placeholder", "Enter email"], ["loc", [null, [5, 6], [5, 111]]]], ["inline", "input", [], ["value", ["subexpr", "@mut", [["get", "password", ["loc", [null, [10, 20], [10, 28]]]]], [], []], "type", "password", "class", "form-control", "id", "exampleInputPassword1", "placeholder", "Password"], ["loc", [null, [10, 6], [10, 117]]]]],
+      statements: [["inline", "signin-form", [["get", "action", ["loc", [null, [1, 14], [1, 20]]]], "authenticate"], ["on", "submit"], ["loc", [null, [1, 0], [1, 49]]]]],
       locals: [],
       templates: []
     };
@@ -1546,7 +1603,7 @@ catch(err) {
 /* jshint ignore:start */
 
 if (!runningTests) {
-  require("client/app")["default"].create({"name":"client","version":"0.0.0+d3368745"});
+  require("client/app")["default"].create({"name":"client","version":"0.0.0+3145dfd9"});
 }
 
 /* jshint ignore:end */
