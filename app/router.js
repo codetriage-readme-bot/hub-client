@@ -10,8 +10,13 @@ Router.map(function() {
   this.route('landing-page', { path: '/' });
   this.route('dashboard');
   this.route('users', function() {
-    this.route('user', {path: ':id'});
     this.route('all');
+    this.route('user', {path: ':id'});
+  });
+
+  this.route('cards', function() {
+    this.route('all');
+    this.route('card', {path: ':id'});
   });
 });
 

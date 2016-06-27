@@ -1,0 +1,17 @@
+<div class="col-md-6">
+  <div class="card text-xs-center">
+    <div class="card-header">
+      Card
+    </div>
+    <div class="card-block">
+      <h4 class="card-title">
+        {{#link-to 'cards.card' card}}
+          {{card.title}}
+        {{/link-to}}
+      </h4>
+    </div>
+    <div class="card-footer text-muted">
+      {{card.description}}
+    </div>
+  </div>
+</div>
