@@ -70,6 +70,15 @@ define('client/tests/controllers/application.jshint', ['exports'], function (exp
     assert.ok(true, 'controllers/application.js should pass jshint.');
   });
 });
+define('client/tests/controllers/cards/new.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint | controllers/cards/new.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(false, 'controllers/cards/new.js should pass jshint.\ncontrollers/cards/new.js: line 7, col 28, \'card\' is defined but never used.\n\n1 error');
+  });
+});
 define('client/tests/helpers/destroy-app', ['exports', 'ember'], function (exports, _ember) {
   exports['default'] = destroyApp;
 
@@ -1020,7 +1029,7 @@ define('client/tests/routes/cards/new.jshint', ['exports'], function (exports) {
   QUnit.module('JSHint | routes/cards/new.js');
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'routes/cards/new.js should pass jshint.\nroutes/cards/new.js: line 5, col 14, Missing semicolon.\nroutes/cards/new.js: line 10, col 28, \'card\' is defined but never used.\n\n2 errors');
+    assert.ok(false, 'routes/cards/new.js should pass jshint.\nroutes/cards/new.js: line 5, col 14, Missing semicolon.\n\n1 error');
   });
 });
 define('client/tests/routes/cards.jshint', ['exports'], function (exports) {
@@ -1128,6 +1137,28 @@ define('client/tests/unit/controllers/application-test.jshint', ['exports'], fun
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
     assert.ok(true, 'unit/controllers/application-test.js should pass jshint.');
+  });
+});
+define('client/tests/unit/controllers/cards/new-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
+
+  (0, _emberQunit.moduleFor)('controller:cards/new', 'Unit | Controller | cards/new', {
+    // Specify the other units that are required for this test.
+    // needs: ['controller:foo']
+  });
+
+  // Replace this with your real tests.
+  (0, _emberQunit.test)('it exists', function (assert) {
+    var controller = this.subject();
+    assert.ok(controller);
+  });
+});
+define('client/tests/unit/controllers/cards/new-test.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint | unit/controllers/cards/new-test.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'unit/controllers/cards/new-test.js should pass jshint.');
   });
 });
 define('client/tests/unit/controllers/signin-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {

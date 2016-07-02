@@ -120,6 +120,20 @@ define('client/controllers/application', ['exports', 'ember'], function (exports
     }
   });
 });
+define('client/controllers/cards/new', ['exports', 'ember'], function (exports, _ember) {
+  exports['default'] = _ember['default'].Controller.extend({
+    actions: {
+      save: function save() {
+        var _this = this;
+
+        var newCard = this.get('store').createRecord('card', this.get('model'));
+        newCard.save().then(function (card) {
+          _this.transitionToRoute('cards.all');
+        });
+      }
+    }
+  });
+});
 define('client/helpers/pluralize', ['exports', 'ember-inflector/lib/helpers/pluralize'], function (exports, _emberInflectorLibHelpersPluralize) {
   exports['default'] = _emberInflectorLibHelpersPluralize['default'];
 });
@@ -373,19 +387,6 @@ define('client/routes/cards/new', ['exports', 'ember'], function (exports, _embe
   exports['default'] = _ember['default'].Route.extend({
     model: function model() {
       return {};
-    },
-    actions: {
-      save: function save() {
-        var _this = this;
-
-        var newCard = this.get('store').createRecord('card', this.get('model'));
-        newCard.save().then(function (card) {
-          _this.transitionTo('cards.all');
-        });
-      },
-      cancel: function cancel() {
-        this.transitionTo('cards');
-      }
     }
   });
 });
