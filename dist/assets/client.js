@@ -378,7 +378,7 @@ define('client/routes/cards/new', ['exports', 'ember'], function (exports, _embe
       save: function save() {
         var _this = this;
 
-        var newCard = this.get('store').createRecord('card', { title: 'hello', description: 'world' });
+        var newCard = this.get('store').createRecord('card', this.get('model'));
         newCard.save().then(function (card) {
           _this.transitionTo('cards.all');
         });

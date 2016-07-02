@@ -6,7 +6,7 @@ export default Ember.Route.extend({
   },
   actions: {
     save() {
-      const newCard = this.get('store').createRecord('card', { title: 'hello', description: 'world' });
+      const newCard = this.get('store').createRecord('card', this.get('model'));
       newCard.save().then((card) => {
         this.transitionTo('cards.all');
       });
