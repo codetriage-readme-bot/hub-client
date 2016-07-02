@@ -17,6 +17,7 @@ Router.map(function() {
   this.route('cards', function() {
     this.route('all');
     this.route('card', {path: ':id'});
+    this.route('new');
   });
 });
 

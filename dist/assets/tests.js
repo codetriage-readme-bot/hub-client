@@ -223,7 +223,7 @@ define('client/tests/integration/components/cards-container-test', ['exports', '
             'name': 'missing-wrapper',
             'problems': ['wrong-type']
           },
-          'revision': 'Ember@2.6.0',
+          'revision': 'Ember@2.6.1',
           'loc': {
             'source': null,
             'start': {
@@ -267,7 +267,7 @@ define('client/tests/integration/components/cards-container-test', ['exports', '
         return {
           meta: {
             'fragmentReason': false,
-            'revision': 'Ember@2.6.0',
+            'revision': 'Ember@2.6.1',
             'loc': {
               'source': null,
               'start': {
@@ -305,7 +305,7 @@ define('client/tests/integration/components/cards-container-test', ['exports', '
             'name': 'missing-wrapper',
             'problems': ['wrong-type']
           },
-          'revision': 'Ember@2.6.0',
+          'revision': 'Ember@2.6.1',
           'loc': {
             'source': null,
             'start': {
@@ -372,7 +372,7 @@ define('client/tests/integration/components/nav-bar-test', ['exports', 'ember-qu
             'name': 'missing-wrapper',
             'problems': ['wrong-type']
           },
-          'revision': 'Ember@2.5.1',
+          'revision': 'Ember@2.6.1',
           'loc': {
             'source': null,
             'start': {
@@ -416,7 +416,7 @@ define('client/tests/integration/components/nav-bar-test', ['exports', 'ember-qu
         return {
           meta: {
             'fragmentReason': false,
-            'revision': 'Ember@2.5.1',
+            'revision': 'Ember@2.6.1',
             'loc': {
               'source': null,
               'start': {
@@ -454,7 +454,7 @@ define('client/tests/integration/components/nav-bar-test', ['exports', 'ember-qu
             'name': 'missing-wrapper',
             'problems': ['wrong-type']
           },
-          'revision': 'Ember@2.5.1',
+          'revision': 'Ember@2.6.1',
           'loc': {
             'source': null,
             'start': {
@@ -521,7 +521,7 @@ define('client/tests/integration/components/side-bar-test', ['exports', 'ember-q
             'name': 'missing-wrapper',
             'problems': ['wrong-type']
           },
-          'revision': 'Ember@2.5.1',
+          'revision': 'Ember@2.6.1',
           'loc': {
             'source': null,
             'start': {
@@ -565,7 +565,7 @@ define('client/tests/integration/components/side-bar-test', ['exports', 'ember-q
         return {
           meta: {
             'fragmentReason': false,
-            'revision': 'Ember@2.5.1',
+            'revision': 'Ember@2.6.1',
             'loc': {
               'source': null,
               'start': {
@@ -603,7 +603,7 @@ define('client/tests/integration/components/side-bar-test', ['exports', 'ember-q
             'name': 'missing-wrapper',
             'problems': ['wrong-type']
           },
-          'revision': 'Ember@2.5.1',
+          'revision': 'Ember@2.6.1',
           'loc': {
             'source': null,
             'start': {
@@ -670,7 +670,7 @@ define('client/tests/integration/components/signin-form-test', ['exports', 'embe
             'name': 'missing-wrapper',
             'problems': ['wrong-type']
           },
-          'revision': 'Ember@2.5.1',
+          'revision': 'Ember@2.6.1',
           'loc': {
             'source': null,
             'start': {
@@ -714,7 +714,7 @@ define('client/tests/integration/components/signin-form-test', ['exports', 'embe
         return {
           meta: {
             'fragmentReason': false,
-            'revision': 'Ember@2.5.1',
+            'revision': 'Ember@2.6.1',
             'loc': {
               'source': null,
               'start': {
@@ -752,7 +752,7 @@ define('client/tests/integration/components/signin-form-test', ['exports', 'embe
             'name': 'missing-wrapper',
             'problems': ['wrong-type']
           },
-          'revision': 'Ember@2.5.1',
+          'revision': 'Ember@2.6.1',
           'loc': {
             'source': null,
             'start': {
@@ -819,7 +819,7 @@ define('client/tests/integration/components/users-cards-container-test', ['expor
             'name': 'missing-wrapper',
             'problems': ['wrong-type']
           },
-          'revision': 'Ember@2.5.1',
+          'revision': 'Ember@2.6.1',
           'loc': {
             'source': null,
             'start': {
@@ -863,7 +863,7 @@ define('client/tests/integration/components/users-cards-container-test', ['expor
         return {
           meta: {
             'fragmentReason': false,
-            'revision': 'Ember@2.5.1',
+            'revision': 'Ember@2.6.1',
             'loc': {
               'source': null,
               'start': {
@@ -901,7 +901,7 @@ define('client/tests/integration/components/users-cards-container-test', ['expor
             'name': 'missing-wrapper',
             'problems': ['wrong-type']
           },
-          'revision': 'Ember@2.5.1',
+          'revision': 'Ember@2.6.1',
           'loc': {
             'source': null,
             'start': {
@@ -1012,6 +1012,15 @@ define('client/tests/routes/cards/card.jshint', ['exports'], function (exports) 
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
     assert.ok(true, 'routes/cards/card.js should pass jshint.');
+  });
+});
+define('client/tests/routes/cards/new.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint | routes/cards/new.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(false, 'routes/cards/new.js should pass jshint.\nroutes/cards/new.js: line 5, col 14, Missing semicolon.\nroutes/cards/new.js: line 10, col 28, \'card\' is defined but never used.\n\n2 errors');
   });
 });
 define('client/tests/routes/cards.jshint', ['exports'], function (exports) {
@@ -1248,6 +1257,27 @@ define('client/tests/unit/routes/cards/card-test.jshint', ['exports'], function 
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
     assert.ok(true, 'unit/routes/cards/card-test.js should pass jshint.');
+  });
+});
+define('client/tests/unit/routes/cards/new-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
+
+  (0, _emberQunit.moduleFor)('route:cards/new', 'Unit | Route | cards/new', {
+    // Specify the other units that are required for this test.
+    // needs: ['controller:foo']
+  });
+
+  (0, _emberQunit.test)('it exists', function (assert) {
+    var route = this.subject();
+    assert.ok(route);
+  });
+});
+define('client/tests/unit/routes/cards/new-test.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint | unit/routes/cards/new-test.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'unit/routes/cards/new-test.js should pass jshint.');
   });
 });
 define('client/tests/unit/routes/cards-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
