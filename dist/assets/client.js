@@ -78,24 +78,10 @@ define('client/components/app-version', ['exports', 'ember-cli-app-version/compo
     name: name
   });
 });
-define('client/components/cards-container', ['exports', 'ember'], function (exports, _ember) {
+define('client/components/cards/cards-container', ['exports', 'ember'], function (exports, _ember) {
   exports['default'] = _ember['default'].Component.extend({});
 });
-define('client/components/nav-bar', ['exports', 'ember'], function (exports, _ember) {
-  exports['default'] = _ember['default'].Component.extend({
-    session: _ember['default'].inject.service('session'),
-
-    actions: {
-      invalidateSession: function invalidateSession() {
-        this.get('session').invalidate();
-      }
-    }
-  });
-});
-define('client/components/side-bar', ['exports', 'ember'], function (exports, _ember) {
-  exports['default'] = _ember['default'].Component.extend({});
-});
-define('client/components/signin-form', ['exports', 'ember'], function (exports, _ember) {
+define('client/components/forms/signin-form', ['exports', 'ember'], function (exports, _ember) {
   exports['default'] = _ember['default'].Component.extend({
     session: _ember['default'].inject.service('session'),
 
@@ -106,7 +92,21 @@ define('client/components/signin-form', ['exports', 'ember'], function (exports,
     }
   });
 });
-define('client/components/users-container', ['exports', 'ember'], function (exports, _ember) {
+define('client/components/layout/nav-bar', ['exports', 'ember'], function (exports, _ember) {
+  exports['default'] = _ember['default'].Component.extend({
+    session: _ember['default'].inject.service('session'),
+
+    actions: {
+      invalidateSession: function invalidateSession() {
+        this.get('session').invalidate();
+      }
+    }
+  });
+});
+define('client/components/layout/side-bar', ['exports', 'ember'], function (exports, _ember) {
+  exports['default'] = _ember['default'].Component.extend({});
+});
+define('client/components/users/users-container', ['exports', 'ember'], function (exports, _ember) {
   exports['default'] = _ember['default'].Component.extend({});
 });
 define('client/controllers/application', ['exports', 'ember'], function (exports, _ember) {
@@ -540,7 +540,7 @@ define("client/templates/application", ["exports"], function (exports) {
         morphs[1] = dom.createMorphAt(dom.childAt(fragment, [2, 1]), 1, 1);
         return morphs;
       },
-      statements: [["content", "nav-bar", ["loc", [null, [2, 2], [2, 13]]]], ["content", "outlet", ["loc", [null, [6, 4], [6, 14]]]]],
+      statements: [["content", "layout/nav-bar", ["loc", [null, [2, 2], [2, 20]]]], ["content", "outlet", ["loc", [null, [6, 4], [6, 14]]]]],
       locals: [],
       templates: []
     };
@@ -621,7 +621,7 @@ define("client/templates/cards/all", ["exports"], function (exports) {
           morphs[0] = dom.createMorphAt(fragment, 1, 1, contextualElement);
           return morphs;
         },
-        statements: [["inline", "cards-container", [], ["card", ["subexpr", "@mut", [["get", "card", ["loc", [null, [12, 27], [12, 31]]]]], [], []]], ["loc", [null, [12, 4], [12, 33]]]]],
+        statements: [["inline", "cards/cards-container", [], ["card", ["subexpr", "@mut", [["get", "card", ["loc", [null, [12, 33], [12, 37]]]]], [], []]], ["loc", [null, [12, 4], [12, 39]]]]],
         locals: ["card"],
         templates: []
       };
@@ -1004,13 +1004,13 @@ define("client/templates/cards", ["exports"], function (exports) {
         morphs[1] = dom.createMorphAt(dom.childAt(element0, [3]), 1, 1);
         return morphs;
       },
-      statements: [["content", "side-bar", ["loc", [null, [3, 4], [3, 16]]]], ["content", "outlet", ["loc", [null, [6, 4], [6, 14]]]]],
+      statements: [["content", "layout/side-bar", ["loc", [null, [3, 4], [3, 23]]]], ["content", "outlet", ["loc", [null, [6, 4], [6, 14]]]]],
       locals: [],
       templates: []
     };
   })());
 });
-define("client/templates/components/cards-container", ["exports"], function (exports) {
+define("client/templates/components/cards/cards-container", ["exports"], function (exports) {
   exports["default"] = Ember.HTMLBars.template((function () {
     var child0 = (function () {
       return {
@@ -1028,7 +1028,7 @@ define("client/templates/components/cards-container", ["exports"], function (exp
               "column": 8
             }
           },
-          "moduleName": "client/templates/components/cards-container.hbs"
+          "moduleName": "client/templates/components/cards/cards-container.hbs"
         },
         isEmpty: false,
         arity: 0,
@@ -1071,7 +1071,7 @@ define("client/templates/components/cards-container", ["exports"], function (exp
             "column": 0
           }
         },
-        "moduleName": "client/templates/components/cards-container.hbs"
+        "moduleName": "client/templates/components/cards/cards-container.hbs"
       },
       isEmpty: false,
       arity: 0,
@@ -1144,7 +1144,114 @@ define("client/templates/components/cards-container", ["exports"], function (exp
     };
   })());
 });
-define("client/templates/components/nav-bar", ["exports"], function (exports) {
+define("client/templates/components/forms/signin-form", ["exports"], function (exports) {
+  exports["default"] = Ember.HTMLBars.template((function () {
+    return {
+      meta: {
+        "fragmentReason": {
+          "name": "triple-curlies"
+        },
+        "revision": "Ember@2.6.1",
+        "loc": {
+          "source": null,
+          "start": {
+            "line": 1,
+            "column": 0
+          },
+          "end": {
+            "line": 15,
+            "column": 0
+          }
+        },
+        "moduleName": "client/templates/components/forms/signin-form.hbs"
+      },
+      isEmpty: false,
+      arity: 0,
+      cachedFragment: null,
+      hasRendered: false,
+      buildFragment: function buildFragment(dom) {
+        var el0 = dom.createDocumentFragment();
+        var el1 = dom.createElement("div");
+        dom.setAttribute(el1, "class", "col-md-4 col-md-offset-4");
+        var el2 = dom.createTextNode("\n  ");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createElement("form");
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("fieldset");
+        dom.setAttribute(el3, "class", "form-group");
+        var el4 = dom.createTextNode("\n      ");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createElement("label");
+        dom.setAttribute(el4, "for", "exampleInputEmail1");
+        var el5 = dom.createTextNode("Email address");
+        dom.appendChild(el4, el5);
+        dom.appendChild(el3, el4);
+        var el4 = dom.createTextNode("\n      ");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createComment("");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createTextNode("\n      ");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createElement("small");
+        dom.setAttribute(el4, "class", "text-muted");
+        var el5 = dom.createTextNode("We'll never share your email with anyone else.");
+        dom.appendChild(el4, el5);
+        dom.appendChild(el3, el4);
+        var el4 = dom.createTextNode("\n    ");
+        dom.appendChild(el3, el4);
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("fieldset");
+        dom.setAttribute(el3, "class", "form-group");
+        var el4 = dom.createTextNode("\n      ");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createElement("label");
+        dom.setAttribute(el4, "for", "exampleInputPassword1");
+        var el5 = dom.createTextNode("Password");
+        dom.appendChild(el4, el5);
+        dom.appendChild(el3, el4);
+        var el4 = dom.createTextNode("\n      ");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createComment("");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createTextNode("\n    ");
+        dom.appendChild(el3, el4);
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("button");
+        dom.setAttribute(el3, "type", "submit");
+        dom.setAttribute(el3, "class", "btn btn-primary");
+        var el4 = dom.createTextNode("Submit");
+        dom.appendChild(el3, el4);
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n  ");
+        dom.appendChild(el2, el3);
+        dom.appendChild(el1, el2);
+        var el2 = dom.createTextNode("\n");
+        dom.appendChild(el1, el2);
+        dom.appendChild(el0, el1);
+        var el1 = dom.createTextNode("\n");
+        dom.appendChild(el0, el1);
+        return el0;
+      },
+      buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+        var element0 = dom.childAt(fragment, [0, 1]);
+        var morphs = new Array(3);
+        morphs[0] = dom.createElementMorph(element0);
+        morphs[1] = dom.createMorphAt(dom.childAt(element0, [1]), 3, 3);
+        morphs[2] = dom.createMorphAt(dom.childAt(element0, [3]), 3, 3);
+        return morphs;
+      },
+      statements: [["element", "action", ["authenticate"], ["on", "submit"], ["loc", [null, [2, 8], [2, 45]]]], ["inline", "input", [], ["value", ["subexpr", "@mut", [["get", "email", ["loc", [null, [5, 20], [5, 25]]]]], [], []], "type", "email", "class", "form-control", "id", "exampleInputEmail1", "placeholder", "Enter email"], ["loc", [null, [5, 6], [5, 111]]]], ["inline", "input", [], ["value", ["subexpr", "@mut", [["get", "password", ["loc", [null, [10, 20], [10, 28]]]]], [], []], "type", "password", "class", "form-control", "id", "exampleInputPassword1", "placeholder", "Password"], ["loc", [null, [10, 6], [10, 117]]]]],
+      locals: [],
+      templates: []
+    };
+  })());
+});
+define("client/templates/components/layout/nav-bar", ["exports"], function (exports) {
   exports["default"] = Ember.HTMLBars.template((function () {
     var child0 = (function () {
       return {
@@ -1162,7 +1269,7 @@ define("client/templates/components/nav-bar", ["exports"], function (exports) {
               "column": 55
             }
           },
-          "moduleName": "client/templates/components/nav-bar.hbs"
+          "moduleName": "client/templates/components/layout/nav-bar.hbs"
         },
         isEmpty: false,
         arity: 0,
@@ -1199,7 +1306,7 @@ define("client/templates/components/nav-bar", ["exports"], function (exports) {
                 "column": 60
               }
             },
-            "moduleName": "client/templates/components/nav-bar.hbs"
+            "moduleName": "client/templates/components/layout/nav-bar.hbs"
           },
           isEmpty: false,
           arity: 0,
@@ -1235,7 +1342,7 @@ define("client/templates/components/nav-bar", ["exports"], function (exports) {
                 "column": 56
               }
             },
-            "moduleName": "client/templates/components/nav-bar.hbs"
+            "moduleName": "client/templates/components/layout/nav-bar.hbs"
           },
           isEmpty: false,
           arity: 0,
@@ -1271,7 +1378,7 @@ define("client/templates/components/nav-bar", ["exports"], function (exports) {
                 "column": 56
               }
             },
-            "moduleName": "client/templates/components/nav-bar.hbs"
+            "moduleName": "client/templates/components/layout/nav-bar.hbs"
           },
           isEmpty: false,
           arity: 0,
@@ -1306,7 +1413,7 @@ define("client/templates/components/nav-bar", ["exports"], function (exports) {
               "column": 6
             }
           },
-          "moduleName": "client/templates/components/nav-bar.hbs"
+          "moduleName": "client/templates/components/layout/nav-bar.hbs"
         },
         isEmpty: false,
         arity: 0,
@@ -1396,7 +1503,7 @@ define("client/templates/components/nav-bar", ["exports"], function (exports) {
                 "column": 55
               }
             },
-            "moduleName": "client/templates/components/nav-bar.hbs"
+            "moduleName": "client/templates/components/layout/nav-bar.hbs"
           },
           isEmpty: false,
           arity: 0,
@@ -1431,7 +1538,7 @@ define("client/templates/components/nav-bar", ["exports"], function (exports) {
               "column": 6
             }
           },
-          "moduleName": "client/templates/components/nav-bar.hbs"
+          "moduleName": "client/templates/components/layout/nav-bar.hbs"
         },
         isEmpty: false,
         arity: 0,
@@ -1481,7 +1588,7 @@ define("client/templates/components/nav-bar", ["exports"], function (exports) {
             "column": 0
           }
         },
-        "moduleName": "client/templates/components/nav-bar.hbs"
+        "moduleName": "client/templates/components/layout/nav-bar.hbs"
       },
       isEmpty: false,
       arity: 0,
@@ -1533,7 +1640,7 @@ define("client/templates/components/nav-bar", ["exports"], function (exports) {
     };
   })());
 });
-define("client/templates/components/side-bar", ["exports"], function (exports) {
+define("client/templates/components/layout/side-bar", ["exports"], function (exports) {
   exports["default"] = Ember.HTMLBars.template((function () {
     var child0 = (function () {
       return {
@@ -1551,7 +1658,7 @@ define("client/templates/components/side-bar", ["exports"], function (exports) {
               "column": 55
             }
           },
-          "moduleName": "client/templates/components/side-bar.hbs"
+          "moduleName": "client/templates/components/layout/side-bar.hbs"
         },
         isEmpty: false,
         arity: 0,
@@ -1587,7 +1694,7 @@ define("client/templates/components/side-bar", ["exports"], function (exports) {
               "column": 55
             }
           },
-          "moduleName": "client/templates/components/side-bar.hbs"
+          "moduleName": "client/templates/components/layout/side-bar.hbs"
         },
         isEmpty: false,
         arity: 0,
@@ -1624,7 +1731,7 @@ define("client/templates/components/side-bar", ["exports"], function (exports) {
             "column": 0
           }
         },
-        "moduleName": "client/templates/components/side-bar.hbs"
+        "moduleName": "client/templates/components/layout/side-bar.hbs"
       },
       isEmpty: false,
       arity: 0,
@@ -1678,114 +1785,7 @@ define("client/templates/components/side-bar", ["exports"], function (exports) {
     };
   })());
 });
-define("client/templates/components/signin-form", ["exports"], function (exports) {
-  exports["default"] = Ember.HTMLBars.template((function () {
-    return {
-      meta: {
-        "fragmentReason": {
-          "name": "triple-curlies"
-        },
-        "revision": "Ember@2.6.1",
-        "loc": {
-          "source": null,
-          "start": {
-            "line": 1,
-            "column": 0
-          },
-          "end": {
-            "line": 15,
-            "column": 0
-          }
-        },
-        "moduleName": "client/templates/components/signin-form.hbs"
-      },
-      isEmpty: false,
-      arity: 0,
-      cachedFragment: null,
-      hasRendered: false,
-      buildFragment: function buildFragment(dom) {
-        var el0 = dom.createDocumentFragment();
-        var el1 = dom.createElement("div");
-        dom.setAttribute(el1, "class", "col-md-4 col-md-offset-4");
-        var el2 = dom.createTextNode("\n  ");
-        dom.appendChild(el1, el2);
-        var el2 = dom.createElement("form");
-        var el3 = dom.createTextNode("\n    ");
-        dom.appendChild(el2, el3);
-        var el3 = dom.createElement("fieldset");
-        dom.setAttribute(el3, "class", "form-group");
-        var el4 = dom.createTextNode("\n      ");
-        dom.appendChild(el3, el4);
-        var el4 = dom.createElement("label");
-        dom.setAttribute(el4, "for", "exampleInputEmail1");
-        var el5 = dom.createTextNode("Email address");
-        dom.appendChild(el4, el5);
-        dom.appendChild(el3, el4);
-        var el4 = dom.createTextNode("\n      ");
-        dom.appendChild(el3, el4);
-        var el4 = dom.createComment("");
-        dom.appendChild(el3, el4);
-        var el4 = dom.createTextNode("\n      ");
-        dom.appendChild(el3, el4);
-        var el4 = dom.createElement("small");
-        dom.setAttribute(el4, "class", "text-muted");
-        var el5 = dom.createTextNode("We'll never share your email with anyone else.");
-        dom.appendChild(el4, el5);
-        dom.appendChild(el3, el4);
-        var el4 = dom.createTextNode("\n    ");
-        dom.appendChild(el3, el4);
-        dom.appendChild(el2, el3);
-        var el3 = dom.createTextNode("\n    ");
-        dom.appendChild(el2, el3);
-        var el3 = dom.createElement("fieldset");
-        dom.setAttribute(el3, "class", "form-group");
-        var el4 = dom.createTextNode("\n      ");
-        dom.appendChild(el3, el4);
-        var el4 = dom.createElement("label");
-        dom.setAttribute(el4, "for", "exampleInputPassword1");
-        var el5 = dom.createTextNode("Password");
-        dom.appendChild(el4, el5);
-        dom.appendChild(el3, el4);
-        var el4 = dom.createTextNode("\n      ");
-        dom.appendChild(el3, el4);
-        var el4 = dom.createComment("");
-        dom.appendChild(el3, el4);
-        var el4 = dom.createTextNode("\n    ");
-        dom.appendChild(el3, el4);
-        dom.appendChild(el2, el3);
-        var el3 = dom.createTextNode("\n    ");
-        dom.appendChild(el2, el3);
-        var el3 = dom.createElement("button");
-        dom.setAttribute(el3, "type", "submit");
-        dom.setAttribute(el3, "class", "btn btn-primary");
-        var el4 = dom.createTextNode("Submit");
-        dom.appendChild(el3, el4);
-        dom.appendChild(el2, el3);
-        var el3 = dom.createTextNode("\n  ");
-        dom.appendChild(el2, el3);
-        dom.appendChild(el1, el2);
-        var el2 = dom.createTextNode("\n");
-        dom.appendChild(el1, el2);
-        dom.appendChild(el0, el1);
-        var el1 = dom.createTextNode("\n");
-        dom.appendChild(el0, el1);
-        return el0;
-      },
-      buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
-        var element0 = dom.childAt(fragment, [0, 1]);
-        var morphs = new Array(3);
-        morphs[0] = dom.createElementMorph(element0);
-        morphs[1] = dom.createMorphAt(dom.childAt(element0, [1]), 3, 3);
-        morphs[2] = dom.createMorphAt(dom.childAt(element0, [3]), 3, 3);
-        return morphs;
-      },
-      statements: [["element", "action", ["authenticate"], ["on", "submit"], ["loc", [null, [2, 8], [2, 45]]]], ["inline", "input", [], ["value", ["subexpr", "@mut", [["get", "email", ["loc", [null, [5, 20], [5, 25]]]]], [], []], "type", "email", "class", "form-control", "id", "exampleInputEmail1", "placeholder", "Enter email"], ["loc", [null, [5, 6], [5, 111]]]], ["inline", "input", [], ["value", ["subexpr", "@mut", [["get", "password", ["loc", [null, [10, 20], [10, 28]]]]], [], []], "type", "password", "class", "form-control", "id", "exampleInputPassword1", "placeholder", "Password"], ["loc", [null, [10, 6], [10, 117]]]]],
-      locals: [],
-      templates: []
-    };
-  })());
-});
-define("client/templates/components/users-container", ["exports"], function (exports) {
+define("client/templates/components/users/users-container", ["exports"], function (exports) {
   exports["default"] = Ember.HTMLBars.template((function () {
     var child0 = (function () {
       return {
@@ -1803,7 +1803,7 @@ define("client/templates/components/users-container", ["exports"], function (exp
               "column": 8
             }
           },
-          "moduleName": "client/templates/components/users-container.hbs"
+          "moduleName": "client/templates/components/users/users-container.hbs"
         },
         isEmpty: false,
         arity: 0,
@@ -1846,7 +1846,7 @@ define("client/templates/components/users-container", ["exports"], function (exp
             "column": 0
           }
         },
-        "moduleName": "client/templates/components/users-container.hbs"
+        "moduleName": "client/templates/components/users/users-container.hbs"
       },
       isEmpty: false,
       arity: 0,
@@ -1984,7 +1984,7 @@ define("client/templates/dashboard", ["exports"], function (exports) {
         morphs[1] = dom.createMorphAt(dom.childAt(element0, [3]), 1, 1);
         return morphs;
       },
-      statements: [["content", "side-bar", ["loc", [null, [3, 4], [3, 16]]]], ["content", "outlet", ["loc", [null, [6, 4], [6, 14]]]]],
+      statements: [["content", "layout/side-bar", ["loc", [null, [3, 4], [3, 23]]]], ["content", "outlet", ["loc", [null, [6, 4], [6, 14]]]]],
       locals: [],
       templates: []
     };
@@ -2096,7 +2096,7 @@ define("client/templates/signin", ["exports"], function (exports) {
         dom.insertBoundary(fragment, 0);
         return morphs;
       },
-      statements: [["inline", "signin-form", [["get", "action", ["loc", [null, [1, 14], [1, 20]]]], "authenticate"], ["on", "submit"], ["loc", [null, [1, 0], [1, 49]]]]],
+      statements: [["inline", "forms/signin-form", [["get", "action", ["loc", [null, [1, 20], [1, 26]]]], "authenticate"], ["on", "submit"], ["loc", [null, [1, 0], [1, 55]]]]],
       locals: [],
       templates: []
     };
@@ -2354,7 +2354,7 @@ define("client/templates/users", ["exports"], function (exports) {
         morphs[1] = dom.createMorphAt(dom.childAt(element0, [3]), 1, 1);
         return morphs;
       },
-      statements: [["content", "side-bar", ["loc", [null, [3, 4], [3, 16]]]], ["content", "outlet", ["loc", [null, [6, 4], [6, 14]]]]],
+      statements: [["content", "layout/side-bar", ["loc", [null, [3, 4], [3, 23]]]], ["content", "outlet", ["loc", [null, [6, 4], [6, 14]]]]],
       locals: [],
       templates: []
     };
@@ -2392,7 +2392,7 @@ catch(err) {
 /* jshint ignore:start */
 
 if (!runningTests) {
-  require("client/app")["default"].create({"name":"client","version":"0.0.0+c9e483b5"});
+  require("client/app")["default"].create({"name":"client","version":"0.0.0+ded4e848"});
 }
 
 /* jshint ignore:end */
