@@ -2144,7 +2144,7 @@ define("client/templates/users/all", ["exports"], function (exports) {
           morphs[0] = dom.createMorphAt(fragment, 1, 1, contextualElement);
           return morphs;
         },
-        statements: [["inline", "users-container", [], ["user", ["subexpr", "@mut", [["get", "user", ["loc", [null, [2, 25], [2, 29]]]]], [], []]], ["loc", [null, [2, 2], [2, 31]]]]],
+        statements: [["inline", "users/users-container", [], ["user", ["subexpr", "@mut", [["get", "user", ["loc", [null, [2, 31], [2, 35]]]]], [], []]], ["loc", [null, [2, 2], [2, 37]]]]],
         locals: ["user"],
         templates: []
       };
