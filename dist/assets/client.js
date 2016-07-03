@@ -2392,7 +2392,7 @@ catch(err) {
 /* jshint ignore:start */
 
 if (!runningTests) {
-  require("client/app")["default"].create({"name":"client","version":"0.0.0+c679c8eb"});
+  require("client/app")["default"].create({"name":"client","version":"0.0.0+c9e483b5"});
 }
 
 /* jshint ignore:end */
