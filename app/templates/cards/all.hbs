@@ -1,7 +1,17 @@
-{{#each cards as |card|}}
-  {{cards-container card=card}}
-{{else}}
-  Sorry, nobody is here.
-{{/each}}
+<div class="row">
+  <div class="col-md-3">
+    <div class="list-group">
+      {{#link-to 'cards.new' class="list-group-item"}}Add Card{{/link-to}}
+      <a href="#" class="list-group-item">Edit Card</a>
+      <a href="#" class="list-group-item">Delete Card</a>
+    </div>
+  </div>
 
-{{#link-to 'cards.new'}}Add Card{{/link-to}}
+  <div class="col-md-9">
+  {{#each cards as |card|}}
+    {{cards-container card=card}}
+  {{else}}
+    Sorry, nobody is here.
+  {{/each}}
+  </div>
+</div>

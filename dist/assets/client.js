@@ -551,98 +551,17 @@ define("client/templates/cards/all", ["exports"], function (exports) {
     var child0 = (function () {
       return {
         meta: {
-          "fragmentReason": {
-            "name": "missing-wrapper",
-            "problems": ["wrong-type"]
-          },
-          "revision": "Ember@2.6.1",
-          "loc": {
-            "source": null,
-            "start": {
-              "line": 1,
-              "column": 0
-            },
-            "end": {
-              "line": 3,
-              "column": 0
-            }
-          },
-          "moduleName": "client/templates/cards/all.hbs"
-        },
-        isEmpty: false,
-        arity: 1,
-        cachedFragment: null,
-        hasRendered: false,
-        buildFragment: function buildFragment(dom) {
-          var el0 = dom.createDocumentFragment();
-          var el1 = dom.createTextNode("  ");
-          dom.appendChild(el0, el1);
-          var el1 = dom.createComment("");
-          dom.appendChild(el0, el1);
-          var el1 = dom.createTextNode("\n");
-          dom.appendChild(el0, el1);
-          return el0;
-        },
-        buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
-          var morphs = new Array(1);
-          morphs[0] = dom.createMorphAt(fragment, 1, 1, contextualElement);
-          return morphs;
-        },
-        statements: [["inline", "cards-container", [], ["card", ["subexpr", "@mut", [["get", "card", ["loc", [null, [2, 25], [2, 29]]]]], [], []]], ["loc", [null, [2, 2], [2, 31]]]]],
-        locals: ["card"],
-        templates: []
-      };
-    })();
-    var child1 = (function () {
-      return {
-        meta: {
           "fragmentReason": false,
           "revision": "Ember@2.6.1",
           "loc": {
             "source": null,
             "start": {
-              "line": 3,
-              "column": 0
+              "line": 4,
+              "column": 6
             },
             "end": {
-              "line": 5,
-              "column": 0
-            }
-          },
-          "moduleName": "client/templates/cards/all.hbs"
-        },
-        isEmpty: false,
-        arity: 0,
-        cachedFragment: null,
-        hasRendered: false,
-        buildFragment: function buildFragment(dom) {
-          var el0 = dom.createDocumentFragment();
-          var el1 = dom.createTextNode("  Sorry, nobody is here.\n");
-          dom.appendChild(el0, el1);
-          return el0;
-        },
-        buildRenderNodes: function buildRenderNodes() {
-          return [];
-        },
-        statements: [],
-        locals: [],
-        templates: []
-      };
-    })();
-    var child2 = (function () {
-      return {
-        meta: {
-          "fragmentReason": false,
-          "revision": "Ember@2.6.1",
-          "loc": {
-            "source": null,
-            "start": {
-              "line": 7,
-              "column": 0
-            },
-            "end": {
-              "line": 7,
-              "column": 32
+              "line": 4,
+              "column": 62
             }
           },
           "moduleName": "client/templates/cards/all.hbs"
@@ -665,11 +584,88 @@ define("client/templates/cards/all", ["exports"], function (exports) {
         templates: []
       };
     })();
+    var child1 = (function () {
+      return {
+        meta: {
+          "fragmentReason": false,
+          "revision": "Ember@2.6.1",
+          "loc": {
+            "source": null,
+            "start": {
+              "line": 11,
+              "column": 2
+            },
+            "end": {
+              "line": 13,
+              "column": 2
+            }
+          },
+          "moduleName": "client/templates/cards/all.hbs"
+        },
+        isEmpty: false,
+        arity: 1,
+        cachedFragment: null,
+        hasRendered: false,
+        buildFragment: function buildFragment(dom) {
+          var el0 = dom.createDocumentFragment();
+          var el1 = dom.createTextNode("    ");
+          dom.appendChild(el0, el1);
+          var el1 = dom.createComment("");
+          dom.appendChild(el0, el1);
+          var el1 = dom.createTextNode("\n");
+          dom.appendChild(el0, el1);
+          return el0;
+        },
+        buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+          var morphs = new Array(1);
+          morphs[0] = dom.createMorphAt(fragment, 1, 1, contextualElement);
+          return morphs;
+        },
+        statements: [["inline", "cards-container", [], ["card", ["subexpr", "@mut", [["get", "card", ["loc", [null, [12, 27], [12, 31]]]]], [], []]], ["loc", [null, [12, 4], [12, 33]]]]],
+        locals: ["card"],
+        templates: []
+      };
+    })();
+    var child2 = (function () {
+      return {
+        meta: {
+          "fragmentReason": false,
+          "revision": "Ember@2.6.1",
+          "loc": {
+            "source": null,
+            "start": {
+              "line": 13,
+              "column": 2
+            },
+            "end": {
+              "line": 15,
+              "column": 2
+            }
+          },
+          "moduleName": "client/templates/cards/all.hbs"
+        },
+        isEmpty: false,
+        arity: 0,
+        cachedFragment: null,
+        hasRendered: false,
+        buildFragment: function buildFragment(dom) {
+          var el0 = dom.createDocumentFragment();
+          var el1 = dom.createTextNode("    Sorry, nobody is here.\n");
+          dom.appendChild(el0, el1);
+          return el0;
+        },
+        buildRenderNodes: function buildRenderNodes() {
+          return [];
+        },
+        statements: [],
+        locals: [],
+        templates: []
+      };
+    })();
     return {
       meta: {
         "fragmentReason": {
-          "name": "missing-wrapper",
-          "problems": ["wrong-type", "multiple-nodes"]
+          "name": "triple-curlies"
         },
         "revision": "Ember@2.6.1",
         "loc": {
@@ -679,7 +675,7 @@ define("client/templates/cards/all", ["exports"], function (exports) {
             "column": 0
           },
           "end": {
-            "line": 8,
+            "line": 18,
             "column": 0
           }
         },
@@ -691,24 +687,68 @@ define("client/templates/cards/all", ["exports"], function (exports) {
       hasRendered: false,
       buildFragment: function buildFragment(dom) {
         var el0 = dom.createDocumentFragment();
-        var el1 = dom.createComment("");
-        dom.appendChild(el0, el1);
-        var el1 = dom.createTextNode("\n");
-        dom.appendChild(el0, el1);
-        var el1 = dom.createComment("");
+        var el1 = dom.createElement("div");
+        dom.setAttribute(el1, "class", "row");
+        var el2 = dom.createTextNode("\n  ");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createElement("div");
+        dom.setAttribute(el2, "class", "col-md-3");
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("div");
+        dom.setAttribute(el3, "class", "list-group");
+        var el4 = dom.createTextNode("\n      ");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createComment("");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createTextNode("\n      ");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createElement("a");
+        dom.setAttribute(el4, "href", "#");
+        dom.setAttribute(el4, "class", "list-group-item");
+        var el5 = dom.createTextNode("Edit Card");
+        dom.appendChild(el4, el5);
+        dom.appendChild(el3, el4);
+        var el4 = dom.createTextNode("\n      ");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createElement("a");
+        dom.setAttribute(el4, "href", "#");
+        dom.setAttribute(el4, "class", "list-group-item");
+        var el5 = dom.createTextNode("Delete Card");
+        dom.appendChild(el4, el5);
+        dom.appendChild(el3, el4);
+        var el4 = dom.createTextNode("\n    ");
+        dom.appendChild(el3, el4);
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n  ");
+        dom.appendChild(el2, el3);
+        dom.appendChild(el1, el2);
+        var el2 = dom.createTextNode("\n\n  ");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createElement("div");
+        dom.setAttribute(el2, "class", "col-md-9");
+        var el3 = dom.createTextNode("\n");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createComment("");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("  ");
+        dom.appendChild(el2, el3);
+        dom.appendChild(el1, el2);
+        var el2 = dom.createTextNode("\n");
+        dom.appendChild(el1, el2);
         dom.appendChild(el0, el1);
         var el1 = dom.createTextNode("\n");
         dom.appendChild(el0, el1);
         return el0;
       },
       buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+        var element0 = dom.childAt(fragment, [0]);
         var morphs = new Array(2);
-        morphs[0] = dom.createMorphAt(fragment, 0, 0, contextualElement);
-        morphs[1] = dom.createMorphAt(fragment, 2, 2, contextualElement);
-        dom.insertBoundary(fragment, 0);
+        morphs[0] = dom.createMorphAt(dom.childAt(element0, [1, 1]), 1, 1);
+        morphs[1] = dom.createMorphAt(dom.childAt(element0, [3]), 1, 1);
         return morphs;
       },
-      statements: [["block", "each", [["get", "cards", ["loc", [null, [1, 8], [1, 13]]]]], [], 0, 1, ["loc", [null, [1, 0], [5, 9]]]], ["block", "link-to", ["cards.new"], [], 2, null, ["loc", [null, [7, 0], [7, 44]]]]],
+      statements: [["block", "link-to", ["cards.new"], ["class", "list-group-item"], 0, null, ["loc", [null, [4, 6], [4, 74]]]], ["block", "each", [["get", "cards", ["loc", [null, [11, 10], [11, 15]]]]], [], 1, 2, ["loc", [null, [11, 2], [15, 11]]]]],
       locals: [],
       templates: [child0, child1, child2]
     };
@@ -788,7 +828,7 @@ define("client/templates/cards/new", ["exports"], function (exports) {
             "column": 0
           },
           "end": {
-            "line": 15,
+            "line": 19,
             "column": 0
           }
         },
@@ -803,49 +843,72 @@ define("client/templates/cards/new", ["exports"], function (exports) {
         var el1 = dom.createElement("form");
         var el2 = dom.createTextNode("\n  ");
         dom.appendChild(el1, el2);
-        var el2 = dom.createElement("div");
+        var el2 = dom.createElement("fieldset");
+        dom.setAttribute(el2, "class", "form-group");
         var el3 = dom.createTextNode("\n    ");
         dom.appendChild(el2, el3);
         var el3 = dom.createElement("label");
-        var el4 = dom.createTextNode("Title:");
+        dom.setAttribute(el3, "for", "card-title");
+        var el4 = dom.createTextNode("Card Title");
         dom.appendChild(el3, el4);
         dom.appendChild(el2, el3);
         var el3 = dom.createTextNode("\n    ");
         dom.appendChild(el2, el3);
         var el3 = dom.createComment("");
         dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("small");
+        dom.setAttribute(el3, "class", "text-muted");
+        var el4 = dom.createTextNode("Give your card a nice title");
+        dom.appendChild(el3, el4);
+        dom.appendChild(el2, el3);
         var el3 = dom.createTextNode("\n  ");
         dom.appendChild(el2, el3);
         dom.appendChild(el1, el2);
-        var el2 = dom.createTextNode("\n  ");
+        var el2 = dom.createTextNode("\n\n  ");
         dom.appendChild(el1, el2);
-        var el2 = dom.createElement("div");
+        var el2 = dom.createElement("fieldset");
+        dom.setAttribute(el2, "class", "form-group");
         var el3 = dom.createTextNode("\n    ");
         dom.appendChild(el2, el3);
         var el3 = dom.createElement("label");
-        var el4 = dom.createTextNode("Body:");
+        dom.setAttribute(el3, "for", "card-description");
+        var el4 = dom.createTextNode("Card Description");
         dom.appendChild(el3, el4);
         dom.appendChild(el2, el3);
         var el3 = dom.createTextNode("\n    ");
         dom.appendChild(el2, el3);
         var el3 = dom.createComment("");
         dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("small");
+        dom.setAttribute(el3, "class", "text-muted");
+        var el4 = dom.createTextNode("Describe your card");
+        dom.appendChild(el3, el4);
+        dom.appendChild(el2, el3);
         var el3 = dom.createTextNode("\n  ");
         dom.appendChild(el2, el3);
         dom.appendChild(el1, el2);
-        var el2 = dom.createTextNode("\n  ");
+        var el2 = dom.createTextNode("\n\n  ");
         dom.appendChild(el1, el2);
         var el2 = dom.createElement("div");
+        dom.setAttribute(el2, "class", "btn-group");
+        dom.setAttribute(el2, "role", "group");
+        dom.setAttribute(el2, "aria-label", "Save or Cancel your card");
         var el3 = dom.createTextNode("\n    ");
         dom.appendChild(el2, el3);
         var el3 = dom.createElement("button");
-        var el4 = dom.createTextNode("Speichern");
+        dom.setAttribute(el3, "class", "btn btn-secondary");
+        var el4 = dom.createTextNode("Save");
         dom.appendChild(el3, el4);
         dom.appendChild(el2, el3);
         var el3 = dom.createTextNode("\n    ");
         dom.appendChild(el2, el3);
         var el3 = dom.createElement("button");
-        var el4 = dom.createTextNode("Abbrechen");
+        dom.setAttribute(el3, "class", "btn btn-danger");
+        var el4 = dom.createTextNode("Cancel");
         dom.appendChild(el3, el4);
         dom.appendChild(el2, el3);
         var el3 = dom.createTextNode("\n  ");
@@ -870,7 +933,7 @@ define("client/templates/cards/new", ["exports"], function (exports) {
         morphs[3] = dom.createElementMorph(element3);
         return morphs;
       },
-      statements: [["inline", "input", [], ["type", "text", "value", ["subexpr", "@mut", [["get", "model.title", ["loc", [null, [4, 30], [4, 41]]]]], [], []]], ["loc", [null, [4, 4], [4, 43]]]], ["inline", "textarea", [], ["rows", "5", "value", ["subexpr", "@mut", [["get", "model.description", ["loc", [null, [8, 30], [8, 47]]]]], [], []]], ["loc", [null, [8, 4], [8, 49]]]], ["element", "action", ["save"], [], ["loc", [null, [11, 12], [11, 29]]]], ["element", "action", ["cancel"], [], ["loc", [null, [12, 12], [12, 31]]]]],
+      statements: [["inline", "input", [], ["type", "text", "value", ["subexpr", "@mut", [["get", "model.title", ["loc", [null, [4, 30], [4, 41]]]]], [], []], "class", "form-control", "id", "card-title", "placeholder", "Enter the title of the card"], ["loc", [null, [4, 4], [4, 122]]]], ["inline", "textarea", [], ["value", ["subexpr", "@mut", [["get", "model.description", ["loc", [null, [10, 21], [10, 38]]]]], [], []], "class", "form-control", "id", "card-description", "rows", "3"], ["loc", [null, [10, 4], [10, 92]]]], ["element", "action", ["save"], [], ["loc", [null, [15, 12], [15, 29]]]], ["element", "action", ["cancel"], [], ["loc", [null, [16, 12], [16, 31]]]]],
       locals: [],
       templates: []
     };
