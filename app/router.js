@@ -11,12 +11,14 @@ Router.map(function() {
   this.route('dashboard');
   this.route('users', function() {
     this.route('all');
-    this.route('user', {path: ':user_id'});
+    this.route('user', {path: '/:user_id'});
   });
 
   this.route('cards', function() {
     this.route('all');
-    this.route('card', {path: ':card_id'});
+    this.route('card', {path: '/:card_id'}, function() {
+      this.route('edit');
+    });
     this.route('new');
   });
 });
