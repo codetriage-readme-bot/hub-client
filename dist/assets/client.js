@@ -349,12 +349,12 @@ define('client/router', ['exports', 'ember', 'client/config/environment'], funct
     this.route('dashboard');
     this.route('users', function () {
       this.route('all');
-      this.route('user', { path: ':id' });
+      this.route('user', { path: ':user_id' });
     });
 
     this.route('cards', function () {
       this.route('all');
-      this.route('card', { path: ':id' });
+      this.route('card', { path: ':card_id' });
       this.route('new');
     });
   });
@@ -2392,7 +2392,7 @@ catch(err) {
 /* jshint ignore:start */
 
 if (!runningTests) {
-  require("client/app")["default"].create({"name":"client","version":"0.0.0+ded4e848"});
+  require("client/app")["default"].create({"name":"client","version":"0.0.0+5e7a6cdf"});
 }
 
 /* jshint ignore:end */
