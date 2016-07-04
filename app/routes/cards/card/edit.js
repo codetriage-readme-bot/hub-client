@@ -10,5 +10,10 @@ export default Ember.Route.extend({
         this.transitionTo('cards.all');
       }.bind(this));
     }
+  },
+
+  setupController(controller, model) {
+    this._super(controller, model);
+    controller.set('card', model);
   }
 });

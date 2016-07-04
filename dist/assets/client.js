@@ -120,23 +120,6 @@ define('client/controllers/application', ['exports', 'ember'], function (exports
     }
   });
 });
-define('client/controllers/cards/edit', ['exports', 'ember'], function (exports, _ember) {
-  exports['default'] = _ember['default'].Controller.extend({});
-});
-define('client/controllers/cards/new', ['exports', 'ember'], function (exports, _ember) {
-  exports['default'] = _ember['default'].Controller.extend({
-    actions: {
-      save: function save() {
-        var _this = this;
-
-        var newCard = this.get('store').createRecord('card', this.get('model'));
-        newCard.save().then(function (card) {
-          _this.transitionToRoute('cards.all');
-        });
-      }
-    }
-  });
-});
 define('client/helpers/pluralize', ['exports', 'ember-inflector/lib/helpers/pluralize'], function (exports, _emberInflectorLibHelpersPluralize) {
   exports['default'] = _emberInflectorLibHelpersPluralize['default'];
 });
@@ -392,6 +375,11 @@ define('client/routes/cards/card/edit', ['exports', 'ember'], function (exports,
           this.transitionTo('cards.all');
         }).bind(this));
       }
+    },
+
+    setupController: function setupController(controller, model) {
+      this._super(controller, model);
+      controller.set('card', model);
     }
   });
 });
@@ -409,8 +397,20 @@ define('client/routes/cards/card', ['exports', 'ember'], function (exports, _emb
 });
 define('client/routes/cards/new', ['exports', 'ember'], function (exports, _ember) {
   exports['default'] = _ember['default'].Route.extend({
-    model: function model() {
-      return {};
+    actions: {
+      save: function save(title, description) {
+        var _this = this;
+
+        var newCard = this.get('store').createRecord('card', { title: title, description: description });
+        newCard.save().then(function (card) {
+          _this.transitionTo('cards.all');
+        });
+      }
+    },
+
+    setupController: function setupController(controller, model) {
+      this._super(controller, model);
+      controller.set('card', model);
     }
   });
 });
@@ -896,7 +896,7 @@ define("client/templates/cards/card/edit", ["exports"], function (exports) {
         morphs[3] = dom.createElementMorph(element3);
         return morphs;
       },
-      statements: [["inline", "input", [], ["type", "text", "value", ["subexpr", "@mut", [["get", "model.title", ["loc", [null, [4, 30], [4, 41]]]]], [], []], "class", "form-control", "id", "card-title", "placeholder", "Enter the title of the card"], ["loc", [null, [4, 4], [4, 122]]]], ["inline", "textarea", [], ["value", ["subexpr", "@mut", [["get", "model.description", ["loc", [null, [10, 21], [10, 38]]]]], [], []], "class", "form-control", "id", "card-description", "rows", "3"], ["loc", [null, [10, 4], [10, 92]]]], ["element", "action", ["save", ["get", "model.title", ["loc", [null, [15, 28], [15, 39]]]], ["get", "model.description", ["loc", [null, [15, 40], [15, 57]]]], ["get", "model.id", ["loc", [null, [15, 58], [15, 66]]]]], [], ["loc", [null, [15, 12], [15, 68]]]], ["element", "action", ["cancel"], [], ["loc", [null, [16, 12], [16, 31]]]]],
+      statements: [["inline", "input", [], ["type", "text", "value", ["subexpr", "@mut", [["get", "card.title", ["loc", [null, [4, 30], [4, 40]]]]], [], []], "class", "form-control", "id", "card-title", "placeholder", "Enter the title of the card"], ["loc", [null, [4, 4], [4, 121]]]], ["inline", "textarea", [], ["value", ["subexpr", "@mut", [["get", "card.description", ["loc", [null, [10, 21], [10, 37]]]]], [], []], "class", "form-control", "id", "card-description", "rows", "3"], ["loc", [null, [10, 4], [10, 91]]]], ["element", "action", ["save", ["get", "card.title", ["loc", [null, [15, 28], [15, 38]]]], ["get", "card.description", ["loc", [null, [15, 39], [15, 55]]]], ["get", "card.id", ["loc", [null, [15, 56], [15, 63]]]]], [], ["loc", [null, [15, 12], [15, 65]]]], ["element", "action", ["cancel"], [], ["loc", [null, [16, 12], [16, 31]]]]],
       locals: [],
       templates: []
     };
@@ -1128,7 +1128,7 @@ define("client/templates/cards/new", ["exports"], function (exports) {
         morphs[3] = dom.createElementMorph(element3);
         return morphs;
       },
-      statements: [["inline", "input", [], ["type", "text", "value", ["subexpr", "@mut", [["get", "model.title", ["loc", [null, [4, 30], [4, 41]]]]], [], []], "class", "form-control", "id", "card-title", "placeholder", "Enter the title of the card"], ["loc", [null, [4, 4], [4, 122]]]], ["inline", "textarea", [], ["value", ["subexpr", "@mut", [["get", "model.description", ["loc", [null, [10, 21], [10, 38]]]]], [], []], "class", "form-control", "id", "card-description", "rows", "3"], ["loc", [null, [10, 4], [10, 92]]]], ["element", "action", ["save"], [], ["loc", [null, [15, 12], [15, 29]]]], ["element", "action", ["cancel"], [], ["loc", [null, [16, 12], [16, 31]]]]],
+      statements: [["inline", "input", [], ["type", "text", "value", ["subexpr", "@mut", [["get", "card.title", ["loc", [null, [4, 30], [4, 40]]]]], [], []], "class", "form-control", "id", "card-title", "placeholder", "Enter the title of the card"], ["loc", [null, [4, 4], [4, 121]]]], ["inline", "textarea", [], ["value", ["subexpr", "@mut", [["get", "card.description", ["loc", [null, [10, 21], [10, 37]]]]], [], []], "class", "form-control", "id", "card-description", "rows", "3"], ["loc", [null, [10, 4], [10, 91]]]], ["element", "action", ["save", ["get", "card.title", ["loc", [null, [15, 28], [15, 38]]]], ["get", "card.description", ["loc", [null, [15, 39], [15, 55]]]]], [], ["loc", [null, [15, 12], [15, 57]]]], ["element", "action", ["cancel"], [], ["loc", [null, [16, 12], [16, 31]]]]],
       locals: [],
       templates: []
     };
