@@ -9,6 +9,10 @@ export default Ember.Route.extend({
         post.save();
         this.transitionTo('cards.all');
       }.bind(this));
+    },
+
+    cancel() {
+      this.transitionTo('cards.card');
     }
   },
 

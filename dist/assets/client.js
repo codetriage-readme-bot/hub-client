@@ -374,6 +374,10 @@ define('client/routes/cards/card/edit', ['exports', 'ember'], function (exports,
           post.save();
           this.transitionTo('cards.all');
         }).bind(this));
+      },
+
+      cancel: function cancel() {
+        this.transitionTo('cards.card');
       }
     },
 
@@ -403,8 +407,13 @@ define('client/routes/cards/new', ['exports', 'ember'], function (exports, _embe
 
         var newCard = this.get('store').createRecord('card', { title: title, description: description });
         newCard.save().then(function (card) {
+          console.log(card.id);
           _this.transitionTo('cards.all');
         });
+      },
+
+      cancel: function cancel() {
+        this.transitionTo('cards.all');
       }
     },
 
@@ -912,11 +921,11 @@ define("client/templates/cards/card", ["exports"], function (exports) {
           "loc": {
             "source": null,
             "start": {
-              "line": 7,
+              "line": 8,
               "column": 0
             },
             "end": {
-              "line": 7,
+              "line": 8,
               "column": 39
             }
           },
@@ -954,7 +963,7 @@ define("client/templates/cards/card", ["exports"], function (exports) {
             "column": 0
           },
           "end": {
-            "line": 10,
+            "line": 11,
             "column": 0
           }
         },
@@ -979,6 +988,13 @@ define("client/templates/cards/card", ["exports"], function (exports) {
         var el4 = dom.createComment("");
         dom.appendChild(el3, el4);
         dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("p");
+        dom.setAttribute(el3, "class", "card-text");
+        var el4 = dom.createComment("");
+        dom.appendChild(el3, el4);
+        dom.appendChild(el2, el3);
         var el3 = dom.createTextNode("\n  ");
         dom.appendChild(el2, el3);
         dom.appendChild(el1, el2);
@@ -998,13 +1014,15 @@ define("client/templates/cards/card", ["exports"], function (exports) {
         return el0;
       },
       buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
-        var morphs = new Array(3);
-        morphs[0] = dom.createMorphAt(dom.childAt(fragment, [0, 1, 1]), 0, 0);
-        morphs[1] = dom.createMorphAt(fragment, 2, 2, contextualElement);
-        morphs[2] = dom.createMorphAt(fragment, 4, 4, contextualElement);
+        var element0 = dom.childAt(fragment, [0, 1]);
+        var morphs = new Array(4);
+        morphs[0] = dom.createMorphAt(dom.childAt(element0, [1]), 0, 0);
+        morphs[1] = dom.createMorphAt(dom.childAt(element0, [3]), 0, 0);
+        morphs[2] = dom.createMorphAt(fragment, 2, 2, contextualElement);
+        morphs[3] = dom.createMorphAt(fragment, 4, 4, contextualElement);
         return morphs;
       },
-      statements: [["content", "card.title", ["loc", [null, [3, 27], [3, 41]]]], ["block", "link-to", ["cards.card.edit", ["get", "card", ["loc", [null, [7, 29], [7, 33]]]]], [], 0, null, ["loc", [null, [7, 0], [7, 51]]]], ["content", "outlet", ["loc", [null, [9, 0], [9, 10]]]]],
+      statements: [["content", "card.title", ["loc", [null, [3, 27], [3, 41]]]], ["content", "card.description", ["loc", [null, [4, 25], [4, 45]]]], ["block", "link-to", ["cards.card.edit", ["get", "card", ["loc", [null, [8, 29], [8, 33]]]]], [], 0, null, ["loc", [null, [8, 0], [8, 51]]]], ["content", "outlet", ["loc", [null, [10, 0], [10, 10]]]]],
       locals: [],
       templates: [child0]
     };
