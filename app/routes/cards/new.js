@@ -5,13 +5,12 @@ export default Ember.Route.extend({
     save(title, description) {
       const newCard = this.get('store').createRecord('card', { title, description } );
       newCard.save().then((card) => {
-        console.log(card.id);
         this.transitionTo('cards.all');
       });
     },
 
     cancel() {
-      this.transitionTo('cards.all')
+      this.transitionTo('cards.all');
     }
   },
 

@@ -407,7 +407,6 @@ define('client/routes/cards/new', ['exports', 'ember'], function (exports, _embe
 
         var newCard = this.get('store').createRecord('card', { title: title, description: description });
         newCard.save().then(function (card) {
-          console.log(card.id);
           _this.transitionTo('cards.all');
         });
       },
