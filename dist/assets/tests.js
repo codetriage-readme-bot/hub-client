@@ -1029,7 +1029,7 @@ define('client/tests/routes/cards/new.jshint', ['exports'], function (exports) {
   QUnit.module('JSHint | routes/cards/new.js');
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'routes/cards/new.js should pass jshint.\nroutes/cards/new.js: line 7, col 28, \'card\' is defined but never used.\n\n1 error');
+    assert.ok(true, 'routes/cards/new.js should pass jshint.');
   });
 });
 define('client/tests/routes/cards.jshint', ['exports'], function (exports) {

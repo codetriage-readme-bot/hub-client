@@ -355,6 +355,7 @@ define('client/routes/application', ['exports', 'ember', 'ember-simple-auth/mixi
 define('client/routes/cards/all', ['exports', 'ember'], function (exports, _ember) {
   exports['default'] = _ember['default'].Route.extend({
     model: function model() {
+      // return all the cards
       return this.store.findAll('card');
     },
 
@@ -368,11 +369,20 @@ define('client/routes/cards/card/edit', ['exports', 'ember'], function (exports,
   exports['default'] = _ember['default'].Route.extend({
     actions: {
       save: function save(title, description, id) {
+        // find the card with the id
         this.store.findRecord('card', id).then((function (post) {
+          var _this = this;
+
+          // get the required fields to update
+          // eg: title, description
           post.get('title');
           post.get('description');
-          post.save();
-          this.transitionTo('cards.all');
+          post.save().then(function (card) {
+            // go to the edit item's route after creating it.
+            // remember to pass 'card' as the params since
+            // card.js is expecting an object
+            _this.transitionTo('cards.card', card);
+          });
         }).bind(this));
       },
 
@@ -390,6 +400,7 @@ define('client/routes/cards/card/edit', ['exports', 'ember'], function (exports,
 define('client/routes/cards/card', ['exports', 'ember'], function (exports, _ember) {
   exports['default'] = _ember['default'].Route.extend({
     model: function model(params) {
+      // get the individual card from the store
       return this.store.find('card', params.id);
     },
 
@@ -405,13 +416,21 @@ define('client/routes/cards/new', ['exports', 'ember'], function (exports, _embe
       save: function save(title, description) {
         var _this = this;
 
+        // store the createRecord data in a new variable
+        // also specify the fields that you need to update
+        // eg: title, description
         var newCard = this.get('store').createRecord('card', { title: title, description: description });
         newCard.save().then(function (card) {
-          _this.transitionTo('cards.all');
+          // go to the new item's route after creating it.
+          // remember to pass 'card' as the params since
+          // card.js is expecting an object
+          _this.transitionTo('cards.card', card);
         });
       },
 
       cancel: function cancel() {
+        // on clicking on cancel, just go to the cards.all
+        // route
         this.transitionTo('cards.all');
       }
     },
@@ -429,6 +448,10 @@ define('client/routes/cards', ['exports', 'ember'], function (exports, _ember) {
     },
 
     model: function model() {
+      // return all the cards from the store
+      // important: removing this line will make
+      // the individual links to fail working
+      // properly
       return this.store.findAll('card');
     },
 
@@ -469,10 +492,12 @@ define('client/routes/users/user', ['exports', 'ember'], function (exports, _emb
 define('client/routes/users', ['exports', 'ember'], function (exports, _ember) {
   exports['default'] = _ember['default'].Route.extend({
     beforeModel: function beforeModel() {
+      // default route
       this.transitionTo('users.all');
     },
 
     model: function model() {
+      // return all the users from the store
       return this.store.findAll('user');
     },
 
@@ -2604,7 +2629,7 @@ catch(err) {
 /* jshint ignore:start */
 
 if (!runningTests) {
-  require("client/app")["default"].create({"name":"client","version":"0.0.0+5e7a6cdf"});
+  require("client/app")["default"].create({"name":"client","version":"0.0.0+b077e979"});
 }
 
 /* jshint ignore:end */

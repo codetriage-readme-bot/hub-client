@@ -6,6 +6,10 @@ export default Ember.Route.extend({
   },
 
   model() {
+    // return all the cards from the store
+    // important: removing this line will make
+    // the individual links to fail working
+    // properly
     return this.store.findAll('card');
   },
 

@@ -2,6 +2,7 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
   model(params) {
+    // get the individual card from the store
     return this.store.find('card', params.id);
   },
 
