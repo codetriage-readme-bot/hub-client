@@ -1646,7 +1646,7 @@ define("client/templates/components/layout/nav-bar", ["exports"], function (expo
               "column": 6
             },
             "end": {
-              "line": 18,
+              "line": 21,
               "column": 6
             }
           },
@@ -1699,6 +1699,20 @@ define("client/templates/components/layout/nav-bar", ["exports"], function (expo
           dom.appendChild(el1, el2);
           var el2 = dom.createElement("a");
           dom.setAttribute(el2, "class", "nav-link");
+          var el3 = dom.createComment("");
+          dom.appendChild(el2, el3);
+          dom.appendChild(el1, el2);
+          var el2 = dom.createTextNode("\n        ");
+          dom.appendChild(el1, el2);
+          dom.appendChild(el0, el1);
+          var el1 = dom.createTextNode("\n        ");
+          dom.appendChild(el0, el1);
+          var el1 = dom.createElement("li");
+          dom.setAttribute(el1, "class", "nav-item");
+          var el2 = dom.createTextNode("\n          ");
+          dom.appendChild(el1, el2);
+          var el2 = dom.createElement("a");
+          dom.setAttribute(el2, "class", "nav-link");
           var el3 = dom.createTextNode("Logout");
           dom.appendChild(el2, el3);
           dom.appendChild(el1, el2);
@@ -1710,15 +1724,16 @@ define("client/templates/components/layout/nav-bar", ["exports"], function (expo
           return el0;
         },
         buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
-          var element0 = dom.childAt(fragment, [7, 1]);
-          var morphs = new Array(4);
+          var element0 = dom.childAt(fragment, [9, 1]);
+          var morphs = new Array(5);
           morphs[0] = dom.createMorphAt(dom.childAt(fragment, [1]), 1, 1);
           morphs[1] = dom.createMorphAt(dom.childAt(fragment, [3]), 1, 1);
           morphs[2] = dom.createMorphAt(dom.childAt(fragment, [5]), 1, 1);
-          morphs[3] = dom.createElementMorph(element0);
+          morphs[3] = dom.createMorphAt(dom.childAt(fragment, [7, 1]), 0, 0);
+          morphs[4] = dom.createElementMorph(element0);
           return morphs;
         },
-        statements: [["block", "link-to", ["dashboard"], ["class", "nav-link"], 0, null, ["loc", [null, [7, 10], [7, 72]]]], ["block", "link-to", ["users.all"], ["class", "nav-link"], 1, null, ["loc", [null, [10, 10], [10, 68]]]], ["block", "link-to", ["cards.all"], ["class", "nav-link"], 2, null, ["loc", [null, [13, 10], [13, 68]]]], ["element", "action", ["invalidateSession"], [], ["loc", [null, [16, 13], [16, 43]]]]],
+        statements: [["block", "link-to", ["dashboard"], ["class", "nav-link"], 0, null, ["loc", [null, [7, 10], [7, 72]]]], ["block", "link-to", ["users.all"], ["class", "nav-link"], 1, null, ["loc", [null, [10, 10], [10, 68]]]], ["block", "link-to", ["cards.all"], ["class", "nav-link"], 2, null, ["loc", [null, [13, 10], [13, 68]]]], ["content", "session.data.authenticated.uid", ["loc", [null, [16, 30], [16, 64]]]], ["element", "action", ["invalidateSession"], [], ["loc", [null, [19, 13], [19, 43]]]]],
         locals: [],
         templates: [child0, child1, child2]
       };
@@ -1732,11 +1747,11 @@ define("client/templates/components/layout/nav-bar", ["exports"], function (expo
             "loc": {
               "source": null,
               "start": {
-                "line": 20,
+                "line": 23,
                 "column": 10
               },
               "end": {
-                "line": 20,
+                "line": 23,
                 "column": 55
               }
             },
@@ -1767,11 +1782,11 @@ define("client/templates/components/layout/nav-bar", ["exports"], function (expo
           "loc": {
             "source": null,
             "start": {
-              "line": 18,
+              "line": 21,
               "column": 6
             },
             "end": {
-              "line": 22,
+              "line": 25,
               "column": 6
             }
           },
@@ -1803,7 +1818,7 @@ define("client/templates/components/layout/nav-bar", ["exports"], function (expo
           morphs[0] = dom.createMorphAt(dom.childAt(fragment, [1]), 1, 1);
           return morphs;
         },
-        statements: [["block", "link-to", ["signin"], ["class", "nav-link"], 0, null, ["loc", [null, [20, 10], [20, 67]]]]],
+        statements: [["block", "link-to", ["signin"], ["class", "nav-link"], 0, null, ["loc", [null, [23, 10], [23, 67]]]]],
         locals: [],
         templates: [child0]
       };
@@ -1821,7 +1836,7 @@ define("client/templates/components/layout/nav-bar", ["exports"], function (expo
             "column": 0
           },
           "end": {
-            "line": 26,
+            "line": 29,
             "column": 0
           }
         },
@@ -1871,7 +1886,7 @@ define("client/templates/components/layout/nav-bar", ["exports"], function (expo
         morphs[1] = dom.createMorphAt(dom.childAt(element1, [3, 1]), 1, 1);
         return morphs;
       },
-      statements: [["block", "link-to", ["application"], ["class", "navbar-brand"], 0, null, ["loc", [null, [2, 2], [2, 55]]]], ["block", "if", [["get", "session.isAuthenticated", ["loc", [null, [5, 12], [5, 35]]]]], [], 1, 2, ["loc", [null, [5, 6], [22, 13]]]]],
+      statements: [["block", "link-to", ["application"], ["class", "navbar-brand"], 0, null, ["loc", [null, [2, 2], [2, 55]]]], ["block", "if", [["get", "session.isAuthenticated", ["loc", [null, [5, 12], [5, 35]]]]], [], 1, 2, ["loc", [null, [5, 6], [25, 13]]]]],
       locals: [],
       templates: [child0, child1, child2]
     };
@@ -2629,7 +2644,7 @@ catch(err) {
 /* jshint ignore:start */
 
 if (!runningTests) {
-  require("client/app")["default"].create({"name":"client","version":"0.0.0+b077e979"});
+  require("client/app")["default"].create({"name":"client","version":"0.0.0+3aabaf1c"});
 }
 
 /* jshint ignore:end */
