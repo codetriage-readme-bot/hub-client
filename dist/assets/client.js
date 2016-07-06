@@ -52,12 +52,16 @@ define('client/authenticators/devise', ['exports', 'ember-simple-auth/authentica
         data[identificationAttributeName] = identification;
 
         _this.makeRequest(data).then(function (response, status, xhr) {
+
           var result = {
             accessToken: xhr.getResponseHeader('access-token'),
             expiry: xhr.getResponseHeader('expiry'),
             tokenType: xhr.getResponseHeader('token-type'),
             uid: xhr.getResponseHeader('uid'),
-            client: xhr.getResponseHeader('client')
+            client: xhr.getResponseHeader('client'),
+            email: response.data.email,
+            name: response.data.name,
+            id: response.data.id
           };
 
           run(null, resolve, result);
@@ -1733,7 +1737,7 @@ define("client/templates/components/layout/nav-bar", ["exports"], function (expo
           morphs[4] = dom.createElementMorph(element0);
           return morphs;
         },
-        statements: [["block", "link-to", ["dashboard"], ["class", "nav-link"], 0, null, ["loc", [null, [7, 10], [7, 72]]]], ["block", "link-to", ["users.all"], ["class", "nav-link"], 1, null, ["loc", [null, [10, 10], [10, 68]]]], ["block", "link-to", ["cards.all"], ["class", "nav-link"], 2, null, ["loc", [null, [13, 10], [13, 68]]]], ["content", "session.data.authenticated.uid", ["loc", [null, [16, 30], [16, 64]]]], ["element", "action", ["invalidateSession"], [], ["loc", [null, [19, 13], [19, 43]]]]],
+        statements: [["block", "link-to", ["dashboard"], ["class", "nav-link"], 0, null, ["loc", [null, [7, 10], [7, 72]]]], ["block", "link-to", ["users.all"], ["class", "nav-link"], 1, null, ["loc", [null, [10, 10], [10, 68]]]], ["block", "link-to", ["cards.all"], ["class", "nav-link"], 2, null, ["loc", [null, [13, 10], [13, 68]]]], ["content", "session.data.authenticated.name", ["loc", [null, [16, 30], [16, 65]]]], ["element", "action", ["invalidateSession"], [], ["loc", [null, [19, 13], [19, 43]]]]],
         locals: [],
         templates: [child0, child1, child2]
       };
@@ -2644,7 +2648,7 @@ catch(err) {
 /* jshint ignore:start */
 
 if (!runningTests) {
-  require("client/app")["default"].create({"name":"client","version":"0.0.0+3aabaf1c"});
+  require("client/app")["default"].create({"name":"client","version":"0.0.0+764cd4b3"});
 }
 
 /* jshint ignore:end */

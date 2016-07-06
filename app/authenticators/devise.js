@@ -25,12 +25,16 @@ export default DeviseAuthenticator.extend({
       data[identificationAttributeName] = identification;
 
       this.makeRequest(data).then(function(response, status, xhr) {
+
         var result = {
           accessToken: xhr.getResponseHeader('access-token'),
           expiry: xhr.getResponseHeader('expiry'),
           tokenType: xhr.getResponseHeader('token-type'),
           uid: xhr.getResponseHeader('uid'),
-          client: xhr.getResponseHeader('client')
+          client: xhr.getResponseHeader('client'),
+          email: response.data.email,
+          name: response.data.name,
+          id: response.data.id
         };
 
         run(null, resolve, result);
