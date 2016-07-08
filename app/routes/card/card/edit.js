@@ -13,13 +13,13 @@ export default Ember.Route.extend({
           // go to the edit item's route after creating it.
           // remember to pass 'card' as the params since
           // card.js is expecting an object
-          this.transitionTo('cards.card', card);
+          this.transitionTo('card.card', card);
         });
       }.bind(this));
     },
 
     cancel() {
-      this.transitionTo('cards.card');
+      this.transitionTo('card.card');
     }
   },
 

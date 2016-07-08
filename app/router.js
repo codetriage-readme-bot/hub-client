@@ -14,8 +14,11 @@ Router.map(function() {
     this.route('user', {path: '/:user_id'});
   });
 
-  this.route('cards', function() {
-    this.route('all');
+  // route for all the cards
+  this.route('cards');
+
+  // route for the single card
+  this.route('card', function() {
     this.route('card', {path: '/:card_id'}, function() {
       this.route('edit');
     });

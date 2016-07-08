@@ -1,13 +1,13 @@
 import Ember from 'ember';
 
 export default Ember.Route.extend({
-  model() {
-    // return all the cards
-    return this.store.findAll('card');
+  model(params) {
+    // get the individual card from the store
+    return this.store.find('card', params.card_id);
   },
 
   setupController(controller, model) {
     this._super(controller, model);
-    controller.set('cards', model);
+    controller.set('card', model);
   }
 });

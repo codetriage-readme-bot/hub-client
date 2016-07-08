@@ -11,14 +11,14 @@ export default Ember.Route.extend({
         // go to the new item's route after creating it.
         // remember to pass 'card' as the params since
         // card.js is expecting an object
-        this.transitionTo('cards.card', card);
+        this.transitionTo('card.card', card);
       });
     },
 
     cancel() {
-      // on clicking on cancel, just go to the cards.all
+      // on clicking on cancel, just go to the card.all
       // route
-      this.transitionTo('cards.all');
+      this.transitionTo('card.all');
     }
   },
 
