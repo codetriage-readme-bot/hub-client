@@ -4,13 +4,7 @@
     <ul class="nav navbar-nav">
       {{#if session.isAuthenticated}}
         <li class="nav-item">
-          {{#link-to 'dashboard' class="nav-link"}}Dashboard{{/link-to}}
-        </li>
-        <li class="nav-item">
-          {{#link-to 'users' class="nav-link"}}Users{{/link-to}}
-        </li>
-        <li class="nav-item">
-          {{#link-to 'cards' class="nav-link"}}Cards{{/link-to}}
+          {{#link-to 'card.new' class="nav-link"}}Add Card{{/link-to}}
         </li>
         <li class="nav-item">
           <a class="nav-link">{{session.data.authenticated.name}}</a>

@@ -956,48 +956,12 @@ define("client/templates/cards", ["exports"], function (exports) {
           "loc": {
             "source": null,
             "start": {
-              "line": 9,
-              "column": 10
+              "line": 6,
+              "column": 4
             },
             "end": {
-              "line": 9,
-              "column": 65
-            }
-          },
-          "moduleName": "client/templates/cards.hbs"
-        },
-        isEmpty: false,
-        arity: 0,
-        cachedFragment: null,
-        hasRendered: false,
-        buildFragment: function buildFragment(dom) {
-          var el0 = dom.createDocumentFragment();
-          var el1 = dom.createTextNode("Add Card");
-          dom.appendChild(el0, el1);
-          return el0;
-        },
-        buildRenderNodes: function buildRenderNodes() {
-          return [];
-        },
-        statements: [],
-        locals: [],
-        templates: []
-      };
-    })();
-    var child1 = (function () {
-      return {
-        meta: {
-          "fragmentReason": false,
-          "revision": "Ember@2.6.1",
-          "loc": {
-            "source": null,
-            "start": {
-              "line": 16,
-              "column": 6
-            },
-            "end": {
-              "line": 18,
-              "column": 6
+              "line": 8,
+              "column": 4
             }
           },
           "moduleName": "client/templates/cards.hbs"
@@ -1008,7 +972,7 @@ define("client/templates/cards", ["exports"], function (exports) {
         hasRendered: false,
         buildFragment: function buildFragment(dom) {
           var el0 = dom.createDocumentFragment();
-          var el1 = dom.createTextNode("        ");
+          var el1 = dom.createTextNode("      ");
           dom.appendChild(el0, el1);
           var el1 = dom.createComment("");
           dom.appendChild(el0, el1);
@@ -1021,12 +985,12 @@ define("client/templates/cards", ["exports"], function (exports) {
           morphs[0] = dom.createMorphAt(fragment, 1, 1, contextualElement);
           return morphs;
         },
-        statements: [["inline", "cards/cards-container", [], ["card", ["subexpr", "@mut", [["get", "card", ["loc", [null, [17, 37], [17, 41]]]]], [], []]], ["loc", [null, [17, 8], [17, 43]]]]],
+        statements: [["inline", "cards/cards-container", [], ["card", ["subexpr", "@mut", [["get", "card", ["loc", [null, [7, 35], [7, 39]]]]], [], []]], ["loc", [null, [7, 6], [7, 41]]]]],
         locals: ["card"],
         templates: []
       };
     })();
-    var child2 = (function () {
+    var child1 = (function () {
       return {
         meta: {
           "fragmentReason": false,
@@ -1034,12 +998,12 @@ define("client/templates/cards", ["exports"], function (exports) {
           "loc": {
             "source": null,
             "start": {
-              "line": 18,
-              "column": 6
+              "line": 8,
+              "column": 4
             },
             "end": {
-              "line": 20,
-              "column": 6
+              "line": 10,
+              "column": 4
             }
           },
           "moduleName": "client/templates/cards.hbs"
@@ -1050,7 +1014,7 @@ define("client/templates/cards", ["exports"], function (exports) {
         hasRendered: false,
         buildFragment: function buildFragment(dom) {
           var el0 = dom.createDocumentFragment();
-          var el1 = dom.createTextNode("        Sorry, nobody is here.\n");
+          var el1 = dom.createTextNode("      Sorry, nobody is here.\n");
           dom.appendChild(el0, el1);
           return el0;
         },
@@ -1075,7 +1039,7 @@ define("client/templates/cards", ["exports"], function (exports) {
             "column": 0
           },
           "end": {
-            "line": 25,
+            "line": 13,
             "column": 0
           }
         },
@@ -1104,59 +1068,11 @@ define("client/templates/cards", ["exports"], function (exports) {
         dom.appendChild(el1, el2);
         var el2 = dom.createElement("div");
         dom.setAttribute(el2, "class", "col-md-9");
-        var el3 = dom.createTextNode("\n    ");
+        var el3 = dom.createTextNode("\n");
         dom.appendChild(el2, el3);
-        var el3 = dom.createElement("div");
-        dom.setAttribute(el3, "class", "row");
-        var el4 = dom.createTextNode("\n      ");
-        dom.appendChild(el3, el4);
-        var el4 = dom.createElement("div");
-        dom.setAttribute(el4, "class", "col-md-3");
-        var el5 = dom.createTextNode("\n        ");
-        dom.appendChild(el4, el5);
-        var el5 = dom.createElement("div");
-        dom.setAttribute(el5, "class", "list-group");
-        var el6 = dom.createTextNode("\n          ");
-        dom.appendChild(el5, el6);
-        var el6 = dom.createComment("");
-        dom.appendChild(el5, el6);
-        var el6 = dom.createTextNode("\n          ");
-        dom.appendChild(el5, el6);
-        var el6 = dom.createElement("a");
-        dom.setAttribute(el6, "href", "#");
-        dom.setAttribute(el6, "class", "list-group-item");
-        var el7 = dom.createTextNode("Edit Card");
-        dom.appendChild(el6, el7);
-        dom.appendChild(el5, el6);
-        var el6 = dom.createTextNode("\n          ");
-        dom.appendChild(el5, el6);
-        var el6 = dom.createElement("a");
-        dom.setAttribute(el6, "href", "#");
-        dom.setAttribute(el6, "class", "list-group-item");
-        var el7 = dom.createTextNode("Delete Card");
-        dom.appendChild(el6, el7);
-        dom.appendChild(el5, el6);
-        var el6 = dom.createTextNode("\n        ");
-        dom.appendChild(el5, el6);
-        dom.appendChild(el4, el5);
-        var el5 = dom.createTextNode("\n      ");
-        dom.appendChild(el4, el5);
-        dom.appendChild(el3, el4);
-        var el4 = dom.createTextNode("\n\n      ");
-        dom.appendChild(el3, el4);
-        var el4 = dom.createElement("div");
-        dom.setAttribute(el4, "class", "col-md-9");
-        var el5 = dom.createTextNode("\n");
-        dom.appendChild(el4, el5);
-        var el5 = dom.createComment("");
-        dom.appendChild(el4, el5);
-        var el5 = dom.createTextNode("      ");
-        dom.appendChild(el4, el5);
-        dom.appendChild(el3, el4);
-        var el4 = dom.createTextNode("\n    ");
-        dom.appendChild(el3, el4);
+        var el3 = dom.createComment("");
         dom.appendChild(el2, el3);
-        var el3 = dom.createTextNode("\n  ");
+        var el3 = dom.createTextNode("  ");
         dom.appendChild(el2, el3);
         dom.appendChild(el1, el2);
         var el2 = dom.createTextNode("\n");
@@ -1168,16 +1084,14 @@ define("client/templates/cards", ["exports"], function (exports) {
       },
       buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
         var element0 = dom.childAt(fragment, [0]);
-        var element1 = dom.childAt(element0, [3, 1]);
-        var morphs = new Array(3);
+        var morphs = new Array(2);
         morphs[0] = dom.createMorphAt(dom.childAt(element0, [1]), 1, 1);
-        morphs[1] = dom.createMorphAt(dom.childAt(element1, [1, 1]), 1, 1);
-        morphs[2] = dom.createMorphAt(dom.childAt(element1, [3]), 1, 1);
+        morphs[1] = dom.createMorphAt(dom.childAt(element0, [3]), 1, 1);
         return morphs;
       },
-      statements: [["content", "layout/side-bar", ["loc", [null, [3, 4], [3, 23]]]], ["block", "link-to", ["card.new"], ["class", "list-group-item"], 0, null, ["loc", [null, [9, 10], [9, 77]]]], ["block", "each", [["get", "cards", ["loc", [null, [16, 14], [16, 19]]]]], [], 1, 2, ["loc", [null, [16, 6], [20, 15]]]]],
+      statements: [["content", "layout/side-bar", ["loc", [null, [3, 4], [3, 23]]]], ["block", "each", [["get", "cards", ["loc", [null, [6, 12], [6, 17]]]]], [], 0, 1, ["loc", [null, [6, 4], [10, 13]]]]],
       locals: [],
-      templates: [child0, child1, child2]
+      templates: [child0, child1]
     };
   })());
 });
@@ -1474,7 +1388,7 @@ define("client/templates/components/layout/nav-bar", ["exports"], function (expo
               },
               "end": {
                 "line": 7,
-                "column": 60
+                "column": 58
               }
             },
             "moduleName": "client/templates/components/layout/nav-bar.hbs"
@@ -1485,79 +1399,7 @@ define("client/templates/components/layout/nav-bar", ["exports"], function (expo
           hasRendered: false,
           buildFragment: function buildFragment(dom) {
             var el0 = dom.createDocumentFragment();
-            var el1 = dom.createTextNode("Dashboard");
-            dom.appendChild(el0, el1);
-            return el0;
-          },
-          buildRenderNodes: function buildRenderNodes() {
-            return [];
-          },
-          statements: [],
-          locals: [],
-          templates: []
-        };
-      })();
-      var child1 = (function () {
-        return {
-          meta: {
-            "fragmentReason": false,
-            "revision": "Ember@2.6.1",
-            "loc": {
-              "source": null,
-              "start": {
-                "line": 10,
-                "column": 10
-              },
-              "end": {
-                "line": 10,
-                "column": 52
-              }
-            },
-            "moduleName": "client/templates/components/layout/nav-bar.hbs"
-          },
-          isEmpty: false,
-          arity: 0,
-          cachedFragment: null,
-          hasRendered: false,
-          buildFragment: function buildFragment(dom) {
-            var el0 = dom.createDocumentFragment();
-            var el1 = dom.createTextNode("Users");
-            dom.appendChild(el0, el1);
-            return el0;
-          },
-          buildRenderNodes: function buildRenderNodes() {
-            return [];
-          },
-          statements: [],
-          locals: [],
-          templates: []
-        };
-      })();
-      var child2 = (function () {
-        return {
-          meta: {
-            "fragmentReason": false,
-            "revision": "Ember@2.6.1",
-            "loc": {
-              "source": null,
-              "start": {
-                "line": 13,
-                "column": 10
-              },
-              "end": {
-                "line": 13,
-                "column": 52
-              }
-            },
-            "moduleName": "client/templates/components/layout/nav-bar.hbs"
-          },
-          isEmpty: false,
-          arity: 0,
-          cachedFragment: null,
-          hasRendered: false,
-          buildFragment: function buildFragment(dom) {
-            var el0 = dom.createDocumentFragment();
-            var el1 = dom.createTextNode("Cards");
+            var el1 = dom.createTextNode("Add Card");
             dom.appendChild(el0, el1);
             return el0;
           },
@@ -1580,7 +1422,7 @@ define("client/templates/components/layout/nav-bar", ["exports"], function (expo
               "column": 6
             },
             "end": {
-              "line": 21,
+              "line": 15,
               "column": 6
             }
           },
@@ -1593,28 +1435,6 @@ define("client/templates/components/layout/nav-bar", ["exports"], function (expo
         buildFragment: function buildFragment(dom) {
           var el0 = dom.createDocumentFragment();
           var el1 = dom.createTextNode("        ");
-          dom.appendChild(el0, el1);
-          var el1 = dom.createElement("li");
-          dom.setAttribute(el1, "class", "nav-item");
-          var el2 = dom.createTextNode("\n          ");
-          dom.appendChild(el1, el2);
-          var el2 = dom.createComment("");
-          dom.appendChild(el1, el2);
-          var el2 = dom.createTextNode("\n        ");
-          dom.appendChild(el1, el2);
-          dom.appendChild(el0, el1);
-          var el1 = dom.createTextNode("\n        ");
-          dom.appendChild(el0, el1);
-          var el1 = dom.createElement("li");
-          dom.setAttribute(el1, "class", "nav-item");
-          var el2 = dom.createTextNode("\n          ");
-          dom.appendChild(el1, el2);
-          var el2 = dom.createComment("");
-          dom.appendChild(el1, el2);
-          var el2 = dom.createTextNode("\n        ");
-          dom.appendChild(el1, el2);
-          dom.appendChild(el0, el1);
-          var el1 = dom.createTextNode("\n        ");
           dom.appendChild(el0, el1);
           var el1 = dom.createElement("li");
           dom.setAttribute(el1, "class", "nav-item");
@@ -1658,18 +1478,16 @@ define("client/templates/components/layout/nav-bar", ["exports"], function (expo
           return el0;
         },
         buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
-          var element0 = dom.childAt(fragment, [9, 1]);
-          var morphs = new Array(5);
+          var element0 = dom.childAt(fragment, [5, 1]);
+          var morphs = new Array(3);
           morphs[0] = dom.createMorphAt(dom.childAt(fragment, [1]), 1, 1);
-          morphs[1] = dom.createMorphAt(dom.childAt(fragment, [3]), 1, 1);
-          morphs[2] = dom.createMorphAt(dom.childAt(fragment, [5]), 1, 1);
-          morphs[3] = dom.createMorphAt(dom.childAt(fragment, [7, 1]), 0, 0);
-          morphs[4] = dom.createElementMorph(element0);
+          morphs[1] = dom.createMorphAt(dom.childAt(fragment, [3, 1]), 0, 0);
+          morphs[2] = dom.createElementMorph(element0);
           return morphs;
         },
-        statements: [["block", "link-to", ["dashboard"], ["class", "nav-link"], 0, null, ["loc", [null, [7, 10], [7, 72]]]], ["block", "link-to", ["users"], ["class", "nav-link"], 1, null, ["loc", [null, [10, 10], [10, 64]]]], ["block", "link-to", ["cards"], ["class", "nav-link"], 2, null, ["loc", [null, [13, 10], [13, 64]]]], ["content", "session.data.authenticated.name", ["loc", [null, [16, 30], [16, 65]]]], ["element", "action", ["invalidateSession"], [], ["loc", [null, [19, 13], [19, 43]]]]],
+        statements: [["block", "link-to", ["card.new"], ["class", "nav-link"], 0, null, ["loc", [null, [7, 10], [7, 70]]]], ["content", "session.data.authenticated.name", ["loc", [null, [10, 30], [10, 65]]]], ["element", "action", ["invalidateSession"], [], ["loc", [null, [13, 13], [13, 43]]]]],
         locals: [],
-        templates: [child0, child1, child2]
+        templates: [child0]
       };
     })();
     var child2 = (function () {
@@ -1681,11 +1499,11 @@ define("client/templates/components/layout/nav-bar", ["exports"], function (expo
             "loc": {
               "source": null,
               "start": {
-                "line": 23,
+                "line": 17,
                 "column": 10
               },
               "end": {
-                "line": 23,
+                "line": 17,
                 "column": 55
               }
             },
@@ -1716,11 +1534,11 @@ define("client/templates/components/layout/nav-bar", ["exports"], function (expo
           "loc": {
             "source": null,
             "start": {
-              "line": 21,
+              "line": 15,
               "column": 6
             },
             "end": {
-              "line": 25,
+              "line": 19,
               "column": 6
             }
           },
@@ -1752,7 +1570,7 @@ define("client/templates/components/layout/nav-bar", ["exports"], function (expo
           morphs[0] = dom.createMorphAt(dom.childAt(fragment, [1]), 1, 1);
           return morphs;
         },
-        statements: [["block", "link-to", ["signin"], ["class", "nav-link"], 0, null, ["loc", [null, [23, 10], [23, 67]]]]],
+        statements: [["block", "link-to", ["signin"], ["class", "nav-link"], 0, null, ["loc", [null, [17, 10], [17, 67]]]]],
         locals: [],
         templates: [child0]
       };
@@ -1770,7 +1588,7 @@ define("client/templates/components/layout/nav-bar", ["exports"], function (expo
             "column": 0
           },
           "end": {
-            "line": 29,
+            "line": 23,
             "column": 0
           }
         },
@@ -1820,7 +1638,7 @@ define("client/templates/components/layout/nav-bar", ["exports"], function (expo
         morphs[1] = dom.createMorphAt(dom.childAt(element1, [3, 1]), 1, 1);
         return morphs;
       },
-      statements: [["block", "link-to", ["application"], ["class", "navbar-brand"], 0, null, ["loc", [null, [2, 2], [2, 55]]]], ["block", "if", [["get", "session.isAuthenticated", ["loc", [null, [5, 12], [5, 35]]]]], [], 1, 2, ["loc", [null, [5, 6], [25, 13]]]]],
+      statements: [["block", "link-to", ["application"], ["class", "navbar-brand"], 0, null, ["loc", [null, [2, 2], [2, 55]]]], ["block", "if", [["get", "session.isAuthenticated", ["loc", [null, [5, 12], [5, 35]]]]], [], 1, 2, ["loc", [null, [5, 6], [19, 13]]]]],
       locals: [],
       templates: [child0, child1, child2]
     };
