@@ -9,8 +9,12 @@ Router.map(function() {
   this.route('signin');
   this.route('landing-page', { path: '/' });
   this.route('dashboard');
-  this.route('users', function() {
-    this.route('all');
+
+  // route for all the users
+  this.route('users');
+
+  // route for the single user
+  this.route('user', function() {
     this.route('user', {path: '/:user_id'});
   });
 

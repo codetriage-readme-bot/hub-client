@@ -337,8 +337,12 @@ define('client/router', ['exports', 'ember', 'client/config/environment'], funct
     this.route('signin');
     this.route('landing-page', { path: '/' });
     this.route('dashboard');
-    this.route('users', function () {
-      this.route('all');
+
+    // route for all the users
+    this.route('users');
+
+    // route for the single user
+    this.route('user', function () {
       this.route('user', { path: '/:user_id' });
     });
 
@@ -457,34 +461,21 @@ define('client/routes/landing-page', ['exports', 'ember', 'ember-simple-auth/mix
 define('client/routes/signin', ['exports', 'ember', 'ember-simple-auth/mixins/unauthenticated-route-mixin'], function (exports, _ember, _emberSimpleAuthMixinsUnauthenticatedRouteMixin) {
   exports['default'] = _ember['default'].Route.extend(_emberSimpleAuthMixinsUnauthenticatedRouteMixin['default']);
 });
-define('client/routes/users/all', ['exports', 'ember'], function (exports, _ember) {
+define('client/routes/user/user', ['exports', 'ember'], function (exports, _ember) {
   exports['default'] = _ember['default'].Route.extend({
-    model: function model() {
-      return this.store.findAll('user');
+    model: function model(params) {
+      return this.store.find('user', params.user_id);
     },
 
     setupController: function setupController(controller, model) {
       this._super(controller, model);
-      controller.set('users', model);
-    }
-  });
-});
-define('client/routes/users/user', ['exports', 'ember'], function (exports, _ember) {
-  exports['default'] = _ember['default'].Route.extend({
-    model: function model(params) {
-      return this.store.find('user', params.id);
+      controller.set('user', model);
     }
   });
 });
 define('client/routes/users', ['exports', 'ember'], function (exports, _ember) {
   exports['default'] = _ember['default'].Route.extend({
-    beforeModel: function beforeModel() {
-      // default route
-      this.transitionTo('users.all');
-    },
-
     model: function model() {
-      // return all the users from the store
       return this.store.findAll('user');
     },
 
@@ -1519,7 +1510,7 @@ define("client/templates/components/layout/nav-bar", ["exports"], function (expo
               },
               "end": {
                 "line": 10,
-                "column": 56
+                "column": 52
               }
             },
             "moduleName": "client/templates/components/layout/nav-bar.hbs"
@@ -1676,7 +1667,7 @@ define("client/templates/components/layout/nav-bar", ["exports"], function (expo
           morphs[4] = dom.createElementMorph(element0);
           return morphs;
         },
-        statements: [["block", "link-to", ["dashboard"], ["class", "nav-link"], 0, null, ["loc", [null, [7, 10], [7, 72]]]], ["block", "link-to", ["users.all"], ["class", "nav-link"], 1, null, ["loc", [null, [10, 10], [10, 68]]]], ["block", "link-to", ["cards"], ["class", "nav-link"], 2, null, ["loc", [null, [13, 10], [13, 64]]]], ["content", "session.data.authenticated.name", ["loc", [null, [16, 30], [16, 65]]]], ["element", "action", ["invalidateSession"], [], ["loc", [null, [19, 13], [19, 43]]]]],
+        statements: [["block", "link-to", ["dashboard"], ["class", "nav-link"], 0, null, ["loc", [null, [7, 10], [7, 72]]]], ["block", "link-to", ["users"], ["class", "nav-link"], 1, null, ["loc", [null, [10, 10], [10, 64]]]], ["block", "link-to", ["cards"], ["class", "nav-link"], 2, null, ["loc", [null, [13, 10], [13, 64]]]], ["content", "session.data.authenticated.name", ["loc", [null, [16, 30], [16, 65]]]], ["element", "action", ["invalidateSession"], [], ["loc", [null, [19, 13], [19, 43]]]]],
         locals: [],
         templates: [child0, child1, child2]
       };
@@ -1886,7 +1877,7 @@ define("client/templates/components/layout/side-bar", ["exports"], function (exp
             },
             "end": {
               "line": 3,
-              "column": 55
+              "column": 51
             }
           },
           "moduleName": "client/templates/components/layout/side-bar.hbs"
@@ -1974,7 +1965,7 @@ define("client/templates/components/layout/side-bar", ["exports"], function (exp
         morphs[1] = dom.createMorphAt(element0, 3, 3);
         return morphs;
       },
-      statements: [["block", "link-to", ["cards"], ["class", "list-group-item"], 0, null, ["loc", [null, [2, 2], [2, 63]]]], ["block", "link-to", ["users.all"], ["class", "list-group-item"], 1, null, ["loc", [null, [3, 2], [3, 67]]]]],
+      statements: [["block", "link-to", ["cards"], ["class", "list-group-item"], 0, null, ["loc", [null, [2, 2], [2, 63]]]], ["block", "link-to", ["users"], ["class", "list-group-item"], 1, null, ["loc", [null, [3, 2], [3, 63]]]]],
       locals: [],
       templates: [child0, child1]
     };
@@ -2108,7 +2099,7 @@ define("client/templates/components/users/users-container", ["exports"], functio
         morphs[1] = dom.createMorphAt(dom.childAt(element0, [5]), 1, 1);
         return morphs;
       },
-      statements: [["block", "link-to", ["users.user", ["get", "user", ["loc", [null, [8, 32], [8, 36]]]]], [], 0, null, ["loc", [null, [8, 8], [10, 20]]]], ["content", "user.email", ["loc", [null, [14, 6], [14, 20]]]]],
+      statements: [["block", "link-to", ["user.user", ["get", "user", ["loc", [null, [8, 31], [8, 35]]]]], [], 0, null, ["loc", [null, [8, 8], [10, 20]]]], ["content", "user.email", ["loc", [null, [14, 6], [14, 20]]]]],
       locals: [],
       templates: [child0]
     };
@@ -2297,133 +2288,7 @@ define("client/templates/signin", ["exports"], function (exports) {
     };
   })());
 });
-define("client/templates/users/all", ["exports"], function (exports) {
-  exports["default"] = Ember.HTMLBars.template((function () {
-    var child0 = (function () {
-      return {
-        meta: {
-          "fragmentReason": {
-            "name": "missing-wrapper",
-            "problems": ["wrong-type"]
-          },
-          "revision": "Ember@2.6.1",
-          "loc": {
-            "source": null,
-            "start": {
-              "line": 1,
-              "column": 0
-            },
-            "end": {
-              "line": 3,
-              "column": 0
-            }
-          },
-          "moduleName": "client/templates/users/all.hbs"
-        },
-        isEmpty: false,
-        arity: 1,
-        cachedFragment: null,
-        hasRendered: false,
-        buildFragment: function buildFragment(dom) {
-          var el0 = dom.createDocumentFragment();
-          var el1 = dom.createTextNode("  ");
-          dom.appendChild(el0, el1);
-          var el1 = dom.createComment("");
-          dom.appendChild(el0, el1);
-          var el1 = dom.createTextNode("\n");
-          dom.appendChild(el0, el1);
-          return el0;
-        },
-        buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
-          var morphs = new Array(1);
-          morphs[0] = dom.createMorphAt(fragment, 1, 1, contextualElement);
-          return morphs;
-        },
-        statements: [["inline", "users/users-container", [], ["user", ["subexpr", "@mut", [["get", "user", ["loc", [null, [2, 31], [2, 35]]]]], [], []]], ["loc", [null, [2, 2], [2, 37]]]]],
-        locals: ["user"],
-        templates: []
-      };
-    })();
-    var child1 = (function () {
-      return {
-        meta: {
-          "fragmentReason": false,
-          "revision": "Ember@2.6.1",
-          "loc": {
-            "source": null,
-            "start": {
-              "line": 3,
-              "column": 0
-            },
-            "end": {
-              "line": 5,
-              "column": 0
-            }
-          },
-          "moduleName": "client/templates/users/all.hbs"
-        },
-        isEmpty: false,
-        arity: 0,
-        cachedFragment: null,
-        hasRendered: false,
-        buildFragment: function buildFragment(dom) {
-          var el0 = dom.createDocumentFragment();
-          var el1 = dom.createTextNode("  Sorry, nobody is here.\n");
-          dom.appendChild(el0, el1);
-          return el0;
-        },
-        buildRenderNodes: function buildRenderNodes() {
-          return [];
-        },
-        statements: [],
-        locals: [],
-        templates: []
-      };
-    })();
-    return {
-      meta: {
-        "fragmentReason": {
-          "name": "missing-wrapper",
-          "problems": ["wrong-type"]
-        },
-        "revision": "Ember@2.6.1",
-        "loc": {
-          "source": null,
-          "start": {
-            "line": 1,
-            "column": 0
-          },
-          "end": {
-            "line": 6,
-            "column": 0
-          }
-        },
-        "moduleName": "client/templates/users/all.hbs"
-      },
-      isEmpty: false,
-      arity: 0,
-      cachedFragment: null,
-      hasRendered: false,
-      buildFragment: function buildFragment(dom) {
-        var el0 = dom.createDocumentFragment();
-        var el1 = dom.createComment("");
-        dom.appendChild(el0, el1);
-        return el0;
-      },
-      buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
-        var morphs = new Array(1);
-        morphs[0] = dom.createMorphAt(fragment, 0, 0, contextualElement);
-        dom.insertBoundary(fragment, 0);
-        dom.insertBoundary(fragment, null);
-        return morphs;
-      },
-      statements: [["block", "each", [["get", "users", ["loc", [null, [1, 8], [1, 13]]]]], [], 0, 1, ["loc", [null, [1, 0], [5, 9]]]]],
-      locals: [],
-      templates: [child0, child1]
-    };
-  })());
-});
-define("client/templates/users/user", ["exports"], function (exports) {
+define("client/templates/user/user", ["exports"], function (exports) {
   exports["default"] = Ember.HTMLBars.template((function () {
     return {
       meta: {
@@ -2442,7 +2307,7 @@ define("client/templates/users/user", ["exports"], function (exports) {
             "column": 0
           }
         },
-        "moduleName": "client/templates/users/user.hbs"
+        "moduleName": "client/templates/user/user.hbs"
       },
       isEmpty: false,
       arity: 0,
@@ -2478,7 +2343,7 @@ define("client/templates/users/user", ["exports"], function (exports) {
         morphs[0] = dom.createMorphAt(dom.childAt(fragment, [0, 1, 1]), 0, 0);
         return morphs;
       },
-      statements: [["content", "model.name", ["loc", [null, [3, 27], [3, 41]]]]],
+      statements: [["content", "user.name", ["loc", [null, [3, 27], [3, 40]]]]],
       locals: [],
       templates: []
     };
@@ -2486,6 +2351,84 @@ define("client/templates/users/user", ["exports"], function (exports) {
 });
 define("client/templates/users", ["exports"], function (exports) {
   exports["default"] = Ember.HTMLBars.template((function () {
+    var child0 = (function () {
+      return {
+        meta: {
+          "fragmentReason": false,
+          "revision": "Ember@2.6.1",
+          "loc": {
+            "source": null,
+            "start": {
+              "line": 6,
+              "column": 4
+            },
+            "end": {
+              "line": 8,
+              "column": 4
+            }
+          },
+          "moduleName": "client/templates/users.hbs"
+        },
+        isEmpty: false,
+        arity: 1,
+        cachedFragment: null,
+        hasRendered: false,
+        buildFragment: function buildFragment(dom) {
+          var el0 = dom.createDocumentFragment();
+          var el1 = dom.createTextNode("      ");
+          dom.appendChild(el0, el1);
+          var el1 = dom.createComment("");
+          dom.appendChild(el0, el1);
+          var el1 = dom.createTextNode("\n");
+          dom.appendChild(el0, el1);
+          return el0;
+        },
+        buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+          var morphs = new Array(1);
+          morphs[0] = dom.createMorphAt(fragment, 1, 1, contextualElement);
+          return morphs;
+        },
+        statements: [["inline", "users/users-container", [], ["user", ["subexpr", "@mut", [["get", "user", ["loc", [null, [7, 35], [7, 39]]]]], [], []]], ["loc", [null, [7, 6], [7, 41]]]]],
+        locals: ["user"],
+        templates: []
+      };
+    })();
+    var child1 = (function () {
+      return {
+        meta: {
+          "fragmentReason": false,
+          "revision": "Ember@2.6.1",
+          "loc": {
+            "source": null,
+            "start": {
+              "line": 8,
+              "column": 4
+            },
+            "end": {
+              "line": 10,
+              "column": 4
+            }
+          },
+          "moduleName": "client/templates/users.hbs"
+        },
+        isEmpty: false,
+        arity: 0,
+        cachedFragment: null,
+        hasRendered: false,
+        buildFragment: function buildFragment(dom) {
+          var el0 = dom.createDocumentFragment();
+          var el1 = dom.createTextNode("      Sorry, nobody is here.\n");
+          dom.appendChild(el0, el1);
+          return el0;
+        },
+        buildRenderNodes: function buildRenderNodes() {
+          return [];
+        },
+        statements: [],
+        locals: [],
+        templates: []
+      };
+    })();
     return {
       meta: {
         "fragmentReason": {
@@ -2499,7 +2442,7 @@ define("client/templates/users", ["exports"], function (exports) {
             "column": 0
           },
           "end": {
-            "line": 9,
+            "line": 13,
             "column": 0
           }
         },
@@ -2528,11 +2471,11 @@ define("client/templates/users", ["exports"], function (exports) {
         dom.appendChild(el1, el2);
         var el2 = dom.createElement("div");
         dom.setAttribute(el2, "class", "col-md-9");
-        var el3 = dom.createTextNode("\n    ");
+        var el3 = dom.createTextNode("\n");
         dom.appendChild(el2, el3);
         var el3 = dom.createComment("");
         dom.appendChild(el2, el3);
-        var el3 = dom.createTextNode("\n  ");
+        var el3 = dom.createTextNode("  ");
         dom.appendChild(el2, el3);
         dom.appendChild(el1, el2);
         var el2 = dom.createTextNode("\n");
@@ -2549,9 +2492,9 @@ define("client/templates/users", ["exports"], function (exports) {
         morphs[1] = dom.createMorphAt(dom.childAt(element0, [3]), 1, 1);
         return morphs;
       },
-      statements: [["content", "layout/side-bar", ["loc", [null, [3, 4], [3, 23]]]], ["content", "outlet", ["loc", [null, [6, 4], [6, 14]]]]],
+      statements: [["content", "layout/side-bar", ["loc", [null, [3, 4], [3, 23]]]], ["block", "each", [["get", "users", ["loc", [null, [6, 12], [6, 17]]]]], [], 0, 1, ["loc", [null, [6, 4], [10, 13]]]]],
       locals: [],
-      templates: []
+      templates: [child0, child1]
     };
   })());
 });

@@ -3,6 +3,10 @@
     {{layout/side-bar}}
   </div>
   <div class="col-md-9">
-    {{outlet}}
+    {{#each users as |user|}}
+      {{users/users-container user=user}}
+    {{else}}
+      Sorry, nobody is here.
+    {{/each}}
   </div>
 </div>

@@ -1059,22 +1059,13 @@ define('client/tests/routes/signin.jshint', ['exports'], function (exports) {
     assert.ok(true, 'routes/signin.js should pass jshint.');
   });
 });
-define('client/tests/routes/users/all.jshint', ['exports'], function (exports) {
+define('client/tests/routes/user/user.jshint', ['exports'], function (exports) {
   'use strict';
 
-  QUnit.module('JSHint | routes/users/all.js');
+  QUnit.module('JSHint | routes/user/user.js');
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'routes/users/all.js should pass jshint.');
-  });
-});
-define('client/tests/routes/users/user.jshint', ['exports'], function (exports) {
-  'use strict';
-
-  QUnit.module('JSHint | routes/users/user.js');
-  QUnit.test('should pass jshint', function (assert) {
-    assert.expect(1);
-    assert.ok(true, 'routes/users/user.js should pass jshint.');
+    assert.ok(true, 'routes/user/user.js should pass jshint.');
   });
 });
 define('client/tests/routes/users.jshint', ['exports'], function (exports) {
@@ -1385,9 +1376,9 @@ define('client/tests/unit/routes/signin-test.jshint', ['exports'], function (exp
     assert.ok(true, 'unit/routes/signin-test.js should pass jshint.');
   });
 });
-define('client/tests/unit/routes/users/all-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
+define('client/tests/unit/routes/user/user-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
 
-  (0, _emberQunit.moduleFor)('route:users/all', 'Unit | Route | users/all', {
+  (0, _emberQunit.moduleFor)('route:user/user', 'Unit | Route | user/user', {
     // Specify the other units that are required for this test.
     // needs: ['controller:foo']
   });
@@ -1397,34 +1388,13 @@ define('client/tests/unit/routes/users/all-test', ['exports', 'ember-qunit'], fu
     assert.ok(route);
   });
 });
-define('client/tests/unit/routes/users/all-test.jshint', ['exports'], function (exports) {
+define('client/tests/unit/routes/user/user-test.jshint', ['exports'], function (exports) {
   'use strict';
 
-  QUnit.module('JSHint | unit/routes/users/all-test.js');
+  QUnit.module('JSHint | unit/routes/user/user-test.js');
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'unit/routes/users/all-test.js should pass jshint.');
-  });
-});
-define('client/tests/unit/routes/users/user-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
-
-  (0, _emberQunit.moduleFor)('route:users/user', 'Unit | Route | users/user', {
-    // Specify the other units that are required for this test.
-    // needs: ['controller:foo']
-  });
-
-  (0, _emberQunit.test)('it exists', function (assert) {
-    var route = this.subject();
-    assert.ok(route);
-  });
-});
-define('client/tests/unit/routes/users/user-test.jshint', ['exports'], function (exports) {
-  'use strict';
-
-  QUnit.module('JSHint | unit/routes/users/user-test.js');
-  QUnit.test('should pass jshint', function (assert) {
-    assert.expect(1);
-    assert.ok(true, 'unit/routes/users/user-test.js should pass jshint.');
+    assert.ok(true, 'unit/routes/user/user-test.js should pass jshint.');
   });
 });
 define('client/tests/unit/routes/users-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
