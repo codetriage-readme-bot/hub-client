@@ -5,10 +5,6 @@ export default Ember.Route.extend({
     save(title, description, id) {
       // find the card with the id
       this.store.findRecord('card', id).then(function(post) {
-        // get the required fields to update
-        // eg: title, description
-        post.get('title');
-        post.get('description');
         post.save().then((card) => {
           // go to the edit item's route after creating it.
           // remember to pass 'card' as the params since

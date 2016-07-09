@@ -371,10 +371,6 @@ define('client/routes/card/card/edit', ['exports', 'ember'], function (exports, 
         this.store.findRecord('card', id).then((function (post) {
           var _this = this;
 
-          // get the required fields to update
-          // eg: title, description
-          post.get('title');
-          post.get('description');
           post.save().then(function (card) {
             // go to the edit item's route after creating it.
             // remember to pass 'card' as the params since
@@ -940,7 +936,7 @@ define("client/templates/card/new", ["exports"], function (exports) {
         morphs[3] = dom.createElementMorph(element3);
         return morphs;
       },
-      statements: [["inline", "input", [], ["type", "text", "value", ["subexpr", "@mut", [["get", "card.title", ["loc", [null, [4, 30], [4, 40]]]]], [], []], "class", "form-control", "id", "card-title", "placeholder", "Enter the title of the card"], ["loc", [null, [4, 4], [4, 121]]]], ["inline", "textarea", [], ["value", ["subexpr", "@mut", [["get", "card.description", ["loc", [null, [10, 21], [10, 37]]]]], [], []], "class", "form-control", "id", "card-description", "rows", "3"], ["loc", [null, [10, 4], [10, 91]]]], ["element", "action", ["save", ["get", "card.title", ["loc", [null, [15, 28], [15, 38]]]], ["get", "card.description", ["loc", [null, [15, 39], [15, 55]]]]], [], ["loc", [null, [15, 12], [15, 57]]]], ["element", "action", ["cancel"], [], ["loc", [null, [16, 12], [16, 31]]]]],
+      statements: [["inline", "input", [], ["type", "text", "value", ["subexpr", "@mut", [["get", "title", ["loc", [null, [4, 30], [4, 35]]]]], [], []], "class", "form-control", "id", "card-title", "placeholder", "Enter the title of the card"], ["loc", [null, [4, 4], [4, 116]]]], ["inline", "textarea", [], ["value", ["subexpr", "@mut", [["get", "description", ["loc", [null, [10, 21], [10, 32]]]]], [], []], "class", "form-control", "id", "card-description", "rows", "3"], ["loc", [null, [10, 4], [10, 86]]]], ["element", "action", ["save", ["get", "title", ["loc", [null, [15, 28], [15, 33]]]], ["get", "description", ["loc", [null, [15, 34], [15, 45]]]]], [], ["loc", [null, [15, 12], [15, 47]]]], ["element", "action", ["cancel"], [], ["loc", [null, [16, 12], [16, 31]]]]],
       locals: [],
       templates: []
     };
@@ -2348,7 +2344,7 @@ catch(err) {
 /* jshint ignore:start */
 
 if (!runningTests) {
-  require("client/app")["default"].create({"name":"client","version":"0.0.0+dac358ce"});
+  require("client/app")["default"].create({"name":"client","version":"0.0.0+db3b2378"});
 }
 
 /* jshint ignore:end */
