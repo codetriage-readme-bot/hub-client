@@ -31,7 +31,7 @@ define('client/tests/components/forms/new-card-form.jshint', ['exports'], functi
   QUnit.module('JSHint | components/forms/new-card-form.js');
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'components/forms/new-card-form.js should pass jshint.\ncomponents/forms/new-card-form.js: line 36, col 11, \'description\' is defined but never used.\n\n1 error');
+    assert.ok(true, 'components/forms/new-card-form.js should pass jshint.');
   });
 });
 define('client/tests/components/forms/signin-form.jshint', ['exports'], function (exports) {

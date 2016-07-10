@@ -88,42 +88,10 @@ define('client/components/cards/cards-container', ['exports', 'ember'], function
 define('client/components/forms/new-card-form', ['exports', 'ember'], function (exports, _ember) {
   exports['default'] = _ember['default'].Component.extend({
     store: _ember['default'].inject.service(),
-    // actions: {
-    //   save(title, description) {
-    //   const newCard = this.get('store').createRecord('card', {
-    //     title,
-    //     description
-    //   });
-
-    //   this.get('store').findRecord('user', 1).then(function(user) {
-    //     this.get('model').set('users', [user]);
-    //     console.log(newCard);
-
-    //     this.get('model').save().then((card) => {
-    //       // go to the new item's route after creating it.
-    //       this.transitionTo('card.card', card);
-    //     });
-    //   }.bind(this));
-
-    // },
-
-    // model(){
-    //   let title = this.get('model.title');
-    //   let description = this.get('model.description');
-
-    //   console.log(title);
-
-    //   return this.get('store').createRecord('card', { title, description });
-    // },
-
+    // model: null,
     actions: {
       save: function save() {
         var _this = this;
-
-        var title = this.get('title');
-        var description = this.get('description');
-
-        console.log(title);
 
         // this.get('store').createRecord('card', { title, description });
         this.get('store').findRecord('user', 1).then((function (user) {
@@ -137,9 +105,8 @@ define('client/components/forms/new-card-form', ['exports', 'ember'], function (
       },
 
       cancel: function cancel() {
-        // on clicking on cancel, just go to the card.all
-        // route
-        this.transitionTo('card.all');
+        // on clicking on cancel, just go to the card.all route
+        this.transitionTo('cards.all');
       }
     }
   });
@@ -464,12 +431,7 @@ define('client/routes/card/card', ['exports', 'ember'], function (exports, _embe
 define('client/routes/card/new', ['exports', 'ember'], function (exports, _ember) {
   exports['default'] = _ember['default'].Route.extend({
     model: function model() {
-      var title = this.get('model.title');
-      var description = this.get('model.description');
-
-      console.log(title);
-
-      return this.get('store').createRecord('card', { title: title, description: description });
+      return this.get('store').createRecord('card');
     }
 
   });
@@ -1308,7 +1270,7 @@ define("client/templates/components/forms/new-card-form", ["exports"], function 
         morphs[3] = dom.createElementMorph(element3);
         return morphs;
       },
-      statements: [["inline", "input", [], ["type", "text", "value", ["subexpr", "@mut", [["get", "title", ["loc", [null, [4, 30], [4, 35]]]]], [], []], "class", "form-control", "id", "card-title", "placeholder", "Enter the title of the card"], ["loc", [null, [4, 4], [4, 116]]]], ["inline", "textarea", [], ["value", ["subexpr", "@mut", [["get", "description", ["loc", [null, [10, 21], [10, 32]]]]], [], []], "class", "form-control", "id", "card-description", "rows", "3"], ["loc", [null, [10, 4], [10, 86]]]], ["element", "action", ["save", ["get", "card", ["loc", [null, [15, 28], [15, 32]]]]], [], ["loc", [null, [15, 12], [15, 34]]]], ["element", "action", ["cancel"], [], ["loc", [null, [16, 12], [16, 31]]]]],
+      statements: [["inline", "input", [], ["type", "text", "value", ["subexpr", "@mut", [["get", "model.title", ["loc", [null, [4, 30], [4, 41]]]]], [], []], "class", "form-control", "id", "card-title", "placeholder", "Enter the title of the card"], ["loc", [null, [4, 4], [4, 122]]]], ["inline", "textarea", [], ["value", ["subexpr", "@mut", [["get", "model.description", ["loc", [null, [10, 21], [10, 38]]]]], [], []], "class", "form-control", "id", "card-description", "rows", "3"], ["loc", [null, [10, 4], [10, 92]]]], ["element", "action", ["save"], [], ["loc", [null, [15, 12], [15, 29]]]], ["element", "action", ["cancel"], [], ["loc", [null, [16, 12], [16, 31]]]]],
       locals: [],
       templates: []
     };
