@@ -2,11 +2,13 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
   store: Ember.inject.service(),
-  // model: null,
+  session: Ember.inject.service('session'),
   actions: {
     save() {
-      // this.get('store').createRecord('card', { title, description });
-      this.get('store').findRecord('user', 1).then((user) => {
+      // get the details about the currently authenticated user
+      this.get('store').findRecord('user', this.get('session.data.authenticated.id')).then((user) => {
+
+        // set the user as the owner of the current card
         this.get('model').set('users', [user]);
 
         this.get('model').save().then((card) => {

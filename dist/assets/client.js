@@ -88,13 +88,15 @@ define('client/components/cards/cards-container', ['exports', 'ember'], function
 define('client/components/forms/new-card-form', ['exports', 'ember'], function (exports, _ember) {
   exports['default'] = _ember['default'].Component.extend({
     store: _ember['default'].inject.service(),
-    // model: null,
+    session: _ember['default'].inject.service('session'),
     actions: {
       save: function save() {
         var _this = this;
 
-        // this.get('store').createRecord('card', { title, description });
-        this.get('store').findRecord('user', 1).then((function (user) {
+        // get the details about the currently authenticated user
+        this.get('store').findRecord('user', this.get('session.data.authenticated.id')).then((function (user) {
+
+          // set the user as the owner of the current card
           _this.get('model').set('users', [user]);
 
           _this.get('model').save().then(function (card) {
@@ -433,13 +435,8 @@ define('client/routes/card/new', ['exports', 'ember'], function (exports, _ember
     model: function model() {
       return this.get('store').createRecord('card');
     }
-
   });
 });
-// setupController(controller, model) {
-//   this._super(controller, model);
-//   controller.set('card', model);
-// }
 define('client/routes/cards', ['exports', 'ember'], function (exports, _ember) {
   exports['default'] = _ember['default'].Route.extend({
     model: function model() {
