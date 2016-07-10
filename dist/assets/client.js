@@ -85,6 +85,65 @@ define('client/components/app-version', ['exports', 'ember-cli-app-version/compo
 define('client/components/cards/cards-container', ['exports', 'ember'], function (exports, _ember) {
   exports['default'] = _ember['default'].Component.extend({});
 });
+define('client/components/forms/new-card-form', ['exports', 'ember'], function (exports, _ember) {
+  exports['default'] = _ember['default'].Component.extend({
+    store: _ember['default'].inject.service(),
+    // actions: {
+    //   save(title, description) {
+    //   const newCard = this.get('store').createRecord('card', {
+    //     title,
+    //     description
+    //   });
+
+    //   this.get('store').findRecord('user', 1).then(function(user) {
+    //     this.get('model').set('users', [user]);
+    //     console.log(newCard);
+
+    //     this.get('model').save().then((card) => {
+    //       // go to the new item's route after creating it.
+    //       this.transitionTo('card.card', card);
+    //     });
+    //   }.bind(this));
+
+    // },
+
+    // model(){
+    //   let title = this.get('model.title');
+    //   let description = this.get('model.description');
+
+    //   console.log(title);
+
+    //   return this.get('store').createRecord('card', { title, description });
+    // },
+
+    actions: {
+      save: function save() {
+        var _this = this;
+
+        var title = this.get('title');
+        var description = this.get('description');
+
+        console.log(title);
+
+        // this.get('store').createRecord('card', { title, description });
+        this.get('store').findRecord('user', 1).then((function (user) {
+          _this.get('model').set('users', [user]);
+
+          _this.get('model').save().then(function (card) {
+            // go to the new item's route after creating it.
+            _ember['default'].getOwner(_this).lookup('route:card.index').transitionTo('card.card', card);
+          });
+        }).bind(this));
+      },
+
+      cancel: function cancel() {
+        // on clicking on cancel, just go to the card.all
+        // route
+        this.transitionTo('card.all');
+      }
+    }
+  });
+});
 define('client/components/forms/signin-form', ['exports', 'ember'], function (exports, _ember) {
   exports['default'] = _ember['default'].Component.extend({
     session: _ember['default'].inject.service('session'),
@@ -308,20 +367,18 @@ define('client/instance-initializers/ember-simple-auth', ['exports', 'ember-simp
     }
   };
 });
-define('client/models/card', ['exports', 'ember-data/model', 'ember-data/attr'], function (exports, _emberDataModel, _emberDataAttr) {
-  // import { belongsTo, hasMany } from 'ember-data/relationships';
-
+define('client/models/card', ['exports', 'ember-data/model', 'ember-data/attr', 'ember-data/relationships'], function (exports, _emberDataModel, _emberDataAttr, _emberDataRelationships) {
   exports['default'] = _emberDataModel['default'].extend({
     title: (0, _emberDataAttr['default'])('string'),
-    description: (0, _emberDataAttr['default'])('string')
+    description: (0, _emberDataAttr['default'])('string'),
+    users: (0, _emberDataRelationships.hasMany)('user')
   });
 });
-define('client/models/user', ['exports', 'ember-data/model', 'ember-data/attr'], function (exports, _emberDataModel, _emberDataAttr) {
-  // import { belongsTo, hasMany } from 'ember-data/relationships';
-
+define('client/models/user', ['exports', 'ember-data/model', 'ember-data/attr', 'ember-data/relationships'], function (exports, _emberDataModel, _emberDataAttr, _emberDataRelationships) {
   exports['default'] = _emberDataModel['default'].extend({
     email: (0, _emberDataAttr['default'])('string'),
-    name: (0, _emberDataAttr['default'])('string')
+    name: (0, _emberDataAttr['default'])('string'),
+    cards: (0, _emberDataRelationships.hasMany)('card')
   });
 });
 define('client/resolver', ['exports', 'ember-resolver'], function (exports, _emberResolver) {
@@ -406,35 +463,21 @@ define('client/routes/card/card', ['exports', 'ember'], function (exports, _embe
 });
 define('client/routes/card/new', ['exports', 'ember'], function (exports, _ember) {
   exports['default'] = _ember['default'].Route.extend({
-    actions: {
-      save: function save(title, description) {
-        var _this = this;
+    model: function model() {
+      var title = this.get('model.title');
+      var description = this.get('model.description');
 
-        // store the createRecord data in a new variable
-        // also specify the fields that you need to update
-        // eg: title, description
-        var newCard = this.get('store').createRecord('card', { title: title, description: description });
-        newCard.save().then(function (card) {
-          // go to the new item's route after creating it.
-          // remember to pass 'card' as the params since
-          // card.js is expecting an object
-          _this.transitionTo('card.card', card);
-        });
-      },
+      console.log(title);
 
-      cancel: function cancel() {
-        // on clicking on cancel, just go to the card.all
-        // route
-        this.transitionTo('card.all');
-      }
-    },
-
-    setupController: function setupController(controller, model) {
-      this._super(controller, model);
-      controller.set('card', model);
+      return this.get('store').createRecord('card', { title: title, description: description });
     }
+
   });
 });
+// setupController(controller, model) {
+//   this._super(controller, model);
+//   controller.set('card', model);
+// }
 define('client/routes/cards', ['exports', 'ember'], function (exports, _ember) {
   exports['default'] = _ember['default'].Route.extend({
     model: function model() {
@@ -822,7 +865,10 @@ define("client/templates/card/new", ["exports"], function (exports) {
   exports["default"] = Ember.HTMLBars.template((function () {
     return {
       meta: {
-        "fragmentReason": false,
+        "fragmentReason": {
+          "name": "missing-wrapper",
+          "problems": ["wrong-type"]
+        },
         "revision": "Ember@2.6.1",
         "loc": {
           "source": null,
@@ -831,7 +877,7 @@ define("client/templates/card/new", ["exports"], function (exports) {
             "column": 0
           },
           "end": {
-            "line": 19,
+            "line": 2,
             "column": 0
           }
         },
@@ -843,100 +889,19 @@ define("client/templates/card/new", ["exports"], function (exports) {
       hasRendered: false,
       buildFragment: function buildFragment(dom) {
         var el0 = dom.createDocumentFragment();
-        var el1 = dom.createElement("form");
-        var el2 = dom.createTextNode("\n  ");
-        dom.appendChild(el1, el2);
-        var el2 = dom.createElement("fieldset");
-        dom.setAttribute(el2, "class", "form-group");
-        var el3 = dom.createTextNode("\n    ");
-        dom.appendChild(el2, el3);
-        var el3 = dom.createElement("label");
-        dom.setAttribute(el3, "for", "card-title");
-        var el4 = dom.createTextNode("Card Title");
-        dom.appendChild(el3, el4);
-        dom.appendChild(el2, el3);
-        var el3 = dom.createTextNode("\n    ");
-        dom.appendChild(el2, el3);
-        var el3 = dom.createComment("");
-        dom.appendChild(el2, el3);
-        var el3 = dom.createTextNode("\n    ");
-        dom.appendChild(el2, el3);
-        var el3 = dom.createElement("small");
-        dom.setAttribute(el3, "class", "text-muted");
-        var el4 = dom.createTextNode("Give your card a nice title");
-        dom.appendChild(el3, el4);
-        dom.appendChild(el2, el3);
-        var el3 = dom.createTextNode("\n  ");
-        dom.appendChild(el2, el3);
-        dom.appendChild(el1, el2);
-        var el2 = dom.createTextNode("\n\n  ");
-        dom.appendChild(el1, el2);
-        var el2 = dom.createElement("fieldset");
-        dom.setAttribute(el2, "class", "form-group");
-        var el3 = dom.createTextNode("\n    ");
-        dom.appendChild(el2, el3);
-        var el3 = dom.createElement("label");
-        dom.setAttribute(el3, "for", "card-description");
-        var el4 = dom.createTextNode("Card Description");
-        dom.appendChild(el3, el4);
-        dom.appendChild(el2, el3);
-        var el3 = dom.createTextNode("\n    ");
-        dom.appendChild(el2, el3);
-        var el3 = dom.createComment("");
-        dom.appendChild(el2, el3);
-        var el3 = dom.createTextNode("\n    ");
-        dom.appendChild(el2, el3);
-        var el3 = dom.createElement("small");
-        dom.setAttribute(el3, "class", "text-muted");
-        var el4 = dom.createTextNode("Describe your card");
-        dom.appendChild(el3, el4);
-        dom.appendChild(el2, el3);
-        var el3 = dom.createTextNode("\n  ");
-        dom.appendChild(el2, el3);
-        dom.appendChild(el1, el2);
-        var el2 = dom.createTextNode("\n\n  ");
-        dom.appendChild(el1, el2);
-        var el2 = dom.createElement("div");
-        dom.setAttribute(el2, "class", "btn-group");
-        dom.setAttribute(el2, "role", "group");
-        dom.setAttribute(el2, "aria-label", "Save or Cancel your card");
-        var el3 = dom.createTextNode("\n    ");
-        dom.appendChild(el2, el3);
-        var el3 = dom.createElement("button");
-        dom.setAttribute(el3, "class", "btn btn-secondary");
-        var el4 = dom.createTextNode("Save");
-        dom.appendChild(el3, el4);
-        dom.appendChild(el2, el3);
-        var el3 = dom.createTextNode("\n    ");
-        dom.appendChild(el2, el3);
-        var el3 = dom.createElement("button");
-        dom.setAttribute(el3, "class", "btn btn-danger");
-        var el4 = dom.createTextNode("Cancel");
-        dom.appendChild(el3, el4);
-        dom.appendChild(el2, el3);
-        var el3 = dom.createTextNode("\n  ");
-        dom.appendChild(el2, el3);
-        dom.appendChild(el1, el2);
-        var el2 = dom.createTextNode("\n");
-        dom.appendChild(el1, el2);
+        var el1 = dom.createComment("");
         dom.appendChild(el0, el1);
         var el1 = dom.createTextNode("\n");
         dom.appendChild(el0, el1);
         return el0;
       },
       buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
-        var element0 = dom.childAt(fragment, [0]);
-        var element1 = dom.childAt(element0, [5]);
-        var element2 = dom.childAt(element1, [1]);
-        var element3 = dom.childAt(element1, [3]);
-        var morphs = new Array(4);
-        morphs[0] = dom.createMorphAt(dom.childAt(element0, [1]), 3, 3);
-        morphs[1] = dom.createMorphAt(dom.childAt(element0, [3]), 3, 3);
-        morphs[2] = dom.createElementMorph(element2);
-        morphs[3] = dom.createElementMorph(element3);
+        var morphs = new Array(1);
+        morphs[0] = dom.createMorphAt(fragment, 0, 0, contextualElement);
+        dom.insertBoundary(fragment, 0);
         return morphs;
       },
-      statements: [["inline", "input", [], ["type", "text", "value", ["subexpr", "@mut", [["get", "title", ["loc", [null, [4, 30], [4, 35]]]]], [], []], "class", "form-control", "id", "card-title", "placeholder", "Enter the title of the card"], ["loc", [null, [4, 4], [4, 116]]]], ["inline", "textarea", [], ["value", ["subexpr", "@mut", [["get", "description", ["loc", [null, [10, 21], [10, 32]]]]], [], []], "class", "form-control", "id", "card-description", "rows", "3"], ["loc", [null, [10, 4], [10, 86]]]], ["element", "action", ["save", ["get", "title", ["loc", [null, [15, 28], [15, 33]]]], ["get", "description", ["loc", [null, [15, 34], [15, 45]]]]], [], ["loc", [null, [15, 12], [15, 47]]]], ["element", "action", ["cancel"], [], ["loc", [null, [16, 12], [16, 31]]]]],
+      statements: [["inline", "forms/new-card-form", [], ["model", ["subexpr", "@mut", [["get", "model", ["loc", [null, [1, 28], [1, 33]]]]], [], []]], ["loc", [null, [1, 0], [1, 35]]]]],
       locals: [],
       templates: []
     };
@@ -1222,6 +1187,130 @@ define("client/templates/components/cards/cards-container", ["exports"], functio
       statements: [["block", "link-to", ["card.card", ["get", "card", ["loc", [null, [8, 31], [8, 35]]]]], [], 0, null, ["loc", [null, [8, 8], [10, 20]]]], ["content", "card.description", ["loc", [null, [14, 6], [14, 26]]]]],
       locals: [],
       templates: [child0]
+    };
+  })());
+});
+define("client/templates/components/forms/new-card-form", ["exports"], function (exports) {
+  exports["default"] = Ember.HTMLBars.template((function () {
+    return {
+      meta: {
+        "fragmentReason": false,
+        "revision": "Ember@2.6.1",
+        "loc": {
+          "source": null,
+          "start": {
+            "line": 1,
+            "column": 0
+          },
+          "end": {
+            "line": 19,
+            "column": 0
+          }
+        },
+        "moduleName": "client/templates/components/forms/new-card-form.hbs"
+      },
+      isEmpty: false,
+      arity: 0,
+      cachedFragment: null,
+      hasRendered: false,
+      buildFragment: function buildFragment(dom) {
+        var el0 = dom.createDocumentFragment();
+        var el1 = dom.createElement("form");
+        var el2 = dom.createTextNode("\n  ");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createElement("fieldset");
+        dom.setAttribute(el2, "class", "form-group");
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("label");
+        dom.setAttribute(el3, "for", "card-title");
+        var el4 = dom.createTextNode("Card Title");
+        dom.appendChild(el3, el4);
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createComment("");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("small");
+        dom.setAttribute(el3, "class", "text-muted");
+        var el4 = dom.createTextNode("Give your card a nice title");
+        dom.appendChild(el3, el4);
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n  ");
+        dom.appendChild(el2, el3);
+        dom.appendChild(el1, el2);
+        var el2 = dom.createTextNode("\n\n  ");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createElement("fieldset");
+        dom.setAttribute(el2, "class", "form-group");
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("label");
+        dom.setAttribute(el3, "for", "card-description");
+        var el4 = dom.createTextNode("Card Description");
+        dom.appendChild(el3, el4);
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createComment("");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("small");
+        dom.setAttribute(el3, "class", "text-muted");
+        var el4 = dom.createTextNode("Describe your card");
+        dom.appendChild(el3, el4);
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n  ");
+        dom.appendChild(el2, el3);
+        dom.appendChild(el1, el2);
+        var el2 = dom.createTextNode("\n\n  ");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createElement("div");
+        dom.setAttribute(el2, "class", "btn-group");
+        dom.setAttribute(el2, "role", "group");
+        dom.setAttribute(el2, "aria-label", "Save or Cancel your card");
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("button");
+        dom.setAttribute(el3, "class", "btn btn-secondary");
+        var el4 = dom.createTextNode("Save");
+        dom.appendChild(el3, el4);
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("button");
+        dom.setAttribute(el3, "class", "btn btn-danger");
+        var el4 = dom.createTextNode("Cancel");
+        dom.appendChild(el3, el4);
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n  ");
+        dom.appendChild(el2, el3);
+        dom.appendChild(el1, el2);
+        var el2 = dom.createTextNode("\n");
+        dom.appendChild(el1, el2);
+        dom.appendChild(el0, el1);
+        var el1 = dom.createTextNode("\n");
+        dom.appendChild(el0, el1);
+        return el0;
+      },
+      buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+        var element0 = dom.childAt(fragment, [0]);
+        var element1 = dom.childAt(element0, [5]);
+        var element2 = dom.childAt(element1, [1]);
+        var element3 = dom.childAt(element1, [3]);
+        var morphs = new Array(4);
+        morphs[0] = dom.createMorphAt(dom.childAt(element0, [1]), 3, 3);
+        morphs[1] = dom.createMorphAt(dom.childAt(element0, [3]), 3, 3);
+        morphs[2] = dom.createElementMorph(element2);
+        morphs[3] = dom.createElementMorph(element3);
+        return morphs;
+      },
+      statements: [["inline", "input", [], ["type", "text", "value", ["subexpr", "@mut", [["get", "title", ["loc", [null, [4, 30], [4, 35]]]]], [], []], "class", "form-control", "id", "card-title", "placeholder", "Enter the title of the card"], ["loc", [null, [4, 4], [4, 116]]]], ["inline", "textarea", [], ["value", ["subexpr", "@mut", [["get", "description", ["loc", [null, [10, 21], [10, 32]]]]], [], []], "class", "form-control", "id", "card-description", "rows", "3"], ["loc", [null, [10, 4], [10, 86]]]], ["element", "action", ["save", ["get", "card", ["loc", [null, [15, 28], [15, 32]]]]], [], ["loc", [null, [15, 12], [15, 34]]]], ["element", "action", ["cancel"], [], ["loc", [null, [16, 12], [16, 31]]]]],
+      locals: [],
+      templates: []
     };
   })());
 });
@@ -2344,7 +2433,7 @@ catch(err) {
 /* jshint ignore:start */
 
 if (!runningTests) {
-  require("client/app")["default"].create({"name":"client","version":"0.0.0+db3b2378"});
+  require("client/app")["default"].create({"name":"client","version":"0.0.0+026a9c46"});
 }
 
 /* jshint ignore:end */

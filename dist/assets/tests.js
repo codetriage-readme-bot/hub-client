@@ -25,6 +25,15 @@ define('client/tests/components/cards/cards-container.jshint', ['exports'], func
     assert.ok(true, 'components/cards/cards-container.js should pass jshint.');
   });
 });
+define('client/tests/components/forms/new-card-form.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint | components/forms/new-card-form.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(false, 'components/forms/new-card-form.js should pass jshint.\ncomponents/forms/new-card-form.js: line 36, col 11, \'description\' is defined but never used.\n\n1 error');
+  });
+});
 define('client/tests/components/forms/signin-form.jshint', ['exports'], function (exports) {
   'use strict';
 
@@ -353,6 +362,155 @@ define('client/tests/integration/components/cards/cards-container-test.jshint', 
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
     assert.ok(true, 'integration/components/cards/cards-container-test.js should pass jshint.');
+  });
+});
+define('client/tests/integration/components/forms/new-card-form-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
+
+  (0, _emberQunit.moduleForComponent)('forms/new-card-form', 'Integration | Component | forms/new card form', {
+    integration: true
+  });
+
+  (0, _emberQunit.test)('it renders', function (assert) {
+    // Set any properties with this.set('myProperty', 'value');
+    // Handle any actions with this.on('myAction', function(val) { ... });
+
+    this.render(Ember.HTMLBars.template((function () {
+      return {
+        meta: {
+          'fragmentReason': {
+            'name': 'missing-wrapper',
+            'problems': ['wrong-type']
+          },
+          'revision': 'Ember@2.6.1',
+          'loc': {
+            'source': null,
+            'start': {
+              'line': 1,
+              'column': 0
+            },
+            'end': {
+              'line': 1,
+              'column': 23
+            }
+          }
+        },
+        isEmpty: false,
+        arity: 0,
+        cachedFragment: null,
+        hasRendered: false,
+        buildFragment: function buildFragment(dom) {
+          var el0 = dom.createDocumentFragment();
+          var el1 = dom.createComment('');
+          dom.appendChild(el0, el1);
+          return el0;
+        },
+        buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+          var morphs = new Array(1);
+          morphs[0] = dom.createMorphAt(fragment, 0, 0, contextualElement);
+          dom.insertBoundary(fragment, 0);
+          dom.insertBoundary(fragment, null);
+          return morphs;
+        },
+        statements: [['content', 'forms/new-card-form', ['loc', [null, [1, 0], [1, 23]]]]],
+        locals: [],
+        templates: []
+      };
+    })()));
+
+    assert.equal(this.$().text().trim(), '');
+
+    // Template block usage:
+    this.render(Ember.HTMLBars.template((function () {
+      var child0 = (function () {
+        return {
+          meta: {
+            'fragmentReason': false,
+            'revision': 'Ember@2.6.1',
+            'loc': {
+              'source': null,
+              'start': {
+                'line': 2,
+                'column': 4
+              },
+              'end': {
+                'line': 4,
+                'column': 4
+              }
+            }
+          },
+          isEmpty: false,
+          arity: 0,
+          cachedFragment: null,
+          hasRendered: false,
+          buildFragment: function buildFragment(dom) {
+            var el0 = dom.createDocumentFragment();
+            var el1 = dom.createTextNode('      template block text\n');
+            dom.appendChild(el0, el1);
+            return el0;
+          },
+          buildRenderNodes: function buildRenderNodes() {
+            return [];
+          },
+          statements: [],
+          locals: [],
+          templates: []
+        };
+      })();
+
+      return {
+        meta: {
+          'fragmentReason': {
+            'name': 'missing-wrapper',
+            'problems': ['wrong-type']
+          },
+          'revision': 'Ember@2.6.1',
+          'loc': {
+            'source': null,
+            'start': {
+              'line': 1,
+              'column': 0
+            },
+            'end': {
+              'line': 5,
+              'column': 2
+            }
+          }
+        },
+        isEmpty: false,
+        arity: 0,
+        cachedFragment: null,
+        hasRendered: false,
+        buildFragment: function buildFragment(dom) {
+          var el0 = dom.createDocumentFragment();
+          var el1 = dom.createTextNode('\n');
+          dom.appendChild(el0, el1);
+          var el1 = dom.createComment('');
+          dom.appendChild(el0, el1);
+          var el1 = dom.createTextNode('  ');
+          dom.appendChild(el0, el1);
+          return el0;
+        },
+        buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+          var morphs = new Array(1);
+          morphs[0] = dom.createMorphAt(fragment, 1, 1, contextualElement);
+          return morphs;
+        },
+        statements: [['block', 'forms/new-card-form', [], [], 0, null, ['loc', [null, [2, 4], [4, 28]]]]],
+        locals: [],
+        templates: [child0]
+      };
+    })()));
+
+    assert.equal(this.$().text().trim(), 'template block text');
+  });
+});
+define('client/tests/integration/components/forms/new-card-form-test.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint | integration/components/forms/new-card-form-test.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'integration/components/forms/new-card-form-test.js should pass jshint.');
   });
 });
 define('client/tests/integration/components/forms/signin-form-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
@@ -957,7 +1115,7 @@ define('client/tests/models/card.jshint', ['exports'], function (exports) {
   QUnit.module('JSHint | models/card.js');
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'models/card.js should pass jshint.');
+    assert.ok(false, 'models/card.js should pass jshint.\nmodels/card.js: line 3, col 10, \'belongsTo\' is defined but never used.\n\n1 error');
   });
 });
 define('client/tests/models/user.jshint', ['exports'], function (exports) {
@@ -966,7 +1124,7 @@ define('client/tests/models/user.jshint', ['exports'], function (exports) {
   QUnit.module('JSHint | models/user.js');
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'models/user.js should pass jshint.');
+    assert.ok(false, 'models/user.js should pass jshint.\nmodels/user.js: line 3, col 10, \'belongsTo\' is defined but never used.\n\n1 error');
   });
 });
 define('client/tests/resolver.jshint', ['exports'], function (exports) {
