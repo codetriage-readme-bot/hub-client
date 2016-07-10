@@ -391,19 +391,28 @@ define('client/routes/application', ['exports', 'ember', 'ember-simple-auth/mixi
 });
 define('client/routes/card/card/edit', ['exports', 'ember'], function (exports, _ember) {
   exports['default'] = _ember['default'].Route.extend({
+    session: _ember['default'].inject.service('session'),
     actions: {
       save: function save(title, description, id) {
-        // find the card with the id
-        this.store.findRecord('card', id).then((function (post) {
-          var _this = this;
+        var _this = this;
 
-          post.save().then(function (card) {
-            // go to the edit item's route after creating it.
-            // remember to pass 'card' as the params since
-            // card.js is expecting an object
-            _this.transitionTo('card.card', card);
-          });
-        }).bind(this));
+        // get the details about the currently authenticated user
+        this.get('store').findRecord('user', this.get('session.data.authenticated.id')).then(function (user) {
+          // find the card with the id
+          _this.store.findRecord('card', id).then((function (post) {
+            var _this2 = this;
+
+            // set the user as the owner of the current card
+            post.set('users', [user]);
+
+            post.save().then(function (card) {
+              // go to the edit item's route after creating it.
+              // remember to pass 'card' as the params since
+              // card.js is expecting an object
+              _this2.transitionTo('card.card', card);
+            });
+          }).bind(_this));
+        });
       },
 
       cancel: function cancel() {
