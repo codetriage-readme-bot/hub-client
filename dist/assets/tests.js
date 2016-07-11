@@ -1187,7 +1187,7 @@ define('client/tests/routes/cards.jshint', ['exports'], function (exports) {
   QUnit.module('JSHint | routes/cards.js');
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'routes/cards.js should pass jshint.');
+    assert.ok(false, 'routes/cards.js should pass jshint.\nroutes/cards.js: line 10, col 110, Missing semicolon.\n\n1 error');
   });
 });
 define('client/tests/routes/dashboard.jshint', ['exports'], function (exports) {

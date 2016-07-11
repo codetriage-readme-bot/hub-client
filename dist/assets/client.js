@@ -448,9 +448,15 @@ define('client/routes/card/new', ['exports', 'ember'], function (exports, _ember
 });
 define('client/routes/cards', ['exports', 'ember'], function (exports, _ember) {
   exports['default'] = _ember['default'].Route.extend({
+    session: _ember['default'].inject.service('session'),
     model: function model() {
       // return all the cards from the store
-      return this.store.findAll('card');
+      // return this.store.findAll('card');
+
+      // return the logged in user's cards
+      return this.store.find('user', this.get('session.data.authenticated.id')).then(function (user) {
+        return user.get('cards');
+      });
     },
 
     setupController: function setupController(controller, model) {
@@ -2401,7 +2407,7 @@ catch(err) {
 /* jshint ignore:start */
 
 if (!runningTests) {
-  require("client/app")["default"].create({"name":"client","version":"0.0.0+7b67ab95"});
+  require("client/app")["default"].create({"name":"client","version":"0.0.0+56713035"});
 }
 
 /* jshint ignore:end */
