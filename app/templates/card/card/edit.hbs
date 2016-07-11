@@ -1,18 +1,25 @@
-<form>
-  <fieldset class="form-group">
-    <label for="card-title">Card Title</label>
-    {{input type="text" value=card.title class="form-control" id="card-title" placeholder="Enter the title of the card"}}
-    <small class="text-muted">Give your card a nice title</small>
-  </fieldset>
-
-  <fieldset class="form-group">
-    <label for="card-description">Card Description</label>
-    {{textarea value=card.description class="form-control" id="card-description" rows="3"}}
-    <small class="text-muted">Describe your card</small>
-  </fieldset>
-
-  <div class="btn-group" role="group" aria-label="Save or Cancel your card">
-    <button {{action 'save' card.title card.description card.id}} class="btn btn-secondary">Save</button>
-    <button {{action 'cancel'}} class="btn btn-danger">Cancel</button>
+<div class="card c-card">
+  <div class="card-header c-card__header">
+    Edit Card
   </div>
-</form>
+  <div class="card-block c-card__block">
+    <form>
+      <fieldset class="form-group">
+        <label for="card-title">Card Title</label>
+        {{input type="text" value=card.title class="form-control" id="card-title" placeholder="Enter the title of the card"}}
+        <small class="text-muted">Give your card a nice title</small>
+      </fieldset>
+
+      <fieldset class="form-group">
+        <label for="card-description">Card Description</label>
+        {{textarea value=card.description class="form-control" id="card-description" rows="3"}}
+        <small class="text-muted">Describe your card</small>
+      </fieldset>
+
+      <div class="btn-group" role="group" aria-label="Save or Cancel your card">
+        <button {{action 'save' card.title card.description card.id}} class="btn btn-secondary">Save</button>
+        <button {{action 'cancel'}} class="btn btn-danger">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>

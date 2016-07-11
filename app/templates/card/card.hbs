@@ -1,10 +1,29 @@
-<div class="card">
-  <div class="card-block">
-    <h4 class="card-title">{{card.title}}</h4>
-    <p class="card-text">{{card.description}}</p>
+<div class="row">
+  <div class="col-md-2 l-left-container">
+    {{layout/side-bar}}
+  </div>
+  <div class="col-md-10 l-main-container">
+    {{layout/secondary-nav-bar}}
+    <div class="col-md-6">
+      <div class="l-cards-container">
+        <div class="card text-xs-center c-card">
+          <div class="card-header c-card__header">
+            Card
+          </div>
+          <div class="card-block c-card__block">
+            <h4 class="card-title c-card__title">
+              {{card.title}}
+            </h4>
+          </div>
+          <div class="card-footer text-muted c-card__footer">
+            {{card.description}}
+          </div>
+        </div>
+
+        {{#link-to 'card.card.edit' card}}Edit{{/link-to}}
+
+        {{outlet}}
+    </div>
+    </div>
   </div>
 </div>
-
-{{#link-to 'card.card.edit' card}}Edit{{/link-to}}
-
-{{outlet}}

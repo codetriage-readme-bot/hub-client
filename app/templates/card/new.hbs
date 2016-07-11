@@ -1,1 +1,20 @@
-{{forms/new-card-form model=model}}
+<div class="row">
+  <div class="col-md-2 l-left-container">
+    {{layout/side-bar}}
+  </div>
+  <div class="col-md-10 l-main-container">
+    {{layout/secondary-nav-bar}}
+    <div class="col-md-6">
+      <div class="l-cards-container">
+        <div class="card c-card">
+          <div class="card-header c-card__header">
+            Edit Card
+          </div>
+          <div class="card-block c-card__block">
+            {{forms/new-card-form model=model}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
