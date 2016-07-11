@@ -6,3 +6,7 @@
 /* ==========================================================================
    components
    ========================================================================== */
+@import './components/side-bar.css';
+@import './components/nav-bar.css';
+@import './components/secondary-nav-bar.css';
+@import './components/card.css';

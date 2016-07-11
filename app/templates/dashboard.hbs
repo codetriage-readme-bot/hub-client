@@ -1,8 +1,11 @@
 <div class="row">
-  <div class="col-md-3">
+  <div class="col-md-3 l-left-container">
     {{layout/side-bar}}
   </div>
-  <div class="col-md-9">
-    {{outlet}}
+  <div class="col-md-9 l-main-container">
+    {{layout/secondary-nav-bar}}
+    <div class="l-cards-container">
+      {{outlet}}
+    </div>
   </div>
 </div>

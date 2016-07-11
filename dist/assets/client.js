@@ -135,6 +135,9 @@ define('client/components/layout/nav-bar', ['exports', 'ember'], function (expor
     }
   });
 });
+define('client/components/layout/secondary-nav-bar', ['exports', 'ember'], function (exports, _ember) {
+  exports['default'] = _ember['default'].Component.extend({});
+});
 define('client/components/layout/side-bar', ['exports', 'ember'], function (exports, _ember) {
   exports['default'] = _ember['default'].Component.extend({});
 });
@@ -891,12 +894,12 @@ define("client/templates/cards", ["exports"], function (exports) {
           "loc": {
             "source": null,
             "start": {
-              "line": 6,
-              "column": 4
+              "line": 8,
+              "column": 6
             },
             "end": {
-              "line": 8,
-              "column": 4
+              "line": 10,
+              "column": 6
             }
           },
           "moduleName": "client/templates/cards.hbs"
@@ -907,7 +910,7 @@ define("client/templates/cards", ["exports"], function (exports) {
         hasRendered: false,
         buildFragment: function buildFragment(dom) {
           var el0 = dom.createDocumentFragment();
-          var el1 = dom.createTextNode("      ");
+          var el1 = dom.createTextNode("        ");
           dom.appendChild(el0, el1);
           var el1 = dom.createComment("");
           dom.appendChild(el0, el1);
@@ -920,7 +923,7 @@ define("client/templates/cards", ["exports"], function (exports) {
           morphs[0] = dom.createMorphAt(fragment, 1, 1, contextualElement);
           return morphs;
         },
-        statements: [["inline", "cards/cards-container", [], ["card", ["subexpr", "@mut", [["get", "card", ["loc", [null, [7, 35], [7, 39]]]]], [], []]], ["loc", [null, [7, 6], [7, 41]]]]],
+        statements: [["inline", "cards/cards-container", [], ["card", ["subexpr", "@mut", [["get", "card", ["loc", [null, [9, 37], [9, 41]]]]], [], []]], ["loc", [null, [9, 8], [9, 43]]]]],
         locals: ["card"],
         templates: []
       };
@@ -933,12 +936,12 @@ define("client/templates/cards", ["exports"], function (exports) {
           "loc": {
             "source": null,
             "start": {
-              "line": 8,
-              "column": 4
+              "line": 10,
+              "column": 6
             },
             "end": {
-              "line": 10,
-              "column": 4
+              "line": 12,
+              "column": 6
             }
           },
           "moduleName": "client/templates/cards.hbs"
@@ -949,7 +952,7 @@ define("client/templates/cards", ["exports"], function (exports) {
         hasRendered: false,
         buildFragment: function buildFragment(dom) {
           var el0 = dom.createDocumentFragment();
-          var el1 = dom.createTextNode("      Sorry, nobody is here.\n");
+          var el1 = dom.createTextNode("        Sorry, nobody is here.\n");
           dom.appendChild(el0, el1);
           return el0;
         },
@@ -974,7 +977,7 @@ define("client/templates/cards", ["exports"], function (exports) {
             "column": 0
           },
           "end": {
-            "line": 13,
+            "line": 16,
             "column": 0
           }
         },
@@ -991,7 +994,7 @@ define("client/templates/cards", ["exports"], function (exports) {
         var el2 = dom.createTextNode("\n  ");
         dom.appendChild(el1, el2);
         var el2 = dom.createElement("div");
-        dom.setAttribute(el2, "class", "col-md-3");
+        dom.setAttribute(el2, "class", "col-md-3 l-left-container");
         var el3 = dom.createTextNode("\n    ");
         dom.appendChild(el2, el3);
         var el3 = dom.createComment("");
@@ -1002,12 +1005,23 @@ define("client/templates/cards", ["exports"], function (exports) {
         var el2 = dom.createTextNode("\n  ");
         dom.appendChild(el1, el2);
         var el2 = dom.createElement("div");
-        dom.setAttribute(el2, "class", "col-md-9");
-        var el3 = dom.createTextNode("\n");
+        dom.setAttribute(el2, "class", "col-md-9 l-main-container");
+        var el3 = dom.createTextNode("\n    ");
         dom.appendChild(el2, el3);
         var el3 = dom.createComment("");
         dom.appendChild(el2, el3);
-        var el3 = dom.createTextNode("  ");
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("div");
+        dom.setAttribute(el3, "class", "l-cards-container");
+        var el4 = dom.createTextNode("\n");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createComment("");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createTextNode("    ");
+        dom.appendChild(el3, el4);
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n  ");
         dom.appendChild(el2, el3);
         dom.appendChild(el1, el2);
         var el2 = dom.createTextNode("\n");
@@ -1019,12 +1033,14 @@ define("client/templates/cards", ["exports"], function (exports) {
       },
       buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
         var element0 = dom.childAt(fragment, [0]);
-        var morphs = new Array(2);
+        var element1 = dom.childAt(element0, [3]);
+        var morphs = new Array(3);
         morphs[0] = dom.createMorphAt(dom.childAt(element0, [1]), 1, 1);
-        morphs[1] = dom.createMorphAt(dom.childAt(element0, [3]), 1, 1);
+        morphs[1] = dom.createMorphAt(element1, 1, 1);
+        morphs[2] = dom.createMorphAt(dom.childAt(element1, [3]), 1, 1);
         return morphs;
       },
-      statements: [["content", "layout/side-bar", ["loc", [null, [3, 4], [3, 23]]]], ["block", "each", [["get", "cards", ["loc", [null, [6, 12], [6, 17]]]]], [], 0, 1, ["loc", [null, [6, 4], [10, 13]]]]],
+      statements: [["content", "layout/side-bar", ["loc", [null, [3, 4], [3, 23]]]], ["content", "layout/secondary-nav-bar", ["loc", [null, [6, 4], [6, 32]]]], ["block", "each", [["get", "cards", ["loc", [null, [8, 14], [8, 19]]]]], [], 0, 1, ["loc", [null, [8, 6], [12, 15]]]]],
       locals: [],
       templates: [child0, child1]
     };
@@ -1104,22 +1120,22 @@ define("client/templates/components/cards/cards-container", ["exports"], functio
         var el2 = dom.createTextNode("\n  ");
         dom.appendChild(el1, el2);
         var el2 = dom.createElement("div");
-        dom.setAttribute(el2, "class", "card text-xs-center");
+        dom.setAttribute(el2, "class", "card text-xs-center c-card");
         var el3 = dom.createTextNode("\n    ");
         dom.appendChild(el2, el3);
         var el3 = dom.createElement("div");
-        dom.setAttribute(el3, "class", "card-header");
+        dom.setAttribute(el3, "class", "card-header c-card__header");
         var el4 = dom.createTextNode("\n      Card\n    ");
         dom.appendChild(el3, el4);
         dom.appendChild(el2, el3);
         var el3 = dom.createTextNode("\n    ");
         dom.appendChild(el2, el3);
         var el3 = dom.createElement("div");
-        dom.setAttribute(el3, "class", "card-block");
+        dom.setAttribute(el3, "class", "card-block c-card__block");
         var el4 = dom.createTextNode("\n      ");
         dom.appendChild(el3, el4);
         var el4 = dom.createElement("h4");
-        dom.setAttribute(el4, "class", "card-title");
+        dom.setAttribute(el4, "class", "card-title c-card__title");
         var el5 = dom.createTextNode("\n");
         dom.appendChild(el4, el5);
         var el5 = dom.createComment("");
@@ -1133,7 +1149,7 @@ define("client/templates/components/cards/cards-container", ["exports"], functio
         var el3 = dom.createTextNode("\n    ");
         dom.appendChild(el2, el3);
         var el3 = dom.createElement("div");
-        dom.setAttribute(el3, "class", "card-footer text-muted");
+        dom.setAttribute(el3, "class", "card-footer text-muted c-card__footer");
         var el4 = dom.createTextNode("\n      ");
         dom.appendChild(el3, el4);
         var el4 = dom.createComment("");
@@ -1660,7 +1676,7 @@ define("client/templates/components/layout/nav-bar", ["exports"], function (expo
       buildFragment: function buildFragment(dom) {
         var el0 = dom.createDocumentFragment();
         var el1 = dom.createElement("nav");
-        dom.setAttribute(el1, "class", "navbar navbar-light bg-faded");
+        dom.setAttribute(el1, "class", "navbar navbar-light c-nav-bar");
         var el2 = dom.createTextNode("\n  ");
         dom.appendChild(el1, el2);
         var el2 = dom.createComment("");
@@ -1703,6 +1719,111 @@ define("client/templates/components/layout/nav-bar", ["exports"], function (expo
     };
   })());
 });
+define("client/templates/components/layout/secondary-nav-bar", ["exports"], function (exports) {
+  exports["default"] = Ember.HTMLBars.template((function () {
+    return {
+      meta: {
+        "fragmentReason": {
+          "name": "triple-curlies"
+        },
+        "revision": "Ember@2.6.1",
+        "loc": {
+          "source": null,
+          "start": {
+            "line": 1,
+            "column": 0
+          },
+          "end": {
+            "line": 15,
+            "column": 0
+          }
+        },
+        "moduleName": "client/templates/components/layout/secondary-nav-bar.hbs"
+      },
+      isEmpty: false,
+      arity: 0,
+      cachedFragment: null,
+      hasRendered: false,
+      buildFragment: function buildFragment(dom) {
+        var el0 = dom.createDocumentFragment();
+        var el1 = dom.createElement("ul");
+        dom.setAttribute(el1, "class", "nav nav-pills c-secondary-nav-bar");
+        var el2 = dom.createTextNode("\n  ");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createElement("li");
+        dom.setAttribute(el2, "class", "nav-item c-secondary-nav-bar__nav-item");
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("a");
+        dom.setAttribute(el3, "class", "nav-link c-secondary-nav-bar__nav-link active");
+        dom.setAttribute(el3, "href", "#");
+        var el4 = dom.createTextNode("Link");
+        dom.appendChild(el3, el4);
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n  ");
+        dom.appendChild(el2, el3);
+        dom.appendChild(el1, el2);
+        var el2 = dom.createTextNode("\n  ");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createElement("li");
+        dom.setAttribute(el2, "class", "nav-item c-secondary-nav-bar__nav-item");
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("a");
+        dom.setAttribute(el3, "class", "nav-link c-secondary-nav-bar__nav-link");
+        dom.setAttribute(el3, "href", "#");
+        var el4 = dom.createTextNode("Link");
+        dom.appendChild(el3, el4);
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n  ");
+        dom.appendChild(el2, el3);
+        dom.appendChild(el1, el2);
+        var el2 = dom.createTextNode("\n  ");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createElement("li");
+        dom.setAttribute(el2, "class", "nav-item c-secondary-nav-bar__nav-item");
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("a");
+        dom.setAttribute(el3, "class", "nav-link c-secondary-nav-bar__nav-link");
+        dom.setAttribute(el3, "href", "#");
+        var el4 = dom.createTextNode("Link");
+        dom.appendChild(el3, el4);
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n  ");
+        dom.appendChild(el2, el3);
+        dom.appendChild(el1, el2);
+        var el2 = dom.createTextNode("\n  ");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createElement("li");
+        dom.setAttribute(el2, "class", "nav-item c-secondary-nav-bar__nav-item");
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("a");
+        dom.setAttribute(el3, "class", "nav-link c-secondary-nav-bar__nav-link");
+        dom.setAttribute(el3, "href", "#");
+        var el4 = dom.createTextNode("Link");
+        dom.appendChild(el3, el4);
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n  ");
+        dom.appendChild(el2, el3);
+        dom.appendChild(el1, el2);
+        var el2 = dom.createTextNode("\n");
+        dom.appendChild(el1, el2);
+        dom.appendChild(el0, el1);
+        var el1 = dom.createTextNode("\n");
+        dom.appendChild(el0, el1);
+        return el0;
+      },
+      buildRenderNodes: function buildRenderNodes() {
+        return [];
+      },
+      statements: [],
+      locals: [],
+      templates: []
+    };
+  })());
+});
 define("client/templates/components/layout/side-bar", ["exports"], function (exports) {
   exports["default"] = Ember.HTMLBars.template((function () {
     var child0 = (function () {
@@ -1718,7 +1839,7 @@ define("client/templates/components/layout/side-bar", ["exports"], function (exp
             },
             "end": {
               "line": 2,
-              "column": 51
+              "column": 73
             }
           },
           "moduleName": "client/templates/components/layout/side-bar.hbs"
@@ -1754,7 +1875,7 @@ define("client/templates/components/layout/side-bar", ["exports"], function (exp
             },
             "end": {
               "line": 3,
-              "column": 51
+              "column": 73
             }
           },
           "moduleName": "client/templates/components/layout/side-bar.hbs"
@@ -1803,7 +1924,7 @@ define("client/templates/components/layout/side-bar", ["exports"], function (exp
       buildFragment: function buildFragment(dom) {
         var el0 = dom.createDocumentFragment();
         var el1 = dom.createElement("div");
-        dom.setAttribute(el1, "class", "list-group");
+        dom.setAttribute(el1, "class", "list-group c-side-bar");
         var el2 = dom.createTextNode("\n  ");
         dom.appendChild(el1, el2);
         var el2 = dom.createComment("");
@@ -1816,7 +1937,7 @@ define("client/templates/components/layout/side-bar", ["exports"], function (exp
         dom.appendChild(el1, el2);
         var el2 = dom.createElement("a");
         dom.setAttribute(el2, "href", "#");
-        dom.setAttribute(el2, "class", "list-group-item");
+        dom.setAttribute(el2, "class", "list-group-item c-side-bar__list-item");
         var el3 = dom.createTextNode("Team");
         dom.appendChild(el2, el3);
         dom.appendChild(el1, el2);
@@ -1824,7 +1945,7 @@ define("client/templates/components/layout/side-bar", ["exports"], function (exp
         dom.appendChild(el1, el2);
         var el2 = dom.createElement("a");
         dom.setAttribute(el2, "href", "#");
-        dom.setAttribute(el2, "class", "list-group-item");
+        dom.setAttribute(el2, "class", "list-group-item c-side-bar__list-item");
         var el3 = dom.createTextNode("Analytics");
         dom.appendChild(el2, el3);
         dom.appendChild(el1, el2);
@@ -1842,7 +1963,7 @@ define("client/templates/components/layout/side-bar", ["exports"], function (exp
         morphs[1] = dom.createMorphAt(element0, 3, 3);
         return morphs;
       },
-      statements: [["block", "link-to", ["cards"], ["class", "list-group-item"], 0, null, ["loc", [null, [2, 2], [2, 63]]]], ["block", "link-to", ["users"], ["class", "list-group-item"], 1, null, ["loc", [null, [3, 2], [3, 63]]]]],
+      statements: [["block", "link-to", ["cards"], ["class", "list-group-item c-side-bar__list-item"], 0, null, ["loc", [null, [2, 2], [2, 85]]]], ["block", "link-to", ["users"], ["class", "list-group-item c-side-bar__list-item"], 1, null, ["loc", [null, [3, 2], [3, 85]]]]],
       locals: [],
       templates: [child0, child1]
     };
@@ -1922,22 +2043,22 @@ define("client/templates/components/users/users-container", ["exports"], functio
         var el2 = dom.createTextNode("\n  ");
         dom.appendChild(el1, el2);
         var el2 = dom.createElement("div");
-        dom.setAttribute(el2, "class", "card text-xs-center");
+        dom.setAttribute(el2, "class", "card text-xs-center c-card");
         var el3 = dom.createTextNode("\n    ");
         dom.appendChild(el2, el3);
         var el3 = dom.createElement("div");
-        dom.setAttribute(el3, "class", "card-header");
+        dom.setAttribute(el3, "class", "card-header c-card__header");
         var el4 = dom.createTextNode("\n      User\n    ");
         dom.appendChild(el3, el4);
         dom.appendChild(el2, el3);
         var el3 = dom.createTextNode("\n    ");
         dom.appendChild(el2, el3);
         var el3 = dom.createElement("div");
-        dom.setAttribute(el3, "class", "card-block");
+        dom.setAttribute(el3, "class", "card-block c-card__block");
         var el4 = dom.createTextNode("\n      ");
         dom.appendChild(el3, el4);
         var el4 = dom.createElement("h4");
-        dom.setAttribute(el4, "class", "card-title");
+        dom.setAttribute(el4, "class", "card-title c-card__title");
         var el5 = dom.createTextNode("\n");
         dom.appendChild(el4, el5);
         var el5 = dom.createComment("");
@@ -1951,7 +2072,7 @@ define("client/templates/components/users/users-container", ["exports"], functio
         var el3 = dom.createTextNode("\n    ");
         dom.appendChild(el2, el3);
         var el3 = dom.createElement("div");
-        dom.setAttribute(el3, "class", "card-footer text-muted");
+        dom.setAttribute(el3, "class", "card-footer text-muted c-card__footer");
         var el4 = dom.createTextNode("\n      ");
         dom.appendChild(el3, el4);
         var el4 = dom.createComment("");
@@ -1997,7 +2118,7 @@ define("client/templates/dashboard", ["exports"], function (exports) {
             "column": 0
           },
           "end": {
-            "line": 9,
+            "line": 12,
             "column": 0
           }
         },
@@ -2014,7 +2135,7 @@ define("client/templates/dashboard", ["exports"], function (exports) {
         var el2 = dom.createTextNode("\n  ");
         dom.appendChild(el1, el2);
         var el2 = dom.createElement("div");
-        dom.setAttribute(el2, "class", "col-md-3");
+        dom.setAttribute(el2, "class", "col-md-3 l-left-container");
         var el3 = dom.createTextNode("\n    ");
         dom.appendChild(el2, el3);
         var el3 = dom.createComment("");
@@ -2025,10 +2146,21 @@ define("client/templates/dashboard", ["exports"], function (exports) {
         var el2 = dom.createTextNode("\n  ");
         dom.appendChild(el1, el2);
         var el2 = dom.createElement("div");
-        dom.setAttribute(el2, "class", "col-md-9");
+        dom.setAttribute(el2, "class", "col-md-9 l-main-container");
         var el3 = dom.createTextNode("\n    ");
         dom.appendChild(el2, el3);
         var el3 = dom.createComment("");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("div");
+        dom.setAttribute(el3, "class", "l-cards-container");
+        var el4 = dom.createTextNode("\n      ");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createComment("");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createTextNode("\n    ");
+        dom.appendChild(el3, el4);
         dom.appendChild(el2, el3);
         var el3 = dom.createTextNode("\n  ");
         dom.appendChild(el2, el3);
@@ -2042,12 +2174,14 @@ define("client/templates/dashboard", ["exports"], function (exports) {
       },
       buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
         var element0 = dom.childAt(fragment, [0]);
-        var morphs = new Array(2);
+        var element1 = dom.childAt(element0, [3]);
+        var morphs = new Array(3);
         morphs[0] = dom.createMorphAt(dom.childAt(element0, [1]), 1, 1);
-        morphs[1] = dom.createMorphAt(dom.childAt(element0, [3]), 1, 1);
+        morphs[1] = dom.createMorphAt(element1, 1, 1);
+        morphs[2] = dom.createMorphAt(dom.childAt(element1, [3]), 1, 1);
         return morphs;
       },
-      statements: [["content", "layout/side-bar", ["loc", [null, [3, 4], [3, 23]]]], ["content", "outlet", ["loc", [null, [6, 4], [6, 14]]]]],
+      statements: [["content", "layout/side-bar", ["loc", [null, [3, 4], [3, 23]]]], ["content", "layout/secondary-nav-bar", ["loc", [null, [6, 4], [6, 32]]]], ["content", "outlet", ["loc", [null, [8, 6], [8, 16]]]]],
       locals: [],
       templates: []
     };
@@ -2236,12 +2370,12 @@ define("client/templates/users", ["exports"], function (exports) {
           "loc": {
             "source": null,
             "start": {
-              "line": 6,
-              "column": 4
+              "line": 8,
+              "column": 6
             },
             "end": {
-              "line": 8,
-              "column": 4
+              "line": 10,
+              "column": 6
             }
           },
           "moduleName": "client/templates/users.hbs"
@@ -2252,7 +2386,7 @@ define("client/templates/users", ["exports"], function (exports) {
         hasRendered: false,
         buildFragment: function buildFragment(dom) {
           var el0 = dom.createDocumentFragment();
-          var el1 = dom.createTextNode("      ");
+          var el1 = dom.createTextNode("        ");
           dom.appendChild(el0, el1);
           var el1 = dom.createComment("");
           dom.appendChild(el0, el1);
@@ -2265,7 +2399,7 @@ define("client/templates/users", ["exports"], function (exports) {
           morphs[0] = dom.createMorphAt(fragment, 1, 1, contextualElement);
           return morphs;
         },
-        statements: [["inline", "users/users-container", [], ["user", ["subexpr", "@mut", [["get", "user", ["loc", [null, [7, 35], [7, 39]]]]], [], []]], ["loc", [null, [7, 6], [7, 41]]]]],
+        statements: [["inline", "users/users-container", [], ["user", ["subexpr", "@mut", [["get", "user", ["loc", [null, [9, 37], [9, 41]]]]], [], []]], ["loc", [null, [9, 8], [9, 43]]]]],
         locals: ["user"],
         templates: []
       };
@@ -2278,12 +2412,12 @@ define("client/templates/users", ["exports"], function (exports) {
           "loc": {
             "source": null,
             "start": {
-              "line": 8,
-              "column": 4
+              "line": 10,
+              "column": 6
             },
             "end": {
-              "line": 10,
-              "column": 4
+              "line": 12,
+              "column": 6
             }
           },
           "moduleName": "client/templates/users.hbs"
@@ -2294,7 +2428,7 @@ define("client/templates/users", ["exports"], function (exports) {
         hasRendered: false,
         buildFragment: function buildFragment(dom) {
           var el0 = dom.createDocumentFragment();
-          var el1 = dom.createTextNode("      Sorry, nobody is here.\n");
+          var el1 = dom.createTextNode("        Sorry, nobody is here.\n");
           dom.appendChild(el0, el1);
           return el0;
         },
@@ -2319,7 +2453,7 @@ define("client/templates/users", ["exports"], function (exports) {
             "column": 0
           },
           "end": {
-            "line": 13,
+            "line": 16,
             "column": 0
           }
         },
@@ -2336,7 +2470,7 @@ define("client/templates/users", ["exports"], function (exports) {
         var el2 = dom.createTextNode("\n  ");
         dom.appendChild(el1, el2);
         var el2 = dom.createElement("div");
-        dom.setAttribute(el2, "class", "col-md-3");
+        dom.setAttribute(el2, "class", "col-md-3 l-left-container");
         var el3 = dom.createTextNode("\n    ");
         dom.appendChild(el2, el3);
         var el3 = dom.createComment("");
@@ -2347,12 +2481,23 @@ define("client/templates/users", ["exports"], function (exports) {
         var el2 = dom.createTextNode("\n  ");
         dom.appendChild(el1, el2);
         var el2 = dom.createElement("div");
-        dom.setAttribute(el2, "class", "col-md-9");
-        var el3 = dom.createTextNode("\n");
+        dom.setAttribute(el2, "class", "col-md-9 l-main-container");
+        var el3 = dom.createTextNode("\n    ");
         dom.appendChild(el2, el3);
         var el3 = dom.createComment("");
         dom.appendChild(el2, el3);
-        var el3 = dom.createTextNode("  ");
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("div");
+        dom.setAttribute(el3, "class", "l-cards-container");
+        var el4 = dom.createTextNode("\n");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createComment("");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createTextNode("    ");
+        dom.appendChild(el3, el4);
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n  ");
         dom.appendChild(el2, el3);
         dom.appendChild(el1, el2);
         var el2 = dom.createTextNode("\n");
@@ -2364,12 +2509,14 @@ define("client/templates/users", ["exports"], function (exports) {
       },
       buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
         var element0 = dom.childAt(fragment, [0]);
-        var morphs = new Array(2);
+        var element1 = dom.childAt(element0, [3]);
+        var morphs = new Array(3);
         morphs[0] = dom.createMorphAt(dom.childAt(element0, [1]), 1, 1);
-        morphs[1] = dom.createMorphAt(dom.childAt(element0, [3]), 1, 1);
+        morphs[1] = dom.createMorphAt(element1, 1, 1);
+        morphs[2] = dom.createMorphAt(dom.childAt(element1, [3]), 1, 1);
         return morphs;
       },
-      statements: [["content", "layout/side-bar", ["loc", [null, [3, 4], [3, 23]]]], ["block", "each", [["get", "users", ["loc", [null, [6, 12], [6, 17]]]]], [], 0, 1, ["loc", [null, [6, 4], [10, 13]]]]],
+      statements: [["content", "layout/side-bar", ["loc", [null, [3, 4], [3, 23]]]], ["content", "layout/secondary-nav-bar", ["loc", [null, [6, 4], [6, 32]]]], ["block", "each", [["get", "users", ["loc", [null, [8, 14], [8, 19]]]]], [], 0, 1, ["loc", [null, [8, 6], [12, 15]]]]],
       locals: [],
       templates: [child0, child1]
     };

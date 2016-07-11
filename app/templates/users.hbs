@@ -1,12 +1,15 @@
 <div class="row">
-  <div class="col-md-3">
+  <div class="col-md-3 l-left-container">
     {{layout/side-bar}}
   </div>
-  <div class="col-md-9">
-    {{#each users as |user|}}
-      {{users/users-container user=user}}
-    {{else}}
-      Sorry, nobody is here.
-    {{/each}}
+  <div class="col-md-9 l-main-container">
+    {{layout/secondary-nav-bar}}
+    <div class="l-cards-container">
+      {{#each users as |user|}}
+        {{users/users-container user=user}}
+      {{else}}
+        Sorry, nobody is here.
+      {{/each}}
+    </div>
   </div>
 </div>
