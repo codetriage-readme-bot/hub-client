@@ -101,7 +101,7 @@ define('client/components/forms/new-card-form', ['exports', 'ember'], function (
 
           _this.get('model').save().then(function (card) {
             // go to the new item's route after creating it.
-            _ember['default'].getOwner(_this).lookup('route:card.index').transitionTo('card.card', card);
+            _ember['default'].getOwner(_this).lookup('route:card.card').transitionTo('card.card', card);
           });
         }).bind(this));
       },
@@ -2401,7 +2401,7 @@ catch(err) {
 /* jshint ignore:start */
 
 if (!runningTests) {
-  require("client/app")["default"].create({"name":"client","version":"0.0.0+026a9c46"});
+  require("client/app")["default"].create({"name":"client","version":"0.0.0+7b67ab95"});
 }
 
 /* jshint ignore:end */

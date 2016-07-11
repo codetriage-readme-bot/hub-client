@@ -13,7 +13,7 @@ export default Ember.Component.extend({
 
         this.get('model').save().then((card) => {
           // go to the new item's route after creating it.
-          Ember.getOwner(this).lookup('route:card.index').transitionTo('card.card', card);
+          Ember.getOwner(this).lookup('route:card.card').transitionTo('card.card', card);
         });
       }.bind(this));
     },
