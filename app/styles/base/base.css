@@ -24,6 +24,7 @@ body {
   padding: 15px 0;
   height: calc(100vh - 55px - 60px);
   overflow-y: auto;
+  background-color: $grey-light;
 }
 
 
@@ -59,6 +60,10 @@ input {
   color: $grey-dark;
 
   .c-card {
+    &:hover {
+      background-color: $grey-light;
+    }
+
     &__header {
       height: 50px;
     }

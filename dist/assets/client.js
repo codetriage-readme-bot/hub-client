@@ -93,6 +93,7 @@ define('client/components/forms/new-card-form', ['exports', 'ember'], function (
       save: function save() {
         var _this = this;
 
+        console.log(markdown.toHTML("Hello *World*!"));
         // get the details about the currently authenticated user
         this.get('store').findRecord('user', this.get('session.data.authenticated.id')).then((function (user) {
 
@@ -1905,7 +1906,7 @@ define("client/templates/components/layout/secondary-nav-bar", ["exports"], func
             },
             "end": {
               "line": 3,
-              "column": 82
+              "column": 84
             }
           },
           "moduleName": "client/templates/components/layout/secondary-nav-bar.hbs"
@@ -1916,7 +1917,7 @@ define("client/templates/components/layout/secondary-nav-bar", ["exports"], func
         hasRendered: false,
         buildFragment: function buildFragment(dom) {
           var el0 = dom.createDocumentFragment();
-          var el1 = dom.createTextNode("Add Card");
+          var el1 = dom.createTextNode("Add a Card");
           dom.appendChild(el0, el1);
           return el0;
         },
@@ -1993,7 +1994,7 @@ define("client/templates/components/layout/secondary-nav-bar", ["exports"], func
         morphs[0] = dom.createMorphAt(dom.childAt(fragment, [0, 1]), 1, 1);
         return morphs;
       },
-      statements: [["block", "link-to", ["card.new"], ["class", "nav-link c-secondary-nav-bar__nav-link"], 0, null, ["loc", [null, [3, 4], [3, 94]]]]],
+      statements: [["block", "link-to", ["card.new"], ["class", "nav-link c-secondary-nav-bar__nav-link"], 0, null, ["loc", [null, [3, 4], [3, 96]]]]],
       locals: [],
       templates: [child0]
     };
@@ -2845,7 +2846,7 @@ catch(err) {
 /* jshint ignore:start */
 
 if (!runningTests) {
-  require("client/app")["default"].create({"name":"client","version":"0.0.0+96942107"});
+  require("client/app")["default"].create({"name":"client","version":"0.0.0+c994ad8b"});
 }
 
 /* jshint ignore:end */

@@ -40,6 +40,7 @@ body {
     padding: 15px 0;
     height: calc(100vh - 55px - 60px);
     overflow-y: auto;
+    background-color: #f9fafc;
 }
 /* ==========================================================================
    modules
@@ -66,6 +67,9 @@ input {
 }
 .m-card-container__link {
     color: #1f2d3d;
+}
+.m-card-container__link .c-card:hover {
+    background-color: #f9fafc;
 }
 .m-card-container__link .c-card__header {
     height: 50px;

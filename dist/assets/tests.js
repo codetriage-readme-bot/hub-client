@@ -31,7 +31,7 @@ define('client/tests/components/forms/new-card-form.jshint', ['exports'], functi
   QUnit.module('JSHint | components/forms/new-card-form.js');
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'components/forms/new-card-form.js should pass jshint.');
+    assert.ok(false, 'components/forms/new-card-form.js should pass jshint.\ncomponents/forms/new-card-form.js: line 8, col 20, \'markdown\' is not defined.\n\n1 error');
   });
 });
 define('client/tests/components/forms/signin-form.jshint', ['exports'], function (exports) {
