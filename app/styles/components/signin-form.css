@@ -1,0 +1,10 @@
+.signin-form-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 55px);
+
+  .signin-form-container {
+    width: 400px;
+  }
+}

@@ -1539,7 +1539,7 @@ define("client/templates/components/forms/signin-form", ["exports"], function (e
             "column": 0
           },
           "end": {
-            "line": 15,
+            "line": 17,
             "column": 0
           }
         },
@@ -1552,59 +1552,66 @@ define("client/templates/components/forms/signin-form", ["exports"], function (e
       buildFragment: function buildFragment(dom) {
         var el0 = dom.createDocumentFragment();
         var el1 = dom.createElement("div");
-        dom.setAttribute(el1, "class", "col-md-4 col-md-offset-4");
+        dom.setAttribute(el1, "class", "signin-form-wrapper");
         var el2 = dom.createTextNode("\n  ");
         dom.appendChild(el1, el2);
-        var el2 = dom.createElement("form");
+        var el2 = dom.createElement("div");
+        dom.setAttribute(el2, "class", "signin-form-container");
         var el3 = dom.createTextNode("\n    ");
         dom.appendChild(el2, el3);
-        var el3 = dom.createElement("fieldset");
-        dom.setAttribute(el3, "class", "form-group");
+        var el3 = dom.createElement("form");
         var el4 = dom.createTextNode("\n      ");
         dom.appendChild(el3, el4);
-        var el4 = dom.createElement("label");
-        dom.setAttribute(el4, "for", "exampleInputEmail1");
-        var el5 = dom.createTextNode("Email address");
+        var el4 = dom.createElement("fieldset");
+        dom.setAttribute(el4, "class", "form-group");
+        var el5 = dom.createTextNode("\n        ");
+        dom.appendChild(el4, el5);
+        var el5 = dom.createElement("label");
+        dom.setAttribute(el5, "for", "exampleInputEmail1");
+        var el6 = dom.createTextNode("Email address");
+        dom.appendChild(el5, el6);
+        dom.appendChild(el4, el5);
+        var el5 = dom.createTextNode("\n        ");
+        dom.appendChild(el4, el5);
+        var el5 = dom.createComment("");
+        dom.appendChild(el4, el5);
+        var el5 = dom.createTextNode("\n        ");
+        dom.appendChild(el4, el5);
+        var el5 = dom.createElement("small");
+        dom.setAttribute(el5, "class", "text-muted");
+        var el6 = dom.createTextNode("We'll never share your email with anyone else.");
+        dom.appendChild(el5, el6);
+        dom.appendChild(el4, el5);
+        var el5 = dom.createTextNode("\n      ");
         dom.appendChild(el4, el5);
         dom.appendChild(el3, el4);
         var el4 = dom.createTextNode("\n      ");
         dom.appendChild(el3, el4);
-        var el4 = dom.createComment("");
+        var el4 = dom.createElement("fieldset");
+        dom.setAttribute(el4, "class", "form-group");
+        var el5 = dom.createTextNode("\n        ");
+        dom.appendChild(el4, el5);
+        var el5 = dom.createElement("label");
+        dom.setAttribute(el5, "for", "exampleInputPassword1");
+        var el6 = dom.createTextNode("Password");
+        dom.appendChild(el5, el6);
+        dom.appendChild(el4, el5);
+        var el5 = dom.createTextNode("\n        ");
+        dom.appendChild(el4, el5);
+        var el5 = dom.createComment("");
+        dom.appendChild(el4, el5);
+        var el5 = dom.createTextNode("\n      ");
+        dom.appendChild(el4, el5);
         dom.appendChild(el3, el4);
         var el4 = dom.createTextNode("\n      ");
         dom.appendChild(el3, el4);
-        var el4 = dom.createElement("small");
-        dom.setAttribute(el4, "class", "text-muted");
-        var el5 = dom.createTextNode("We'll never share your email with anyone else.");
+        var el4 = dom.createElement("button");
+        dom.setAttribute(el4, "type", "submit");
+        dom.setAttribute(el4, "class", "btn btn-primary");
+        var el5 = dom.createTextNode("Submit");
         dom.appendChild(el4, el5);
         dom.appendChild(el3, el4);
         var el4 = dom.createTextNode("\n    ");
-        dom.appendChild(el3, el4);
-        dom.appendChild(el2, el3);
-        var el3 = dom.createTextNode("\n    ");
-        dom.appendChild(el2, el3);
-        var el3 = dom.createElement("fieldset");
-        dom.setAttribute(el3, "class", "form-group");
-        var el4 = dom.createTextNode("\n      ");
-        dom.appendChild(el3, el4);
-        var el4 = dom.createElement("label");
-        dom.setAttribute(el4, "for", "exampleInputPassword1");
-        var el5 = dom.createTextNode("Password");
-        dom.appendChild(el4, el5);
-        dom.appendChild(el3, el4);
-        var el4 = dom.createTextNode("\n      ");
-        dom.appendChild(el3, el4);
-        var el4 = dom.createComment("");
-        dom.appendChild(el3, el4);
-        var el4 = dom.createTextNode("\n    ");
-        dom.appendChild(el3, el4);
-        dom.appendChild(el2, el3);
-        var el3 = dom.createTextNode("\n    ");
-        dom.appendChild(el2, el3);
-        var el3 = dom.createElement("button");
-        dom.setAttribute(el3, "type", "submit");
-        dom.setAttribute(el3, "class", "btn btn-primary");
-        var el4 = dom.createTextNode("Submit");
         dom.appendChild(el3, el4);
         dom.appendChild(el2, el3);
         var el3 = dom.createTextNode("\n  ");
@@ -1618,14 +1625,14 @@ define("client/templates/components/forms/signin-form", ["exports"], function (e
         return el0;
       },
       buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
-        var element0 = dom.childAt(fragment, [0, 1]);
+        var element0 = dom.childAt(fragment, [0, 1, 1]);
         var morphs = new Array(3);
         morphs[0] = dom.createElementMorph(element0);
         morphs[1] = dom.createMorphAt(dom.childAt(element0, [1]), 3, 3);
         morphs[2] = dom.createMorphAt(dom.childAt(element0, [3]), 3, 3);
         return morphs;
       },
-      statements: [["element", "action", ["authenticate"], ["on", "submit"], ["loc", [null, [2, 8], [2, 45]]]], ["inline", "input", [], ["value", ["subexpr", "@mut", [["get", "email", ["loc", [null, [5, 20], [5, 25]]]]], [], []], "type", "email", "class", "form-control", "id", "exampleInputEmail1", "placeholder", "Enter email"], ["loc", [null, [5, 6], [5, 111]]]], ["inline", "input", [], ["value", ["subexpr", "@mut", [["get", "password", ["loc", [null, [10, 20], [10, 28]]]]], [], []], "type", "password", "class", "form-control", "id", "exampleInputPassword1", "placeholder", "Password"], ["loc", [null, [10, 6], [10, 117]]]]],
+      statements: [["element", "action", ["authenticate"], ["on", "submit"], ["loc", [null, [3, 10], [3, 47]]]], ["inline", "input", [], ["value", ["subexpr", "@mut", [["get", "email", ["loc", [null, [6, 22], [6, 27]]]]], [], []], "type", "email", "class", "form-control", "id", "exampleInputEmail1", "placeholder", "Enter email"], ["loc", [null, [6, 8], [6, 113]]]], ["inline", "input", [], ["value", ["subexpr", "@mut", [["get", "password", ["loc", [null, [11, 22], [11, 30]]]]], [], []], "type", "password", "class", "form-control", "id", "exampleInputPassword1", "placeholder", "Password"], ["loc", [null, [11, 8], [11, 119]]]]],
       locals: [],
       templates: []
     };
@@ -2389,6 +2396,42 @@ define("client/templates/dashboard", ["exports"], function (exports) {
 });
 define("client/templates/landing-page", ["exports"], function (exports) {
   exports["default"] = Ember.HTMLBars.template((function () {
+    var child0 = (function () {
+      return {
+        meta: {
+          "fragmentReason": false,
+          "revision": "Ember@2.6.1",
+          "loc": {
+            "source": null,
+            "start": {
+              "line": 4,
+              "column": 4
+            },
+            "end": {
+              "line": 4,
+              "column": 75
+            }
+          },
+          "moduleName": "client/templates/landing-page.hbs"
+        },
+        isEmpty: false,
+        arity: 0,
+        cachedFragment: null,
+        hasRendered: false,
+        buildFragment: function buildFragment(dom) {
+          var el0 = dom.createDocumentFragment();
+          var el1 = dom.createTextNode("Let's Get Started");
+          dom.appendChild(el0, el1);
+          return el0;
+        },
+        buildRenderNodes: function buildRenderNodes() {
+          return [];
+        },
+        statements: [],
+        locals: [],
+        templates: []
+      };
+    })();
     return {
       meta: {
         "fragmentReason": {
@@ -2415,24 +2458,20 @@ define("client/templates/landing-page", ["exports"], function (exports) {
       buildFragment: function buildFragment(dom) {
         var el0 = dom.createDocumentFragment();
         var el1 = dom.createElement("div");
-        dom.setAttribute(el1, "class", "jumbotron jumbotron-fluid");
+        dom.setAttribute(el1, "class", "row");
         var el2 = dom.createTextNode("\n  ");
         dom.appendChild(el1, el2);
         var el2 = dom.createElement("div");
-        dom.setAttribute(el2, "class", "container");
+        dom.setAttribute(el2, "class", "col-md-12 text-xs-center c-landing-page__header c-landing-page__header--jumbotron");
         var el3 = dom.createTextNode("\n    ");
         dom.appendChild(el2, el3);
         var el3 = dom.createElement("h1");
-        dom.setAttribute(el3, "class", "display-3");
-        var el4 = dom.createTextNode("Fluid jumbotron");
+        var el4 = dom.createTextNode("Simple, Elegant and Beautiful!");
         dom.appendChild(el3, el4);
         dom.appendChild(el2, el3);
         var el3 = dom.createTextNode("\n    ");
         dom.appendChild(el2, el3);
-        var el3 = dom.createElement("p");
-        dom.setAttribute(el3, "class", "lead");
-        var el4 = dom.createTextNode("This is a modified jumbotron that occupies the entire horizontal space of its parent.");
-        dom.appendChild(el3, el4);
+        var el3 = dom.createComment("");
         dom.appendChild(el2, el3);
         var el3 = dom.createTextNode("\n  ");
         dom.appendChild(el2, el3);
@@ -2444,12 +2483,14 @@ define("client/templates/landing-page", ["exports"], function (exports) {
         dom.appendChild(el0, el1);
         return el0;
       },
-      buildRenderNodes: function buildRenderNodes() {
-        return [];
+      buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+        var morphs = new Array(1);
+        morphs[0] = dom.createMorphAt(dom.childAt(fragment, [0, 1]), 3, 3);
+        return morphs;
       },
-      statements: [],
+      statements: [["block", "link-to", ["signin"], ["class", "c-landing-page__hero-btn"], 0, null, ["loc", [null, [4, 4], [4, 87]]]]],
       locals: [],
-      templates: []
+      templates: [child0]
     };
   })());
 });
@@ -2846,7 +2887,7 @@ catch(err) {
 /* jshint ignore:start */
 
 if (!runningTests) {
-  require("client/app")["default"].create({"name":"client","version":"0.0.0+c994ad8b"});
+  require("client/app")["default"].create({"name":"client","version":"0.0.0+02880f15"});
 }
 
 /* jshint ignore:end */

@@ -87,6 +87,9 @@ input {
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+.m-img-responsive {
+    width: 100%;
+}
 /* ==========================================================================
    media-queries
    ========================================================================== */
@@ -215,4 +218,33 @@ a.list-group-item:hover {
 .c-card__block {
     max-height: calc(100vh - 55px - 60px - 15px - 60px - 60px);
     overflow-y: auto;
+}
+.signin-form-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 55px);
+}
+.signin-form-wrapper .signin-form-container {
+    width: 400px;
+}
+.c-landing-page__header--jumbotron {
+    height: calc(100vh - 55px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.c-landing-page__hero-btn {
+    background-color: #1fb6ff;
+    color: #fff;
+    padding: 20px 40px;
+    font-size: 20px;
+    border-radius: 4px;
+    width: 400px;
+    margin-top: 50px;
+    text-transform: capitalize;
+}
+.c-landing-page__hero-btn:hover {
+    color: #fff;
 }
