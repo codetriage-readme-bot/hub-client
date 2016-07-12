@@ -4,6 +4,7 @@
 body {
   font-weight: normal;
   overflow: hidden;
+  background-color: $white;
 }
 
 /* ==========================================================================
@@ -40,6 +41,7 @@ a {
 
 input {
   height: 50px;
+  font-weight: $fw-200;
 }
 
 .m-page {

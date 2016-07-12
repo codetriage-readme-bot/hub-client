@@ -10,6 +10,9 @@
 /* ==========================================================================
    utility colors
    ========================================================================== */
+/* ==========================================================================
+   font-weight
+   ========================================================================== */
 
 /* ==========================================================================
    base
@@ -20,6 +23,7 @@
 body {
     font-weight: normal;
     overflow: hidden;
+    background-color: #fff;
 }
 /* ==========================================================================
    layouts
@@ -49,6 +53,7 @@ a:hover {
 }
 input {
     height: 50px;
+    font-weight: 200;
 }
 .m-page {
     height: 50px;
@@ -106,6 +111,9 @@ input {
     border-radius: 0;
     border-left: 5px solid #fff;
     padding: 10px 10px 10px 20px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 .c-side-bar__list-item.active {
     background-color: #f9fafc;

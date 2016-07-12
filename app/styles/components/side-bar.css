@@ -7,6 +7,9 @@
     border-radius: 0;
     border-left: 5px solid $white;
     padding: 10px 10px 10px 20px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 
     &.active {
       background-color: $grey-light;

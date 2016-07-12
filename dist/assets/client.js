@@ -612,7 +612,7 @@ define("client/templates/card/card/edit", ["exports"], function (exports) {
             "column": 0
           },
           "end": {
-            "line": 28,
+            "line": 26,
             "column": 0
           }
         },
@@ -699,25 +699,16 @@ define("client/templates/card/card/edit", ["exports"], function (exports) {
         dom.appendChild(el3, el4);
         var el4 = dom.createTextNode("\n\n      ");
         dom.appendChild(el3, el4);
-        var el4 = dom.createElement("div");
-        dom.setAttribute(el4, "class", "btn-group");
-        dom.setAttribute(el4, "role", "group");
-        dom.setAttribute(el4, "aria-label", "Save or Cancel your card");
-        var el5 = dom.createTextNode("\n        ");
+        var el4 = dom.createElement("button");
+        dom.setAttribute(el4, "class", "btn btn-success pull-xs-right");
+        var el5 = dom.createTextNode("Save");
         dom.appendChild(el4, el5);
-        var el5 = dom.createElement("button");
-        dom.setAttribute(el5, "class", "btn btn-secondary");
-        var el6 = dom.createTextNode("Save");
-        dom.appendChild(el5, el6);
-        dom.appendChild(el4, el5);
-        var el5 = dom.createTextNode("\n        ");
-        dom.appendChild(el4, el5);
-        var el5 = dom.createElement("button");
-        dom.setAttribute(el5, "class", "btn btn-danger");
-        var el6 = dom.createTextNode("Cancel");
-        dom.appendChild(el5, el6);
-        dom.appendChild(el4, el5);
-        var el5 = dom.createTextNode("\n      ");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createTextNode("\n      ");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createElement("button");
+        dom.setAttribute(el4, "class", "btn btn-link pull-xs-right");
+        var el5 = dom.createTextNode("Cancel");
         dom.appendChild(el4, el5);
         dom.appendChild(el3, el4);
         var el4 = dom.createTextNode("\n    ");
@@ -736,16 +727,15 @@ define("client/templates/card/card/edit", ["exports"], function (exports) {
       buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
         var element0 = dom.childAt(fragment, [0, 3, 1]);
         var element1 = dom.childAt(element0, [5]);
-        var element2 = dom.childAt(element1, [1]);
-        var element3 = dom.childAt(element1, [3]);
+        var element2 = dom.childAt(element0, [7]);
         var morphs = new Array(4);
         morphs[0] = dom.createMorphAt(dom.childAt(element0, [1]), 3, 3);
         morphs[1] = dom.createMorphAt(dom.childAt(element0, [3]), 3, 3);
-        morphs[2] = dom.createElementMorph(element2);
-        morphs[3] = dom.createElementMorph(element3);
+        morphs[2] = dom.createElementMorph(element1);
+        morphs[3] = dom.createElementMorph(element2);
         return morphs;
       },
-      statements: [["inline", "input", [], ["type", "text", "value", ["subexpr", "@mut", [["get", "card.title", ["loc", [null, [11, 34], [11, 44]]]]], [], []], "class", "form-control", "id", "card-title", "placeholder", "Enter the title of the card"], ["loc", [null, [11, 8], [11, 125]]]], ["inline", "textarea", [], ["value", ["subexpr", "@mut", [["get", "card.description", ["loc", [null, [17, 25], [17, 41]]]]], [], []], "class", "form-control", "id", "card-description", "rows", "3"], ["loc", [null, [17, 8], [17, 95]]]], ["element", "action", ["save", ["get", "card.title", ["loc", [null, [22, 32], [22, 42]]]], ["get", "card.description", ["loc", [null, [22, 43], [22, 59]]]], ["get", "card.id", ["loc", [null, [22, 60], [22, 67]]]]], [], ["loc", [null, [22, 16], [22, 69]]]], ["element", "action", ["cancel"], [], ["loc", [null, [23, 16], [23, 35]]]]],
+      statements: [["inline", "input", [], ["type", "text", "value", ["subexpr", "@mut", [["get", "card.title", ["loc", [null, [11, 34], [11, 44]]]]], [], []], "class", "form-control", "id", "card-title", "placeholder", "Enter the title of the card"], ["loc", [null, [11, 8], [11, 125]]]], ["inline", "textarea", [], ["value", ["subexpr", "@mut", [["get", "card.description", ["loc", [null, [17, 25], [17, 41]]]]], [], []], "class", "form-control", "id", "card-description", "rows", "3"], ["loc", [null, [17, 8], [17, 95]]]], ["element", "action", ["save", ["get", "card.title", ["loc", [null, [21, 30], [21, 40]]]], ["get", "card.description", ["loc", [null, [21, 41], [21, 57]]]], ["get", "card.id", ["loc", [null, [21, 58], [21, 65]]]]], [], ["loc", [null, [21, 14], [21, 67]]]], ["element", "action", ["cancel"], [], ["loc", [null, [22, 14], [22, 33]]]]],
       locals: [],
       templates: []
     };
@@ -953,7 +943,7 @@ define("client/templates/card/new", ["exports"], function (exports) {
             "column": 0
           },
           "end": {
-            "line": 21,
+            "line": 35,
             "column": 0
           }
         },
@@ -1022,6 +1012,56 @@ define("client/templates/card/new", ["exports"], function (exports) {
         var el5 = dom.createTextNode("\n      ");
         dom.appendChild(el4, el5);
         dom.appendChild(el3, el4);
+        var el4 = dom.createTextNode("\n      ");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createElement("div");
+        dom.setAttribute(el4, "class", "col-md-6");
+        var el5 = dom.createTextNode("\n        ");
+        dom.appendChild(el4, el5);
+        var el5 = dom.createElement("div");
+        dom.setAttribute(el5, "class", "card c-card");
+        var el6 = dom.createTextNode("\n          ");
+        dom.appendChild(el5, el6);
+        var el6 = dom.createElement("div");
+        dom.setAttribute(el6, "class", "card-header c-card__header");
+        var el7 = dom.createTextNode("\n            ");
+        dom.appendChild(el6, el7);
+        var el7 = dom.createElement("h4");
+        dom.setAttribute(el7, "class", "c-card__title");
+        var el8 = dom.createTextNode("\n              ");
+        dom.appendChild(el7, el8);
+        var el8 = dom.createComment("");
+        dom.appendChild(el7, el8);
+        var el8 = dom.createTextNode("\n            ");
+        dom.appendChild(el7, el8);
+        dom.appendChild(el6, el7);
+        var el7 = dom.createTextNode("\n          ");
+        dom.appendChild(el6, el7);
+        dom.appendChild(el5, el6);
+        var el6 = dom.createTextNode("\n          ");
+        dom.appendChild(el5, el6);
+        var el6 = dom.createElement("div");
+        dom.setAttribute(el6, "class", "card-block c-card__block");
+        var el7 = dom.createTextNode("\n            ");
+        dom.appendChild(el6, el7);
+        var el7 = dom.createElement("p");
+        dom.setAttribute(el7, "class", "card-title c-card__description");
+        var el8 = dom.createTextNode("\n              ");
+        dom.appendChild(el7, el8);
+        var el8 = dom.createComment("");
+        dom.appendChild(el7, el8);
+        var el8 = dom.createTextNode("\n            ");
+        dom.appendChild(el7, el8);
+        dom.appendChild(el6, el7);
+        var el7 = dom.createTextNode("\n          ");
+        dom.appendChild(el6, el7);
+        dom.appendChild(el5, el6);
+        var el6 = dom.createTextNode("\n        ");
+        dom.appendChild(el5, el6);
+        dom.appendChild(el4, el5);
+        var el5 = dom.createTextNode("\n      ");
+        dom.appendChild(el4, el5);
+        dom.appendChild(el3, el4);
         var el4 = dom.createTextNode("\n    ");
         dom.appendChild(el3, el4);
         dom.appendChild(el2, el3);
@@ -1038,13 +1078,17 @@ define("client/templates/card/new", ["exports"], function (exports) {
       buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
         var element0 = dom.childAt(fragment, [0]);
         var element1 = dom.childAt(element0, [3]);
-        var morphs = new Array(3);
+        var element2 = dom.childAt(element1, [3]);
+        var element3 = dom.childAt(element2, [3, 1]);
+        var morphs = new Array(5);
         morphs[0] = dom.createMorphAt(dom.childAt(element0, [1]), 1, 1);
         morphs[1] = dom.createMorphAt(element1, 1, 1);
-        morphs[2] = dom.createMorphAt(dom.childAt(element1, [3, 1, 1, 3]), 1, 1);
+        morphs[2] = dom.createMorphAt(dom.childAt(element2, [1, 1, 3]), 1, 1);
+        morphs[3] = dom.createMorphAt(dom.childAt(element3, [1, 1]), 1, 1);
+        morphs[4] = dom.createMorphAt(dom.childAt(element3, [3, 1]), 1, 1);
         return morphs;
       },
-      statements: [["content", "layout/side-bar", ["loc", [null, [3, 4], [3, 23]]]], ["content", "layout/secondary-nav-bar", ["loc", [null, [6, 4], [6, 32]]]], ["inline", "forms/new-card-form", [], ["model", ["subexpr", "@mut", [["get", "model", ["loc", [null, [14, 40], [14, 45]]]]], [], []]], ["loc", [null, [14, 12], [14, 47]]]]],
+      statements: [["content", "layout/side-bar", ["loc", [null, [3, 4], [3, 23]]]], ["content", "layout/secondary-nav-bar", ["loc", [null, [6, 4], [6, 32]]]], ["inline", "forms/new-card-form", [], ["model", ["subexpr", "@mut", [["get", "model", ["loc", [null, [14, 40], [14, 45]]]]], [], []]], ["loc", [null, [14, 12], [14, 47]]]], ["content", "model.title", ["loc", [null, [22, 14], [22, 29]]]], ["content", "model.description", ["loc", [null, [27, 14], [27, 35]]]]],
       locals: [],
       templates: []
     };
@@ -1473,7 +1517,7 @@ define("client/templates/components/forms/new-card-form", ["exports"], function 
         morphs[3] = dom.createElementMorph(element2);
         return morphs;
       },
-      statements: [["inline", "input", [], ["type", "text", "value", ["subexpr", "@mut", [["get", "model.title", ["loc", [null, [4, 30], [4, 41]]]]], [], []], "class", "form-control", "id", "card-title", "placeholder", "Enter the title of the card"], ["loc", [null, [4, 4], [4, 122]]]], ["inline", "textarea", [], ["value", ["subexpr", "@mut", [["get", "model.description", ["loc", [null, [10, 21], [10, 38]]]]], [], []], "class", "form-control", "id", "card-description", "rows", "3"], ["loc", [null, [10, 4], [10, 92]]]], ["element", "action", ["save"], [], ["loc", [null, [14, 10], [14, 27]]]], ["element", "action", ["cancel"], [], ["loc", [null, [15, 10], [15, 29]]]]],
+      statements: [["inline", "input", [], ["type", "text", "value", ["subexpr", "@mut", [["get", "model.title", ["loc", [null, [4, 30], [4, 41]]]]], [], []], "class", "form-control", "id", "card-title", "placeholder", "Enter the title of the card"], ["loc", [null, [4, 4], [4, 122]]]], ["inline", "textarea", [], ["value", ["subexpr", "@mut", [["get", "model.description", ["loc", [null, [10, 21], [10, 38]]]]], [], []], "class", "form-control", "id", "card-description", "rows", "5"], ["loc", [null, [10, 4], [10, 92]]]], ["element", "action", ["save"], [], ["loc", [null, [14, 10], [14, 27]]]], ["element", "action", ["cancel"], [], ["loc", [null, [15, 10], [15, 29]]]]],
       locals: [],
       templates: []
     };
