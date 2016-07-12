@@ -1,3 +1,13 @@
 .c-card {
-  border-radius: 0;
+  border-radius: 2px;
+
+  &__header,
+  &__footer {
+    background-color: $white;
+  }
+
+  &__block {
+    max-height: calc(100vh - 55px - 60px - 15px - 60px - 60px);
+    overflow-y: auto;
+  }
 }

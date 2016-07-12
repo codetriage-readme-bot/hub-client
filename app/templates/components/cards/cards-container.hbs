@@ -1,17 +1,16 @@
-<div class="col-md-6">
-  <div class="card text-xs-center c-card">
-    <div class="card-header c-card__header">
-      Card
-    </div>
-    <div class="card-block c-card__block">
-      <h4 class="card-title c-card__title">
-        {{#link-to 'card.card' card}}
+<div class="col-md-4">
+  {{#link-to 'card.card' card class="m-card-container__link"}}
+    <div class="card c-card">
+      <div class="card-header c-card__header">
+        <h4 class="c-card__title">
           {{card.title}}
-        {{/link-to}}
-      </h4>
+        </h4>
+      </div>
+      <div class="card-block c-card__block">
+        <p class="card-title c-card__description">
+            {{card.description}}
+        </p>
+      </div>
     </div>
-    <div class="card-footer text-muted c-card__footer">
-      {{card.description}}
-    </div>
-  </div>
+  {{/link-to}}
 </div>

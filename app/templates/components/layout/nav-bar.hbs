@@ -3,18 +3,15 @@
   <div class="pull-xs-right">
     <ul class="nav navbar-nav">
       {{#if session.isAuthenticated}}
-        <li class="nav-item">
-          {{#link-to 'card.new' class="nav-link"}}Add Card{{/link-to}}
+        <li class="nav-item c-nav-bar__list">
+          <a class="nav-link c-nav-bar__link">{{session.data.authenticated.name}}</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link">{{session.data.authenticated.name}}</a>
-        </li>
-        <li class="nav-item">
-          <a {{action 'invalidateSession'}} class="nav-link">Logout</a>
+        <li class="nav-item c-nav-bar__list">
+          <a {{action 'invalidateSession'}} class="nav-link c-nav-bar__link c-nav-bar__link--sign-out">Sign Out</a>
         </li>
       {{else}}
-        <li class="nav-item">
-          {{#link-to 'signin' class="nav-link"}}Sign In{{/link-to}}
+        <li class="nav-item c-nav-bar__list">
+          {{#link-to 'signin' class="nav-link c-nav-bar__link c-nav-bar__link--sign-in"}}Sign In{{/link-to}}
         </li>
       {{/if}}
     </ul>

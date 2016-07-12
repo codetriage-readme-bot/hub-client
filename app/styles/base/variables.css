@@ -1,17 +1,22 @@
 /* ==========================================================================
-   variables
+   brand colors
    ========================================================================== */
-@import './base/variables.css';
+$brand-color-1: #1fb6ff;
 
 /* ==========================================================================
-   base
+   normal colors
    ========================================================================== */
-@import './base/base.css';
+$white: #fff;
+$black: #000;
+$red: #d9534f;
+$green: #13ce66;
+
+$grey-light: #f9fafc;
+$grey: #8492a6;
+$grey-dark: #1f2d3d;
 
 /* ==========================================================================
-   components
+   utility colors
    ========================================================================== */
-@import './components/side-bar.css';
-@import './components/nav-bar.css';
-@import './components/secondary-nav-bar.css';
-@import './components/card.css';
+$border-color: #e5e5e5;
+

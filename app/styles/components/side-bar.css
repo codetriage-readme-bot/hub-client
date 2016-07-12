@@ -1,27 +1,27 @@
 .c-side-bar {
   padding: 15px 0;
 
-  .c-side-bar__list-item {
-    background-color: #fff;
+  &__list-item {
+    background-color: $white;
     border: 0;
     border-radius: 0;
-    border-left: 5px solid #fff;
+    border-left: 5px solid $white;
     padding: 10px 10px 10px 20px;
 
     &.active {
-      background-color: #f5f5f5;
-      color: #000;
-      border-left: 5px solid #0275d8;
+      background-color: $grey-light;
+      color: $black;
+      border-left: 5px solid $brand-color-1;
 
       &:hover {
-        background-color: #f5f5f5;
-        color: #000;
+        background-color: $grey-light;
+        color: $black;
       }
     }
 
     &:hover {
-      background-color: #f5f5f5;
-      border-left: 5px solid #0275d8;
+      background-color: $grey-light;
+      border-left: 5px solid $brand-color-1;
     }
 
     &:first-child,
@@ -30,9 +30,16 @@
     }
   }
 
-  .c-side-bar__icon {
+  &__icon {
     height: 20px;
     width: 20px;
     margin: 0 5px 0 0;
   }
+}
+
+/* ==========================================================================
+   override bootstrap class
+   ========================================================================== */
+a.list-group-item:hover {
+  background-color: $grey-light;
 }

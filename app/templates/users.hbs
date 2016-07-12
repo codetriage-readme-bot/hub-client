@@ -5,6 +5,10 @@
   <div class="col-md-10 l-main-container">
     {{layout/secondary-nav-bar}}
     <div class="l-cards-container">
+      <div class="m-page">
+        <img src="/assets/fonts/avatar.svg" class="c-side-bar__icon" alt="Users" />
+        <h4 class="m-page__heading">Users</h4>
+      </div>
       {{#each users as |user|}}
         {{users/users-container user=user}}
       {{else}}

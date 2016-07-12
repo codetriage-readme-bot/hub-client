@@ -4,26 +4,27 @@
   </div>
   <div class="col-md-10 l-main-container">
     {{layout/secondary-nav-bar}}
-    <div class="col-md-6">
-      <div class="l-cards-container">
-        <div class="card text-xs-center c-card">
+    <div class="l-cards-container">
+      <div class="col-md-6">
+        <div class="card c-card">
           <div class="card-header c-card__header">
-            Card
-          </div>
-          <div class="card-block c-card__block">
-            <h4 class="card-title c-card__title">
+            <h4 class="c-card__title">
               {{card.title}}
             </h4>
           </div>
-          <div class="card-footer text-muted c-card__footer">
-            {{card.description}}
+          <div class="card-block c-card__block">
+            <p class="card-title c-card__description">
+              {{card.description}}
+            </p>
           </div>
         </div>
 
         {{#link-to 'card.card.edit' card}}Edit{{/link-to}}
 
+      </div>
+      <div class="col-md-6">
         {{outlet}}
-    </div>
+      </div>
     </div>
   </div>
 </div>

@@ -1,6 +1,9 @@
+/* ==========================================================================
+   general
+   ========================================================================== */
 body {
-  font-size: 14px;
   font-weight: normal;
+  overflow: hidden;
 }
 
 /* ==========================================================================
@@ -8,7 +11,7 @@ body {
    ========================================================================== */
 .l-left-container {
   height: 100vh;
-  border-right: 1px solid #e5e5e5;
+  border-right: 1px solid $border-color;
   padding: 0;
 }
 
@@ -18,4 +21,79 @@ body {
 
 .l-cards-container {
   padding: 15px 0;
+  height: calc(100vh - 55px - 60px);
+  overflow-y: auto;
 }
+
+
+/* ==========================================================================
+   modules
+   ========================================================================== */
+a {
+  color: $brand-color-1;
+
+  &:hover {
+    color: $grey-dark;
+    text-decoration: none;
+  }
+}
+
+input {
+  height: 50px;
+}
+
+.m-page {
+  height: 50px;
+  padding: 15px 0 30px 15px;
+  display: flex;
+  align-items: center;
+
+  &__heading {
+    margin: 0;
+  }
+}
+
+.m-card-container__link {
+  color: $grey-dark;
+
+  .c-card {
+    &__header {
+      height: 50px;
+    }
+
+    &__title {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    &__block {
+      height: 100px;
+    }
+
+    &__description {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+}
+
+/* ==========================================================================
+   media-queries
+   ========================================================================== */
+@media screen and (max-width: 768px) {
+  .l-left-container {
+    height: auto;
+    border-right: 0;
+  }
+
+  .l-cards-container {
+    overflow-y: hidden;
+  }
+
+  body {
+    overflow-y: auto;
+  }
+}
+

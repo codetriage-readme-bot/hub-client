@@ -1,9 +1,25 @@
 /* ==========================================================================
+   variables
+   ========================================================================== */
+/* ==========================================================================
+   brand colors
+   ========================================================================== */
+/* ==========================================================================
+   normal colors
+   ========================================================================== */
+/* ==========================================================================
+   utility colors
+   ========================================================================== */
+
+/* ==========================================================================
    base
    ========================================================================== */
+/* ==========================================================================
+   general
+   ========================================================================== */
 body {
-    font-size: 14px;
     font-weight: normal;
+    overflow: hidden;
 }
 /* ==========================================================================
    layouts
@@ -18,6 +34,64 @@ body {
 }
 .l-cards-container {
     padding: 15px 0;
+    height: calc(100vh - 55px - 60px);
+    overflow-y: auto;
+}
+/* ==========================================================================
+   modules
+   ========================================================================== */
+a {
+    color: #1fb6ff;
+}
+a:hover {
+    color: #1f2d3d;
+    text-decoration: none;
+}
+input {
+    height: 50px;
+}
+.m-page {
+    height: 50px;
+    padding: 15px 0 30px 15px;
+    display: flex;
+    align-items: center;
+}
+.m-page__heading {
+    margin: 0;
+}
+.m-card-container__link {
+    color: #1f2d3d;
+}
+.m-card-container__link .c-card__header {
+    height: 50px;
+}
+.m-card-container__link .c-card__title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.m-card-container__link .c-card__block {
+    height: 100px;
+}
+.m-card-container__link .c-card__description {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+/* ==========================================================================
+   media-queries
+   ========================================================================== */
+@media screen and (max-width: 768px) {
+    .l-left-container {
+        height: auto;
+        border-right: 0;
+    }
+    .l-cards-container {
+        overflow-y: hidden;
+    }
+    body {
+        overflow-y: auto;
+    }
 }
 
 /* ==========================================================================
@@ -26,46 +100,107 @@ body {
 .c-side-bar {
     padding: 15px 0;
 }
-.c-side-bar .c-side-bar__list-item {
+.c-side-bar__list-item {
     background-color: #fff;
     border: 0;
     border-radius: 0;
     border-left: 5px solid #fff;
     padding: 10px 10px 10px 20px;
 }
-.c-side-bar .c-side-bar__list-item.active {
-    background-color: #f5f5f5;
+.c-side-bar__list-item.active {
+    background-color: #f9fafc;
     color: #000;
-    border-left: 5px solid #0275d8;
+    border-left: 5px solid #1fb6ff;
 }
-.c-side-bar .c-side-bar__list-item.active:hover {
-    background-color: #f5f5f5;
+.c-side-bar__list-item.active:hover {
+    background-color: #f9fafc;
     color: #000;
 }
-.c-side-bar .c-side-bar__list-item:hover {
-    background-color: #f5f5f5;
-    border-left: 5px solid #0275d8;
+.c-side-bar__list-item:hover {
+    background-color: #f9fafc;
+    border-left: 5px solid #1fb6ff;
 }
-.c-side-bar .c-side-bar__list-item:first-child,
-    .c-side-bar .c-side-bar__list-item:last-child {
+.c-side-bar__list-item:first-child,
+    .c-side-bar__list-item:last-child {
     border-radius: 0;
 }
-.c-side-bar .c-side-bar__icon {
+.c-side-bar__icon {
     height: 20px;
     width: 20px;
     margin: 0 5px 0 0;
 }
+/* ==========================================================================
+   override bootstrap class
+   ========================================================================== */
+a.list-group-item:hover {
+    background-color: #f9fafc;
+}
 .c-nav-bar {
     border-bottom: 1px solid #e5e5e5;
 }
+.c-nav-bar__link {
+    color: #8492a6;
+}
+.c-nav-bar__link.active {
+    color: #1fb6ff;
+}
+.c-nav-bar__link--sign-out {
+    background-color: #d9534f;
+    padding: 0 15px;
+    border-radius: 4px;
+    color: #fff !important;
+}
+.c-nav-bar__link--sign-out:hover {
+    box-shadow: inset 0 -2px 0 rgba(31,45,61,0.15);
+    cursor: pointer;
+}
+.c-nav-bar__link--sign-in {
+    background-color: #13ce66;
+    padding: 0 15px;
+    border-radius: 4px;
+    color: #fff !important;
+}
+.c-nav-bar__link--sign-in:hover {
+    box-shadow: inset 0 -2px 0 rgba(31,45,61,0.15);
+    cursor: pointer;
+}
+/* ==========================================================================
+   override bootstrap class
+   ========================================================================== */
+.navbar-light .navbar-nav .nav-link {
+    color: #8492a6;
+}
+.navbar-light .navbar-nav .nav-link.active {
+    color: #1fb6ff;
+}
 .c-secondary-nav-bar {
-    background-color: #f5f5f5;
+    background-color: #fff;
     height: 60px;
     display: flex;
     align-items: center;
     border-bottom: 1px solid #e5e5e5;
     padding: 0 20px;
 }
+.c-secondary-nav-bar__nav-link.active {
+    background-color: #1fb6ff;
+}
+/* ==========================================================================
+   override bootstrap class
+   ========================================================================== */
+.nav-pills .nav-link.active {
+    background-color: #1fb6ff;
+}
+.nav-pills .nav-link.active:hover {
+    background-color: #1fb6ff;
+}
 .c-card {
-    border-radius: 0;
+    border-radius: 2px;
+}
+.c-card__header,
+  .c-card__footer {
+    background-color: #fff;
+}
+.c-card__block {
+    max-height: calc(100vh - 55px - 60px - 15px - 60px - 60px);
+    overflow-y: auto;
 }
