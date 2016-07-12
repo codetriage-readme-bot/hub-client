@@ -1989,8 +1989,8 @@ define("client/templates/components/layout/side-bar", ["exports"], function (exp
               "column": 2
             },
             "end": {
-              "line": 2,
-              "column": 73
+              "line": 4,
+              "column": 2
             }
           },
           "moduleName": "client/templates/components/layout/side-bar.hbs"
@@ -2001,7 +2001,14 @@ define("client/templates/components/layout/side-bar", ["exports"], function (exp
         hasRendered: false,
         buildFragment: function buildFragment(dom) {
           var el0 = dom.createDocumentFragment();
-          var el1 = dom.createTextNode("Cards");
+          var el1 = dom.createTextNode("    ");
+          dom.appendChild(el0, el1);
+          var el1 = dom.createElement("img");
+          dom.setAttribute(el1, "src", "/assets/fonts/credit-card.svg");
+          dom.setAttribute(el1, "class", "c-side-bar__icon");
+          dom.setAttribute(el1, "alt", "Cards");
+          dom.appendChild(el0, el1);
+          var el1 = dom.createTextNode(" Cards\n");
           dom.appendChild(el0, el1);
           return el0;
         },
@@ -2021,12 +2028,12 @@ define("client/templates/components/layout/side-bar", ["exports"], function (exp
           "loc": {
             "source": null,
             "start": {
-              "line": 3,
+              "line": 5,
               "column": 2
             },
             "end": {
-              "line": 3,
-              "column": 73
+              "line": 7,
+              "column": 2
             }
           },
           "moduleName": "client/templates/components/layout/side-bar.hbs"
@@ -2037,7 +2044,14 @@ define("client/templates/components/layout/side-bar", ["exports"], function (exp
         hasRendered: false,
         buildFragment: function buildFragment(dom) {
           var el0 = dom.createDocumentFragment();
-          var el1 = dom.createTextNode("Users");
+          var el1 = dom.createTextNode("    ");
+          dom.appendChild(el0, el1);
+          var el1 = dom.createElement("img");
+          dom.setAttribute(el1, "src", "/assets/fonts/avatar.svg");
+          dom.setAttribute(el1, "class", "c-side-bar__icon");
+          dom.setAttribute(el1, "alt", "Users");
+          dom.appendChild(el0, el1);
+          var el1 = dom.createTextNode(" Users\n");
           dom.appendChild(el0, el1);
           return el0;
         },
@@ -2062,7 +2076,7 @@ define("client/templates/components/layout/side-bar", ["exports"], function (exp
             "column": 0
           },
           "end": {
-            "line": 7,
+            "line": 15,
             "column": 0
           }
         },
@@ -2076,20 +2090,25 @@ define("client/templates/components/layout/side-bar", ["exports"], function (exp
         var el0 = dom.createDocumentFragment();
         var el1 = dom.createElement("div");
         dom.setAttribute(el1, "class", "list-group c-side-bar");
-        var el2 = dom.createTextNode("\n  ");
+        var el2 = dom.createTextNode("\n");
         dom.appendChild(el1, el2);
         var el2 = dom.createComment("");
         dom.appendChild(el1, el2);
-        var el2 = dom.createTextNode("\n  ");
-        dom.appendChild(el1, el2);
         var el2 = dom.createComment("");
         dom.appendChild(el1, el2);
-        var el2 = dom.createTextNode("\n  ");
+        var el2 = dom.createTextNode("  ");
         dom.appendChild(el1, el2);
         var el2 = dom.createElement("a");
         dom.setAttribute(el2, "href", "#");
         dom.setAttribute(el2, "class", "list-group-item c-side-bar__list-item");
-        var el3 = dom.createTextNode("Team");
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("img");
+        dom.setAttribute(el3, "src", "/assets/fonts/user-list.svg");
+        dom.setAttribute(el3, "class", "c-side-bar__icon");
+        dom.setAttribute(el3, "alt", "Teams");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode(" Teams\n    ");
         dom.appendChild(el2, el3);
         dom.appendChild(el1, el2);
         var el2 = dom.createTextNode("\n  ");
@@ -2097,7 +2116,14 @@ define("client/templates/components/layout/side-bar", ["exports"], function (exp
         var el2 = dom.createElement("a");
         dom.setAttribute(el2, "href", "#");
         dom.setAttribute(el2, "class", "list-group-item c-side-bar__list-item");
-        var el3 = dom.createTextNode("Analytics");
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("img");
+        dom.setAttribute(el3, "src", "/assets/fonts/insight.svg");
+        dom.setAttribute(el3, "class", "c-side-bar__icon");
+        dom.setAttribute(el3, "alt", "Analytics");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode(" Analytics\n    ");
         dom.appendChild(el2, el3);
         dom.appendChild(el1, el2);
         var el2 = dom.createTextNode("\n");
@@ -2111,10 +2137,10 @@ define("client/templates/components/layout/side-bar", ["exports"], function (exp
         var element0 = dom.childAt(fragment, [0]);
         var morphs = new Array(2);
         morphs[0] = dom.createMorphAt(element0, 1, 1);
-        morphs[1] = dom.createMorphAt(element0, 3, 3);
+        morphs[1] = dom.createMorphAt(element0, 2, 2);
         return morphs;
       },
-      statements: [["block", "link-to", ["cards"], ["class", "list-group-item c-side-bar__list-item"], 0, null, ["loc", [null, [2, 2], [2, 85]]]], ["block", "link-to", ["users"], ["class", "list-group-item c-side-bar__list-item"], 1, null, ["loc", [null, [3, 2], [3, 85]]]]],
+      statements: [["block", "link-to", ["cards"], ["class", "list-group-item c-side-bar__list-item"], 0, null, ["loc", [null, [2, 2], [4, 14]]]], ["block", "link-to", ["users"], ["class", "list-group-item c-side-bar__list-item"], 1, null, ["loc", [null, [5, 2], [7, 14]]]]],
       locals: [],
       templates: [child0, child1]
     };

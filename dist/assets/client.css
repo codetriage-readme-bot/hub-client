@@ -50,6 +50,11 @@ body {
     .c-side-bar .c-side-bar__list-item:last-child {
     border-radius: 0;
 }
+.c-side-bar .c-side-bar__icon {
+    height: 20px;
+    width: 20px;
+    margin: 0 5px 0 0;
+}
 .c-nav-bar {
     border-bottom: 1px solid #e5e5e5;
 }
