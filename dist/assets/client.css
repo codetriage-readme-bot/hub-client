@@ -235,6 +235,19 @@ a.list-group-item:hover {
     align-items: center;
     flex-direction: column;
 }
+.c-landing-page__header--jumbotron::after {
+    content: "";
+    background: url('/assets/images/landing-page-background.jpg');
+    opacity: 0.25;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
 .c-landing-page__hero-btn {
     background-color: #1fb6ff;
     color: #fff;
