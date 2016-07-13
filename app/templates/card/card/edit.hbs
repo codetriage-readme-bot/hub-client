@@ -1,25 +1,12 @@
-<div class="card c-card">
-  <div class="card-header c-card__header">
-    <h4 class="c-card__title">
-      Edit Card
-    </h4>
-  </div>
-  <div class="card-block c-card__block">
-    <form>
-      <fieldset class="form-group">
-        <label for="card-title">Card Title</label>
-        {{input type="text" value=card.title class="form-control" id="card-title" placeholder="Enter the title of the card"}}
-        <small class="text-muted">Give your card a nice title</small>
-      </fieldset>
-
-      <fieldset class="form-group">
-        <label for="card-description">Card Description</label>
-        {{textarea value=card.description class="form-control" id="card-description" rows="3"}}
-        <small class="text-muted">Describe your card</small>
-      </fieldset>
-
-      <button {{action 'save' card.title card.description card.id}} class="btn btn-success pull-xs-right">Save</button>
-      <button {{action 'cancel'}} class="btn btn-link pull-xs-right">Cancel</button>
-    </form>
+<div class="col-md-6">
+  <div class="card c-card">
+    <div class="card-header c-card__header">
+      <h4 class="c-card__title">
+        Edit Card
+      </h4>
+    </div>
+    <div class="card-block c-card__block">
+      {{forms/edit-card-form model=model}}
+    </div>
   </div>
 </div>

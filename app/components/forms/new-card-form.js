@@ -1,11 +1,12 @@
 import Ember from 'ember';
 
+const { getOwner } = Ember;
+
 export default Ember.Component.extend({
   store: Ember.inject.service(),
   session: Ember.inject.service('session'),
   actions: {
     save() {
-      console.log( markdown.toHTML( "Hello *World*!" ) );
       // get the details about the currently authenticated user
       this.get('store').findRecord('user', this.get('session.data.authenticated.id')).then((user) => {
 
@@ -14,14 +15,13 @@ export default Ember.Component.extend({
 
         this.get('model').save().then((card) => {
           // go to the new item's route after creating it.
-          Ember.getOwner(this).lookup('route:card.card').transitionTo('card.card', card);
+          getOwner(this).lookup('route:card.card').transitionTo('card.card', card);
         });
       }.bind(this));
     },
 
     cancel() {
-      // on clicking on cancel, just go to the card.all route
-      this.transitionTo('cards.all');
+      getOwner(this).lookup('route:cards').transitionTo('cards');
     }
   }
 });
