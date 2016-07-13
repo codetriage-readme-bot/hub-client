@@ -438,8 +438,8 @@ define('client/routes/card/card/edit', ['exports', 'ember'], function (exports, 
     }
   });
 });
-define('client/routes/card/card', ['exports', 'ember'], function (exports, _ember) {
-  exports['default'] = _ember['default'].Route.extend({
+define('client/routes/card/card', ['exports', 'ember', 'ember-simple-auth/mixins/authenticated-route-mixin'], function (exports, _ember, _emberSimpleAuthMixinsAuthenticatedRouteMixin) {
+  exports['default'] = _ember['default'].Route.extend(_emberSimpleAuthMixinsAuthenticatedRouteMixin['default'], {
     model: function model(params) {
       // get the individual card from the store
       return this.store.find('card', params.card_id);
@@ -451,15 +451,15 @@ define('client/routes/card/card', ['exports', 'ember'], function (exports, _embe
     }
   });
 });
-define('client/routes/card/new', ['exports', 'ember'], function (exports, _ember) {
-  exports['default'] = _ember['default'].Route.extend({
+define('client/routes/card/new', ['exports', 'ember', 'ember-simple-auth/mixins/authenticated-route-mixin'], function (exports, _ember, _emberSimpleAuthMixinsAuthenticatedRouteMixin) {
+  exports['default'] = _ember['default'].Route.extend(_emberSimpleAuthMixinsAuthenticatedRouteMixin['default'], {
     model: function model() {
       return this.get('store').createRecord('card');
     }
   });
 });
-define('client/routes/cards', ['exports', 'ember'], function (exports, _ember) {
-  exports['default'] = _ember['default'].Route.extend({
+define('client/routes/cards', ['exports', 'ember', 'ember-simple-auth/mixins/authenticated-route-mixin'], function (exports, _ember, _emberSimpleAuthMixinsAuthenticatedRouteMixin) {
+  exports['default'] = _ember['default'].Route.extend(_emberSimpleAuthMixinsAuthenticatedRouteMixin['default'], {
     session: _ember['default'].inject.service('session'),
     model: function model() {
       // return all the cards from the store
@@ -486,8 +486,8 @@ define('client/routes/landing-page', ['exports', 'ember', 'ember-simple-auth/mix
 define('client/routes/signin', ['exports', 'ember', 'ember-simple-auth/mixins/unauthenticated-route-mixin'], function (exports, _ember, _emberSimpleAuthMixinsUnauthenticatedRouteMixin) {
   exports['default'] = _ember['default'].Route.extend(_emberSimpleAuthMixinsUnauthenticatedRouteMixin['default']);
 });
-define('client/routes/user/user', ['exports', 'ember'], function (exports, _ember) {
-  exports['default'] = _ember['default'].Route.extend({
+define('client/routes/user/user', ['exports', 'ember', 'ember-simple-auth/mixins/authenticated-route-mixin'], function (exports, _ember, _emberSimpleAuthMixinsAuthenticatedRouteMixin) {
+  exports['default'] = _ember['default'].Route.extend(_emberSimpleAuthMixinsAuthenticatedRouteMixin['default'], {
     model: function model(params) {
       return this.store.find('user', params.user_id);
     },
@@ -498,8 +498,8 @@ define('client/routes/user/user', ['exports', 'ember'], function (exports, _embe
     }
   });
 });
-define('client/routes/users', ['exports', 'ember'], function (exports, _ember) {
-  exports['default'] = _ember['default'].Route.extend({
+define('client/routes/users', ['exports', 'ember', 'ember-simple-auth/mixins/authenticated-route-mixin'], function (exports, _ember, _emberSimpleAuthMixinsAuthenticatedRouteMixin) {
+  exports['default'] = _ember['default'].Route.extend(_emberSimpleAuthMixinsAuthenticatedRouteMixin['default'], {
     model: function model() {
       return this.store.findAll('user');
     },
