@@ -1,6 +1,9 @@
 <div class="col-md-4">
   {{#link-to 'card.card' card class="m-card-container__link"}}
     <div class="card c-card">
+      <div class="m-ribbon">
+        <span>{{card.type}}</span>
+      </div>
       <div class="card-header c-card__header">
         <h4 class="c-card__title">
           {{card.title}}

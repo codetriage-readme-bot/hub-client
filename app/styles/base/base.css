@@ -3,7 +3,7 @@
    ========================================================================== */
 body {
   font-weight: normal;
-  /*overflow: hidden;*/
+  overflow: hidden;
   background-color: $white;
 }
 
@@ -11,20 +11,21 @@ body {
    layouts
    ========================================================================== */
 .l-left-container {
-  /*height: 100vh;*/
   padding: 0;
+  border-right: 1px solid $border-color;
+  height: 100vh;
 }
 
 .l-main-container {
-  border-left: 1px solid $border-color;
   padding: 0;
-  background-color: $grey-light;
 }
 
 .l-cards-container {
+  background-color: $grey-light;
+  overflow-y: auto;
   padding: 15px 0;
   min-height: calc(100vh - 55px - 60px);
-  /*overflow-y: auto;*/
+  height: calc(100vh - 55px - 60px);
 }
 
 /* ==========================================================================
@@ -104,6 +105,58 @@ textarea {
   }
 }
 
+.m-ribbon {
+  position: absolute;
+  right: -5px;
+  top: -5px;
+  z-index: 1;
+  overflow: hidden;
+  width: 75px;
+  height: 75px;
+  text-align: right;
+
+  span {
+    font-size: 10px;
+    font-weight: bold;
+    color: #FFF;
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 20px;
+    transform: rotate(45deg);
+    width: 100px;
+    display: block;
+    background: #1FB6FF;
+    background: linear-gradient(#1FB6FF 0%, #1FB6FF 100%);
+    box-shadow: 0 3px 10px -5px rgba(0, 0, 0, 1);
+    position: absolute;
+    top: 19px; right: -21px;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0px;
+      top: 100%;
+      z-index: -1;
+      border-left: 3px solid #1FB6FF;
+      border-right: 3px solid transparent;
+      border-bottom: 3px solid transparent;
+      border-top: 3px solid #1FB6FF;
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      right: 0px;
+      top: 100%;
+      z-index: -1;
+      border-left: 3px solid transparent;
+      border-right: 3px solid #1FB6FF;
+      border-bottom: 3px solid transparent;
+      border-top: 3px solid #1FB6FF;
+    }
+  }
+}
+
 /* ==========================================================================
    media-queries
    ========================================================================== */
@@ -113,13 +166,13 @@ textarea {
     border-right: 0;
   }
 
-/*  .l-cards-container {
+  .l-cards-container {
     overflow-y: hidden;
   }
-*/
-/*  body {
+
+  body {
     overflow-y: auto;
-  }*/
+  }
 }
 
 /* ==========================================================================

@@ -995,11 +995,11 @@ define("client/templates/card/card", ["exports"], function (exports) {
           "loc": {
             "source": null,
             "start": {
-              "line": 27,
+              "line": 25,
               "column": 8
             },
             "end": {
-              "line": 27,
+              "line": 25,
               "column": 46
             }
           },
@@ -1036,7 +1036,7 @@ define("client/templates/card/card", ["exports"], function (exports) {
             "column": 0
           },
           "end": {
-            "line": 32,
+            "line": 30,
             "column": 0
           }
         },
@@ -1088,16 +1088,11 @@ define("client/templates/card/card", ["exports"], function (exports) {
         var el6 = dom.createTextNode("\n          ");
         dom.appendChild(el5, el6);
         var el6 = dom.createElement("div");
-        dom.setAttribute(el6, "class", "card-header c-card__header");
+        dom.setAttribute(el6, "class", "m-ribbon");
         var el7 = dom.createTextNode("\n            ");
         dom.appendChild(el6, el7);
-        var el7 = dom.createElement("h4");
-        dom.setAttribute(el7, "class", "c-card__title");
-        var el8 = dom.createTextNode("\n              ");
-        dom.appendChild(el7, el8);
+        var el7 = dom.createElement("span");
         var el8 = dom.createComment("");
-        dom.appendChild(el7, el8);
-        var el8 = dom.createTextNode("\n            ");
         dom.appendChild(el7, el8);
         dom.appendChild(el6, el7);
         var el7 = dom.createTextNode("\n          ");
@@ -1109,8 +1104,8 @@ define("client/templates/card/card", ["exports"], function (exports) {
         dom.setAttribute(el6, "class", "card-header c-card__header");
         var el7 = dom.createTextNode("\n            ");
         dom.appendChild(el6, el7);
-        var el7 = dom.createElement("h6");
-        dom.setAttribute(el7, "class", "c-card__type");
+        var el7 = dom.createElement("h4");
+        dom.setAttribute(el7, "class", "c-card__title");
         var el8 = dom.createTextNode("\n              ");
         dom.appendChild(el7, el8);
         var el8 = dom.createComment("");
@@ -1172,13 +1167,13 @@ define("client/templates/card/card", ["exports"], function (exports) {
         morphs[0] = dom.createMorphAt(dom.childAt(element0, [1]), 1, 1);
         morphs[1] = dom.createMorphAt(element1, 1, 1);
         morphs[2] = dom.createMorphAt(element2, 1, 1);
-        morphs[3] = dom.createMorphAt(dom.childAt(element4, [1, 1]), 1, 1);
+        morphs[3] = dom.createMorphAt(dom.childAt(element4, [1, 1]), 0, 0);
         morphs[4] = dom.createMorphAt(dom.childAt(element4, [3, 1]), 1, 1);
         morphs[5] = dom.createMorphAt(dom.childAt(element4, [5, 1]), 1, 1);
         morphs[6] = dom.createMorphAt(element3, 3, 3);
         return morphs;
       },
-      statements: [["content", "layout/side-bar", ["loc", [null, [3, 4], [3, 23]]]], ["content", "layout/secondary-nav-bar", ["loc", [null, [6, 4], [6, 32]]]], ["content", "outlet", ["loc", [null, [8, 6], [8, 16]]]], ["content", "card.title", ["loc", [null, [13, 14], [13, 28]]]], ["content", "card.type", ["loc", [null, [18, 14], [18, 27]]]], ["content", "card.description", ["loc", [null, [23, 14], [23, 34]]]], ["block", "link-to", ["card.card.edit", ["get", "card", ["loc", [null, [27, 36], [27, 40]]]]], [], 0, null, ["loc", [null, [27, 8], [27, 58]]]]],
+      statements: [["content", "layout/side-bar", ["loc", [null, [3, 4], [3, 23]]]], ["content", "layout/secondary-nav-bar", ["loc", [null, [6, 4], [6, 32]]]], ["content", "outlet", ["loc", [null, [8, 6], [8, 16]]]], ["content", "card.type", ["loc", [null, [12, 18], [12, 31]]]], ["content", "card.title", ["loc", [null, [16, 14], [16, 28]]]], ["content", "card.description", ["loc", [null, [21, 14], [21, 34]]]], ["block", "link-to", ["card.card.edit", ["get", "card", ["loc", [null, [25, 36], [25, 40]]]]], [], 0, null, ["loc", [null, [25, 8], [25, 58]]]]],
       locals: [],
       templates: [child0]
     };
@@ -1547,7 +1542,7 @@ define("client/templates/components/cards/cards-container", ["exports"], functio
               "column": 2
             },
             "end": {
-              "line": 15,
+              "line": 18,
               "column": 2
             }
           },
@@ -1563,6 +1558,19 @@ define("client/templates/components/cards/cards-container", ["exports"], functio
           dom.appendChild(el0, el1);
           var el1 = dom.createElement("div");
           dom.setAttribute(el1, "class", "card c-card");
+          var el2 = dom.createTextNode("\n      ");
+          dom.appendChild(el1, el2);
+          var el2 = dom.createElement("div");
+          dom.setAttribute(el2, "class", "m-ribbon");
+          var el3 = dom.createTextNode("\n        ");
+          dom.appendChild(el2, el3);
+          var el3 = dom.createElement("span");
+          var el4 = dom.createComment("");
+          dom.appendChild(el3, el4);
+          dom.appendChild(el2, el3);
+          var el3 = dom.createTextNode("\n      ");
+          dom.appendChild(el2, el3);
+          dom.appendChild(el1, el2);
           var el2 = dom.createTextNode("\n      ");
           dom.appendChild(el1, el2);
           var el2 = dom.createElement("div");
@@ -1608,12 +1616,13 @@ define("client/templates/components/cards/cards-container", ["exports"], functio
         },
         buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
           var element0 = dom.childAt(fragment, [1]);
-          var morphs = new Array(2);
-          morphs[0] = dom.createMorphAt(dom.childAt(element0, [1, 1]), 1, 1);
+          var morphs = new Array(3);
+          morphs[0] = dom.createMorphAt(dom.childAt(element0, [1, 1]), 0, 0);
           morphs[1] = dom.createMorphAt(dom.childAt(element0, [3, 1]), 1, 1);
+          morphs[2] = dom.createMorphAt(dom.childAt(element0, [5, 1]), 1, 1);
           return morphs;
         },
-        statements: [["content", "card.title", ["loc", [null, [6, 10], [6, 24]]]], ["content", "card.description", ["loc", [null, [11, 12], [11, 32]]]]],
+        statements: [["content", "card.type", ["loc", [null, [5, 14], [5, 27]]]], ["content", "card.title", ["loc", [null, [9, 10], [9, 24]]]], ["content", "card.description", ["loc", [null, [14, 12], [14, 32]]]]],
         locals: [],
         templates: []
       };
@@ -1631,7 +1640,7 @@ define("client/templates/components/cards/cards-container", ["exports"], functio
             "column": 0
           },
           "end": {
-            "line": 17,
+            "line": 20,
             "column": 0
           }
         },
@@ -1659,7 +1668,7 @@ define("client/templates/components/cards/cards-container", ["exports"], functio
         morphs[0] = dom.createMorphAt(dom.childAt(fragment, [0]), 1, 1);
         return morphs;
       },
-      statements: [["block", "link-to", ["card.card", ["get", "card", ["loc", [null, [2, 25], [2, 29]]]]], ["class", "m-card-container__link"], 0, null, ["loc", [null, [2, 2], [15, 14]]]]],
+      statements: [["block", "link-to", ["card.card", ["get", "card", ["loc", [null, [2, 25], [2, 29]]]]], ["class", "m-card-container__link"], 0, null, ["loc", [null, [2, 2], [18, 14]]]]],
       locals: [],
       templates: [child0]
     };
