@@ -1123,7 +1123,7 @@ define("client/templates/card/card", ["exports"], function (exports) {
         var el7 = dom.createTextNode("\n            ");
         dom.appendChild(el6, el7);
         var el7 = dom.createElement("p");
-        dom.setAttribute(el7, "class", "card-title c-card__description");
+        dom.setAttribute(el7, "class", "c-card__description");
         var el8 = dom.createTextNode("\n              ");
         dom.appendChild(el7, el8);
         var el8 = dom.createComment("");

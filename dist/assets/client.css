@@ -290,9 +290,8 @@ a.list-group-item:hover {
   .c-card__footer {
     background-color: #fff;
 }
-.c-card__block {/*    max-height: calc(100vh - 55px - 60px - 15px - 60px - 60px);
-    overflow-y: auto;
-*/
+.c-card__description {
+    white-space: pre-line;
 }
 .signin-form-wrapper {
     display: flex;
