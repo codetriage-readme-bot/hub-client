@@ -8,7 +8,9 @@
       <div class="col-md-6">
         <div class="card c-card">
           <div class="card-header c-card__header">
-            Edit Card
+            <h4 class="c-card__title">
+              Add Card
+            </h4>
           </div>
           <div class="card-block c-card__block">
             {{forms/new-card-form model=model}}
@@ -17,6 +19,9 @@
       </div>
       <div class="col-md-6">
         <div class="card c-card">
+          <div class="m-ribbon">
+            <span>{{model.type}}</span>
+          </div>
           <div class="card-header c-card__header">
             <h4 class="c-card__title">
               {{model.title}}
