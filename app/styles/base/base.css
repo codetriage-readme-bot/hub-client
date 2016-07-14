@@ -90,6 +90,14 @@ input {
   width: 100%;
 }
 
+.m-application-loader {
+  &__loader {
+    display: flex;
+    height: calc(100vh - 55px);
+    justify-content: center;
+    align-items: center;
+  }
+}
 /* ==========================================================================
    media-queries
    ========================================================================== */
