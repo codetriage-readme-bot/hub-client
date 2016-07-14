@@ -123,7 +123,6 @@ textarea {
     width: 100px;
     display: block;
     background: #1FB6FF;
-    background: linear-gradient(#1FB6FF 0%, #1FB6FF 100%);
     box-shadow: 0 3px 10px -5px rgba(0, 0, 0, 1);
     position: absolute;
     top: 19px;
