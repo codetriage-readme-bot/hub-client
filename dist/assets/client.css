@@ -21,26 +21,23 @@
    general
    ========================================================================== */
 body {
-    font-weight: normal;
-    overflow: hidden;
+    font-weight: normal;/*overflow: hidden;*/
     background-color: #fff;
 }
 /* ==========================================================================
    layouts
    ========================================================================== */
-.l-left-container {
-    height: 100vh;
-    border-right: 1px solid #e5e5e5;
+.l-left-container {/*height: 100vh;*/
     padding: 0;
 }
 .l-main-container {
+    border-left: 1px solid #e5e5e5;
     padding: 0;
+    background-color: #f9fafc;
 }
 .l-cards-container {
     padding: 15px 0;
-    height: calc(100vh - 55px - 60px);
-    overflow-y: auto;
-    background-color: #f9fafc;
+    min-height: calc(100vh - 55px - 60px);/*overflow-y: auto;*/
 }
 /* ==========================================================================
    modules
@@ -55,6 +52,11 @@ a:hover {
 input {
     height: 50px;
     font-weight: 200;
+    outline: none;
+}
+textarea {
+    font-weight: 200;
+    outline: none;
 }
 .m-page {
     height: 50px;
@@ -103,13 +105,26 @@ input {
     .l-left-container {
         height: auto;
         border-right: 0;
-    }
-    .l-cards-container {
-        overflow-y: hidden;
-    }
-    body {
-        overflow-y: auto;
-    }
+    }/*  .l-cards-container {
+    overflow-y: hidden;
+  }
+*//*  body {
+    overflow-y: auto;
+  }*/
+}
+/* ==========================================================================
+   vendor
+   ========================================================================== */
+.ember-power-select-trigger.ember-basic-dropdown-trigger {
+    height: 50px;
+    font-weight: 200;
+    display: flex;
+    align-items: center;
+    outline: none;
+}
+.ember-power-select {
+    width: 100%;
+    align-self: center;
 }
 
 /* ==========================================================================
@@ -221,9 +236,9 @@ a.list-group-item:hover {
   .c-card__footer {
     background-color: #fff;
 }
-.c-card__block {
-    max-height: calc(100vh - 55px - 60px - 15px - 60px - 60px);
+.c-card__block {/*    max-height: calc(100vh - 55px - 60px - 15px - 60px - 60px);
     overflow-y: auto;
+*/
 }
 .signin-form-wrapper {
     display: flex;

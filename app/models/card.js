@@ -5,5 +5,6 @@ import { belongsTo, hasMany } from 'ember-data/relationships';
 export default Model.extend({
   title: attr('string'),
   description: attr('string'),
+  type: attr('string'),
   users: hasMany('user')
 });

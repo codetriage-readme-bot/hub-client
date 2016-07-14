@@ -82,14 +82,57 @@ define('client/components/app-version', ['exports', 'ember-cli-app-version/compo
     name: name
   });
 });
+define('client/components/basic-dropdown/content', ['exports', 'ember-basic-dropdown/components/basic-dropdown/content'], function (exports, _emberBasicDropdownComponentsBasicDropdownContent) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberBasicDropdownComponentsBasicDropdownContent['default'];
+    }
+  });
+});
+define('client/components/basic-dropdown/trigger', ['exports', 'ember-basic-dropdown/components/basic-dropdown/trigger'], function (exports, _emberBasicDropdownComponentsBasicDropdownTrigger) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberBasicDropdownComponentsBasicDropdownTrigger['default'];
+    }
+  });
+});
+define('client/components/basic-dropdown/wormhole', ['exports', 'ember-basic-dropdown/components/basic-dropdown/wormhole'], function (exports, _emberBasicDropdownComponentsBasicDropdownWormhole) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberBasicDropdownComponentsBasicDropdownWormhole['default'];
+    }
+  });
+});
+define('client/components/basic-dropdown', ['exports', 'ember-basic-dropdown/components/basic-dropdown'], function (exports, _emberBasicDropdownComponentsBasicDropdown) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberBasicDropdownComponentsBasicDropdown['default'];
+    }
+  });
+});
 define('client/components/cards/cards-container', ['exports', 'ember'], function (exports, _ember) {
   exports['default'] = _ember['default'].Component.extend({});
+});
+define('client/components/ember-wormhole', ['exports', 'ember-wormhole/components/ember-wormhole'], function (exports, _emberWormholeComponentsEmberWormhole) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberWormholeComponentsEmberWormhole['default'];
+    }
+  });
 });
 define('client/components/forms/edit-card-form', ['exports', 'ember'], function (exports, _ember) {
   var getOwner = _ember['default'].getOwner;
   exports['default'] = _ember['default'].Component.extend({
     store: _ember['default'].inject.service(),
     session: _ember['default'].inject.service('session'),
+    types: ['Task', 'Discussion', 'Note'],
+    selectedType: 'Note',
+
     actions: {
       save: function save(title, description, id) {
         var _this = this;
@@ -119,6 +162,11 @@ define('client/components/forms/edit-card-form', ['exports', 'ember'], function 
 
         // go the card route on cancel
         getOwner(this).lookup('route:card.card').transitionTo('card.card', id);
+      },
+
+      setType: function setType(type) {
+        this.set('selectedType', type);
+        this.get('model').set('type', type);
       }
     }
   });
@@ -128,6 +176,8 @@ define('client/components/forms/new-card-form', ['exports', 'ember'], function (
   exports['default'] = _ember['default'].Component.extend({
     store: _ember['default'].inject.service(),
     session: _ember['default'].inject.service('session'),
+    types: ['Task', 'Discussion', 'Note'],
+    selectedType: 'Note',
     actions: {
       save: function save() {
         var _this = this;
@@ -147,6 +197,11 @@ define('client/components/forms/new-card-form', ['exports', 'ember'], function (
 
       cancel: function cancel() {
         getOwner(this).lookup('route:cards').transitionTo('cards');
+      },
+
+      setType: function setType(type) {
+        this.set('selectedType', type);
+        this.get('model').set('type', type);
       }
     }
   });
@@ -179,6 +234,54 @@ define('client/components/layout/secondary-nav-bar', ['exports', 'ember'], funct
 define('client/components/layout/side-bar', ['exports', 'ember'], function (exports, _ember) {
   exports['default'] = _ember['default'].Component.extend({});
 });
+define('client/components/power-select/before-options', ['exports', 'ember-power-select/components/power-select/before-options'], function (exports, _emberPowerSelectComponentsPowerSelectBeforeOptions) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberPowerSelectComponentsPowerSelectBeforeOptions['default'];
+    }
+  });
+});
+define('client/components/power-select/options', ['exports', 'ember-power-select/components/power-select/options'], function (exports, _emberPowerSelectComponentsPowerSelectOptions) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberPowerSelectComponentsPowerSelectOptions['default'];
+    }
+  });
+});
+define('client/components/power-select/trigger', ['exports', 'ember-power-select/components/power-select/trigger'], function (exports, _emberPowerSelectComponentsPowerSelectTrigger) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberPowerSelectComponentsPowerSelectTrigger['default'];
+    }
+  });
+});
+define('client/components/power-select-multiple/trigger', ['exports', 'ember-power-select/components/power-select-multiple/trigger'], function (exports, _emberPowerSelectComponentsPowerSelectMultipleTrigger) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberPowerSelectComponentsPowerSelectMultipleTrigger['default'];
+    }
+  });
+});
+define('client/components/power-select-multiple', ['exports', 'ember-power-select/components/power-select-multiple'], function (exports, _emberPowerSelectComponentsPowerSelectMultiple) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberPowerSelectComponentsPowerSelectMultiple['default'];
+    }
+  });
+});
+define('client/components/power-select', ['exports', 'ember-power-select/components/power-select'], function (exports, _emberPowerSelectComponentsPowerSelect) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberPowerSelectComponentsPowerSelect['default'];
+    }
+  });
+});
 define('client/components/users/users-container', ['exports', 'ember'], function (exports, _ember) {
   exports['default'] = _ember['default'].Component.extend({});
 });
@@ -193,11 +296,171 @@ define('client/controllers/application', ['exports', 'ember'], function (exports
     }
   });
 });
+define('client/helpers/and', ['exports', 'ember', 'ember-truth-helpers/helpers/and'], function (exports, _ember, _emberTruthHelpersHelpersAnd) {
+
+  var forExport = null;
+
+  if (_ember['default'].Helper) {
+    forExport = _ember['default'].Helper.helper(_emberTruthHelpersHelpersAnd.andHelper);
+  } else if (_ember['default'].HTMLBars.makeBoundHelper) {
+    forExport = _ember['default'].HTMLBars.makeBoundHelper(_emberTruthHelpersHelpersAnd.andHelper);
+  }
+
+  exports['default'] = forExport;
+});
+define('client/helpers/ember-power-select-is-selected', ['exports', 'ember-power-select/helpers/ember-power-select-is-selected'], function (exports, _emberPowerSelectHelpersEmberPowerSelectIsSelected) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberPowerSelectHelpersEmberPowerSelectIsSelected['default'];
+    }
+  });
+  Object.defineProperty(exports, 'emberPowerSelectIsSelected', {
+    enumerable: true,
+    get: function get() {
+      return _emberPowerSelectHelpersEmberPowerSelectIsSelected.emberPowerSelectIsSelected;
+    }
+  });
+});
+define('client/helpers/ember-power-select-true-string-if-present', ['exports', 'ember-power-select/helpers/ember-power-select-true-string-if-present'], function (exports, _emberPowerSelectHelpersEmberPowerSelectTrueStringIfPresent) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberPowerSelectHelpersEmberPowerSelectTrueStringIfPresent['default'];
+    }
+  });
+  Object.defineProperty(exports, 'emberPowerSelectTrueStringIfPresent', {
+    enumerable: true,
+    get: function get() {
+      return _emberPowerSelectHelpersEmberPowerSelectTrueStringIfPresent.emberPowerSelectTrueStringIfPresent;
+    }
+  });
+});
+define('client/helpers/eq', ['exports', 'ember', 'ember-truth-helpers/helpers/equal'], function (exports, _ember, _emberTruthHelpersHelpersEqual) {
+
+  var forExport = null;
+
+  if (_ember['default'].Helper) {
+    forExport = _ember['default'].Helper.helper(_emberTruthHelpersHelpersEqual.equalHelper);
+  } else if (_ember['default'].HTMLBars.makeBoundHelper) {
+    forExport = _ember['default'].HTMLBars.makeBoundHelper(_emberTruthHelpersHelpersEqual.equalHelper);
+  }
+
+  exports['default'] = forExport;
+});
+define('client/helpers/gt', ['exports', 'ember', 'ember-truth-helpers/helpers/gt'], function (exports, _ember, _emberTruthHelpersHelpersGt) {
+
+  var forExport = null;
+
+  if (_ember['default'].Helper) {
+    forExport = _ember['default'].Helper.helper(_emberTruthHelpersHelpersGt.gtHelper);
+  } else if (_ember['default'].HTMLBars.makeBoundHelper) {
+    forExport = _ember['default'].HTMLBars.makeBoundHelper(_emberTruthHelpersHelpersGt.gtHelper);
+  }
+
+  exports['default'] = forExport;
+});
+define('client/helpers/gte', ['exports', 'ember', 'ember-truth-helpers/helpers/gte'], function (exports, _ember, _emberTruthHelpersHelpersGte) {
+
+  var forExport = null;
+
+  if (_ember['default'].Helper) {
+    forExport = _ember['default'].Helper.helper(_emberTruthHelpersHelpersGte.gteHelper);
+  } else if (_ember['default'].HTMLBars.makeBoundHelper) {
+    forExport = _ember['default'].HTMLBars.makeBoundHelper(_emberTruthHelpersHelpersGte.gteHelper);
+  }
+
+  exports['default'] = forExport;
+});
+define('client/helpers/is-array', ['exports', 'ember', 'ember-truth-helpers/helpers/is-array'], function (exports, _ember, _emberTruthHelpersHelpersIsArray) {
+
+  var forExport = null;
+
+  if (_ember['default'].Helper) {
+    forExport = _ember['default'].Helper.helper(_emberTruthHelpersHelpersIsArray.isArrayHelper);
+  } else if (_ember['default'].HTMLBars.makeBoundHelper) {
+    forExport = _ember['default'].HTMLBars.makeBoundHelper(_emberTruthHelpersHelpersIsArray.isArrayHelper);
+  }
+
+  exports['default'] = forExport;
+});
+define('client/helpers/lt', ['exports', 'ember', 'ember-truth-helpers/helpers/lt'], function (exports, _ember, _emberTruthHelpersHelpersLt) {
+
+  var forExport = null;
+
+  if (_ember['default'].Helper) {
+    forExport = _ember['default'].Helper.helper(_emberTruthHelpersHelpersLt.ltHelper);
+  } else if (_ember['default'].HTMLBars.makeBoundHelper) {
+    forExport = _ember['default'].HTMLBars.makeBoundHelper(_emberTruthHelpersHelpersLt.ltHelper);
+  }
+
+  exports['default'] = forExport;
+});
+define('client/helpers/lte', ['exports', 'ember', 'ember-truth-helpers/helpers/lte'], function (exports, _ember, _emberTruthHelpersHelpersLte) {
+
+  var forExport = null;
+
+  if (_ember['default'].Helper) {
+    forExport = _ember['default'].Helper.helper(_emberTruthHelpersHelpersLte.lteHelper);
+  } else if (_ember['default'].HTMLBars.makeBoundHelper) {
+    forExport = _ember['default'].HTMLBars.makeBoundHelper(_emberTruthHelpersHelpersLte.lteHelper);
+  }
+
+  exports['default'] = forExport;
+});
+define('client/helpers/not-eq', ['exports', 'ember', 'ember-truth-helpers/helpers/not-equal'], function (exports, _ember, _emberTruthHelpersHelpersNotEqual) {
+
+  var forExport = null;
+
+  if (_ember['default'].Helper) {
+    forExport = _ember['default'].Helper.helper(_emberTruthHelpersHelpersNotEqual.notEqualHelper);
+  } else if (_ember['default'].HTMLBars.makeBoundHelper) {
+    forExport = _ember['default'].HTMLBars.makeBoundHelper(_emberTruthHelpersHelpersNotEqual.notEqualHelper);
+  }
+
+  exports['default'] = forExport;
+});
+define('client/helpers/not', ['exports', 'ember', 'ember-truth-helpers/helpers/not'], function (exports, _ember, _emberTruthHelpersHelpersNot) {
+
+  var forExport = null;
+
+  if (_ember['default'].Helper) {
+    forExport = _ember['default'].Helper.helper(_emberTruthHelpersHelpersNot.notHelper);
+  } else if (_ember['default'].HTMLBars.makeBoundHelper) {
+    forExport = _ember['default'].HTMLBars.makeBoundHelper(_emberTruthHelpersHelpersNot.notHelper);
+  }
+
+  exports['default'] = forExport;
+});
+define('client/helpers/or', ['exports', 'ember', 'ember-truth-helpers/helpers/or'], function (exports, _ember, _emberTruthHelpersHelpersOr) {
+
+  var forExport = null;
+
+  if (_ember['default'].Helper) {
+    forExport = _ember['default'].Helper.helper(_emberTruthHelpersHelpersOr.orHelper);
+  } else if (_ember['default'].HTMLBars.makeBoundHelper) {
+    forExport = _ember['default'].HTMLBars.makeBoundHelper(_emberTruthHelpersHelpersOr.orHelper);
+  }
+
+  exports['default'] = forExport;
+});
 define('client/helpers/pluralize', ['exports', 'ember-inflector/lib/helpers/pluralize'], function (exports, _emberInflectorLibHelpersPluralize) {
   exports['default'] = _emberInflectorLibHelpersPluralize['default'];
 });
 define('client/helpers/singularize', ['exports', 'ember-inflector/lib/helpers/singularize'], function (exports, _emberInflectorLibHelpersSingularize) {
   exports['default'] = _emberInflectorLibHelpersSingularize['default'];
+});
+define('client/helpers/xor', ['exports', 'ember', 'ember-truth-helpers/helpers/xor'], function (exports, _ember, _emberTruthHelpersHelpersXor) {
+
+  var forExport = null;
+
+  if (_ember['default'].Helper) {
+    forExport = _ember['default'].Helper.helper(_emberTruthHelpersHelpersXor.xorHelper);
+  } else if (_ember['default'].HTMLBars.makeBoundHelper) {
+    forExport = _ember['default'].HTMLBars.makeBoundHelper(_emberTruthHelpersHelpersXor.xorHelper);
+  }
+
+  exports['default'] = forExport;
 });
 define('client/initializers/app-version', ['exports', 'ember-cli-app-version/initializer-factory', 'client/config/environment'], function (exports, _emberCliAppVersionInitializerFactory, _clientConfigEnvironment) {
   exports['default'] = {
@@ -363,6 +626,34 @@ define('client/initializers/transforms', ['exports', 'ember'], function (exports
     initialize: _ember['default'].K
   };
 });
+define('client/initializers/truth-helpers', ['exports', 'ember', 'ember-truth-helpers/utils/register-helper', 'ember-truth-helpers/helpers/and', 'ember-truth-helpers/helpers/or', 'ember-truth-helpers/helpers/equal', 'ember-truth-helpers/helpers/not', 'ember-truth-helpers/helpers/is-array', 'ember-truth-helpers/helpers/not-equal', 'ember-truth-helpers/helpers/gt', 'ember-truth-helpers/helpers/gte', 'ember-truth-helpers/helpers/lt', 'ember-truth-helpers/helpers/lte'], function (exports, _ember, _emberTruthHelpersUtilsRegisterHelper, _emberTruthHelpersHelpersAnd, _emberTruthHelpersHelpersOr, _emberTruthHelpersHelpersEqual, _emberTruthHelpersHelpersNot, _emberTruthHelpersHelpersIsArray, _emberTruthHelpersHelpersNotEqual, _emberTruthHelpersHelpersGt, _emberTruthHelpersHelpersGte, _emberTruthHelpersHelpersLt, _emberTruthHelpersHelpersLte) {
+  exports.initialize = initialize;
+
+  function initialize() /* container, application */{
+
+    // Do not register helpers from Ember 1.13 onwards, starting from 1.13 they
+    // will be auto-discovered.
+    if (_ember['default'].Helper) {
+      return;
+    }
+
+    (0, _emberTruthHelpersUtilsRegisterHelper.registerHelper)('and', _emberTruthHelpersHelpersAnd.andHelper);
+    (0, _emberTruthHelpersUtilsRegisterHelper.registerHelper)('or', _emberTruthHelpersHelpersOr.orHelper);
+    (0, _emberTruthHelpersUtilsRegisterHelper.registerHelper)('eq', _emberTruthHelpersHelpersEqual.equalHelper);
+    (0, _emberTruthHelpersUtilsRegisterHelper.registerHelper)('not', _emberTruthHelpersHelpersNot.notHelper);
+    (0, _emberTruthHelpersUtilsRegisterHelper.registerHelper)('is-array', _emberTruthHelpersHelpersIsArray.isArrayHelper);
+    (0, _emberTruthHelpersUtilsRegisterHelper.registerHelper)('not-eq', _emberTruthHelpersHelpersNotEqual.notEqualHelper);
+    (0, _emberTruthHelpersUtilsRegisterHelper.registerHelper)('gt', _emberTruthHelpersHelpersGt.gtHelper);
+    (0, _emberTruthHelpersUtilsRegisterHelper.registerHelper)('gte', _emberTruthHelpersHelpersGte.gteHelper);
+    (0, _emberTruthHelpersUtilsRegisterHelper.registerHelper)('lt', _emberTruthHelpersHelpersLt.ltHelper);
+    (0, _emberTruthHelpersUtilsRegisterHelper.registerHelper)('lte', _emberTruthHelpersHelpersLte.lteHelper);
+  }
+
+  exports['default'] = {
+    name: 'truth-helpers',
+    initialize: initialize
+  };
+});
 define("client/instance-initializers/ember-data", ["exports", "ember-data/-private/instance-initializers/initialize-store-service"], function (exports, _emberDataPrivateInstanceInitializersInitializeStoreService) {
   exports["default"] = {
     name: "ember-data",
@@ -381,6 +672,7 @@ define('client/models/card', ['exports', 'ember-data/model', 'ember-data/attr', 
   exports['default'] = _emberDataModel['default'].extend({
     title: (0, _emberDataAttr['default'])('string'),
     description: (0, _emberDataAttr['default'])('string'),
+    type: (0, _emberDataAttr['default'])('string'),
     users: (0, _emberDataRelationships.hasMany)('user')
   });
 });
@@ -529,6 +821,14 @@ define('client/services/signin', ['exports', 'ember'], function (exports, _ember
       authenticate: function authenticate() {
         this.get('session').authenticate('authenticator:devise', this.get('email'), this.get('password'));
       }
+    }
+  });
+});
+define('client/services/text-measurer', ['exports', 'ember-text-measurer/services/text-measurer'], function (exports, _emberTextMeasurerServicesTextMeasurer) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberTextMeasurerServicesTextMeasurer['default'];
     }
   });
 });
@@ -695,11 +995,11 @@ define("client/templates/card/card", ["exports"], function (exports) {
           "loc": {
             "source": null,
             "start": {
-              "line": 22,
+              "line": 27,
               "column": 8
             },
             "end": {
-              "line": 22,
+              "line": 27,
               "column": 46
             }
           },
@@ -736,7 +1036,7 @@ define("client/templates/card/card", ["exports"], function (exports) {
             "column": 0
           },
           "end": {
-            "line": 27,
+            "line": 32,
             "column": 0
           }
         },
@@ -806,6 +1106,24 @@ define("client/templates/card/card", ["exports"], function (exports) {
         var el6 = dom.createTextNode("\n          ");
         dom.appendChild(el5, el6);
         var el6 = dom.createElement("div");
+        dom.setAttribute(el6, "class", "card-header c-card__header");
+        var el7 = dom.createTextNode("\n            ");
+        dom.appendChild(el6, el7);
+        var el7 = dom.createElement("h6");
+        dom.setAttribute(el7, "class", "c-card__type");
+        var el8 = dom.createTextNode("\n              ");
+        dom.appendChild(el7, el8);
+        var el8 = dom.createComment("");
+        dom.appendChild(el7, el8);
+        var el8 = dom.createTextNode("\n            ");
+        dom.appendChild(el7, el8);
+        dom.appendChild(el6, el7);
+        var el7 = dom.createTextNode("\n          ");
+        dom.appendChild(el6, el7);
+        dom.appendChild(el5, el6);
+        var el6 = dom.createTextNode("\n          ");
+        dom.appendChild(el5, el6);
+        var el6 = dom.createElement("div");
         dom.setAttribute(el6, "class", "card-block c-card__block");
         var el7 = dom.createTextNode("\n            ");
         dom.appendChild(el6, el7);
@@ -850,16 +1168,17 @@ define("client/templates/card/card", ["exports"], function (exports) {
         var element2 = dom.childAt(element1, [3]);
         var element3 = dom.childAt(element2, [3]);
         var element4 = dom.childAt(element3, [1]);
-        var morphs = new Array(6);
+        var morphs = new Array(7);
         morphs[0] = dom.createMorphAt(dom.childAt(element0, [1]), 1, 1);
         morphs[1] = dom.createMorphAt(element1, 1, 1);
         morphs[2] = dom.createMorphAt(element2, 1, 1);
         morphs[3] = dom.createMorphAt(dom.childAt(element4, [1, 1]), 1, 1);
         morphs[4] = dom.createMorphAt(dom.childAt(element4, [3, 1]), 1, 1);
-        morphs[5] = dom.createMorphAt(element3, 3, 3);
+        morphs[5] = dom.createMorphAt(dom.childAt(element4, [5, 1]), 1, 1);
+        morphs[6] = dom.createMorphAt(element3, 3, 3);
         return morphs;
       },
-      statements: [["content", "layout/side-bar", ["loc", [null, [3, 4], [3, 23]]]], ["content", "layout/secondary-nav-bar", ["loc", [null, [6, 4], [6, 32]]]], ["content", "outlet", ["loc", [null, [8, 6], [8, 16]]]], ["content", "card.title", ["loc", [null, [13, 14], [13, 28]]]], ["content", "card.description", ["loc", [null, [18, 14], [18, 34]]]], ["block", "link-to", ["card.card.edit", ["get", "card", ["loc", [null, [22, 36], [22, 40]]]]], [], 0, null, ["loc", [null, [22, 8], [22, 58]]]]],
+      statements: [["content", "layout/side-bar", ["loc", [null, [3, 4], [3, 23]]]], ["content", "layout/secondary-nav-bar", ["loc", [null, [6, 4], [6, 32]]]], ["content", "outlet", ["loc", [null, [8, 6], [8, 16]]]], ["content", "card.title", ["loc", [null, [13, 14], [13, 28]]]], ["content", "card.type", ["loc", [null, [18, 14], [18, 27]]]], ["content", "card.description", ["loc", [null, [23, 14], [23, 34]]]], ["block", "link-to", ["card.card.edit", ["get", "card", ["loc", [null, [27, 36], [27, 40]]]]], [], 0, null, ["loc", [null, [27, 8], [27, 58]]]]],
       locals: [],
       templates: [child0]
     };
@@ -1348,6 +1667,48 @@ define("client/templates/components/cards/cards-container", ["exports"], functio
 });
 define("client/templates/components/forms/edit-card-form", ["exports"], function (exports) {
   exports["default"] = Ember.HTMLBars.template((function () {
+    var child0 = (function () {
+      return {
+        meta: {
+          "fragmentReason": false,
+          "revision": "Ember@2.6.1",
+          "loc": {
+            "source": null,
+            "start": {
+              "line": 4,
+              "column": 4
+            },
+            "end": {
+              "line": 11,
+              "column": 4
+            }
+          },
+          "moduleName": "client/templates/components/forms/edit-card-form.hbs"
+        },
+        isEmpty: false,
+        arity: 1,
+        cachedFragment: null,
+        hasRendered: false,
+        buildFragment: function buildFragment(dom) {
+          var el0 = dom.createDocumentFragment();
+          var el1 = dom.createTextNode("      ");
+          dom.appendChild(el0, el1);
+          var el1 = dom.createComment("");
+          dom.appendChild(el0, el1);
+          var el1 = dom.createTextNode("\n");
+          dom.appendChild(el0, el1);
+          return el0;
+        },
+        buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+          var morphs = new Array(1);
+          morphs[0] = dom.createMorphAt(fragment, 1, 1, contextualElement);
+          return morphs;
+        },
+        statements: [["content", "type", ["loc", [null, [10, 6], [10, 14]]]]],
+        locals: ["type"],
+        templates: []
+      };
+    })();
     return {
       meta: {
         "fragmentReason": false,
@@ -1359,7 +1720,7 @@ define("client/templates/components/forms/edit-card-form", ["exports"], function
             "column": 0
           },
           "end": {
-            "line": 17,
+            "line": 32,
             "column": 0
           }
         },
@@ -1379,6 +1740,31 @@ define("client/templates/components/forms/edit-card-form", ["exports"], function
         var el3 = dom.createTextNode("\n    ");
         dom.appendChild(el2, el3);
         var el3 = dom.createElement("label");
+        dom.setAttribute(el3, "for", "card-type");
+        var el4 = dom.createTextNode("Card Type");
+        dom.appendChild(el3, el4);
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createComment("");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("small");
+        dom.setAttribute(el3, "class", "text-muted");
+        var el4 = dom.createTextNode("Select the type of card you want to add");
+        dom.appendChild(el3, el4);
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n  ");
+        dom.appendChild(el2, el3);
+        dom.appendChild(el1, el2);
+        var el2 = dom.createTextNode("\n\n  ");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createElement("fieldset");
+        dom.setAttribute(el2, "class", "form-group");
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("label");
         dom.setAttribute(el3, "for", "card-title");
         var el4 = dom.createTextNode("Card Title");
         dom.appendChild(el3, el4);
@@ -1424,16 +1810,23 @@ define("client/templates/components/forms/edit-card-form", ["exports"], function
         dom.appendChild(el1, el2);
         var el2 = dom.createTextNode("\n\n  ");
         dom.appendChild(el1, el2);
-        var el2 = dom.createElement("button");
-        dom.setAttribute(el2, "class", "btn btn-success pull-xs-right");
-        var el3 = dom.createTextNode("Save");
+        var el2 = dom.createElement("div");
+        dom.setAttribute(el2, "class", "form-group");
+        var el3 = dom.createTextNode("\n    ");
         dom.appendChild(el2, el3);
-        dom.appendChild(el1, el2);
-        var el2 = dom.createTextNode("\n  ");
-        dom.appendChild(el1, el2);
-        var el2 = dom.createElement("button");
-        dom.setAttribute(el2, "class", "btn btn-link pull-xs-right");
-        var el3 = dom.createTextNode("Cancel");
+        var el3 = dom.createElement("button");
+        dom.setAttribute(el3, "class", "btn btn-success");
+        var el4 = dom.createTextNode("Save");
+        dom.appendChild(el3, el4);
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("button");
+        dom.setAttribute(el3, "class", "btn btn-link");
+        var el4 = dom.createTextNode("Cancel");
+        dom.appendChild(el3, el4);
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n  ");
         dom.appendChild(el2, el3);
         dom.appendChild(el1, el2);
         var el2 = dom.createTextNode("\n");
@@ -1445,23 +1838,67 @@ define("client/templates/components/forms/edit-card-form", ["exports"], function
       },
       buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
         var element0 = dom.childAt(fragment, [0]);
-        var element1 = dom.childAt(element0, [5]);
-        var element2 = dom.childAt(element0, [7]);
-        var morphs = new Array(4);
+        var element1 = dom.childAt(element0, [7]);
+        var element2 = dom.childAt(element1, [1]);
+        var element3 = dom.childAt(element1, [3]);
+        var morphs = new Array(5);
         morphs[0] = dom.createMorphAt(dom.childAt(element0, [1]), 3, 3);
         morphs[1] = dom.createMorphAt(dom.childAt(element0, [3]), 3, 3);
-        morphs[2] = dom.createElementMorph(element1);
+        morphs[2] = dom.createMorphAt(dom.childAt(element0, [5]), 3, 3);
         morphs[3] = dom.createElementMorph(element2);
+        morphs[4] = dom.createElementMorph(element3);
         return morphs;
       },
-      statements: [["inline", "input", [], ["type", "text", "value", ["subexpr", "@mut", [["get", "model.title", ["loc", [null, [4, 30], [4, 41]]]]], [], []], "class", "form-control", "id", "card-title", "placeholder", "Enter the title of the card"], ["loc", [null, [4, 4], [4, 122]]]], ["inline", "textarea", [], ["value", ["subexpr", "@mut", [["get", "model.description", ["loc", [null, [10, 21], [10, 38]]]]], [], []], "class", "form-control", "id", "card-description", "rows", "3"], ["loc", [null, [10, 4], [10, 92]]]], ["element", "action", ["save", ["get", "model.title", ["loc", [null, [14, 26], [14, 37]]]], ["get", "model.description", ["loc", [null, [14, 38], [14, 55]]]], ["get", "model.id", ["loc", [null, [14, 56], [14, 64]]]]], [], ["loc", [null, [14, 10], [14, 66]]]], ["element", "action", ["cancel", ["get", "model.title", ["loc", [null, [15, 28], [15, 39]]]], ["get", "model.description", ["loc", [null, [15, 40], [15, 57]]]], ["get", "model.id", ["loc", [null, [15, 58], [15, 66]]]]], [], ["loc", [null, [15, 10], [15, 68]]]]],
+      statements: [["block", "power-select", [], ["selected", ["subexpr", "@mut", [["get", "model.type", ["loc", [null, [5, 15], [5, 25]]]]], [], []], "options", ["subexpr", "@mut", [["get", "types", ["loc", [null, [6, 14], [6, 19]]]]], [], []], "onchange", ["subexpr", "action", ["setType"], [], ["loc", [null, [7, 15], [7, 33]]]]], 0, null, ["loc", [null, [4, 4], [11, 21]]]], ["inline", "input", [], ["type", "text", "value", ["subexpr", "@mut", [["get", "model.title", ["loc", [null, [17, 30], [17, 41]]]]], [], []], "class", "form-control", "id", "card-title", "placeholder", "Enter the title of the card"], ["loc", [null, [17, 4], [17, 122]]]], ["inline", "textarea", [], ["value", ["subexpr", "@mut", [["get", "model.description", ["loc", [null, [23, 21], [23, 38]]]]], [], []], "class", "form-control", "id", "card-description", "rows", "5"], ["loc", [null, [23, 4], [23, 92]]]], ["element", "action", ["save", ["get", "model.title", ["loc", [null, [28, 28], [28, 39]]]], ["get", "model.description", ["loc", [null, [28, 40], [28, 57]]]], ["get", "model.id", ["loc", [null, [28, 58], [28, 66]]]]], [], ["loc", [null, [28, 12], [28, 68]]]], ["element", "action", ["cancel", ["get", "model.title", ["loc", [null, [29, 30], [29, 41]]]], ["get", "model.description", ["loc", [null, [29, 42], [29, 59]]]], ["get", "model.id", ["loc", [null, [29, 60], [29, 68]]]]], [], ["loc", [null, [29, 12], [29, 70]]]]],
       locals: [],
-      templates: []
+      templates: [child0]
     };
   })());
 });
 define("client/templates/components/forms/new-card-form", ["exports"], function (exports) {
   exports["default"] = Ember.HTMLBars.template((function () {
+    var child0 = (function () {
+      return {
+        meta: {
+          "fragmentReason": false,
+          "revision": "Ember@2.6.1",
+          "loc": {
+            "source": null,
+            "start": {
+              "line": 4,
+              "column": 4
+            },
+            "end": {
+              "line": 11,
+              "column": 4
+            }
+          },
+          "moduleName": "client/templates/components/forms/new-card-form.hbs"
+        },
+        isEmpty: false,
+        arity: 1,
+        cachedFragment: null,
+        hasRendered: false,
+        buildFragment: function buildFragment(dom) {
+          var el0 = dom.createDocumentFragment();
+          var el1 = dom.createTextNode("      ");
+          dom.appendChild(el0, el1);
+          var el1 = dom.createComment("");
+          dom.appendChild(el0, el1);
+          var el1 = dom.createTextNode("\n");
+          dom.appendChild(el0, el1);
+          return el0;
+        },
+        buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+          var morphs = new Array(1);
+          morphs[0] = dom.createMorphAt(fragment, 1, 1, contextualElement);
+          return morphs;
+        },
+        statements: [["content", "type", ["loc", [null, [10, 6], [10, 14]]]]],
+        locals: ["type"],
+        templates: []
+      };
+    })();
     return {
       meta: {
         "fragmentReason": false,
@@ -1473,7 +1910,7 @@ define("client/templates/components/forms/new-card-form", ["exports"], function 
             "column": 0
           },
           "end": {
-            "line": 17,
+            "line": 32,
             "column": 0
           }
         },
@@ -1493,6 +1930,31 @@ define("client/templates/components/forms/new-card-form", ["exports"], function 
         var el3 = dom.createTextNode("\n    ");
         dom.appendChild(el2, el3);
         var el3 = dom.createElement("label");
+        dom.setAttribute(el3, "for", "card-type");
+        var el4 = dom.createTextNode("Card Type");
+        dom.appendChild(el3, el4);
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createComment("");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("small");
+        dom.setAttribute(el3, "class", "text-muted");
+        var el4 = dom.createTextNode("Select the type of card you want to add");
+        dom.appendChild(el3, el4);
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n  ");
+        dom.appendChild(el2, el3);
+        dom.appendChild(el1, el2);
+        var el2 = dom.createTextNode("\n\n  ");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createElement("fieldset");
+        dom.setAttribute(el2, "class", "form-group");
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("label");
         dom.setAttribute(el3, "for", "card-title");
         var el4 = dom.createTextNode("Card Title");
         dom.appendChild(el3, el4);
@@ -1538,16 +2000,23 @@ define("client/templates/components/forms/new-card-form", ["exports"], function 
         dom.appendChild(el1, el2);
         var el2 = dom.createTextNode("\n\n  ");
         dom.appendChild(el1, el2);
-        var el2 = dom.createElement("button");
-        dom.setAttribute(el2, "class", "btn btn-success pull-xs-right");
-        var el3 = dom.createTextNode("Save");
+        var el2 = dom.createElement("div");
+        dom.setAttribute(el2, "class", "form-group");
+        var el3 = dom.createTextNode("\n    ");
         dom.appendChild(el2, el3);
-        dom.appendChild(el1, el2);
-        var el2 = dom.createTextNode("\n  ");
-        dom.appendChild(el1, el2);
-        var el2 = dom.createElement("button");
-        dom.setAttribute(el2, "class", "btn btn-link pull-xs-right");
-        var el3 = dom.createTextNode("Cancel");
+        var el3 = dom.createElement("button");
+        dom.setAttribute(el3, "class", "btn btn-success");
+        var el4 = dom.createTextNode("Save");
+        dom.appendChild(el3, el4);
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("button");
+        dom.setAttribute(el3, "class", "btn btn-link");
+        var el4 = dom.createTextNode("Cancel");
+        dom.appendChild(el3, el4);
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n  ");
         dom.appendChild(el2, el3);
         dom.appendChild(el1, el2);
         var el2 = dom.createTextNode("\n");
@@ -1559,18 +2028,20 @@ define("client/templates/components/forms/new-card-form", ["exports"], function 
       },
       buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
         var element0 = dom.childAt(fragment, [0]);
-        var element1 = dom.childAt(element0, [5]);
-        var element2 = dom.childAt(element0, [7]);
-        var morphs = new Array(4);
+        var element1 = dom.childAt(element0, [7]);
+        var element2 = dom.childAt(element1, [1]);
+        var element3 = dom.childAt(element1, [3]);
+        var morphs = new Array(5);
         morphs[0] = dom.createMorphAt(dom.childAt(element0, [1]), 3, 3);
         morphs[1] = dom.createMorphAt(dom.childAt(element0, [3]), 3, 3);
-        morphs[2] = dom.createElementMorph(element1);
+        morphs[2] = dom.createMorphAt(dom.childAt(element0, [5]), 3, 3);
         morphs[3] = dom.createElementMorph(element2);
+        morphs[4] = dom.createElementMorph(element3);
         return morphs;
       },
-      statements: [["inline", "input", [], ["type", "text", "value", ["subexpr", "@mut", [["get", "model.title", ["loc", [null, [4, 30], [4, 41]]]]], [], []], "class", "form-control", "id", "card-title", "placeholder", "Enter the title of the card"], ["loc", [null, [4, 4], [4, 122]]]], ["inline", "textarea", [], ["value", ["subexpr", "@mut", [["get", "model.description", ["loc", [null, [10, 21], [10, 38]]]]], [], []], "class", "form-control", "id", "card-description", "rows", "5"], ["loc", [null, [10, 4], [10, 92]]]], ["element", "action", ["save"], [], ["loc", [null, [14, 10], [14, 27]]]], ["element", "action", ["cancel"], [], ["loc", [null, [15, 10], [15, 29]]]]],
+      statements: [["block", "power-select", [], ["selected", ["subexpr", "@mut", [["get", "selectedType", ["loc", [null, [5, 15], [5, 27]]]]], [], []], "options", ["subexpr", "@mut", [["get", "types", ["loc", [null, [6, 14], [6, 19]]]]], [], []], "onchange", ["subexpr", "action", ["setType"], [], ["loc", [null, [7, 15], [7, 33]]]]], 0, null, ["loc", [null, [4, 4], [11, 21]]]], ["inline", "input", [], ["type", "text", "value", ["subexpr", "@mut", [["get", "model.title", ["loc", [null, [17, 30], [17, 41]]]]], [], []], "class", "form-control", "id", "card-title", "placeholder", "Enter the title of the card"], ["loc", [null, [17, 4], [17, 122]]]], ["inline", "textarea", [], ["value", ["subexpr", "@mut", [["get", "model.description", ["loc", [null, [23, 21], [23, 38]]]]], [], []], "class", "form-control", "id", "card-description", "rows", "5"], ["loc", [null, [23, 4], [23, 92]]]], ["element", "action", ["save"], [], ["loc", [null, [28, 12], [28, 29]]]], ["element", "action", ["cancel"], [], ["loc", [null, [29, 12], [29, 31]]]]],
       locals: [],
-      templates: []
+      templates: [child0]
     };
   })());
 });
@@ -2995,7 +3466,7 @@ catch(err) {
 /* jshint ignore:start */
 
 if (!runningTests) {
-  require("client/app")["default"].create({"name":"client","version":"0.0.0+3205096c"});
+  require("client/app")["default"].create({"name":"client","version":"0.0.0+237cedb8"});
 }
 
 /* jshint ignore:end */

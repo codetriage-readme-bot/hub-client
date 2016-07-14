@@ -5,6 +5,8 @@ const { getOwner } = Ember;
 export default Ember.Component.extend({
   store: Ember.inject.service(),
   session: Ember.inject.service('session'),
+  types: [ 'Task', 'Discussion', 'Note' ],
+  selectedType: 'Note',
   actions: {
     save() {
       // get the details about the currently authenticated user
@@ -22,6 +24,11 @@ export default Ember.Component.extend({
 
     cancel() {
       getOwner(this).lookup('route:cards').transitionTo('cards');
+    },
+
+    setType(type) {
+      this.set('selectedType', type);
+      this.get('model').set('type', type);
     }
   }
 });

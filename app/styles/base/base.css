@@ -3,7 +3,7 @@
    ========================================================================== */
 body {
   font-weight: normal;
-  overflow: hidden;
+  /*overflow: hidden;*/
   background-color: $white;
 }
 
@@ -11,22 +11,21 @@ body {
    layouts
    ========================================================================== */
 .l-left-container {
-  height: 100vh;
-  border-right: 1px solid $border-color;
+  /*height: 100vh;*/
   padding: 0;
 }
 
 .l-main-container {
+  border-left: 1px solid $border-color;
   padding: 0;
+  background-color: $grey-light;
 }
 
 .l-cards-container {
   padding: 15px 0;
-  height: calc(100vh - 55px - 60px);
-  overflow-y: auto;
-  background-color: $grey-light;
+  min-height: calc(100vh - 55px - 60px);
+  /*overflow-y: auto;*/
 }
-
 
 /* ==========================================================================
    modules
@@ -43,6 +42,12 @@ a {
 input {
   height: 50px;
   font-weight: $fw-200;
+  outline: none;
+}
+
+textarea {
+  font-weight: $fw-200;
+  outline: none;
 }
 
 .m-page {
@@ -98,6 +103,7 @@ input {
     align-items: center;
   }
 }
+
 /* ==========================================================================
    media-queries
    ========================================================================== */
@@ -107,12 +113,27 @@ input {
     border-right: 0;
   }
 
-  .l-cards-container {
+/*  .l-cards-container {
     overflow-y: hidden;
   }
-
-  body {
+*/
+/*  body {
     overflow-y: auto;
-  }
+  }*/
 }
 
+/* ==========================================================================
+   vendor
+   ========================================================================== */
+.ember-power-select-trigger.ember-basic-dropdown-trigger {
+    height: 50px;
+    font-weight: 200;
+    display: flex;
+    align-items: center;
+    outline: none;
+}
+
+.ember-power-select {
+  width: 100%;
+  align-self: center;
+}

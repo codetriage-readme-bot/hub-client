@@ -7,7 +7,7 @@
   }
 
   &__block {
-    max-height: calc(100vh - 55px - 60px - 15px - 60px - 60px);
+/*    max-height: calc(100vh - 55px - 60px - 15px - 60px - 60px);
     overflow-y: auto;
-  }
+*/  }
 }

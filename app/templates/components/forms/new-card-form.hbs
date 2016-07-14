@@ -1,5 +1,18 @@
 <form>
   <fieldset class="form-group">
+    <label for="card-type">Card Type</label>
+    {{#power-select
+      selected=selectedType
+      options=types
+      onchange=(action "setType")
+      as |type|
+      }}
+      {{type}}
+    {{/power-select}}
+    <small class="text-muted">Select the type of card you want to add</small>
+  </fieldset>
+
+  <fieldset class="form-group">
     <label for="card-title">Card Title</label>
     {{input type="text" value=model.title class="form-control" id="card-title" placeholder="Enter the title of the card"}}
     <small class="text-muted">Give your card a nice title</small>
@@ -11,6 +24,8 @@
     <small class="text-muted">Describe your card</small>
   </fieldset>
 
-  <button {{action 'save'}} class="btn btn-success pull-xs-right">Save</button>
-  <button {{action 'cancel'}} class="btn btn-link pull-xs-right">Cancel</button>
+  <div class="form-group">
+    <button {{action 'save'}} class="btn btn-success">Save</button>
+    <button {{action 'cancel'}} class="btn btn-link">Cancel</button>
+  </div>
 </form>
