@@ -1,0 +1,19 @@
+<div class="row">
+  <div class="col-md-2 l-left-container">
+    {{layout/side-bar}}
+  </div>
+  <div class="col-md-10 l-main-container">
+    {{layout/secondary-nav-bar}}
+    <div class="l-cards-container">
+      <div class="m-page">
+        <img src="/assets/fonts/folder.svg" class="c-side-bar__icon" alt="Projects" />
+        <h4 class="m-page__heading">projects</h4>
+      </div>
+      {{#each projects as |project|}}
+        {{projects/projects-container project=project}}
+      {{else}}
+        Sorry, nobody is here.
+      {{/each}}
+    </div>
+  </div>
+</div>
