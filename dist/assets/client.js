@@ -3496,7 +3496,7 @@ catch(err) {
 /* jshint ignore:start */
 
 if (!runningTests) {
-  require("client/app")["default"].create({"name":"client","version":"0.0.0+237cedb8"});
+  require("client/app")["default"].create({"name":"client","version":"0.0.0+c651ddb3"});
 }
 
 /* jshint ignore:end */
