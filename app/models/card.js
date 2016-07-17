@@ -6,5 +6,6 @@ export default Model.extend({
   title: attr('string'),
   description: attr('string'),
   type: attr('string'),
-  users: hasMany('user')
+  users: hasMany('user'),
+  project: belongsTo('project')
 });

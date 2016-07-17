@@ -752,22 +752,24 @@ define('client/models/card', ['exports', 'ember-data/model', 'ember-data/attr', 
     title: (0, _emberDataAttr['default'])('string'),
     description: (0, _emberDataAttr['default'])('string'),
     type: (0, _emberDataAttr['default'])('string'),
-    users: (0, _emberDataRelationships.hasMany)('user')
+    users: (0, _emberDataRelationships.hasMany)('user'),
+    project: (0, _emberDataRelationships.belongsTo)('project')
   });
 });
-define('client/models/project', ['exports', 'ember-data/model', 'ember-data/attr'], function (exports, _emberDataModel, _emberDataAttr) {
-  // import { belongsTo, hasMany } from 'ember-data/relationships';
-
+define('client/models/project', ['exports', 'ember-data/model', 'ember-data/attr', 'ember-data/relationships'], function (exports, _emberDataModel, _emberDataAttr, _emberDataRelationships) {
   exports['default'] = _emberDataModel['default'].extend({
     title: (0, _emberDataAttr['default'])('string'),
-    description: (0, _emberDataAttr['default'])('string')
+    description: (0, _emberDataAttr['default'])('string'),
+    users: (0, _emberDataRelationships.hasMany)('user'),
+    cards: (0, _emberDataRelationships.hasMany)('card')
   });
 });
 define('client/models/user', ['exports', 'ember-data/model', 'ember-data/attr', 'ember-data/relationships'], function (exports, _emberDataModel, _emberDataAttr, _emberDataRelationships) {
   exports['default'] = _emberDataModel['default'].extend({
     email: (0, _emberDataAttr['default'])('string'),
     name: (0, _emberDataAttr['default'])('string'),
-    cards: (0, _emberDataRelationships.hasMany)('card')
+    cards: (0, _emberDataRelationships.hasMany)('card'),
+    projects: (0, _emberDataRelationships.hasMany)('project')
   });
 });
 define('client/resolver', ['exports', 'ember-resolver'], function (exports, _emberResolver) {
@@ -900,10 +902,17 @@ define('client/routes/project/project', ['exports', 'ember'], function (exports,
     }
   });
 });
-define('client/routes/projects', ['exports', 'ember'], function (exports, _ember) {
-  exports['default'] = _ember['default'].Route.extend({
+define('client/routes/projects', ['exports', 'ember', 'ember-simple-auth/mixins/authenticated-route-mixin'], function (exports, _ember, _emberSimpleAuthMixinsAuthenticatedRouteMixin) {
+  exports['default'] = _ember['default'].Route.extend(_emberSimpleAuthMixinsAuthenticatedRouteMixin['default'], {
+    session: _ember['default'].inject.service('session'),
     model: function model() {
-      return this.store.findAll('project');
+      // return all the projects from the store
+      // return this.store.findAll('project');
+
+      // return the logged in user's projects
+      return this.store.find('user', this.get('session.data.authenticated.id')).then(function (user) {
+        return user.get('projects');
+      });
     },
 
     setupController: function setupController(controller, model) {
