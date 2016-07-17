@@ -1,0 +1,18 @@
+<form>
+  <fieldset class="form-group">
+    <label for="card-title">Project Title</label>
+    {{input type="text" value=model.title class="form-control" id="card-title" placeholder="Enter the title of the card"}}
+    <small class="text-muted">Give your project a nice title</small>
+  </fieldset>
+
+  <fieldset class="form-group">
+    <label for="card-description">Project Description</label>
+    {{textarea value=model.description class="form-control" id="card-description" rows="5"}}
+    <small class="text-muted">Describe your project</small>
+  </fieldset>
+
+  <div class="form-group">
+    <button {{action 'save' model.title model.description model.id}} class="btn btn-success">Save</button>
+    <button {{action 'cancel' model.title model.description model.id}} class="btn btn-link">Cancel</button>
+  </div>
+</form>
