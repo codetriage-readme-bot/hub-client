@@ -4,24 +4,7 @@ const { getOwner } = Ember;
 
 export default Ember.Component.extend({
   store: Ember.inject.service(),
-  session: Ember.inject.service('session'),
-  types: Ember.A([
-      {
-        id: "Task",
-        text: "Task",
-        description: "Task"
-      },
-      {
-        id: "Discussion",
-        text: "Discussion",
-        description: "Discussion"
-      },
-      {
-        id: "Note",
-        text: "Note",
-        description: "Note"
-      }
-    ]),
+  session: Ember.inject.service('session')
   actions: {
     save(title, description, id) {
       // get the details about the currently authenticated user
@@ -31,7 +14,6 @@ export default Ember.Component.extend({
 
           // set the user as the owner of the current card
           post.set('users', [user]);
-          post.set('type', type);
 
           post.save().then((card) => {
             // go to the edit item's route after creating it.

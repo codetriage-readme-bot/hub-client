@@ -103,6 +103,7 @@ define('client/components/forms/edit-card-form', ['exports', 'ember'], function 
       text: "Note",
       description: "Note"
     }]),
+    type: ["ham"],
     actions: {
       save: function save(title, description, id) {
         var _this = this;
@@ -1590,7 +1591,7 @@ define("client/templates/components/forms/edit-card-form", ["exports"], function
             "column": 0
           },
           "end": {
-            "line": 31,
+            "line": 19,
             "column": 0
           }
         },
@@ -1604,31 +1605,6 @@ define("client/templates/components/forms/edit-card-form", ["exports"], function
         var el0 = dom.createDocumentFragment();
         var el1 = dom.createElement("form");
         var el2 = dom.createTextNode("\n  ");
-        dom.appendChild(el1, el2);
-        var el2 = dom.createElement("fieldset");
-        dom.setAttribute(el2, "class", "form-group");
-        var el3 = dom.createTextNode("\n    ");
-        dom.appendChild(el2, el3);
-        var el3 = dom.createElement("label");
-        dom.setAttribute(el3, "for", "card-type");
-        var el4 = dom.createTextNode("Card Type");
-        dom.appendChild(el3, el4);
-        dom.appendChild(el2, el3);
-        var el3 = dom.createTextNode("\n    ");
-        dom.appendChild(el2, el3);
-        var el3 = dom.createComment("");
-        dom.appendChild(el2, el3);
-        var el3 = dom.createTextNode("\n    ");
-        dom.appendChild(el2, el3);
-        var el3 = dom.createElement("small");
-        dom.setAttribute(el3, "class", "text-muted");
-        var el4 = dom.createTextNode("Select the type of card you want to add");
-        dom.appendChild(el3, el4);
-        dom.appendChild(el2, el3);
-        var el3 = dom.createTextNode("\n  ");
-        dom.appendChild(el2, el3);
-        dom.appendChild(el1, el2);
-        var el2 = dom.createTextNode("\n\n  ");
         dom.appendChild(el1, el2);
         var el2 = dom.createElement("fieldset");
         dom.setAttribute(el2, "class", "form-group");
@@ -1708,18 +1684,17 @@ define("client/templates/components/forms/edit-card-form", ["exports"], function
       },
       buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
         var element0 = dom.childAt(fragment, [0]);
-        var element1 = dom.childAt(element0, [7]);
+        var element1 = dom.childAt(element0, [5]);
         var element2 = dom.childAt(element1, [1]);
         var element3 = dom.childAt(element1, [3]);
-        var morphs = new Array(5);
+        var morphs = new Array(4);
         morphs[0] = dom.createMorphAt(dom.childAt(element0, [1]), 3, 3);
         morphs[1] = dom.createMorphAt(dom.childAt(element0, [3]), 3, 3);
-        morphs[2] = dom.createMorphAt(dom.childAt(element0, [5]), 3, 3);
-        morphs[3] = dom.createElementMorph(element2);
-        morphs[4] = dom.createElementMorph(element3);
+        morphs[2] = dom.createElementMorph(element2);
+        morphs[3] = dom.createElementMorph(element3);
         return morphs;
       },
-      statements: [["inline", "select-2", [], ["content", ["subexpr", "@mut", [["get", "types", ["loc", [null, [5, 14], [5, 19]]]]], [], []], "value", ["subexpr", "@mut", [["get", "type", ["loc", [null, [6, 12], [6, 16]]]]], [], []], "placeholder", "Choose type of your card", "allowClear", true, "cssClass", "select-2-custom"], ["loc", [null, [4, 4], [10, 6]]]], ["inline", "input", [], ["type", "text", "value", ["subexpr", "@mut", [["get", "model.title", ["loc", [null, [16, 30], [16, 41]]]]], [], []], "class", "form-control", "id", "card-title", "placeholder", "Enter the title of the card"], ["loc", [null, [16, 4], [16, 122]]]], ["inline", "textarea", [], ["value", ["subexpr", "@mut", [["get", "model.description", ["loc", [null, [22, 21], [22, 38]]]]], [], []], "class", "form-control", "id", "card-description", "rows", "5"], ["loc", [null, [22, 4], [22, 92]]]], ["element", "action", ["save", ["get", "model.title", ["loc", [null, [27, 28], [27, 39]]]], ["get", "model.description", ["loc", [null, [27, 40], [27, 57]]]], ["get", "model.id", ["loc", [null, [27, 58], [27, 66]]]]], [], ["loc", [null, [27, 12], [27, 68]]]], ["element", "action", ["cancel", ["get", "model.title", ["loc", [null, [28, 30], [28, 41]]]], ["get", "model.description", ["loc", [null, [28, 42], [28, 59]]]], ["get", "model.id", ["loc", [null, [28, 60], [28, 68]]]]], [], ["loc", [null, [28, 12], [28, 70]]]]],
+      statements: [["inline", "input", [], ["type", "text", "value", ["subexpr", "@mut", [["get", "model.title", ["loc", [null, [4, 30], [4, 41]]]]], [], []], "class", "form-control", "id", "card-title", "placeholder", "Enter the title of the card"], ["loc", [null, [4, 4], [4, 122]]]], ["inline", "textarea", [], ["value", ["subexpr", "@mut", [["get", "model.description", ["loc", [null, [10, 21], [10, 38]]]]], [], []], "class", "form-control", "id", "card-description", "rows", "5"], ["loc", [null, [10, 4], [10, 92]]]], ["element", "action", ["save", ["get", "model.title", ["loc", [null, [15, 28], [15, 39]]]], ["get", "model.description", ["loc", [null, [15, 40], [15, 57]]]], ["get", "model.id", ["loc", [null, [15, 58], [15, 66]]]]], [], ["loc", [null, [15, 12], [15, 68]]]], ["element", "action", ["cancel", ["get", "model.title", ["loc", [null, [16, 30], [16, 41]]]], ["get", "model.description", ["loc", [null, [16, 42], [16, 59]]]], ["get", "model.id", ["loc", [null, [16, 60], [16, 68]]]]], [], ["loc", [null, [16, 12], [16, 70]]]]],
       locals: [],
       templates: []
     };

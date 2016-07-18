@@ -1,17 +1,5 @@
 <form>
   <fieldset class="form-group">
-    <label for="card-type">Card Type</label>
-    {{select-2
-      content=types
-      value=type
-      placeholder="Choose type of your card"
-      allowClear=true
-      cssClass="select-2-custom"
-    }}
-    <small class="text-muted">Select the type of card you want to add</small>
-  </fieldset>
-
-  <fieldset class="form-group">
     <label for="card-title">Card Title</label>
     {{input type="text" value=model.title class="form-control" id="card-title" placeholder="Enter the title of the card"}}
     <small class="text-muted">Give your card a nice title</small>

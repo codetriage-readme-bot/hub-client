@@ -31,7 +31,7 @@ define('client/tests/components/forms/edit-card-form.jshint', ['exports'], funct
   QUnit.module('JSHint | components/forms/edit-card-form.js');
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'components/forms/edit-card-form.js should pass jshint.\ncomponents/forms/edit-card-form.js: line 34, col 28, \'type\' is not defined.\n\n1 error');
+    assert.ok(false, 'components/forms/edit-card-form.js should pass jshint.\ncomponents/forms/edit-card-form.js: line 8, col 3, Expected \'}\' to match \'{\' from line 5 and instead saw \'actions\'.\ncomponents/forms/edit-card-form.js: line 8, col 10, Expected \')\' and instead saw \':\'.\ncomponents/forms/edit-card-form.js: line 8, col 11, Missing semicolon.\ncomponents/forms/edit-card-form.js: line 9, col 33, Missing semicolon.\ncomponents/forms/edit-card-form.js: line 26, col 6, Expected an identifier and instead saw \',\'.\ncomponents/forms/edit-card-form.js: line 26, col 6, Expected an assignment or function call and instead saw an expression.\ncomponents/forms/edit-card-form.js: line 26, col 7, Missing semicolon.\ncomponents/forms/edit-card-form.js: line 28, col 35, Missing semicolon.\ncomponents/forms/edit-card-form.js: line 35, col 4, Expected an identifier and instead saw \',\'.\ncomponents/forms/edit-card-form.js: line 35, col 4, Expected an assignment or function call and instead saw an expression.\ncomponents/forms/edit-card-form.js: line 35, col 5, Missing semicolon.\ncomponents/forms/edit-card-form.js: line 35, col 4, Unrecoverable syntax error. (94% scanned).\n\n13 errors');
   });
 });
 define('client/tests/components/forms/edit-project-form.jshint', ['exports'], function (exports) {
