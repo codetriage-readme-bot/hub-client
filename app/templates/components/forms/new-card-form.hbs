@@ -1,14 +1,13 @@
 <form>
   <fieldset class="form-group">
     <label for="card-type">Card Type</label>
-    {{#power-select
-      selected=selectedType
-      options=types
-      onchange=(action "setType")
-      as |type|
-      }}
-      {{type}}
-    {{/power-select}}
+    {{select-2
+      content=types
+      value=type
+      placeholder="Choose type of your card"
+      allowClear=true
+      cssClass="select-2-custom"
+    }}
     <small class="text-muted">Select the type of card you want to add</small>
   </fieldset>
 

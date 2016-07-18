@@ -5,9 +5,23 @@ const { getOwner } = Ember;
 export default Ember.Component.extend({
   store: Ember.inject.service(),
   session: Ember.inject.service('session'),
-  types: [ 'Task', 'Discussion', 'Note' ],
-  selectedType: 'Note',
-
+  types: Ember.A([
+      {
+        id: "Task",
+        text: "Task",
+        description: "Task"
+      },
+      {
+        id: "Discussion",
+        text: "Discussion",
+        description: "Discussion"
+      },
+      {
+        id: "Note",
+        text: "Note",
+        description: "Note"
+      }
+    ]),
   actions: {
     save(title, description, id) {
       // get the details about the currently authenticated user
@@ -17,6 +31,7 @@ export default Ember.Component.extend({
 
           // set the user as the owner of the current card
           post.set('users', [user]);
+          post.set('type', type);
 
           post.save().then((card) => {
             // go to the edit item's route after creating it.
@@ -34,11 +49,6 @@ export default Ember.Component.extend({
 
       // go the card route on cancel
       getOwner(this).lookup('route:card.card').transitionTo('card.card', id);
-    },
-
-    setType(type) {
-      this.set('selectedType', type);
-      this.get('model').set('type', type);
     }
   },
 });

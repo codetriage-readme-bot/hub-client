@@ -17,3 +17,10 @@
 @import './components/card.css';
 @import './components/signin-form.css';
 @import './components/landing-page.css';
+
+
+/* ==========================================================================
+   plugins
+   ========================================================================== */
+@import './plugins/select-2.css';
+
