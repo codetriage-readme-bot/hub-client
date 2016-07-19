@@ -4,7 +4,7 @@ const { getOwner } = Ember;
 
 export default Ember.Component.extend({
   store: Ember.inject.service(),
-  session: Ember.inject.service('session')
+  session: Ember.inject.service('session'),
   actions: {
     save(title, description, id) {
       // get the details about the currently authenticated user

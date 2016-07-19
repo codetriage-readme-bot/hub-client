@@ -6,6 +6,37 @@
 
 /* jshint ignore:end */
 
+define('client/adapters/application', ['exports', 'ember-data/adapters/json-api', 'client/config/environment'], function (exports, _emberDataAdaptersJsonApi, _clientConfigEnvironment) {
+  var underscore = Ember.String.underscore;
+  var pluralize = Ember.String.pluralize;
+
+  exports['default'] = _emberDataAdaptersJsonApi['default'].extend({
+    // namespace: 'api',
+    // if your rails app is on a different port from your ember app
+    // this can be helpful for development.
+    // in production, the host for both rails and ember should be the same.
+    host: _clientConfigEnvironment['default'].host,
+
+    // allows the multiword paths in urls to be underscored
+    pathForType: function pathForType(type) {
+      var underscored = underscore(type);
+      return pluralize(underscored);
+    },
+
+    // allows queries to be sent along with a findRecord
+    // hopefully Ember / EmberData will soon have this built in
+    // ember-data issue tracked here:
+    // https://github.com/emberjs/data/issues/3596
+    urlForFindRecord: function urlForFindRecord(id, modelName, snapshot) {
+      var url = this._super.apply(this, arguments);
+      var query = Ember.get(snapshot, 'adapterOptions.query');
+      if (query) {
+        url += '?' + Ember.$.param(query);
+      }
+      return url;
+    }
+  });
+});
 define('client/app', ['exports', 'ember', 'ember-resolver', 'ember-load-initializers', 'client/config/environment'], function (exports, _ember, _emberResolver, _emberLoadInitializers, _clientConfigEnvironment) {
 
   var App;
@@ -90,20 +121,6 @@ define('client/components/forms/edit-card-form', ['exports', 'ember'], function 
   exports['default'] = _ember['default'].Component.extend({
     store: _ember['default'].inject.service(),
     session: _ember['default'].inject.service('session'),
-    types: _ember['default'].A([{
-      id: "Task",
-      text: "Task",
-      description: "Task"
-    }, {
-      id: "Discussion",
-      text: "Discussion",
-      description: "Discussion"
-    }, {
-      id: "Note",
-      text: "Note",
-      description: "Note"
-    }]),
-    type: ["ham"],
     actions: {
       save: function save(title, description, id) {
         var _this = this;
@@ -116,7 +133,6 @@ define('client/components/forms/edit-card-form', ['exports', 'ember'], function 
 
             // set the user as the owner of the current card
             post.set('users', [user]);
-            post.set('type', type);
 
             post.save().then(function (card) {
               // go to the edit item's route after creating it.
@@ -199,6 +215,12 @@ define('client/components/forms/new-card-form', ['exports', 'ember'], function (
       text: "Note",
       description: "Note"
     }]),
+    projects: _ember['default'].computed({
+      get: function get() {
+        // Since we are using Ember.inject.service, we need to call the store using the get helper
+        return this.get('store').findAll('project');
+      }
+    }).readOnly(),
     actions: {
       save: function save() {
         var _this = this;
@@ -209,6 +231,7 @@ define('client/components/forms/new-card-form', ['exports', 'ember'], function (
           // set the user as the owner of the current card
           _this.get('model').set('users', [user]);
           _this.get('model').set('type', _this.get('type.id'));
+          _this.get('model').set('project_id', _this.get('project.id'));
 
           _this.get('model').save().then(function (card) {
             // go to the new item's route after creating it.
@@ -497,6 +520,7 @@ define('client/models/card', ['exports', 'ember-data/model', 'ember-data/attr', 
     title: (0, _emberDataAttr['default'])('string'),
     description: (0, _emberDataAttr['default'])('string'),
     type: (0, _emberDataAttr['default'])('string'),
+    project_id: (0, _emberDataAttr['default'])('number'),
     users: (0, _emberDataRelationships.hasMany)('user'),
     project: (0, _emberDataRelationships.belongsTo)('project')
   });
@@ -690,6 +714,19 @@ define('client/routes/users', ['exports', 'ember', 'ember-simple-auth/mixins/aut
     setupController: function setupController(controller, model) {
       this._super(controller, model);
       controller.set('users', model);
+    }
+  });
+});
+define('client/serializers/application', ['exports', 'ember-data/serializers/json-api'], function (exports, _emberDataSerializersJsonApi) {
+  var underscore = Ember.String.underscore;
+
+  exports['default'] = _emberDataSerializersJsonApi['default'].extend({
+    keyForAttribute: function keyForAttribute(attr) {
+      return underscore(attr);
+    },
+
+    keyForRelationship: function keyForRelationship(rawKey) {
+      return underscore(rawKey);
     }
   });
 });
@@ -1835,7 +1872,7 @@ define("client/templates/components/forms/new-card-form", ["exports"], function 
             "column": 0
           },
           "end": {
-            "line": 31,
+            "line": 43,
             "column": 0
           }
         },
@@ -1849,6 +1886,31 @@ define("client/templates/components/forms/new-card-form", ["exports"], function 
         var el0 = dom.createDocumentFragment();
         var el1 = dom.createElement("form");
         var el2 = dom.createTextNode("\n  ");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createElement("fieldset");
+        dom.setAttribute(el2, "class", "form-group");
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("label");
+        dom.setAttribute(el3, "for", "card-type");
+        var el4 = dom.createTextNode("Card Type");
+        dom.appendChild(el3, el4);
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createComment("");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("small");
+        dom.setAttribute(el3, "class", "text-muted");
+        var el4 = dom.createTextNode("Select the type of card you want to add");
+        dom.appendChild(el3, el4);
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n  ");
+        dom.appendChild(el2, el3);
+        dom.appendChild(el1, el2);
+        var el2 = dom.createTextNode("\n\n  ");
         dom.appendChild(el1, el2);
         var el2 = dom.createElement("fieldset");
         dom.setAttribute(el2, "class", "form-group");
@@ -1953,18 +2015,19 @@ define("client/templates/components/forms/new-card-form", ["exports"], function 
       },
       buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
         var element0 = dom.childAt(fragment, [0]);
-        var element1 = dom.childAt(element0, [7]);
+        var element1 = dom.childAt(element0, [9]);
         var element2 = dom.childAt(element1, [1]);
         var element3 = dom.childAt(element1, [3]);
-        var morphs = new Array(5);
+        var morphs = new Array(6);
         morphs[0] = dom.createMorphAt(dom.childAt(element0, [1]), 3, 3);
         morphs[1] = dom.createMorphAt(dom.childAt(element0, [3]), 3, 3);
         morphs[2] = dom.createMorphAt(dom.childAt(element0, [5]), 3, 3);
-        morphs[3] = dom.createElementMorph(element2);
-        morphs[4] = dom.createElementMorph(element3);
+        morphs[3] = dom.createMorphAt(dom.childAt(element0, [7]), 3, 3);
+        morphs[4] = dom.createElementMorph(element2);
+        morphs[5] = dom.createElementMorph(element3);
         return morphs;
       },
-      statements: [["inline", "select-2", [], ["content", ["subexpr", "@mut", [["get", "types", ["loc", [null, [5, 14], [5, 19]]]]], [], []], "value", ["subexpr", "@mut", [["get", "type", ["loc", [null, [6, 12], [6, 16]]]]], [], []], "placeholder", "Choose type of your card", "allowClear", true, "cssClass", "select-2-custom"], ["loc", [null, [4, 4], [10, 6]]]], ["inline", "input", [], ["type", "text", "value", ["subexpr", "@mut", [["get", "model.title", ["loc", [null, [16, 30], [16, 41]]]]], [], []], "class", "form-control", "id", "card-title", "placeholder", "Enter the title of the card"], ["loc", [null, [16, 4], [16, 122]]]], ["inline", "textarea", [], ["value", ["subexpr", "@mut", [["get", "model.description", ["loc", [null, [22, 21], [22, 38]]]]], [], []], "class", "form-control", "id", "card-description", "rows", "5"], ["loc", [null, [22, 4], [22, 92]]]], ["element", "action", ["save"], [], ["loc", [null, [27, 12], [27, 29]]]], ["element", "action", ["cancel"], [], ["loc", [null, [28, 12], [28, 31]]]]],
+      statements: [["inline", "select-2", [], ["content", ["subexpr", "@mut", [["get", "projects", ["loc", [null, [5, 14], [5, 22]]]]], [], []], "value", ["subexpr", "@mut", [["get", "project", ["loc", [null, [6, 12], [6, 19]]]]], [], []], "placeholder", "Choose project of your card", "allowClear", true, "cssClass", "select-2-custom"], ["loc", [null, [4, 4], [10, 6]]]], ["inline", "select-2", [], ["content", ["subexpr", "@mut", [["get", "types", ["loc", [null, [17, 14], [17, 19]]]]], [], []], "value", ["subexpr", "@mut", [["get", "type", ["loc", [null, [18, 12], [18, 16]]]]], [], []], "placeholder", "Choose type of your card", "allowClear", true, "cssClass", "select-2-custom"], ["loc", [null, [16, 4], [22, 6]]]], ["inline", "input", [], ["type", "text", "value", ["subexpr", "@mut", [["get", "model.title", ["loc", [null, [28, 30], [28, 41]]]]], [], []], "class", "form-control", "id", "card-title", "placeholder", "Enter the title of the card"], ["loc", [null, [28, 4], [28, 122]]]], ["inline", "textarea", [], ["value", ["subexpr", "@mut", [["get", "model.description", ["loc", [null, [34, 21], [34, 38]]]]], [], []], "class", "form-control", "id", "card-description", "rows", "5"], ["loc", [null, [34, 4], [34, 92]]]], ["element", "action", ["save"], [], ["loc", [null, [39, 12], [39, 29]]]], ["element", "action", ["cancel"], [], ["loc", [null, [40, 12], [40, 31]]]]],
       locals: [],
       templates: []
     };
@@ -4369,7 +4432,7 @@ catch(err) {
 /* jshint ignore:start */
 
 if (!runningTests) {
-  require("client/app")["default"].create({"name":"client","version":"0.0.0+54c9a8a7"});
+  require("client/app")["default"].create({"name":"client","version":"0.0.0+a15dfc92"});
 }
 
 /* jshint ignore:end */

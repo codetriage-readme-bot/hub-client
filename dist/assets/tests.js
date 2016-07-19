@@ -1,3 +1,12 @@
+define('client/tests/adapters/application.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint | adapters/application.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(false, 'adapters/application.js should pass jshint.\nadapters/application.js: line 3, col 18, \'Ember\' is not defined.\nadapters/application.js: line 4, col 17, \'Ember\' is not defined.\nadapters/application.js: line 25, col 17, \'Ember\' is not defined.\nadapters/application.js: line 27, col 20, \'Ember\' is not defined.\n\n4 errors');
+  });
+});
 define('client/tests/app.jshint', ['exports'], function (exports) {
   'use strict';
 
@@ -31,7 +40,7 @@ define('client/tests/components/forms/edit-card-form.jshint', ['exports'], funct
   QUnit.module('JSHint | components/forms/edit-card-form.js');
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'components/forms/edit-card-form.js should pass jshint.\ncomponents/forms/edit-card-form.js: line 8, col 3, Expected \'}\' to match \'{\' from line 5 and instead saw \'actions\'.\ncomponents/forms/edit-card-form.js: line 8, col 10, Expected \')\' and instead saw \':\'.\ncomponents/forms/edit-card-form.js: line 8, col 11, Missing semicolon.\ncomponents/forms/edit-card-form.js: line 9, col 33, Missing semicolon.\ncomponents/forms/edit-card-form.js: line 26, col 6, Expected an identifier and instead saw \',\'.\ncomponents/forms/edit-card-form.js: line 26, col 6, Expected an assignment or function call and instead saw an expression.\ncomponents/forms/edit-card-form.js: line 26, col 7, Missing semicolon.\ncomponents/forms/edit-card-form.js: line 28, col 35, Missing semicolon.\ncomponents/forms/edit-card-form.js: line 35, col 4, Expected an identifier and instead saw \',\'.\ncomponents/forms/edit-card-form.js: line 35, col 4, Expected an assignment or function call and instead saw an expression.\ncomponents/forms/edit-card-form.js: line 35, col 5, Missing semicolon.\ncomponents/forms/edit-card-form.js: line 35, col 4, Unrecoverable syntax error. (94% scanned).\n\n13 errors');
+    assert.ok(true, 'components/forms/edit-card-form.js should pass jshint.');
   });
 });
 define('client/tests/components/forms/edit-project-form.jshint', ['exports'], function (exports) {
@@ -2070,6 +2079,15 @@ define('client/tests/routes/users.jshint', ['exports'], function (exports) {
     assert.ok(true, 'routes/users.js should pass jshint.');
   });
 });
+define('client/tests/serializers/application.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint | serializers/application.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(false, 'serializers/application.js should pass jshint.\nserializers/application.js: line 2, col 18, \'Ember\' is not defined.\n\n1 error');
+  });
+});
 define('client/tests/services/signin.jshint', ['exports'], function (exports) {
   'use strict';
 
@@ -2090,6 +2108,28 @@ define('client/tests/test-helper.jshint', ['exports'], function (exports) {
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
     assert.ok(true, 'test-helper.js should pass jshint.');
+  });
+});
+define('client/tests/unit/adapters/application-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
+
+  (0, _emberQunit.moduleFor)('adapter:application', 'Unit | Adapter | application', {
+    // Specify the other units that are required for this test.
+    // needs: ['serializer:foo']
+  });
+
+  // Replace this with your real tests.
+  (0, _emberQunit.test)('it exists', function (assert) {
+    var adapter = this.subject();
+    assert.ok(adapter);
+  });
+});
+define('client/tests/unit/adapters/application-test.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint | unit/adapters/application-test.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'unit/adapters/application-test.js should pass jshint.');
   });
 });
 define('client/tests/unit/controllers/application-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
@@ -2515,6 +2555,31 @@ define('client/tests/unit/routes/users-test.jshint', ['exports'], function (expo
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
     assert.ok(true, 'unit/routes/users-test.js should pass jshint.');
+  });
+});
+define('client/tests/unit/serializers/application-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
+
+  (0, _emberQunit.moduleForModel)('application', 'Unit | Serializer | application', {
+    // Specify the other units that are required for this test.
+    needs: ['serializer:application']
+  });
+
+  // Replace this with your real tests.
+  (0, _emberQunit.test)('it serializes records', function (assert) {
+    var record = this.subject();
+
+    var serializedRecord = record.serialize();
+
+    assert.ok(serializedRecord);
+  });
+});
+define('client/tests/unit/serializers/application-test.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint | unit/serializers/application-test.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'unit/serializers/application-test.js should pass jshint.');
   });
 });
 define('client/tests/unit/services/signin-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {

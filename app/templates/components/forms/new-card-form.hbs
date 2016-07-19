@@ -2,6 +2,18 @@
   <fieldset class="form-group">
     <label for="card-type">Card Type</label>
     {{select-2
+      content=projects
+      value=project
+      placeholder="Choose project of your card"
+      allowClear=true
+      cssClass="select-2-custom"
+    }}
+    <small class="text-muted">Select the type of card you want to add</small>
+  </fieldset>
+
+  <fieldset class="form-group">
+    <label for="card-type">Card Type</label>
+    {{select-2
       content=types
       value=type
       placeholder="Choose type of your card"
