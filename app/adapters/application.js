@@ -5,7 +5,7 @@ var underscore = Ember.String.underscore;
 var pluralize = Ember.String.pluralize;
 
 export default JSONAPIAdapter.extend({
-  // namespace: 'api',
+  namespace: 'api/v1',
   // if your rails app is on a different port from your ember app
   // this can be helpful for development.
   // in production, the host for both rails and ember should be the same.

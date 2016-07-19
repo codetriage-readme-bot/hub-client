@@ -5,7 +5,7 @@ const { RSVP, isEmpty, run } = Ember;
 
 export default DeviseAuthenticator.extend({
   session: Ember.inject.service('session'),
-  serverTokenEndpoint: '/auth/sign_in',
+  serverTokenEndpoint: '/api/v1/auth/sign_in',
 
   restore(data){
     return new RSVP.Promise((resolve, reject) => {

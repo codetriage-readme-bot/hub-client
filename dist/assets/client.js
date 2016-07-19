@@ -11,7 +11,7 @@ define('client/adapters/application', ['exports', 'ember', 'ember-data/adapters/
   var pluralize = _ember['default'].String.pluralize;
 
   exports['default'] = _emberDataAdaptersJsonApi['default'].extend({
-    // namespace: 'api',
+    namespace: 'api/v1',
     // if your rails app is on a different port from your ember app
     // this can be helpful for development.
     // in production, the host for both rails and ember should be the same.
@@ -59,7 +59,7 @@ define('client/authenticators/devise', ['exports', 'ember-simple-auth/authentica
   var run = _ember['default'].run;
   exports['default'] = _emberSimpleAuthAuthenticatorsDevise['default'].extend({
     session: _ember['default'].inject.service('session'),
-    serverTokenEndpoint: '/auth/sign_in',
+    serverTokenEndpoint: '/api/v1/auth/sign_in',
 
     restore: function restore(data) {
       return new RSVP.Promise(function (resolve, reject) {
@@ -4432,7 +4432,7 @@ catch(err) {
 /* jshint ignore:start */
 
 if (!runningTests) {
-  require("client/app")["default"].create({"name":"client","version":"0.0.0+140f1743"});
+  require("client/app")["default"].create({"name":"client","version":"0.0.0+ef393353"});
 }
 
 /* jshint ignore:end */
