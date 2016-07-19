@@ -8,7 +8,7 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
     // return this.store.findAll('project');
 
     // return the logged in user's projects
-    return this.store.find('user', this.get('session.data.authenticated.id')).then(user => user.get('projects'))
+    return this.store.find('user', this.get('session.data.authenticated.id')).then(user => user.get('projects'));
   },
 
   setupController(controller, model) {

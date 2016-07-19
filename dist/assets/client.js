@@ -6,9 +6,9 @@
 
 /* jshint ignore:end */
 
-define('client/adapters/application', ['exports', 'ember-data/adapters/json-api', 'client/config/environment'], function (exports, _emberDataAdaptersJsonApi, _clientConfigEnvironment) {
-  var underscore = Ember.String.underscore;
-  var pluralize = Ember.String.pluralize;
+define('client/adapters/application', ['exports', 'ember', 'ember-data/adapters/json-api', 'client/config/environment'], function (exports, _ember, _emberDataAdaptersJsonApi, _clientConfigEnvironment) {
+  var underscore = _ember['default'].String.underscore;
+  var pluralize = _ember['default'].String.pluralize;
 
   exports['default'] = _emberDataAdaptersJsonApi['default'].extend({
     // namespace: 'api',
@@ -29,9 +29,9 @@ define('client/adapters/application', ['exports', 'ember-data/adapters/json-api'
     // https://github.com/emberjs/data/issues/3596
     urlForFindRecord: function urlForFindRecord(id, modelName, snapshot) {
       var url = this._super.apply(this, arguments);
-      var query = Ember.get(snapshot, 'adapterOptions.query');
+      var query = _ember['default'].get(snapshot, 'adapterOptions.query');
       if (query) {
-        url += '?' + Ember.$.param(query);
+        url += '?' + _ember['default'].$.param(query);
       }
       return url;
     }
@@ -717,8 +717,8 @@ define('client/routes/users', ['exports', 'ember', 'ember-simple-auth/mixins/aut
     }
   });
 });
-define('client/serializers/application', ['exports', 'ember-data/serializers/json-api'], function (exports, _emberDataSerializersJsonApi) {
-  var underscore = Ember.String.underscore;
+define('client/serializers/application', ['exports', 'ember', 'ember-data/serializers/json-api'], function (exports, _ember, _emberDataSerializersJsonApi) {
+  var underscore = _ember['default'].String.underscore;
 
   exports['default'] = _emberDataSerializersJsonApi['default'].extend({
     keyForAttribute: function keyForAttribute(attr) {
@@ -4432,7 +4432,7 @@ catch(err) {
 /* jshint ignore:start */
 
 if (!runningTests) {
-  require("client/app")["default"].create({"name":"client","version":"0.0.0+a15dfc92"});
+  require("client/app")["default"].create({"name":"client","version":"0.0.0+140f1743"});
 }
 
 /* jshint ignore:end */

@@ -8,7 +8,7 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
     // return this.store.findAll('card');
 
     // return the logged in user's cards
-    return this.store.find('user', this.get('session.data.authenticated.id')).then(user => user.get('cards'))
+    return this.store.find('user', this.get('session.data.authenticated.id')).then(user => user.get('cards'));
   },
 
   setupController(controller, model) {

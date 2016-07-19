@@ -4,7 +4,7 @@ define('client/tests/adapters/application.jshint', ['exports'], function (export
   QUnit.module('JSHint | adapters/application.js');
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'adapters/application.js should pass jshint.\nadapters/application.js: line 3, col 18, \'Ember\' is not defined.\nadapters/application.js: line 4, col 17, \'Ember\' is not defined.\nadapters/application.js: line 25, col 17, \'Ember\' is not defined.\nadapters/application.js: line 27, col 20, \'Ember\' is not defined.\n\n4 errors');
+    assert.ok(true, 'adapters/application.js should pass jshint.');
   });
 });
 define('client/tests/app.jshint', ['exports'], function (exports) {
@@ -1923,7 +1923,7 @@ define('client/tests/models/project.jshint', ['exports'], function (exports) {
   QUnit.module('JSHint | models/project.js');
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'models/project.js should pass jshint.\nmodels/project.js: line 3, col 10, \'belongsTo\' is defined but never used.\n\n1 error');
+    assert.ok(true, 'models/project.js should pass jshint.');
   });
 });
 define('client/tests/models/user.jshint', ['exports'], function (exports) {
@@ -1932,7 +1932,7 @@ define('client/tests/models/user.jshint', ['exports'], function (exports) {
   QUnit.module('JSHint | models/user.js');
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'models/user.js should pass jshint.\nmodels/user.js: line 3, col 10, \'belongsTo\' is defined but never used.\n\n1 error');
+    assert.ok(true, 'models/user.js should pass jshint.');
   });
 });
 define('client/tests/resolver.jshint', ['exports'], function (exports) {
@@ -1995,7 +1995,7 @@ define('client/tests/routes/cards.jshint', ['exports'], function (exports) {
   QUnit.module('JSHint | routes/cards.js');
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'routes/cards.js should pass jshint.\nroutes/cards.js: line 11, col 110, Missing semicolon.\n\n1 error');
+    assert.ok(true, 'routes/cards.js should pass jshint.');
   });
 });
 define('client/tests/routes/dashboard.jshint', ['exports'], function (exports) {
@@ -2049,7 +2049,7 @@ define('client/tests/routes/projects.jshint', ['exports'], function (exports) {
   QUnit.module('JSHint | routes/projects.js');
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'routes/projects.js should pass jshint.\nroutes/projects.js: line 11, col 113, Missing semicolon.\n\n1 error');
+    assert.ok(true, 'routes/projects.js should pass jshint.');
   });
 });
 define('client/tests/routes/signin.jshint', ['exports'], function (exports) {
@@ -2085,7 +2085,7 @@ define('client/tests/serializers/application.jshint', ['exports'], function (exp
   QUnit.module('JSHint | serializers/application.js');
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'serializers/application.js should pass jshint.\nserializers/application.js: line 2, col 18, \'Ember\' is not defined.\n\n1 error');
+    assert.ok(true, 'serializers/application.js should pass jshint.');
   });
 });
 define('client/tests/services/signin.jshint', ['exports'], function (exports) {
