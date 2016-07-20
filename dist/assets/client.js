@@ -310,13 +310,6 @@ define('client/components/layout/side-bar', ['exports', 'ember'], function (expo
 define('client/components/projects/projects-container', ['exports', 'ember'], function (exports, _ember) {
   exports['default'] = _ember['default'].Component.extend({});
 });
-define('client/components/select-2', ['exports', 'ember-select-2/components/select-2'], function (exports, _emberSelect2ComponentsSelect2) {
-  exports['default'] = _emberSelect2ComponentsSelect2['default'];
-});
-/*
-	This is just a proxy file requiring the component from the /addon folder and
-	making it available to the dummy application!
- */
 define('client/components/users/users-container', ['exports', 'ember'], function (exports, _ember) {
   exports['default'] = _ember['default'].Component.extend({});
 });
@@ -4432,7 +4425,7 @@ catch(err) {
 /* jshint ignore:start */
 
 if (!runningTests) {
-  require("client/app")["default"].create({"name":"client","version":"0.0.0+6d4a0606"});
+  require("client/app")["default"].create({"name":"client","version":"0.0.0+5523555e"});
 }
 
 /* jshint ignore:end */
