@@ -1,0 +1,12 @@
+.selectize-input {
+  font-weight: 200;
+  outline: none;
+  height: 50px;
+  display: flex;
+  align-items: center;
+
+  &.focus.input-active.dropdown-active {
+    display: flex;
+    align-items: center;
+  }
+}

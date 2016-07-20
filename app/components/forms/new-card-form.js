@@ -8,18 +8,15 @@ export default Ember.Component.extend({
   types: Ember.A([
       {
         id: "Task",
-        text: "Task",
-        description: "Task"
+        title: "Task"
       },
       {
         id: "Discussion",
-        text: "Discussion",
-        description: "Discussion"
+        title: "Discussion"
       },
       {
         id: "Note",
-        text: "Note",
-        description: "Note"
+        title: "Note"
       }
     ]),
   projects: Ember.computed({

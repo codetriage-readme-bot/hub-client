@@ -34,6 +34,10 @@ module.exports = function(defaults) {
         }
       ],
       extension: 'css'
+    },
+    'ember-cli-selectize': {
+      //valid values are `default`, `bootstrap2`, `bootstrap3` or false
+      'theme': 'bootstrap3'
     }
   });
 

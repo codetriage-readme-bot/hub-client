@@ -1,24 +1,24 @@
 <form>
   <fieldset class="form-group">
-    <label for="card-type">Card Type</label>
-    {{select-2
+    <label for="card-type">Select Project</label>
+    {{ember-selectize
       content=projects
-      value=project
-      placeholder="Choose project of your card"
-      allowClear=true
-      cssClass="select-2-custom"
+      optionValuePath="content.id"
+      optionLabelPath="content.title"
+      selection=project
+      placeholder="Select a Project"
     }}
     <small class="text-muted">Select the type of card you want to add</small>
   </fieldset>
 
   <fieldset class="form-group">
     <label for="card-type">Card Type</label>
-    {{select-2
+    {{ember-selectize
       content=types
-      value=type
-      placeholder="Choose type of your card"
-      allowClear=true
-      cssClass="select-2-custom"
+      optionValuePath="content.id"
+      optionLabelPath="content.title"
+      selection=type
+      placeholder="Select a Card Type"
     }}
     <small class="text-muted">Select the type of card you want to add</small>
   </fieldset>

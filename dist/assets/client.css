@@ -339,34 +339,15 @@ a.list-group-item:hover {
 /* ==========================================================================
    plugins
    ========================================================================== */
-.select-2-custom {
+.selectize-input {
     font-weight: 200;
     outline: none;
-    padding: 0;
-}
-.select2-container .select2-choice {
-    height: 48px;
-    border: 0;
-    background: transparent;
+    height: 50px;
     display: flex;
     align-items: center;
-    outline: none;
 }
-.select2-container.select2-allowclear .select2-choice abbr {
-    display: inline-block;
-    margin-top: 10px;
-}
-.select2-container .select2-choice .select2-arrow b {
-    margin-top: 10px;
-}
-.select2-drop.select2-drop-above.select2-drop-active {
-    border: 1px solid #aaa;
-}
-.select2-dropdown-open.select2-drop-above .select2-choice {
-    border: 0;
-    background: transparent;
-}
-.select2-container .select2-choice .select2-arrow {
-    background: #eee;
+.selectize-input.focus.input-active.dropdown-active {
+    display: flex;
+    align-items: center;
 }
 

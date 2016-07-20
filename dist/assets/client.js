@@ -116,6 +116,9 @@ define('client/components/app-version', ['exports', 'ember-cli-app-version/compo
 define('client/components/cards/cards-container', ['exports', 'ember'], function (exports, _ember) {
   exports['default'] = _ember['default'].Component.extend({});
 });
+define('client/components/ember-selectize', ['exports', 'ember-cli-selectize/components/ember-selectize'], function (exports, _emberCliSelectizeComponentsEmberSelectize) {
+  exports['default'] = _emberCliSelectizeComponentsEmberSelectize['default'];
+});
 define('client/components/forms/edit-card-form', ['exports', 'ember'], function (exports, _ember) {
   var getOwner = _ember['default'].getOwner;
   exports['default'] = _ember['default'].Component.extend({
@@ -204,16 +207,13 @@ define('client/components/forms/new-card-form', ['exports', 'ember'], function (
     session: _ember['default'].inject.service('session'),
     types: _ember['default'].A([{
       id: "Task",
-      text: "Task",
-      description: "Task"
+      title: "Task"
     }, {
       id: "Discussion",
-      text: "Discussion",
-      description: "Discussion"
+      title: "Discussion"
     }, {
       id: "Note",
-      text: "Note",
-      description: "Note"
+      title: "Note"
     }]),
     projects: _ember['default'].computed({
       get: function get() {
@@ -1893,7 +1893,7 @@ define("client/templates/components/forms/new-card-form", ["exports"], function 
         dom.appendChild(el2, el3);
         var el3 = dom.createElement("label");
         dom.setAttribute(el3, "for", "card-type");
-        var el4 = dom.createTextNode("Card Type");
+        var el4 = dom.createTextNode("Select Project");
         dom.appendChild(el3, el4);
         dom.appendChild(el2, el3);
         var el3 = dom.createTextNode("\n    ");
@@ -2027,7 +2027,7 @@ define("client/templates/components/forms/new-card-form", ["exports"], function 
         morphs[5] = dom.createElementMorph(element3);
         return morphs;
       },
-      statements: [["inline", "select-2", [], ["content", ["subexpr", "@mut", [["get", "projects", ["loc", [null, [5, 14], [5, 22]]]]], [], []], "value", ["subexpr", "@mut", [["get", "project", ["loc", [null, [6, 12], [6, 19]]]]], [], []], "placeholder", "Choose project of your card", "allowClear", true, "cssClass", "select-2-custom"], ["loc", [null, [4, 4], [10, 6]]]], ["inline", "select-2", [], ["content", ["subexpr", "@mut", [["get", "types", ["loc", [null, [17, 14], [17, 19]]]]], [], []], "value", ["subexpr", "@mut", [["get", "type", ["loc", [null, [18, 12], [18, 16]]]]], [], []], "placeholder", "Choose type of your card", "allowClear", true, "cssClass", "select-2-custom"], ["loc", [null, [16, 4], [22, 6]]]], ["inline", "input", [], ["type", "text", "value", ["subexpr", "@mut", [["get", "model.title", ["loc", [null, [28, 30], [28, 41]]]]], [], []], "class", "form-control", "id", "card-title", "placeholder", "Enter the title of the card"], ["loc", [null, [28, 4], [28, 122]]]], ["inline", "textarea", [], ["value", ["subexpr", "@mut", [["get", "model.description", ["loc", [null, [34, 21], [34, 38]]]]], [], []], "class", "form-control", "id", "card-description", "rows", "5"], ["loc", [null, [34, 4], [34, 92]]]], ["element", "action", ["save"], [], ["loc", [null, [39, 12], [39, 29]]]], ["element", "action", ["cancel"], [], ["loc", [null, [40, 12], [40, 31]]]]],
+      statements: [["inline", "ember-selectize", [], ["content", ["subexpr", "@mut", [["get", "projects", ["loc", [null, [5, 14], [5, 22]]]]], [], []], "optionValuePath", "content.id", "optionLabelPath", "content.title", "selection", ["subexpr", "@mut", [["get", "project", ["loc", [null, [8, 16], [8, 23]]]]], [], []], "placeholder", "Select a Project"], ["loc", [null, [4, 4], [10, 6]]]], ["inline", "ember-selectize", [], ["content", ["subexpr", "@mut", [["get", "types", ["loc", [null, [17, 14], [17, 19]]]]], [], []], "optionValuePath", "content.id", "optionLabelPath", "content.title", "selection", ["subexpr", "@mut", [["get", "type", ["loc", [null, [20, 16], [20, 20]]]]], [], []], "placeholder", "Select a Card Type"], ["loc", [null, [16, 4], [22, 6]]]], ["inline", "input", [], ["type", "text", "value", ["subexpr", "@mut", [["get", "model.title", ["loc", [null, [28, 30], [28, 41]]]]], [], []], "class", "form-control", "id", "card-title", "placeholder", "Enter the title of the card"], ["loc", [null, [28, 4], [28, 122]]]], ["inline", "textarea", [], ["value", ["subexpr", "@mut", [["get", "model.description", ["loc", [null, [34, 21], [34, 38]]]]], [], []], "class", "form-control", "id", "card-description", "rows", "5"], ["loc", [null, [34, 4], [34, 92]]]], ["element", "action", ["save"], [], ["loc", [null, [39, 12], [39, 29]]]], ["element", "action", ["cancel"], [], ["loc", [null, [40, 12], [40, 31]]]]],
       locals: [],
       templates: []
     };
@@ -4432,7 +4432,7 @@ catch(err) {
 /* jshint ignore:start */
 
 if (!runningTests) {
-  require("client/app")["default"].create({"name":"client","version":"0.0.0+ef393353"});
+  require("client/app")["default"].create({"name":"client","version":"0.0.0+6d4a0606"});
 }
 
 /* jshint ignore:end */
