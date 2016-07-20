@@ -58,7 +58,7 @@ define('client/tests/components/forms/new-card-form.jshint', ['exports'], functi
   QUnit.module('JSHint | components/forms/new-card-form.js');
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'components/forms/new-card-form.js should pass jshint.');
+    assert.ok(false, 'components/forms/new-card-form.js should pass jshint.\ncomponents/forms/new-card-form.js: line 49, col 16, \'type\' is defined but never used.\ncomponents/forms/new-card-form.js: line 53, col 19, \'project\' is defined but never used.\n\n2 errors');
   });
 });
 define('client/tests/components/forms/new-project-form.jshint', ['exports'], function (exports) {

@@ -7,9 +7,9 @@
 /* jshint ignore:end */
 
 define('client/adapters/application', ['exports', 'ember', 'ember-data/adapters/json-api', 'client/config/environment'], function (exports, _ember, _emberDataAdaptersJsonApi, _clientConfigEnvironment) {
-  var underscore = _ember['default'].String.underscore;
-  var pluralize = _ember['default'].String.pluralize;
-
+  var _Ember$String = _ember['default'].String;
+  var underscore = _Ember$String.underscore;
+  var pluralize = _Ember$String.pluralize;
   exports['default'] = _emberDataAdaptersJsonApi['default'].extend({
     namespace: 'api/v1',
     // if your rails app is on a different port from your ember app
@@ -242,6 +242,14 @@ define('client/components/forms/new-card-form', ['exports', 'ember'], function (
 
       cancel: function cancel() {
         getOwner(this).lookup('route:cards').transitionTo('cards');
+      },
+
+      selectType: function selectType(type) {
+        this.get('model').set('type', this.get('type.id'));
+      },
+
+      selectProject: function selectProject(project) {
+        this.get('model').set('project_id', this.get('project.id'));
       }
     }
   });
@@ -712,7 +720,6 @@ define('client/routes/users', ['exports', 'ember', 'ember-simple-auth/mixins/aut
 });
 define('client/serializers/application', ['exports', 'ember', 'ember-data/serializers/json-api'], function (exports, _ember, _emberDataSerializersJsonApi) {
   var underscore = _ember['default'].String.underscore;
-
   exports['default'] = _emberDataSerializersJsonApi['default'].extend({
     keyForAttribute: function keyForAttribute(attr) {
       return underscore(attr);
@@ -1865,7 +1872,7 @@ define("client/templates/components/forms/new-card-form", ["exports"], function 
             "column": 0
           },
           "end": {
-            "line": 43,
+            "line": 46,
             "column": 0
           }
         },
@@ -2020,7 +2027,7 @@ define("client/templates/components/forms/new-card-form", ["exports"], function 
         morphs[5] = dom.createElementMorph(element3);
         return morphs;
       },
-      statements: [["inline", "ember-selectize", [], ["content", ["subexpr", "@mut", [["get", "projects", ["loc", [null, [5, 14], [5, 22]]]]], [], []], "optionValuePath", "content.id", "optionLabelPath", "content.title", "selection", ["subexpr", "@mut", [["get", "project", ["loc", [null, [8, 16], [8, 23]]]]], [], []], "placeholder", "Select a Project"], ["loc", [null, [4, 4], [10, 6]]]], ["inline", "ember-selectize", [], ["content", ["subexpr", "@mut", [["get", "types", ["loc", [null, [17, 14], [17, 19]]]]], [], []], "optionValuePath", "content.id", "optionLabelPath", "content.title", "selection", ["subexpr", "@mut", [["get", "type", ["loc", [null, [20, 16], [20, 20]]]]], [], []], "placeholder", "Select a Card Type"], ["loc", [null, [16, 4], [22, 6]]]], ["inline", "input", [], ["type", "text", "value", ["subexpr", "@mut", [["get", "model.title", ["loc", [null, [28, 30], [28, 41]]]]], [], []], "class", "form-control", "id", "card-title", "placeholder", "Enter the title of the card"], ["loc", [null, [28, 4], [28, 122]]]], ["inline", "textarea", [], ["value", ["subexpr", "@mut", [["get", "model.description", ["loc", [null, [34, 21], [34, 38]]]]], [], []], "class", "form-control", "id", "card-description", "rows", "5"], ["loc", [null, [34, 4], [34, 92]]]], ["element", "action", ["save"], [], ["loc", [null, [39, 12], [39, 29]]]], ["element", "action", ["cancel"], [], ["loc", [null, [40, 12], [40, 31]]]]],
+      statements: [["inline", "ember-selectize", [], ["content", ["subexpr", "@mut", [["get", "projects", ["loc", [null, [5, 14], [5, 22]]]]], [], []], "optionValuePath", "content.id", "optionLabelPath", "content.title", "selection", ["subexpr", "@mut", [["get", "project", ["loc", [null, [8, 16], [8, 23]]]]], [], []], "placeholder", "Select a Project", "select-item", "selectProject", "loading", true], ["loc", [null, [4, 4], [12, 6]]]], ["inline", "ember-selectize", [], ["content", ["subexpr", "@mut", [["get", "types", ["loc", [null, [19, 14], [19, 19]]]]], [], []], "optionValuePath", "content.id", "optionLabelPath", "content.title", "selection", ["subexpr", "@mut", [["get", "type", ["loc", [null, [22, 16], [22, 20]]]]], [], []], "placeholder", "Select a Card Type", "select-item", "selectType"], ["loc", [null, [18, 4], [25, 6]]]], ["inline", "input", [], ["type", "text", "value", ["subexpr", "@mut", [["get", "model.title", ["loc", [null, [31, 30], [31, 41]]]]], [], []], "class", "form-control", "id", "card-title", "placeholder", "Enter the title of the card"], ["loc", [null, [31, 4], [31, 122]]]], ["inline", "textarea", [], ["value", ["subexpr", "@mut", [["get", "model.description", ["loc", [null, [37, 21], [37, 38]]]]], [], []], "class", "form-control", "id", "card-description", "rows", "5"], ["loc", [null, [37, 4], [37, 92]]]], ["element", "action", ["save"], [], ["loc", [null, [42, 12], [42, 29]]]], ["element", "action", ["cancel"], [], ["loc", [null, [43, 12], [43, 31]]]]],
       locals: [],
       templates: []
     };
@@ -4425,7 +4432,7 @@ catch(err) {
 /* jshint ignore:start */
 
 if (!runningTests) {
-  require("client/app")["default"].create({"name":"client","version":"0.0.0+5523555e"});
+  require("client/app")["default"].create({"name":"client","version":"0.0.0+ff5a96ee"});
 }
 
 /* jshint ignore:end */

@@ -1,8 +1,8 @@
 import Ember from 'ember';
 import JSONAPIAdapter from 'ember-data/adapters/json-api';
 import ENV from "../config/environment";
-var underscore = Ember.String.underscore;
-var pluralize = Ember.String.pluralize;
+
+const { underscore, pluralize } = Ember.String;
 
 export default JSONAPIAdapter.extend({
   namespace: 'api/v1',
