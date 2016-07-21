@@ -1,18 +1,67 @@
 <form>
   <fieldset class="form-group">
+    <label for="card-type">Select Project</label>
+    {{ember-selectize
+      content=projects
+      optionValuePath="content.id"
+      optionLabelPath="content.title"
+      placeholder="Select a Project"
+      select-item="selectProject"
+      value=currentProject.id
+      select-item="selectProject"
+      loading=true
+      disabled=true
+    }}
+    {{#if errors.project}}
+      <small class="text-muted text-danger">{{errors.project}}</small>
+    {{/if}}
+  </fieldset>
+  <fieldset class="form-group">
+    <label for="card-type">Card Type</label>
+    {{ember-selectize
+      content=types
+      optionValuePath="content.id"
+      optionLabelPath="content.title"
+      value=model.type
+      placeholder="Select a Card Type"
+      select-item="selectType"
+    }}
+    {{#if errors.type}}
+      <small class="text-muted text-danger">{{errors.type}}</small>
+    {{/if}}
+  </fieldset>
+
+  <fieldset class="form-group">
     <label for="card-title">Card Title</label>
-    {{input type="text" value=model.title class="form-control" id="card-title" placeholder="Enter the title of the card"}}
-    <small class="text-muted">Give your card a nice title</small>
+    {{input
+      type="text"
+      value=model.title
+      class="form-control"
+      id="card-title"
+      placeholder="Enter the title of the card"
+      focus-out="validateInputTitle"
+    }}
+    {{#if errors.title}}
+      <small class="text-muted text-danger">{{errors.title}}</small>
+    {{/if}}
   </fieldset>
 
   <fieldset class="form-group">
     <label for="card-description">Card Description</label>
-    {{textarea value=model.description class="form-control" id="card-description" rows="5"}}
-    <small class="text-muted">Describe your card</small>
+    {{textarea
+      value=model.description
+      class="form-control"
+      id="card-description"
+      rows="5"
+      focus-out="validateInputDescription"
+    }}
+    {{#if errors.description}}
+      <small class="text-muted text-danger">{{errors.description}}</small>
+    {{/if}}
   </fieldset>
 
   <div class="form-group">
-    <button {{action 'save' model.title model.description model.id}} class="btn btn-success">Save</button>
-    <button {{action 'cancel' model.title model.description model.id}} class="btn btn-link">Cancel</button>
+    <button {{action 'save' model.title model.description model.id model.type}} class="btn btn-success">Save</button>
+    <button {{action 'cancel'}} class="btn btn-link">Cancel</button>
   </div>
 </form>

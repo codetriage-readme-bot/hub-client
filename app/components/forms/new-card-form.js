@@ -20,10 +20,10 @@ export default Ember.Component.extend({
       }
     ]),
   projects: Ember.computed({
-      get() {
-        // Since we are using Ember.inject.service, we need to call the store using the get helper
-          return this.get('store').findAll('project');
-      }
+    get() {
+      // Since we are using Ember.inject.service, we need to call the store using the get helper
+        return this.get('store').findAll('project');
+    }
   }).readOnly(),
   errors: {},
   actions: {
