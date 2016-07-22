@@ -34,6 +34,11 @@ export default Ember.Component.extend({
         this.set('errors.description', 'Description is required!');
         this.set('errors.type', 'Type is required!');
         this.set('errors.project', 'Project is required!');
+
+        $('#card-title').removeClass('form-control-success').addClass('form-control-danger');
+        $('#card-title').closest('.form-group').removeClass('has-success').addClass('has-danger');
+        $('#card-description').removeClass('form-control-success').addClass('form-control-danger');
+        $('#card-description').closest('.form-group').removeClass('has-success').addClass('has-danger');
       } else {
         // get the details about the currently authenticated user
         this.get('store').findRecord('user', this.get('session.data.authenticated.id')).then((user) => {

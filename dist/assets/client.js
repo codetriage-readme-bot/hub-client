@@ -289,6 +289,11 @@ define('client/components/forms/new-card-form', ['exports', 'ember'], function (
           this.set('errors.description', 'Description is required!');
           this.set('errors.type', 'Type is required!');
           this.set('errors.project', 'Project is required!');
+
+          $('#card-title').removeClass('form-control-success').addClass('form-control-danger');
+          $('#card-title').closest('.form-group').removeClass('has-success').addClass('has-danger');
+          $('#card-description').removeClass('form-control-success').addClass('form-control-danger');
+          $('#card-description').closest('.form-group').removeClass('has-success').addClass('has-danger');
         } else {
           // get the details about the currently authenticated user
           this.get('store').findRecord('user', this.get('session.data.authenticated.id')).then((function (user) {
@@ -352,21 +357,33 @@ define('client/components/forms/new-project-form', ['exports', 'ember'], functio
   exports['default'] = _ember['default'].Component.extend({
     store: _ember['default'].inject.service(),
     session: _ember['default'].inject.service('session'),
+    errors: {},
     actions: {
       save: function save() {
         var _this = this;
 
-        // get the details about the currently authenticated user
-        this.get('store').findRecord('user', this.get('session.data.authenticated.id')).then((function (user) {
+        // if the input fields are not filled up, throw some errors
+        if (!this.get('model.title') || !this.get('model.description')) {
+          this.set('errors.title', 'Title is required!');
+          this.set('errors.description', 'Description is required!');
 
-          // set the user as the owner of the current project
-          _this.get('model').set('users', [user]);
+          $('#card-title').removeClass('form-control-success').addClass('form-control-danger');
+          $('#card-title').closest('.form-group').removeClass('has-success').addClass('has-danger');
+          $('#card-description').removeClass('form-control-success').addClass('form-control-danger');
+          $('#card-description').closest('.form-group').removeClass('has-success').addClass('has-danger');
+        } else {
+          // get the details about the currently authenticated user
+          this.get('store').findRecord('user', this.get('session.data.authenticated.id')).then((function (user) {
 
-          _this.get('model').save().then(function (project) {
-            // go to the new item's route after creating it.
-            getOwner(_this).lookup('route:project.project').transitionTo('project.project', project);
-          });
-        }).bind(this));
+            // set the user as the owner of the current project
+            _this.get('model').set('users', [user]);
+
+            _this.get('model').save().then(function (project) {
+              // go to the new item's route after creating it.
+              getOwner(_this).lookup('route:project.project').transitionTo('project.project', project);
+            });
+          }).bind(this));
+        }
       },
 
       cancel: function cancel() {
@@ -376,6 +393,33 @@ define('client/components/forms/new-project-form', ['exports', 'ember'], functio
       setType: function setType(type) {
         this.set('selectedType', type);
         this.get('model').set('type', type);
+      },
+
+      validateInputTitle: function validateInputTitle(data) {
+        if (data) {
+          this.set('errors.title', '');
+
+          $('#card-title').removeClass('form-control-danger').addClass('form-control-success');
+          $('#card-title').closest('.form-group').removeClass('has-danger').addClass('has-success');
+        } else {
+          this.set('errors.title', 'Title is required!');
+
+          $('#card-title').removeClass('form-control-success').addClass('form-control-danger');
+          $('#card-title').closest('.form-group').removeClass('has-success').addClass('has-danger');
+        }
+      },
+
+      validateInputDescription: function validateInputDescription(data) {
+        if (data) {
+          this.set('errors.description', '');
+
+          $('#card-description').removeClass('form-control-danger').addClass('form-control-success');
+          $('#card-description').closest('.form-group').removeClass('has-danger').addClass('has-success');
+        } else {
+          this.set('errors.description', 'Description is required!');
+          $('#card-description').removeClass('form-control-success').addClass('form-control-danger');
+          $('#card-description').closest('.form-group').removeClass('has-success').addClass('has-danger');
+        }
       }
     }
   });
@@ -693,6 +737,7 @@ define('client/routes/card/card/edit', ['exports', 'ember'], function (exports, 
   });
 });
 define('client/routes/card/card', ['exports', 'ember', 'ember-simple-auth/mixins/authenticated-route-mixin'], function (exports, _ember, _emberSimpleAuthMixinsAuthenticatedRouteMixin) {
+  var getOwner = _ember['default'].getOwner;
   exports['default'] = _ember['default'].Route.extend(_emberSimpleAuthMixinsAuthenticatedRouteMixin['default'], {
     model: function model(params) {
       // get the individual card from the store
@@ -702,6 +747,13 @@ define('client/routes/card/card', ['exports', 'ember', 'ember-simple-auth/mixins
     setupController: function setupController(controller, model) {
       this._super(controller, model);
       controller.set('card', model);
+    },
+
+    init: function init() {
+      this._super();
+
+      this.set('isEditing', getOwner(this).lookup('controller:application').currentPath);
+      console.log(getOwner(this).lookup('controller:application'));
     }
   });
 });
@@ -1008,11 +1060,11 @@ define("client/templates/card/card", ["exports"], function (exports) {
           "loc": {
             "source": null,
             "start": {
-              "line": 25,
+              "line": 26,
               "column": 8
             },
             "end": {
-              "line": 25,
+              "line": 26,
               "column": 46
             }
           },
@@ -1049,7 +1101,7 @@ define("client/templates/card/card", ["exports"], function (exports) {
             "column": 0
           },
           "end": {
-            "line": 30,
+            "line": 31,
             "column": 0
           }
         },
@@ -1154,6 +1206,10 @@ define("client/templates/card/card", ["exports"], function (exports) {
         dom.appendChild(el4, el5);
         var el5 = dom.createComment("");
         dom.appendChild(el4, el5);
+        var el5 = dom.createTextNode("\n        ");
+        dom.appendChild(el4, el5);
+        var el5 = dom.createComment("");
+        dom.appendChild(el4, el5);
         var el5 = dom.createTextNode("\n      ");
         dom.appendChild(el4, el5);
         dom.appendChild(el3, el4);
@@ -1176,7 +1232,7 @@ define("client/templates/card/card", ["exports"], function (exports) {
         var element2 = dom.childAt(element1, [3]);
         var element3 = dom.childAt(element2, [3]);
         var element4 = dom.childAt(element3, [1]);
-        var morphs = new Array(7);
+        var morphs = new Array(8);
         morphs[0] = dom.createMorphAt(dom.childAt(element0, [1]), 1, 1);
         morphs[1] = dom.createMorphAt(element1, 1, 1);
         morphs[2] = dom.createMorphAt(element2, 1, 1);
@@ -1184,9 +1240,10 @@ define("client/templates/card/card", ["exports"], function (exports) {
         morphs[4] = dom.createMorphAt(dom.childAt(element4, [3, 1]), 1, 1);
         morphs[5] = dom.createMorphAt(dom.childAt(element4, [5, 1]), 1, 1);
         morphs[6] = dom.createMorphAt(element3, 3, 3);
+        morphs[7] = dom.createMorphAt(element3, 5, 5);
         return morphs;
       },
-      statements: [["content", "layout/side-bar", ["loc", [null, [3, 4], [3, 23]]]], ["content", "layout/secondary-nav-bar", ["loc", [null, [6, 4], [6, 32]]]], ["content", "outlet", ["loc", [null, [8, 6], [8, 16]]]], ["content", "card.type", ["loc", [null, [12, 18], [12, 31]]]], ["content", "card.title", ["loc", [null, [16, 14], [16, 28]]]], ["content", "card.description", ["loc", [null, [21, 14], [21, 34]]]], ["block", "link-to", ["card.card.edit", ["get", "card", ["loc", [null, [25, 36], [25, 40]]]]], [], 0, null, ["loc", [null, [25, 8], [25, 58]]]]],
+      statements: [["content", "layout/side-bar", ["loc", [null, [3, 4], [3, 23]]]], ["content", "layout/secondary-nav-bar", ["loc", [null, [6, 4], [6, 32]]]], ["content", "outlet", ["loc", [null, [8, 6], [8, 16]]]], ["content", "card.type", ["loc", [null, [12, 18], [12, 31]]]], ["content", "card.title", ["loc", [null, [16, 14], [16, 28]]]], ["content", "card.description", ["loc", [null, [21, 14], [21, 34]]]], ["content", "isEditing", ["loc", [null, [25, 8], [25, 21]]]], ["block", "link-to", ["card.card.edit", ["get", "card", ["loc", [null, [26, 36], [26, 40]]]]], [], 0, null, ["loc", [null, [26, 8], [26, 58]]]]],
       locals: [],
       templates: [child0]
     };
@@ -1718,11 +1775,11 @@ define("client/templates/components/forms/edit-card-form", ["exports"], function
           "loc": {
             "source": null,
             "start": {
-              "line": 15,
+              "line": 16,
               "column": 4
             },
             "end": {
-              "line": 17,
+              "line": 18,
               "column": 4
             }
           },
@@ -1750,7 +1807,7 @@ define("client/templates/components/forms/edit-card-form", ["exports"], function
           morphs[0] = dom.createMorphAt(dom.childAt(fragment, [1]), 0, 0);
           return morphs;
         },
-        statements: [["content", "errors.project", ["loc", [null, [16, 44], [16, 62]]]]],
+        statements: [["content", "errors.project", ["loc", [null, [17, 44], [17, 62]]]]],
         locals: [],
         templates: []
       };
@@ -1763,11 +1820,11 @@ define("client/templates/components/forms/edit-card-form", ["exports"], function
           "loc": {
             "source": null,
             "start": {
-              "line": 29,
+              "line": 30,
               "column": 4
             },
             "end": {
-              "line": 31,
+              "line": 32,
               "column": 4
             }
           },
@@ -1795,7 +1852,7 @@ define("client/templates/components/forms/edit-card-form", ["exports"], function
           morphs[0] = dom.createMorphAt(dom.childAt(fragment, [1]), 0, 0);
           return morphs;
         },
-        statements: [["content", "errors.type", ["loc", [null, [30, 44], [30, 59]]]]],
+        statements: [["content", "errors.type", ["loc", [null, [31, 44], [31, 59]]]]],
         locals: [],
         templates: []
       };
@@ -1808,11 +1865,11 @@ define("client/templates/components/forms/edit-card-form", ["exports"], function
           "loc": {
             "source": null,
             "start": {
-              "line": 44,
+              "line": 45,
               "column": 4
             },
             "end": {
-              "line": 46,
+              "line": 47,
               "column": 4
             }
           },
@@ -1840,7 +1897,7 @@ define("client/templates/components/forms/edit-card-form", ["exports"], function
           morphs[0] = dom.createMorphAt(dom.childAt(fragment, [1]), 0, 0);
           return morphs;
         },
-        statements: [["content", "errors.title", ["loc", [null, [45, 44], [45, 60]]]]],
+        statements: [["content", "errors.title", ["loc", [null, [46, 44], [46, 60]]]]],
         locals: [],
         templates: []
       };
@@ -1853,11 +1910,11 @@ define("client/templates/components/forms/edit-card-form", ["exports"], function
           "loc": {
             "source": null,
             "start": {
-              "line": 58,
+              "line": 59,
               "column": 4
             },
             "end": {
-              "line": 60,
+              "line": 61,
               "column": 4
             }
           },
@@ -1885,7 +1942,7 @@ define("client/templates/components/forms/edit-card-form", ["exports"], function
           morphs[0] = dom.createMorphAt(dom.childAt(fragment, [1]), 0, 0);
           return morphs;
         },
-        statements: [["content", "errors.description", ["loc", [null, [59, 44], [59, 66]]]]],
+        statements: [["content", "errors.description", ["loc", [null, [60, 44], [60, 66]]]]],
         locals: [],
         templates: []
       };
@@ -1901,7 +1958,7 @@ define("client/templates/components/forms/edit-card-form", ["exports"], function
             "column": 0
           },
           "end": {
-            "line": 68,
+            "line": 69,
             "column": 0
           }
         },
@@ -1928,6 +1985,13 @@ define("client/templates/components/forms/edit-card-form", ["exports"], function
         var el3 = dom.createTextNode("\n    ");
         dom.appendChild(el2, el3);
         var el3 = dom.createComment("");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("small");
+        dom.setAttribute(el3, "class", "text-muted text-danger");
+        var el4 = dom.createTextNode("You can't edit the project associated with a card");
+        dom.appendChild(el3, el4);
         dom.appendChild(el2, el3);
         var el3 = dom.createTextNode("\n");
         dom.appendChild(el2, el3);
@@ -2041,7 +2105,7 @@ define("client/templates/components/forms/edit-card-form", ["exports"], function
         var element7 = dom.childAt(element5, [3]);
         var morphs = new Array(10);
         morphs[0] = dom.createMorphAt(element1, 3, 3);
-        morphs[1] = dom.createMorphAt(element1, 5, 5);
+        morphs[1] = dom.createMorphAt(element1, 7, 7);
         morphs[2] = dom.createMorphAt(element2, 3, 3);
         morphs[3] = dom.createMorphAt(element2, 5, 5);
         morphs[4] = dom.createMorphAt(element3, 3, 3);
@@ -2052,7 +2116,7 @@ define("client/templates/components/forms/edit-card-form", ["exports"], function
         morphs[9] = dom.createElementMorph(element7);
         return morphs;
       },
-      statements: [["inline", "ember-selectize", [], ["content", ["subexpr", "@mut", [["get", "projects", ["loc", [null, [5, 14], [5, 22]]]]], [], []], "optionValuePath", "content.id", "optionLabelPath", "content.title", "placeholder", "Select a Project", "select-item", "selectProject", "value", ["subexpr", "@mut", [["get", "currentProject.id", ["loc", [null, [10, 12], [10, 29]]]]], [], []], "select-item", "selectProject", "loading", true, "disabled", true], ["loc", [null, [4, 4], [14, 6]]]], ["block", "if", [["get", "errors.project", ["loc", [null, [15, 10], [15, 24]]]]], [], 0, null, ["loc", [null, [15, 4], [17, 11]]]], ["inline", "ember-selectize", [], ["content", ["subexpr", "@mut", [["get", "types", ["loc", [null, [22, 14], [22, 19]]]]], [], []], "optionValuePath", "content.id", "optionLabelPath", "content.title", "value", ["subexpr", "@mut", [["get", "model.type", ["loc", [null, [25, 12], [25, 22]]]]], [], []], "placeholder", "Select a Card Type", "select-item", "selectType"], ["loc", [null, [21, 4], [28, 6]]]], ["block", "if", [["get", "errors.type", ["loc", [null, [29, 10], [29, 21]]]]], [], 1, null, ["loc", [null, [29, 4], [31, 11]]]], ["inline", "input", [], ["type", "text", "value", ["subexpr", "@mut", [["get", "model.title", ["loc", [null, [38, 12], [38, 23]]]]], [], []], "class", "form-control", "id", "card-title", "placeholder", "Enter the title of the card", "focus-out", "validateInputTitle"], ["loc", [null, [36, 4], [43, 6]]]], ["block", "if", [["get", "errors.title", ["loc", [null, [44, 10], [44, 22]]]]], [], 2, null, ["loc", [null, [44, 4], [46, 11]]]], ["inline", "textarea", [], ["value", ["subexpr", "@mut", [["get", "model.description", ["loc", [null, [52, 12], [52, 29]]]]], [], []], "class", "form-control", "id", "card-description", "rows", "5", "focus-out", "validateInputDescription"], ["loc", [null, [51, 4], [57, 6]]]], ["block", "if", [["get", "errors.description", ["loc", [null, [58, 10], [58, 28]]]]], [], 3, null, ["loc", [null, [58, 4], [60, 11]]]], ["element", "action", ["save", ["get", "model.title", ["loc", [null, [64, 28], [64, 39]]]], ["get", "model.description", ["loc", [null, [64, 40], [64, 57]]]], ["get", "model.id", ["loc", [null, [64, 58], [64, 66]]]], ["get", "model.type", ["loc", [null, [64, 67], [64, 77]]]]], [], ["loc", [null, [64, 12], [64, 79]]]], ["element", "action", ["cancel"], [], ["loc", [null, [65, 12], [65, 31]]]]],
+      statements: [["inline", "ember-selectize", [], ["content", ["subexpr", "@mut", [["get", "projects", ["loc", [null, [5, 14], [5, 22]]]]], [], []], "optionValuePath", "content.id", "optionLabelPath", "content.title", "placeholder", "Select a Project", "select-item", "selectProject", "value", ["subexpr", "@mut", [["get", "currentProject.id", ["loc", [null, [10, 12], [10, 29]]]]], [], []], "select-item", "selectProject", "loading", true, "disabled", true], ["loc", [null, [4, 4], [14, 6]]]], ["block", "if", [["get", "errors.project", ["loc", [null, [16, 10], [16, 24]]]]], [], 0, null, ["loc", [null, [16, 4], [18, 11]]]], ["inline", "ember-selectize", [], ["content", ["subexpr", "@mut", [["get", "types", ["loc", [null, [23, 14], [23, 19]]]]], [], []], "optionValuePath", "content.id", "optionLabelPath", "content.title", "value", ["subexpr", "@mut", [["get", "model.type", ["loc", [null, [26, 12], [26, 22]]]]], [], []], "placeholder", "Select a Card Type", "select-item", "selectType"], ["loc", [null, [22, 4], [29, 6]]]], ["block", "if", [["get", "errors.type", ["loc", [null, [30, 10], [30, 21]]]]], [], 1, null, ["loc", [null, [30, 4], [32, 11]]]], ["inline", "input", [], ["type", "text", "value", ["subexpr", "@mut", [["get", "model.title", ["loc", [null, [39, 12], [39, 23]]]]], [], []], "class", "form-control", "id", "card-title", "placeholder", "Enter the title of the card", "focus-out", "validateInputTitle"], ["loc", [null, [37, 4], [44, 6]]]], ["block", "if", [["get", "errors.title", ["loc", [null, [45, 10], [45, 22]]]]], [], 2, null, ["loc", [null, [45, 4], [47, 11]]]], ["inline", "textarea", [], ["value", ["subexpr", "@mut", [["get", "model.description", ["loc", [null, [53, 12], [53, 29]]]]], [], []], "class", "form-control", "id", "card-description", "rows", "5", "focus-out", "validateInputDescription"], ["loc", [null, [52, 4], [58, 6]]]], ["block", "if", [["get", "errors.description", ["loc", [null, [59, 10], [59, 28]]]]], [], 3, null, ["loc", [null, [59, 4], [61, 11]]]], ["element", "action", ["save", ["get", "model.title", ["loc", [null, [65, 28], [65, 39]]]], ["get", "model.description", ["loc", [null, [65, 40], [65, 57]]]], ["get", "model.id", ["loc", [null, [65, 58], [65, 66]]]], ["get", "model.type", ["loc", [null, [65, 67], [65, 77]]]]], [], ["loc", [null, [65, 12], [65, 79]]]], ["element", "action", ["cancel"], [], ["loc", [null, [66, 12], [66, 31]]]]],
       locals: [],
       templates: [child0, child1, child2, child3]
     };
@@ -2532,6 +2596,96 @@ define("client/templates/components/forms/new-card-form", ["exports"], function 
 });
 define("client/templates/components/forms/new-project-form", ["exports"], function (exports) {
   exports["default"] = Ember.HTMLBars.template((function () {
+    var child0 = (function () {
+      return {
+        meta: {
+          "fragmentReason": false,
+          "revision": "Ember@2.6.1",
+          "loc": {
+            "source": null,
+            "start": {
+              "line": 12,
+              "column": 4
+            },
+            "end": {
+              "line": 14,
+              "column": 4
+            }
+          },
+          "moduleName": "client/templates/components/forms/new-project-form.hbs"
+        },
+        isEmpty: false,
+        arity: 0,
+        cachedFragment: null,
+        hasRendered: false,
+        buildFragment: function buildFragment(dom) {
+          var el0 = dom.createDocumentFragment();
+          var el1 = dom.createTextNode("      ");
+          dom.appendChild(el0, el1);
+          var el1 = dom.createElement("small");
+          dom.setAttribute(el1, "class", "text-muted text-danger");
+          var el2 = dom.createComment("");
+          dom.appendChild(el1, el2);
+          dom.appendChild(el0, el1);
+          var el1 = dom.createTextNode("\n");
+          dom.appendChild(el0, el1);
+          return el0;
+        },
+        buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+          var morphs = new Array(1);
+          morphs[0] = dom.createMorphAt(dom.childAt(fragment, [1]), 0, 0);
+          return morphs;
+        },
+        statements: [["content", "errors.title", ["loc", [null, [13, 44], [13, 60]]]]],
+        locals: [],
+        templates: []
+      };
+    })();
+    var child1 = (function () {
+      return {
+        meta: {
+          "fragmentReason": false,
+          "revision": "Ember@2.6.1",
+          "loc": {
+            "source": null,
+            "start": {
+              "line": 26,
+              "column": 4
+            },
+            "end": {
+              "line": 28,
+              "column": 4
+            }
+          },
+          "moduleName": "client/templates/components/forms/new-project-form.hbs"
+        },
+        isEmpty: false,
+        arity: 0,
+        cachedFragment: null,
+        hasRendered: false,
+        buildFragment: function buildFragment(dom) {
+          var el0 = dom.createDocumentFragment();
+          var el1 = dom.createTextNode("      ");
+          dom.appendChild(el0, el1);
+          var el1 = dom.createElement("small");
+          dom.setAttribute(el1, "class", "text-muted text-danger");
+          var el2 = dom.createComment("");
+          dom.appendChild(el1, el2);
+          dom.appendChild(el0, el1);
+          var el1 = dom.createTextNode("\n");
+          dom.appendChild(el0, el1);
+          return el0;
+        },
+        buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+          var morphs = new Array(1);
+          morphs[0] = dom.createMorphAt(dom.childAt(fragment, [1]), 0, 0);
+          return morphs;
+        },
+        statements: [["content", "errors.description", ["loc", [null, [27, 44], [27, 66]]]]],
+        locals: [],
+        templates: []
+      };
+    })();
     return {
       meta: {
         "fragmentReason": false,
@@ -2543,7 +2697,7 @@ define("client/templates/components/forms/new-project-form", ["exports"], functi
             "column": 0
           },
           "end": {
-            "line": 19,
+            "line": 36,
             "column": 0
           }
         },
@@ -2571,14 +2725,11 @@ define("client/templates/components/forms/new-project-form", ["exports"], functi
         dom.appendChild(el2, el3);
         var el3 = dom.createComment("");
         dom.appendChild(el2, el3);
-        var el3 = dom.createTextNode("\n    ");
+        var el3 = dom.createTextNode("\n");
         dom.appendChild(el2, el3);
-        var el3 = dom.createElement("small");
-        dom.setAttribute(el3, "class", "text-muted");
-        var el4 = dom.createTextNode("Give your project a nice title");
-        dom.appendChild(el3, el4);
+        var el3 = dom.createComment("");
         dom.appendChild(el2, el3);
-        var el3 = dom.createTextNode("\n  ");
+        var el3 = dom.createTextNode("  ");
         dom.appendChild(el2, el3);
         dom.appendChild(el1, el2);
         var el2 = dom.createTextNode("\n\n  ");
@@ -2596,14 +2747,11 @@ define("client/templates/components/forms/new-project-form", ["exports"], functi
         dom.appendChild(el2, el3);
         var el3 = dom.createComment("");
         dom.appendChild(el2, el3);
-        var el3 = dom.createTextNode("\n    ");
+        var el3 = dom.createTextNode("\n");
         dom.appendChild(el2, el3);
-        var el3 = dom.createElement("small");
-        dom.setAttribute(el3, "class", "text-muted");
-        var el4 = dom.createTextNode("Describe your project");
-        dom.appendChild(el3, el4);
+        var el3 = dom.createComment("");
         dom.appendChild(el2, el3);
-        var el3 = dom.createTextNode("\n  ");
+        var el3 = dom.createTextNode("  ");
         dom.appendChild(el2, el3);
         dom.appendChild(el1, el2);
         var el2 = dom.createTextNode("\n\n  ");
@@ -2636,19 +2784,23 @@ define("client/templates/components/forms/new-project-form", ["exports"], functi
       },
       buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
         var element0 = dom.childAt(fragment, [0]);
-        var element1 = dom.childAt(element0, [5]);
-        var element2 = dom.childAt(element1, [1]);
-        var element3 = dom.childAt(element1, [3]);
-        var morphs = new Array(4);
-        morphs[0] = dom.createMorphAt(dom.childAt(element0, [1]), 3, 3);
-        morphs[1] = dom.createMorphAt(dom.childAt(element0, [3]), 3, 3);
-        morphs[2] = dom.createElementMorph(element2);
-        morphs[3] = dom.createElementMorph(element3);
+        var element1 = dom.childAt(element0, [1]);
+        var element2 = dom.childAt(element0, [3]);
+        var element3 = dom.childAt(element0, [5]);
+        var element4 = dom.childAt(element3, [1]);
+        var element5 = dom.childAt(element3, [3]);
+        var morphs = new Array(6);
+        morphs[0] = dom.createMorphAt(element1, 3, 3);
+        morphs[1] = dom.createMorphAt(element1, 5, 5);
+        morphs[2] = dom.createMorphAt(element2, 3, 3);
+        morphs[3] = dom.createMorphAt(element2, 5, 5);
+        morphs[4] = dom.createElementMorph(element4);
+        morphs[5] = dom.createElementMorph(element5);
         return morphs;
       },
-      statements: [["inline", "input", [], ["type", "text", "value", ["subexpr", "@mut", [["get", "model.title", ["loc", [null, [4, 30], [4, 41]]]]], [], []], "class", "form-control", "id", "card-title", "placeholder", "Enter the title of the card"], ["loc", [null, [4, 4], [4, 122]]]], ["inline", "textarea", [], ["value", ["subexpr", "@mut", [["get", "model.description", ["loc", [null, [10, 21], [10, 38]]]]], [], []], "class", "form-control", "id", "card-description", "rows", "5"], ["loc", [null, [10, 4], [10, 92]]]], ["element", "action", ["save"], [], ["loc", [null, [15, 12], [15, 29]]]], ["element", "action", ["cancel"], [], ["loc", [null, [16, 12], [16, 31]]]]],
+      statements: [["inline", "input", [], ["type", "text", "value", ["subexpr", "@mut", [["get", "model.title", ["loc", [null, [6, 12], [6, 23]]]]], [], []], "class", "form-control", "id", "card-title", "placeholder", "Enter the title of the card", "focus-out", "validateInputTitle"], ["loc", [null, [4, 4], [11, 6]]]], ["block", "if", [["get", "errors.title", ["loc", [null, [12, 10], [12, 22]]]]], [], 0, null, ["loc", [null, [12, 4], [14, 11]]]], ["inline", "textarea", [], ["value", ["subexpr", "@mut", [["get", "model.description", ["loc", [null, [20, 12], [20, 29]]]]], [], []], "class", "form-control", "id", "card-description", "rows", "5", "focus-out", "validateInputDescription"], ["loc", [null, [19, 4], [25, 6]]]], ["block", "if", [["get", "errors.description", ["loc", [null, [26, 10], [26, 28]]]]], [], 1, null, ["loc", [null, [26, 4], [28, 11]]]], ["element", "action", ["save"], [], ["loc", [null, [32, 12], [32, 29]]]], ["element", "action", ["cancel"], [], ["loc", [null, [33, 12], [33, 31]]]]],
       locals: [],
-      templates: []
+      templates: [child0, child1]
     };
   })());
 });
@@ -4929,7 +5081,7 @@ catch(err) {
 /* jshint ignore:start */
 
 if (!runningTests) {
-  require("client/app")["default"].create({"name":"client","version":"0.0.0+3987baa4"});
+  require("client/app")["default"].create({"name":"client","version":"0.0.0+d545c0e0"});
 }
 
 /* jshint ignore:end */
