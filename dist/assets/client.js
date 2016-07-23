@@ -260,6 +260,14 @@ define('client/components/forms/edit-project-form', ['exports', 'ember'], functi
 define('client/components/forms/new-card-form', ['exports', 'ember'], function (exports, _ember) {
   var getOwner = _ember['default'].getOwner;
   exports['default'] = _ember['default'].Component.extend({
+    init: function init() {
+      this._super();
+
+      this.set('errors.title', '');
+      this.set('errors.description', '');
+      this.set('errors.type', '');
+      this.set('errors.project', '');
+    },
     store: _ember['default'].inject.service(),
     session: _ember['default'].inject.service('session'),
     types: _ember['default'].A([{
@@ -312,6 +320,14 @@ define('client/components/forms/new-card-form', ['exports', 'ember'], function (
       },
 
       cancel: function cancel() {
+        this.set('errors.title', '');
+        this.set('errors.description', '');
+
+        $('#card-title').removeClass('form-control-danger');
+        $('#card-title').closest('.form-group').removeClass('has-success');
+        $('#card-description').removeClass('form-control-danger');
+        $('#card-description').closest('.form-group').removeClass('has-success');
+
         getOwner(this).lookup('route:cards').transitionTo('cards');
       },
 
@@ -355,6 +371,12 @@ define('client/components/forms/new-card-form', ['exports', 'ember'], function (
 define('client/components/forms/new-project-form', ['exports', 'ember'], function (exports, _ember) {
   var getOwner = _ember['default'].getOwner;
   exports['default'] = _ember['default'].Component.extend({
+    init: function init() {
+      this._super();
+
+      this.set('errors.title', '');
+      this.set('errors.description', '');
+    },
     store: _ember['default'].inject.service(),
     session: _ember['default'].inject.service('session'),
     errors: {},
@@ -367,10 +389,10 @@ define('client/components/forms/new-project-form', ['exports', 'ember'], functio
           this.set('errors.title', 'Title is required!');
           this.set('errors.description', 'Description is required!');
 
-          $('#card-title').removeClass('form-control-success').addClass('form-control-danger');
-          $('#card-title').closest('.form-group').removeClass('has-success').addClass('has-danger');
-          $('#card-description').removeClass('form-control-success').addClass('form-control-danger');
-          $('#card-description').closest('.form-group').removeClass('has-success').addClass('has-danger');
+          $('#card-title').addClass('form-control-danger');
+          $('#card-title').closest('.form-group').addClass('has-danger');
+          $('#card-description').addClass('form-control-danger');
+          $('#card-description').closest('.form-group').addClass('has-danger');
         } else {
           // get the details about the currently authenticated user
           this.get('store').findRecord('user', this.get('session.data.authenticated.id')).then((function (user) {
@@ -387,6 +409,14 @@ define('client/components/forms/new-project-form', ['exports', 'ember'], functio
       },
 
       cancel: function cancel() {
+        this.set('errors.title', '');
+        this.set('errors.description', '');
+
+        $('#card-title').removeClass('form-control-danger');
+        $('#card-title').closest('.form-group').removeClass('has-success');
+        $('#card-description').removeClass('form-control-danger');
+        $('#card-description').closest('.form-group').removeClass('has-success');
+
         getOwner(this).lookup('route:projects').transitionTo('projects');
       },
 
@@ -5081,7 +5111,7 @@ catch(err) {
 /* jshint ignore:start */
 
 if (!runningTests) {
-  require("client/app")["default"].create({"name":"client","version":"0.0.0+d545c0e0"});
+  require("client/app")["default"].create({"name":"client","version":"0.0.0+dd7c14b4"});
 }
 
 /* jshint ignore:end */

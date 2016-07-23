@@ -3,6 +3,14 @@ import Ember from 'ember';
 const { getOwner } = Ember;
 
 export default Ember.Component.extend({
+  init() {
+    this._super();
+
+    this.set('errors.title', '');
+    this.set('errors.description', '');
+    this.set('errors.type', '');
+    this.set('errors.project', '');
+  },
   store: Ember.inject.service(),
   session: Ember.inject.service('session'),
   types: Ember.A([
@@ -57,6 +65,14 @@ export default Ember.Component.extend({
     },
 
     cancel() {
+      this.set('errors.title', '');
+      this.set('errors.description', '');
+
+      $('#card-title').removeClass('form-control-danger');
+      $('#card-title').closest('.form-group').removeClass('has-success');
+      $('#card-description').removeClass('form-control-danger');
+      $('#card-description').closest('.form-group').removeClass('has-success');
+
       getOwner(this).lookup('route:cards').transitionTo('cards');
     },
 
