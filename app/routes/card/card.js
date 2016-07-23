@@ -12,12 +12,5 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
   setupController(controller, model) {
     this._super(controller, model);
     controller.set('card', model);
-  },
-
-  init() {
-    this._super();
-
-    this.set('isEditing', getOwner(this).lookup('controller:application').currentPath);
-    console.log(getOwner(this).lookup('controller:application'));
   }
 });

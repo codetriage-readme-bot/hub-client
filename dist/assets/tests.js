@@ -1977,7 +1977,7 @@ define('client/tests/routes/card/card.jshint', ['exports'], function (exports) {
   QUnit.module('JSHint | routes/card/card.js');
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'routes/card/card.js should pass jshint.');
+    assert.ok(false, 'routes/card/card.js should pass jshint.\nroutes/card/card.js: line 4, col 9, \'getOwner\' is defined but never used.\n\n1 error');
   });
 });
 define('client/tests/routes/card/new.jshint', ['exports'], function (exports) {

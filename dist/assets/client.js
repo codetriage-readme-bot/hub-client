@@ -777,13 +777,6 @@ define('client/routes/card/card', ['exports', 'ember', 'ember-simple-auth/mixins
     setupController: function setupController(controller, model) {
       this._super(controller, model);
       controller.set('card', model);
-    },
-
-    init: function init() {
-      this._super();
-
-      this.set('isEditing', getOwner(this).lookup('controller:application').currentPath);
-      console.log(getOwner(this).lookup('controller:application'));
     }
   });
 });
@@ -1090,11 +1083,11 @@ define("client/templates/card/card", ["exports"], function (exports) {
           "loc": {
             "source": null,
             "start": {
-              "line": 26,
+              "line": 25,
               "column": 8
             },
             "end": {
-              "line": 26,
+              "line": 25,
               "column": 46
             }
           },
@@ -1131,7 +1124,7 @@ define("client/templates/card/card", ["exports"], function (exports) {
             "column": 0
           },
           "end": {
-            "line": 31,
+            "line": 30,
             "column": 0
           }
         },
@@ -1236,10 +1229,6 @@ define("client/templates/card/card", ["exports"], function (exports) {
         dom.appendChild(el4, el5);
         var el5 = dom.createComment("");
         dom.appendChild(el4, el5);
-        var el5 = dom.createTextNode("\n        ");
-        dom.appendChild(el4, el5);
-        var el5 = dom.createComment("");
-        dom.appendChild(el4, el5);
         var el5 = dom.createTextNode("\n      ");
         dom.appendChild(el4, el5);
         dom.appendChild(el3, el4);
@@ -1262,7 +1251,7 @@ define("client/templates/card/card", ["exports"], function (exports) {
         var element2 = dom.childAt(element1, [3]);
         var element3 = dom.childAt(element2, [3]);
         var element4 = dom.childAt(element3, [1]);
-        var morphs = new Array(8);
+        var morphs = new Array(7);
         morphs[0] = dom.createMorphAt(dom.childAt(element0, [1]), 1, 1);
         morphs[1] = dom.createMorphAt(element1, 1, 1);
         morphs[2] = dom.createMorphAt(element2, 1, 1);
@@ -1270,10 +1259,9 @@ define("client/templates/card/card", ["exports"], function (exports) {
         morphs[4] = dom.createMorphAt(dom.childAt(element4, [3, 1]), 1, 1);
         morphs[5] = dom.createMorphAt(dom.childAt(element4, [5, 1]), 1, 1);
         morphs[6] = dom.createMorphAt(element3, 3, 3);
-        morphs[7] = dom.createMorphAt(element3, 5, 5);
         return morphs;
       },
-      statements: [["content", "layout/side-bar", ["loc", [null, [3, 4], [3, 23]]]], ["content", "layout/secondary-nav-bar", ["loc", [null, [6, 4], [6, 32]]]], ["content", "outlet", ["loc", [null, [8, 6], [8, 16]]]], ["content", "card.type", ["loc", [null, [12, 18], [12, 31]]]], ["content", "card.title", ["loc", [null, [16, 14], [16, 28]]]], ["content", "card.description", ["loc", [null, [21, 14], [21, 34]]]], ["content", "isEditing", ["loc", [null, [25, 8], [25, 21]]]], ["block", "link-to", ["card.card.edit", ["get", "card", ["loc", [null, [26, 36], [26, 40]]]]], [], 0, null, ["loc", [null, [26, 8], [26, 58]]]]],
+      statements: [["content", "layout/side-bar", ["loc", [null, [3, 4], [3, 23]]]], ["content", "layout/secondary-nav-bar", ["loc", [null, [6, 4], [6, 32]]]], ["content", "outlet", ["loc", [null, [8, 6], [8, 16]]]], ["content", "card.type", ["loc", [null, [12, 18], [12, 31]]]], ["content", "card.title", ["loc", [null, [16, 14], [16, 28]]]], ["content", "card.description", ["loc", [null, [21, 14], [21, 34]]]], ["block", "link-to", ["card.card.edit", ["get", "card", ["loc", [null, [25, 36], [25, 40]]]]], [], 0, null, ["loc", [null, [25, 8], [25, 58]]]]],
       locals: [],
       templates: [child0]
     };
