@@ -3,7 +3,7 @@ import Ember from 'ember';
 export default Ember.Route.extend({
   model(params) {
     // get the individual project from the store
-    return this.store.find('project', params.project_id);
+    return this.store.find('project', params.slug);
   },
 
   setupController(controller, model) {

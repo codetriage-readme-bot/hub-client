@@ -465,6 +465,9 @@ define('client/components/forms/signin-form', ['exports', 'ember'], function (ex
     }
   });
 });
+define('client/components/infinity-loader', ['exports', 'ember-infinity/components/infinity-loader'], function (exports, _emberInfinityComponentsInfinityLoader) {
+  exports['default'] = _emberInfinityComponentsInfinityLoader['default'];
+});
 define('client/components/layout/nav-bar', ['exports', 'ember'], function (exports, _ember) {
   exports['default'] = _ember['default'].Component.extend({
     session: _ember['default'].inject.service('session'),
@@ -689,6 +692,7 @@ define('client/models/card', ['exports', 'ember-data/model', 'ember-data/attr', 
     description: (0, _emberDataAttr['default'])('string'),
     type: (0, _emberDataAttr['default'])('string'),
     project_id: (0, _emberDataAttr['default'])('number'),
+    slug: (0, _emberDataAttr['default'])('string'),
     users: (0, _emberDataRelationships.hasMany)('user'),
     project: (0, _emberDataRelationships.belongsTo)('project')
   });
@@ -697,6 +701,7 @@ define('client/models/project', ['exports', 'ember-data/model', 'ember-data/attr
   exports['default'] = _emberDataModel['default'].extend({
     title: (0, _emberDataAttr['default'])('string'),
     description: (0, _emberDataAttr['default'])('string'),
+    slug: (0, _emberDataAttr['default'])('string'),
     users: (0, _emberDataRelationships.hasMany)('user'),
     cards: (0, _emberDataRelationships.hasMany)('card')
   });
@@ -705,6 +710,7 @@ define('client/models/user', ['exports', 'ember-data/model', 'ember-data/attr', 
   exports['default'] = _emberDataModel['default'].extend({
     email: (0, _emberDataAttr['default'])('string'),
     name: (0, _emberDataAttr['default'])('string'),
+    slug: (0, _emberDataAttr['default'])('string'),
     cards: (0, _emberDataRelationships.hasMany)('card'),
     projects: (0, _emberDataRelationships.hasMany)('project')
   });
@@ -728,7 +734,7 @@ define('client/router', ['exports', 'ember', 'client/config/environment'], funct
 
     // route for the single user
     this.route('user', function () {
-      this.route('user', { path: '/:user_id' });
+      this.route('user', { path: '/:slug' });
     });
 
     // route for all the cards
@@ -736,7 +742,7 @@ define('client/router', ['exports', 'ember', 'client/config/environment'], funct
 
     // route for the single card
     this.route('card', function () {
-      this.route('card', { path: '/:card_id' }, function () {
+      this.route('card', { path: '/:slug' }, function () {
         this.route('edit');
       });
       this.route('new');
@@ -746,7 +752,7 @@ define('client/router', ['exports', 'ember', 'client/config/environment'], funct
     this.route('projects');
 
     this.route('project', function () {
-      this.route('project', { path: '/:project_id' }, function () {
+      this.route('project', { path: '/:slug' }, function () {
         this.route('edit');
       });
       this.route('new');
@@ -771,7 +777,7 @@ define('client/routes/card/card', ['exports', 'ember', 'ember-simple-auth/mixins
   exports['default'] = _ember['default'].Route.extend(_emberSimpleAuthMixinsAuthenticatedRouteMixin['default'], {
     model: function model(params) {
       // get the individual card from the store
-      return this.store.find('card', params.card_id);
+      return this.store.find('card', params.slug);
     },
 
     setupController: function setupController(controller, model) {
@@ -831,7 +837,7 @@ define('client/routes/project/project', ['exports', 'ember'], function (exports,
   exports['default'] = _ember['default'].Route.extend({
     model: function model(params) {
       // get the individual project from the store
-      return this.store.find('project', params.project_id);
+      return this.store.find('project', params.slug);
     },
 
     setupController: function setupController(controller, model) {
@@ -2933,6 +2939,224 @@ define("client/templates/components/forms/signin-form", ["exports"], function (e
       statements: [["element", "action", ["authenticate"], ["on", "submit"], ["loc", [null, [3, 10], [3, 47]]]], ["inline", "input", [], ["value", ["subexpr", "@mut", [["get", "email", ["loc", [null, [6, 22], [6, 27]]]]], [], []], "type", "email", "class", "form-control", "id", "exampleInputEmail1", "placeholder", "Enter email"], ["loc", [null, [6, 8], [6, 113]]]], ["inline", "input", [], ["value", ["subexpr", "@mut", [["get", "password", ["loc", [null, [11, 22], [11, 30]]]]], [], []], "type", "password", "class", "form-control", "id", "exampleInputPassword1", "placeholder", "Password"], ["loc", [null, [11, 8], [11, 119]]]]],
       locals: [],
       templates: []
+    };
+  })());
+});
+define("client/templates/components/infinity-loader", ["exports"], function (exports) {
+  exports["default"] = Ember.HTMLBars.template((function () {
+    var child0 = (function () {
+      return {
+        meta: {
+          "fragmentReason": {
+            "name": "missing-wrapper",
+            "problems": ["wrong-type"]
+          },
+          "revision": "Ember@2.6.1",
+          "loc": {
+            "source": null,
+            "start": {
+              "line": 1,
+              "column": 0
+            },
+            "end": {
+              "line": 3,
+              "column": 0
+            }
+          },
+          "moduleName": "client/templates/components/infinity-loader.hbs"
+        },
+        isEmpty: false,
+        arity: 0,
+        cachedFragment: null,
+        hasRendered: false,
+        buildFragment: function buildFragment(dom) {
+          var el0 = dom.createDocumentFragment();
+          var el1 = dom.createTextNode("  ");
+          dom.appendChild(el0, el1);
+          var el1 = dom.createComment("");
+          dom.appendChild(el0, el1);
+          var el1 = dom.createTextNode("\n");
+          dom.appendChild(el0, el1);
+          return el0;
+        },
+        buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+          var morphs = new Array(1);
+          morphs[0] = dom.createMorphAt(fragment, 1, 1, contextualElement);
+          return morphs;
+        },
+        statements: [["content", "yield", ["loc", [null, [2, 2], [2, 11]]]]],
+        locals: [],
+        templates: []
+      };
+    })();
+    var child1 = (function () {
+      var child0 = (function () {
+        return {
+          meta: {
+            "fragmentReason": false,
+            "revision": "Ember@2.6.1",
+            "loc": {
+              "source": null,
+              "start": {
+                "line": 4,
+                "column": 2
+              },
+              "end": {
+                "line": 6,
+                "column": 2
+              }
+            },
+            "moduleName": "client/templates/components/infinity-loader.hbs"
+          },
+          isEmpty: false,
+          arity: 0,
+          cachedFragment: null,
+          hasRendered: false,
+          buildFragment: function buildFragment(dom) {
+            var el0 = dom.createDocumentFragment();
+            var el1 = dom.createTextNode("    ");
+            dom.appendChild(el0, el1);
+            var el1 = dom.createElement("span");
+            var el2 = dom.createComment("");
+            dom.appendChild(el1, el2);
+            dom.appendChild(el0, el1);
+            var el1 = dom.createTextNode("\n");
+            dom.appendChild(el0, el1);
+            return el0;
+          },
+          buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+            var morphs = new Array(1);
+            morphs[0] = dom.createMorphAt(dom.childAt(fragment, [1]), 0, 0);
+            return morphs;
+          },
+          statements: [["content", "loadedText", ["loc", [null, [5, 10], [5, 24]]]]],
+          locals: [],
+          templates: []
+        };
+      })();
+      var child1 = (function () {
+        return {
+          meta: {
+            "fragmentReason": false,
+            "revision": "Ember@2.6.1",
+            "loc": {
+              "source": null,
+              "start": {
+                "line": 6,
+                "column": 2
+              },
+              "end": {
+                "line": 8,
+                "column": 2
+              }
+            },
+            "moduleName": "client/templates/components/infinity-loader.hbs"
+          },
+          isEmpty: false,
+          arity: 0,
+          cachedFragment: null,
+          hasRendered: false,
+          buildFragment: function buildFragment(dom) {
+            var el0 = dom.createDocumentFragment();
+            var el1 = dom.createTextNode("    ");
+            dom.appendChild(el0, el1);
+            var el1 = dom.createElement("span");
+            var el2 = dom.createComment("");
+            dom.appendChild(el1, el2);
+            dom.appendChild(el0, el1);
+            var el1 = dom.createTextNode("\n");
+            dom.appendChild(el0, el1);
+            return el0;
+          },
+          buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+            var morphs = new Array(1);
+            morphs[0] = dom.createMorphAt(dom.childAt(fragment, [1]), 0, 0);
+            return morphs;
+          },
+          statements: [["content", "loadingText", ["loc", [null, [7, 10], [7, 25]]]]],
+          locals: [],
+          templates: []
+        };
+      })();
+      return {
+        meta: {
+          "fragmentReason": false,
+          "revision": "Ember@2.6.1",
+          "loc": {
+            "source": null,
+            "start": {
+              "line": 3,
+              "column": 0
+            },
+            "end": {
+              "line": 9,
+              "column": 0
+            }
+          },
+          "moduleName": "client/templates/components/infinity-loader.hbs"
+        },
+        isEmpty: false,
+        arity: 0,
+        cachedFragment: null,
+        hasRendered: false,
+        buildFragment: function buildFragment(dom) {
+          var el0 = dom.createDocumentFragment();
+          var el1 = dom.createComment("");
+          dom.appendChild(el0, el1);
+          return el0;
+        },
+        buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+          var morphs = new Array(1);
+          morphs[0] = dom.createMorphAt(fragment, 0, 0, contextualElement);
+          dom.insertBoundary(fragment, 0);
+          dom.insertBoundary(fragment, null);
+          return morphs;
+        },
+        statements: [["block", "if", [["get", "infinityModel.reachedInfinity", ["loc", [null, [4, 8], [4, 37]]]]], [], 0, 1, ["loc", [null, [4, 2], [8, 9]]]]],
+        locals: [],
+        templates: [child0, child1]
+      };
+    })();
+    return {
+      meta: {
+        "fragmentReason": {
+          "name": "missing-wrapper",
+          "problems": ["wrong-type"]
+        },
+        "revision": "Ember@2.6.1",
+        "loc": {
+          "source": null,
+          "start": {
+            "line": 1,
+            "column": 0
+          },
+          "end": {
+            "line": 10,
+            "column": 0
+          }
+        },
+        "moduleName": "client/templates/components/infinity-loader.hbs"
+      },
+      isEmpty: false,
+      arity: 0,
+      cachedFragment: null,
+      hasRendered: false,
+      buildFragment: function buildFragment(dom) {
+        var el0 = dom.createDocumentFragment();
+        var el1 = dom.createComment("");
+        dom.appendChild(el0, el1);
+        return el0;
+      },
+      buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+        var morphs = new Array(1);
+        morphs[0] = dom.createMorphAt(fragment, 0, 0, contextualElement);
+        dom.insertBoundary(fragment, 0);
+        dom.insertBoundary(fragment, null);
+        return morphs;
+      },
+      statements: [["block", "if", [["get", "hasBlock", ["loc", [null, [1, 6], [1, 14]]]]], [], 0, 1, ["loc", [null, [1, 0], [9, 7]]]]],
+      locals: [],
+      templates: [child0, child1]
     };
   })());
 });
@@ -5099,7 +5323,7 @@ catch(err) {
 /* jshint ignore:start */
 
 if (!runningTests) {
-  require("client/app")["default"].create({"name":"client","version":"0.0.0+dd7c14b4"});
+  require("client/app")["default"].create({"name":"client","version":"0.0.0+7b839a6a"});
 }
 
 /* jshint ignore:end */

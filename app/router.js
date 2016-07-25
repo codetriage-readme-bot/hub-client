@@ -15,7 +15,7 @@ Router.map(function() {
 
   // route for the single user
   this.route('user', function() {
-    this.route('user', { path: '/:user_id' });
+    this.route('user', { path: '/:slug' });
   });
 
   // route for all the cards
@@ -23,7 +23,7 @@ Router.map(function() {
 
   // route for the single card
   this.route('card', function() {
-    this.route('card', { path: '/:card_id' }, function() {
+    this.route('card', { path: '/:slug' }, function() {
       this.route('edit');
     });
     this.route('new');
@@ -33,7 +33,7 @@ Router.map(function() {
   this.route('projects');
 
   this.route('project', function() {
-    this.route('project', { path: '/:project_id' }, function() {
+    this.route('project', { path: '/:slug' }, function() {
       this.route('edit');
     });
     this.route('new');
