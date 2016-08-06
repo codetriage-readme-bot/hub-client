@@ -2978,6 +2978,48 @@ define("client/templates/components/layout/nav-bar", ["exports"], function (expo
       };
     })();
     var child1 = (function () {
+      var child0 = (function () {
+        return {
+          meta: {
+            "fragmentReason": false,
+            "revision": "Ember@2.6.1",
+            "loc": {
+              "source": null,
+              "start": {
+                "line": 7,
+                "column": 10
+              },
+              "end": {
+                "line": 9,
+                "column": 10
+              }
+            },
+            "moduleName": "client/templates/components/layout/nav-bar.hbs"
+          },
+          isEmpty: false,
+          arity: 0,
+          cachedFragment: null,
+          hasRendered: false,
+          buildFragment: function buildFragment(dom) {
+            var el0 = dom.createDocumentFragment();
+            var el1 = dom.createTextNode("            ");
+            dom.appendChild(el0, el1);
+            var el1 = dom.createComment("");
+            dom.appendChild(el0, el1);
+            var el1 = dom.createTextNode("\n");
+            dom.appendChild(el0, el1);
+            return el0;
+          },
+          buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+            var morphs = new Array(1);
+            morphs[0] = dom.createMorphAt(fragment, 1, 1, contextualElement);
+            return morphs;
+          },
+          statements: [["content", "session.data.authenticated.name", ["loc", [null, [8, 12], [8, 47]]]]],
+          locals: [],
+          templates: []
+        };
+      })();
       return {
         meta: {
           "fragmentReason": false,
@@ -2989,7 +3031,7 @@ define("client/templates/components/layout/nav-bar", ["exports"], function (expo
               "column": 6
             },
             "end": {
-              "line": 12,
+              "line": 14,
               "column": 6
             }
           },
@@ -3005,14 +3047,11 @@ define("client/templates/components/layout/nav-bar", ["exports"], function (expo
           dom.appendChild(el0, el1);
           var el1 = dom.createElement("li");
           dom.setAttribute(el1, "class", "nav-item c-nav-bar__list");
-          var el2 = dom.createTextNode("\n          ");
+          var el2 = dom.createTextNode("\n");
           dom.appendChild(el1, el2);
-          var el2 = dom.createElement("a");
-          dom.setAttribute(el2, "class", "nav-link c-nav-bar__link");
-          var el3 = dom.createComment("");
-          dom.appendChild(el2, el3);
+          var el2 = dom.createComment("");
           dom.appendChild(el1, el2);
-          var el2 = dom.createTextNode("\n        ");
+          var el2 = dom.createTextNode("        ");
           dom.appendChild(el1, el2);
           dom.appendChild(el0, el1);
           var el1 = dom.createTextNode("\n        ");
@@ -3036,13 +3075,13 @@ define("client/templates/components/layout/nav-bar", ["exports"], function (expo
         buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
           var element0 = dom.childAt(fragment, [3, 1]);
           var morphs = new Array(2);
-          morphs[0] = dom.createMorphAt(dom.childAt(fragment, [1, 1]), 0, 0);
+          morphs[0] = dom.createMorphAt(dom.childAt(fragment, [1]), 1, 1);
           morphs[1] = dom.createElementMorph(element0);
           return morphs;
         },
-        statements: [["content", "session.data.authenticated.name", ["loc", [null, [7, 46], [7, 81]]]], ["element", "action", ["invalidateSession"], [], ["loc", [null, [10, 13], [10, 43]]]]],
+        statements: [["block", "link-to", ["user.user", ["get", "session.data.authenticated.id", ["loc", [null, [7, 33], [7, 62]]]]], ["class", "nav-link c-nav-bar__link"], 0, null, ["loc", [null, [7, 10], [9, 22]]]], ["element", "action", ["invalidateSession"], [], ["loc", [null, [12, 13], [12, 43]]]]],
         locals: [],
-        templates: []
+        templates: [child0]
       };
     })();
     var child2 = (function () {
@@ -3054,11 +3093,11 @@ define("client/templates/components/layout/nav-bar", ["exports"], function (expo
             "loc": {
               "source": null,
               "start": {
-                "line": 14,
+                "line": 16,
                 "column": 10
               },
               "end": {
-                "line": 14,
+                "line": 16,
                 "column": 96
               }
             },
@@ -3089,11 +3128,11 @@ define("client/templates/components/layout/nav-bar", ["exports"], function (expo
           "loc": {
             "source": null,
             "start": {
-              "line": 12,
+              "line": 14,
               "column": 6
             },
             "end": {
-              "line": 16,
+              "line": 18,
               "column": 6
             }
           },
@@ -3125,7 +3164,7 @@ define("client/templates/components/layout/nav-bar", ["exports"], function (expo
           morphs[0] = dom.createMorphAt(dom.childAt(fragment, [1]), 1, 1);
           return morphs;
         },
-        statements: [["block", "link-to", ["signin"], ["class", "nav-link c-nav-bar__link c-nav-bar__link--sign-in"], 0, null, ["loc", [null, [14, 10], [14, 108]]]]],
+        statements: [["block", "link-to", ["signin"], ["class", "nav-link c-nav-bar__link c-nav-bar__link--sign-in"], 0, null, ["loc", [null, [16, 10], [16, 108]]]]],
         locals: [],
         templates: [child0]
       };
@@ -3143,7 +3182,7 @@ define("client/templates/components/layout/nav-bar", ["exports"], function (expo
             "column": 0
           },
           "end": {
-            "line": 20,
+            "line": 22,
             "column": 0
           }
         },
@@ -3193,7 +3232,7 @@ define("client/templates/components/layout/nav-bar", ["exports"], function (expo
         morphs[1] = dom.createMorphAt(dom.childAt(element1, [3, 1]), 1, 1);
         return morphs;
       },
-      statements: [["block", "link-to", ["application"], ["class", "navbar-brand"], 0, null, ["loc", [null, [2, 2], [2, 55]]]], ["block", "if", [["get", "session.isAuthenticated", ["loc", [null, [5, 12], [5, 35]]]]], [], 1, 2, ["loc", [null, [5, 6], [16, 13]]]]],
+      statements: [["block", "link-to", ["application"], ["class", "navbar-brand"], 0, null, ["loc", [null, [2, 2], [2, 55]]]], ["block", "if", [["get", "session.isAuthenticated", ["loc", [null, [5, 12], [5, 35]]]]], [], 1, 2, ["loc", [null, [5, 6], [18, 13]]]]],
       locals: [],
       templates: [child0, child1, child2]
     };
@@ -5102,7 +5141,7 @@ catch(err) {
 /* jshint ignore:start */
 
 if (!runningTests) {
-  require("client/app")["default"].create({"name":"client","version":"0.0.0+2a963574"});
+  require("client/app")["default"].create({"name":"client","version":"0.0.0+952c6a65"});
 }
 
 /* jshint ignore:end */
