@@ -6394,101 +6394,132 @@ QUnit.notifications = function( options ) {
   }
 };
 
-/* globals jQuery,QUnit */
+/* globals jQuery, QUnit */
 
-QUnit.config.urlConfig.push({ id: 'nocontainer', label: 'Hide container'});
-QUnit.config.urlConfig.push({ id: 'nolint', label: 'Disable Linting'});
-QUnit.config.urlConfig.push({ id: 'dockcontainer', label: 'Dock container'});
-QUnit.config.urlConfig.push({ id: 'devmode', label: 'Development mode' });
+(function() {
+  QUnit.config.urlConfig.push({ id: 'nocontainer', label: 'Hide container'});
+  QUnit.config.urlConfig.push({ id: 'nolint', label: 'Disable Linting'});
+  QUnit.config.urlConfig.push({ id: 'dockcontainer', label: 'Dock container'});
+  QUnit.config.urlConfig.push({ id: 'devmode', label: 'Development mode' });
 
-QUnit.config.testTimeout = QUnit.urlParams.devmode ? null : 60000; //Default Test Timeout 60 Seconds
+  QUnit.config.testTimeout = QUnit.urlParams.devmode ? null : 60000; //Default Test Timeout 60 Seconds
 
-if (QUnit.notifications) {
-  QUnit.notifications({
-    icons: {
-      passed: '/assets/passed.png',
-      failed: '/assets/failed.png'
-    }
-  });
-}
-
-jQuery(document).ready(function() {
-  var testContainer = document.getElementById('ember-testing-container');
-  if (!testContainer) { return; }
-
-  var params = QUnit.urlParams;
-
-  var containerVisibility = params.nocontainer ? 'hidden' : 'visible';
-  var containerPosition = (params.dockcontainer || params.devmode) ? 'absolute' : 'relative';
-
-  if (params.devmode) {
-    testContainer.className = ' full-screen';
+  if (QUnit.notifications) {
+    QUnit.notifications({
+      icons: {
+        passed: '/assets/passed.png',
+        failed: '/assets/failed.png'
+      }
+    });
   }
 
-  testContainer.style.visibility = containerVisibility;
-  testContainer.style.position = containerPosition;
-});
+  function ready(fn) {
+    if (typeof jQuery === 'function') {
+      jQuery(document).ready(fn);
+      return;
+    }
+
+    if (document.readyState != 'loading'){
+      fn();
+    } else {
+      document.addEventListener('DOMContentLoaded', fn);
+    }
+  }
+
+  ready(function() {
+    var testContainer = document.getElementById('ember-testing-container');
+    if (!testContainer) { return; }
+
+    var params = QUnit.urlParams;
+
+    var containerVisibility = params.nocontainer ? 'hidden' : 'visible';
+    var containerPosition = (params.dockcontainer || params.devmode) ? 'absolute' : 'relative';
+
+    if (params.devmode) {
+      testContainer.className = ' full-screen';
+    }
+
+    testContainer.style.visibility = containerVisibility;
+    testContainer.style.position = containerPosition;
+  });
+})();
 
 /* globals jQuery, QUnit, require, requirejs */
 
-jQuery(document).ready(function() {
-  var testLoaderModulePath = 'ember-cli-test-loader/test-support/index';
-
-  if (!requirejs.entries[testLoaderModulePath]) {
-    testLoaderModulePath = 'ember-cli/test-loader';
-  }
-
-  var TestLoaderModule = require(testLoaderModulePath);
-  var TestLoader = TestLoaderModule['default'];
-  var addModuleExcludeMatcher = TestLoaderModule['addModuleExcludeMatcher'];
-  var addModuleIncludeMatcher = TestLoaderModule['addModuleIncludeMatcher'];
-
-  function excludeModule(moduleName) {
-    return QUnit.urlParams.nolint &&
-           moduleName.match(/\.(jshint|lint-test)$/);
-  }
-
-  function includeModule(moduleName) {
-    return moduleName.match(/\.jshint$/);
-  }
-
-  if (addModuleExcludeMatcher && addModuleIncludeMatcher) {
-    addModuleExcludeMatcher(excludeModule);
-    addModuleIncludeMatcher(includeModule);
-  } else {
-    TestLoader.prototype.shouldLoadModule = function shouldLoadModule(moduleName) {
-      return (moduleName.match(/[-_]test$/) || includeModule(moduleName)) && !excludeModule(moduleName);
-    };
-  }
-
-  var moduleLoadFailures = [];
-
-  TestLoader.prototype.moduleLoadFailure = function(moduleName, error) {
-    moduleLoadFailures.push(error);
-
-    QUnit.module('TestLoader Failures');
-    QUnit.test(moduleName + ': could not be loaded', function() {
-      throw error;
-    });
-  };
-
-  QUnit.done(function() {
-    if (moduleLoadFailures.length) {
-      throw new Error('\n' + moduleLoadFailures.join('\n'));
+(function() {
+  function ready(fn) {
+    if (typeof jQuery === 'function') {
+      jQuery(document).ready(fn);
+      return;
     }
+
+    if (document.readyState != 'loading'){
+      fn();
+    } else {
+      document.addEventListener('DOMContentLoaded', fn);
+    }
+  }
+
+  ready(function() {
+    var testLoaderModulePath = 'ember-cli-test-loader/test-support/index';
+
+    if (!requirejs.entries[testLoaderModulePath]) {
+      testLoaderModulePath = 'ember-cli/test-loader';
+    }
+
+    var TestLoaderModule = require(testLoaderModulePath);
+    var TestLoader = TestLoaderModule['default'];
+    var addModuleExcludeMatcher = TestLoaderModule['addModuleExcludeMatcher'];
+    var addModuleIncludeMatcher = TestLoaderModule['addModuleIncludeMatcher'];
+
+    function excludeModule(moduleName) {
+      return QUnit.urlParams.nolint &&
+        moduleName.match(/\.(jshint|lint-test)$/);
+    }
+
+    function includeModule(moduleName) {
+      return moduleName.match(/\.jshint$/);
+    }
+
+    if (addModuleExcludeMatcher && addModuleIncludeMatcher) {
+      addModuleExcludeMatcher(excludeModule);
+      addModuleIncludeMatcher(includeModule);
+    } else {
+      TestLoader.prototype.shouldLoadModule = function shouldLoadModule(moduleName) {
+        return (moduleName.match(/[-_]test$/) || includeModule(moduleName)) && !excludeModule(moduleName);
+      };
+    }
+
+    var moduleLoadFailures = [];
+
+    TestLoader.prototype.moduleLoadFailure = function(moduleName, error) {
+      moduleLoadFailures.push(error);
+
+      QUnit.module('TestLoader Failures');
+      QUnit.test(moduleName + ': could not be loaded', function() {
+        throw error;
+      });
+    };
+
+    QUnit.done(function() {
+      if (moduleLoadFailures.length) {
+        throw new Error('\n' + moduleLoadFailures.join('\n'));
+      }
+    });
+
+    var autostart = QUnit.config.autostart !== false;
+    QUnit.config.autostart = false;
+
+    setTimeout(function() {
+      TestLoader.load();
+
+      if (autostart) {
+        QUnit.start();
+      }
+    }, 250);
   });
 
-  var autostart = QUnit.config.autostart !== false;
-  QUnit.config.autostart = false;
-
-  setTimeout(function() {
-    TestLoader.load();
-
-    if (autostart) {
-      QUnit.start();
-    }
-  }, 250);
-});
+})();
 
 define('ember-qunit/module-for-component', ['exports', 'ember-qunit/qunit-module', 'ember-test-helpers'], function (exports, _emberQunitQunitModule, _emberTestHelpers) {
   'use strict';
@@ -6716,6 +6747,8 @@ define('ember-test-helpers/-legacy-overrides', ['exports', 'ember', 'ember-test-
       _ember['default'].run(function () {
         module.component.appendTo('#ember-testing');
       });
+
+      context._element = module.component.element;
     };
 
     context.$ = function () {
@@ -6860,8 +6893,11 @@ define('ember-test-helpers/abstract-test-module', ['exports', 'klassy', 'ember-t
     },
 
     setupTestElements: function setupTestElements() {
-      if (_ember['default'].$('#ember-testing').length === 0) {
-        _ember['default'].$('<div id="ember-testing"/>').appendTo(document.body);
+      if (!document.querySelector('#ember-testing')) {
+        var element = document.createElement('div');
+        element.setAttribute('id', 'ember-testing');
+
+        document.body.appendChild(element);
       }
     },
 
@@ -6883,7 +6919,7 @@ define('ember-test-helpers/abstract-test-module', ['exports', 'klassy', 'ember-t
     },
 
     teardownTestElements: function teardownTestElements() {
-      _ember['default'].$('#ember-testing').empty();
+      document.getElementById('ember-testing').innerHTML = '';
 
       // Ember 2.0.0 removed Ember.View as public API, so only do this when
       // Ember.View is present
@@ -6957,6 +6993,10 @@ define('ember-test-helpers/build-registry', ['exports', 'ember'], function (expo
       registry = new _ember['default'].Registry({
         fallback: fallbackRegistry
       });
+
+      if (_ember['default'].ApplicationInstance && _ember['default'].ApplicationInstance.setupRegistry) {
+        _ember['default'].ApplicationInstance.setupRegistry(registry);
+      }
 
       // these properties are set on the fallback registry by `buildRegistry`
       // and on the primary registry within the ApplicationInstance constructor
@@ -7093,6 +7133,8 @@ define('ember-test-helpers/test-module-for-acceptance', ['exports', 'ember-test-
 define('ember-test-helpers/test-module-for-component', ['exports', 'ember-test-helpers/test-module', 'ember', 'ember-test-helpers/test-resolver', 'ember-test-helpers/has-ember-version', 'ember-test-helpers/-legacy-overrides'], function (exports, _emberTestHelpersTestModule, _ember, _emberTestHelpersTestResolver, _emberTestHelpersHasEmberVersion, _emberTestHelpersLegacyOverrides) {
   'use strict';
 
+  exports.setupComponentIntegrationTest = setupComponentIntegrationTest;
+
   var ACTION_KEY = undefined;
   if ((0, _emberTestHelpersHasEmberVersion['default'])(2, 0)) {
     ACTION_KEY = 'actions';
@@ -7100,6 +7142,7 @@ define('ember-test-helpers/test-module-for-component', ['exports', 'ember-test-h
     ACTION_KEY = '_actions';
   }
 
+  var getOwner = _ember['default'].getOwner;
   exports['default'] = _emberTestHelpersTestModule['default'].extend({
     isComponentTestModule: true,
 
@@ -7180,6 +7223,8 @@ define('ember-test-helpers/test-module-for-component', ['exports', 'ember-test-h
       context.dispatcher = this.container.lookup('event_dispatcher:main') || _ember['default'].EventDispatcher.create();
       context.dispatcher.setup({}, '#ember-testing');
 
+      context._element = null;
+
       this.callbacks.render = function () {
         var subject;
 
@@ -7187,6 +7232,8 @@ define('ember-test-helpers/test-module-for-component', ['exports', 'ember-test-h
           subject = context.subject();
           subject.appendTo('#ember-testing');
         });
+
+        context._element = subject.element;
 
         _this.teardownSteps.unshift(function () {
           _ember['default'].run(function () {
@@ -7212,108 +7259,7 @@ define('ember-test-helpers/test-module-for-component', ['exports', 'ember-test-h
       if (!(0, _emberTestHelpersHasEmberVersion['default'])(1, 13)) {
         return _emberTestHelpersLegacyOverrides.preGlimmerSetupIntegrationForComponent;
       } else {
-        return function () {
-          var module = this;
-          var context = this.context;
-
-          this.actionHooks = context[ACTION_KEY] = {};
-          context.dispatcher = this.container.lookup('event_dispatcher:main') || _ember['default'].EventDispatcher.create();
-          context.dispatcher.setup({}, '#ember-testing');
-
-          var OutletView = module.container.lookupFactory('view:-outlet');
-          var toplevelView = module.component = OutletView.create();
-          toplevelView.setOutletState({ render: {}, outlets: {} });
-
-          var element = document.getElementById('ember-testing');
-          _ember['default'].run(module.component, 'appendTo', '#ember-testing');
-
-          context.render = function (template) {
-            if (!template) {
-              throw new Error("in a component integration test you must pass a template to `render()`");
-            }
-            if (_ember['default'].isArray(template)) {
-              template = template.join('');
-            }
-            if (typeof template === 'string') {
-              template = _ember['default'].Handlebars.compile(template);
-            }
-
-            _ember['default'].run(function () {
-              toplevelView.setOutletState({
-                render: {
-                  controller: module.context,
-                  template: template
-                },
-
-                outlets: {}
-              });
-            });
-
-            // ensure the element is based on the wrapping toplevel view
-            // Ember still wraps the main application template with a
-            // normal tagged view
-            element = _ember['default'].$('#ember-testing > .ember-view');
-          };
-
-          context.$ = function (selector) {
-            // emulates Ember internal behavor of `this.$` in a component
-            // https://github.com/emberjs/ember.js/blob/v2.5.1/packages/ember-views/lib/views/states/has_element.js#L18
-            return selector ? _ember['default'].$(selector, element) : _ember['default'].$(element);
-          };
-
-          context.set = function (key, value) {
-            var ret = _ember['default'].run(function () {
-              return _ember['default'].set(context, key, value);
-            });
-
-            if ((0, _emberTestHelpersHasEmberVersion['default'])(2, 0)) {
-              return ret;
-            }
-          };
-
-          context.setProperties = function (hash) {
-            var ret = _ember['default'].run(function () {
-              return _ember['default'].setProperties(context, hash);
-            });
-
-            if ((0, _emberTestHelpersHasEmberVersion['default'])(2, 0)) {
-              return ret;
-            }
-          };
-
-          context.get = function (key) {
-            return _ember['default'].get(context, key);
-          };
-
-          context.getProperties = function () {
-            var args = Array.prototype.slice.call(arguments);
-            return _ember['default'].getProperties(context, args);
-          };
-
-          context.on = function (actionName, handler) {
-            module.actionHooks[actionName] = handler;
-          };
-
-          context.send = function (actionName) {
-            var hook = module.actionHooks[actionName];
-            if (!hook) {
-              throw new Error("integration testing template received unexpected action " + actionName);
-            }
-            hook.apply(module.context, Array.prototype.slice.call(arguments, 1));
-          };
-
-          context.clearRender = function () {
-            _ember['default'].run(function () {
-              toplevelView.setOutletState({
-                render: {
-                  controller: module.context,
-                  randomKey: 'empty'
-                },
-                outlets: {}
-              });
-            });
-          };
-        };
+        return setupComponentIntegrationTest;
       }
     })(),
 
@@ -7339,8 +7285,156 @@ define('ember-test-helpers/test-module-for-component', ['exports', 'ember-test-h
       }
     }
   });
+
+  function setupComponentIntegrationTest() {
+    var module = this;
+    var context = this.context;
+
+    this.actionHooks = context[ACTION_KEY] = {};
+    context.dispatcher = this.container.lookup('event_dispatcher:main') || _ember['default'].EventDispatcher.create();
+    context.dispatcher.setup({}, '#ember-testing');
+
+    var hasRendered = false;
+    var OutletView = module.container.lookupFactory('view:-outlet');
+    var OutletTemplate = module.container.lookup('template:-outlet');
+    var toplevelView = module.component = OutletView.create();
+    var hasOutletTemplate = !!OutletTemplate;
+    var outletState = {
+      render: {
+        owner: getOwner ? getOwner(module.container) : undefined,
+        into: undefined,
+        outlet: 'main',
+        name: 'application',
+        controller: module.context,
+        ViewClass: undefined,
+        template: OutletTemplate
+      },
+
+      outlets: {}
+    };
+
+    var element = document.getElementById('ember-testing');
+    var templateId = 0;
+
+    if (hasOutletTemplate) {
+      _ember['default'].run(function () {
+        toplevelView.setOutletState(outletState);
+      });
+    }
+
+    context.render = function (template) {
+      if (!template) {
+        throw new Error("in a component integration test you must pass a template to `render()`");
+      }
+      if (_ember['default'].isArray(template)) {
+        template = template.join('');
+      }
+      if (typeof template === 'string') {
+        template = _ember['default'].Handlebars.compile(template);
+      }
+
+      var templateFullName = 'template:-undertest-' + ++templateId;
+      this.registry.register(templateFullName, template);
+      var stateToRender = {
+        owner: getOwner ? getOwner(module.container) : undefined,
+        into: undefined,
+        outlet: 'main',
+        name: 'index',
+        controller: module.context,
+        ViewClass: undefined,
+        template: module.container.lookup(templateFullName),
+        outlets: {}
+      };
+
+      if (hasOutletTemplate) {
+        stateToRender.name = 'index';
+        outletState.outlets.main = { render: stateToRender, outlets: {} };
+      } else {
+        stateToRender.name = 'application';
+        outletState = { render: stateToRender, outlets: {} };
+      }
+
+      _ember['default'].run(function () {
+        toplevelView.setOutletState(outletState);
+      });
+
+      if (!hasRendered) {
+        _ember['default'].run(module.component, 'appendTo', '#ember-testing');
+        hasRendered = true;
+      }
+
+      // ensure the element is based on the wrapping toplevel view
+      // Ember still wraps the main application template with a
+      // normal tagged view
+      context._element = element = document.querySelector('#ember-testing > .ember-view');
+    };
+
+    context.$ = function (selector) {
+      // emulates Ember internal behavor of `this.$` in a component
+      // https://github.com/emberjs/ember.js/blob/v2.5.1/packages/ember-views/lib/views/states/has_element.js#L18
+      return selector ? _ember['default'].$(selector, element) : _ember['default'].$(element);
+    };
+
+    context.set = function (key, value) {
+      var ret = _ember['default'].run(function () {
+        return _ember['default'].set(context, key, value);
+      });
+
+      if ((0, _emberTestHelpersHasEmberVersion['default'])(2, 0)) {
+        return ret;
+      }
+    };
+
+    context.setProperties = function (hash) {
+      var ret = _ember['default'].run(function () {
+        return _ember['default'].setProperties(context, hash);
+      });
+
+      if ((0, _emberTestHelpersHasEmberVersion['default'])(2, 0)) {
+        return ret;
+      }
+    };
+
+    context.get = function (key) {
+      return _ember['default'].get(context, key);
+    };
+
+    context.getProperties = function () {
+      var args = Array.prototype.slice.call(arguments);
+      return _ember['default'].getProperties(context, args);
+    };
+
+    context.on = function (actionName, handler) {
+      module.actionHooks[actionName] = handler;
+    };
+
+    context.send = function (actionName) {
+      var hook = module.actionHooks[actionName];
+      if (!hook) {
+        throw new Error("integration testing template received unexpected action " + actionName);
+      }
+      hook.apply(module.context, Array.prototype.slice.call(arguments, 1));
+    };
+
+    context.clearRender = function () {
+      _ember['default'].run(function () {
+        toplevelView.setOutletState({
+          render: {
+            owner: module.container,
+            into: undefined,
+            outlet: 'main',
+            name: 'application',
+            controller: module.context,
+            ViewClass: undefined,
+            template: undefined
+          },
+          outlets: {}
+        });
+      });
+    };
+  }
 });
-define('ember-test-helpers/test-module-for-integration', ['exports', 'ember', 'ember-test-helpers/test-context', 'ember-test-helpers/abstract-test-module', 'ember-test-helpers/test-resolver', 'ember-test-helpers/build-registry', 'ember-test-helpers/has-ember-version', 'ember-test-helpers/-legacy-overrides'], function (exports, _ember, _emberTestHelpersTestContext, _emberTestHelpersAbstractTestModule, _emberTestHelpersTestResolver, _emberTestHelpersBuildRegistry, _emberTestHelpersHasEmberVersion, _emberTestHelpersLegacyOverrides) {
+define('ember-test-helpers/test-module-for-integration', ['exports', 'ember', 'ember-test-helpers/test-context', 'ember-test-helpers/abstract-test-module', 'ember-test-helpers/test-resolver', 'ember-test-helpers/build-registry', 'ember-test-helpers/has-ember-version', 'ember-test-helpers/-legacy-overrides', 'ember-test-helpers/test-module-for-component'], function (exports, _ember, _emberTestHelpersTestContext, _emberTestHelpersAbstractTestModule, _emberTestHelpersTestResolver, _emberTestHelpersBuildRegistry, _emberTestHelpersHasEmberVersion, _emberTestHelpersLegacyOverrides, _emberTestHelpersTestModuleForComponent) {
   'use strict';
 
   var ACTION_KEY = undefined;
@@ -7446,7 +7540,9 @@ define('ember-test-helpers/test-module-for-integration', ['exports', 'ember', 'e
         keys.forEach(function (typeName) {
           context.inject[typeName] = function (name, opts) {
             var alias = opts && opts.as || name;
-            _ember['default'].set(context, alias, context.container.lookup(typeName + ':' + name));
+            _ember['default'].run(function () {
+              _ember['default'].set(context, alias, context.container.lookup(typeName + ':' + name));
+            });
           };
         });
       }
@@ -7462,108 +7558,7 @@ define('ember-test-helpers/test-module-for-integration', ['exports', 'ember', 'e
       if (!(0, _emberTestHelpersHasEmberVersion['default'])(1, 13)) {
         return _emberTestHelpersLegacyOverrides.preGlimmerSetupIntegrationForComponent;
       } else {
-        return function () {
-          var module = this;
-          var context = this.context;
-
-          this.actionHooks = context[ACTION_KEY] = {};
-          context.dispatcher = this.container.lookup('event_dispatcher:main') || _ember['default'].EventDispatcher.create();
-          context.dispatcher.setup({}, '#ember-testing');
-
-          var OutletView = module.container.lookupFactory('view:-outlet');
-          var toplevelView = module.component = OutletView.create();
-          toplevelView.setOutletState({ render: {}, outlets: {} });
-
-          var element = document.getElementById('ember-testing');
-          _ember['default'].run(module.component, 'appendTo', '#ember-testing');
-
-          context.render = function (template) {
-            if (!template) {
-              throw new Error("in a component integration test you must pass a template to `render()`");
-            }
-            if (_ember['default'].isArray(template)) {
-              template = template.join('');
-            }
-            if (typeof template === 'string') {
-              template = _ember['default'].Handlebars.compile(template);
-            }
-
-            _ember['default'].run(function () {
-              toplevelView.setOutletState({
-                render: {
-                  controller: module.context,
-                  template: template
-                },
-
-                outlets: {}
-              });
-            });
-
-            // ensure the element is based on the wrapping toplevel view
-            // Ember still wraps the main application template with a
-            // normal tagged view
-            element = _ember['default'].$('#ember-testing > .ember-view');
-          };
-
-          context.$ = function (selector) {
-            // emulates Ember internal behavor of `this.$` in a component
-            // https://github.com/emberjs/ember.js/blob/v2.5.1/packages/ember-views/lib/views/states/has_element.js#L18
-            return selector ? _ember['default'].$(selector, element) : _ember['default'].$(element);
-          };
-
-          context.set = function (key, value) {
-            var ret = _ember['default'].run(function () {
-              return _ember['default'].set(context, key, value);
-            });
-
-            if ((0, _emberTestHelpersHasEmberVersion['default'])(2, 0)) {
-              return ret;
-            }
-          };
-
-          context.setProperties = function (hash) {
-            var ret = _ember['default'].run(function () {
-              return _ember['default'].setProperties(context, hash);
-            });
-
-            if ((0, _emberTestHelpersHasEmberVersion['default'])(2, 0)) {
-              return ret;
-            }
-          };
-
-          context.get = function (key) {
-            return _ember['default'].get(context, key);
-          };
-
-          context.getProperties = function () {
-            var args = Array.prototype.slice.call(arguments);
-            return _ember['default'].getProperties(context, args);
-          };
-
-          context.on = function (actionName, handler) {
-            module.actionHooks[actionName] = handler;
-          };
-
-          context.send = function (actionName) {
-            var hook = module.actionHooks[actionName];
-            if (!hook) {
-              throw new Error("integration testing template received unexpected action " + actionName);
-            }
-            hook.apply(module.context, Array.prototype.slice.call(arguments, 1));
-          };
-
-          context.clearRender = function () {
-            _ember['default'].run(function () {
-              toplevelView.setOutletState({
-                render: {
-                  controller: module.context,
-                  randomKey: 'empty'
-                },
-                outlets: {}
-              });
-            });
-          };
-        };
+        return _emberTestHelpersTestModuleForComponent.setupComponentIntegrationTest;
       }
     })(),
 
@@ -7830,7 +7825,9 @@ define('ember-test-helpers/test-module', ['exports', 'ember', 'ember-test-helper
         keys.forEach(function (typeName) {
           context.inject[typeName] = function (name, opts) {
             var alias = opts && opts.as || name;
-            _ember['default'].set(context, alias, module.container.lookup(typeName + ':' + name));
+            _ember['default'].run(function () {
+              _ember['default'].set(context, alias, module.container.lookup(typeName + ':' + name));
+            });
           };
         });
       }
@@ -7988,7 +7985,7 @@ define('ember-test-helpers/test-resolver', ['exports'], function (exports) {
   }
 });
 define('ember-test-helpers/wait', ['exports', 'ember'], function (exports, _ember) {
-  /* globals jQuery, self */
+  /* globals self */
 
   'use strict';
 
@@ -7997,6 +7994,8 @@ define('ember-test-helpers/wait', ['exports', 'ember'], function (exports, _embe
   exports._teardownAJAXHooks = _teardownAJAXHooks;
   exports._setupAJAXHooks = _setupAJAXHooks;
   exports['default'] = wait;
+
+  var jQuery = _ember['default'].$;
 
   var requests;
   function incrementAjaxPendingRequests(_, xhr) {
@@ -8012,12 +8011,20 @@ define('ember-test-helpers/wait', ['exports', 'ember'], function (exports, _embe
   }
 
   function _teardownAJAXHooks() {
+    if (!jQuery) {
+      return;
+    }
+
     jQuery(document).off('ajaxSend', incrementAjaxPendingRequests);
     jQuery(document).off('ajaxComplete', decrementAjaxPendingRequests);
   }
 
   function _setupAJAXHooks() {
     requests = [];
+
+    if (!jQuery) {
+      return;
+    }
 
     jQuery(document).on('ajaxSend', incrementAjaxPendingRequests);
     jQuery(document).on('ajaxComplete', decrementAjaxPendingRequests);
