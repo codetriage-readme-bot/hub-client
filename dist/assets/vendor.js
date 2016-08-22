@@ -75175,7 +75175,7 @@ define("ember-data/-private/system/record-arrays/adapter-populated-record-array"
         meta: (0, _emberDataPrivateSystemCloneNull["default"])(payload.meta)
       });
 
-      if (false) {
+      if (true) {
         this.set('links', (0, _emberDataPrivateSystemCloneNull["default"])(payload.links));
       }
 
@@ -75467,7 +75467,7 @@ define("ember-data/-private/system/record-arrays", ["exports", "ember-data/-priv
   exports.FilteredRecordArray = _emberDataPrivateSystemRecordArraysFilteredRecordArray["default"];
   exports.AdapterPopulatedRecordArray = _emberDataPrivateSystemRecordArraysAdapterPopulatedRecordArray["default"];
 });
-define('ember-data/-private/system/references/belongs-to', ['exports', 'ember-data/model', 'ember', 'ember-data/-private/system/references/reference', 'ember-data/-private/debug'], function (exports, _emberDataModel, _ember, _emberDataPrivateSystemReferencesReference, _emberDataPrivateDebug) {
+define('ember-data/-private/system/references/belongs-to', ['exports', 'ember-data/model', 'ember', 'ember-data/-private/system/references/reference', 'ember-data/-private/features', 'ember-data/-private/debug'], function (exports, _emberDataModel, _ember, _emberDataPrivateSystemReferencesReference, _emberDataPrivateFeatures, _emberDataPrivateDebug) {
   'use strict';
 
   var BelongsToReference = function BelongsToReference(store, parentInternalModel, belongsToRelationship) {
@@ -75511,6 +75511,12 @@ define('ember-data/-private/system/references/belongs-to', ['exports', 'ember-da
       var record;
 
       if (data instanceof _emberDataModel['default']) {
+        if (false) {
+          (0, _emberDataPrivateDebug.deprecate)("BelongsToReference#push(DS.Model) is deprecated. Update relationship via `model.set('relationshipName', value)` instead.", false, {
+            id: 'ds.references.belongs-to.push-record',
+            until: '3.0'
+          });
+        }
         record = data;
       } else {
         record = _this.store.push(data);
@@ -75558,7 +75564,7 @@ define('ember-data/-private/system/references/belongs-to', ['exports', 'ember-da
 
   exports['default'] = BelongsToReference;
 });
-define('ember-data/-private/system/references/has-many', ['exports', 'ember', 'ember-data/-private/system/references/reference', 'ember-data/-private/debug'], function (exports, _ember, _emberDataPrivateSystemReferencesReference, _emberDataPrivateDebug) {
+define('ember-data/-private/system/references/has-many', ['exports', 'ember', 'ember-data/-private/system/references/reference', 'ember-data/-private/debug', 'ember-data/-private/features'], function (exports, _ember, _emberDataPrivateSystemReferencesReference, _emberDataPrivateDebug, _emberDataPrivateFeatures) {
   'use strict';
 
   var get = _ember['default'].get;
@@ -75606,20 +75612,54 @@ define('ember-data/-private/system/references/has-many', ['exports', 'ember', 'e
 
     return _ember['default'].RSVP.resolve(objectOrPromise).then(function (payload) {
       var array = payload;
-      if (typeof payload === "object" && payload.data) {
-        array = payload.data;
+
+      if (false) {
+        (0, _emberDataPrivateDebug.deprecate)("HasManyReference#push(array) is deprecated. Push a JSON-API document instead.", !Array.isArray(payload), {
+          id: 'ds.references.has-many.push-array',
+          until: '3.0'
+        });
       }
 
-      var internalModels = array.map(function (obj) {
-        var record = _this.store.push(obj);
+      var useLegacyArrayPush = true;
+      if (typeof payload === "object" && payload.data) {
+        array = payload.data;
+        useLegacyArrayPush = array.length && array[0].data;
+
+        if (false) {
+          (0, _emberDataPrivateDebug.deprecate)("HasManyReference#push() expects a valid JSON-API document.", !useLegacyArrayPush, {
+            id: 'ds.references.has-many.push-invalid-json-api',
+            until: '3.0'
+          });
+        }
+      }
+
+      if (!false) {
+        useLegacyArrayPush = true;
+      }
+
+      var internalModels = undefined;
+      if (useLegacyArrayPush) {
+        internalModels = array.map(function (obj) {
+          var record = _this.store.push(obj);
+
+          (0, _emberDataPrivateDebug.runInDebug)(function () {
+            var relationshipMeta = _this.hasManyRelationship.relationshipMeta;
+            (0, _emberDataPrivateDebug.assertPolymorphicType)(_this.internalModel, relationshipMeta, record._internalModel);
+          });
+
+          return record._internalModel;
+        });
+      } else {
+        var records = _this.store.push(payload);
+        internalModels = _ember['default'].A(records).mapBy('_internalModel');
 
         (0, _emberDataPrivateDebug.runInDebug)(function () {
-          var relationshipMeta = _this.hasManyRelationship.relationshipMeta;
-          (0, _emberDataPrivateDebug.assertPolymorphicType)(_this.internalModel, relationshipMeta, record._internalModel);
+          internalModels.forEach(function (internalModel) {
+            var relationshipMeta = _this.hasManyRelationship.relationshipMeta;
+            (0, _emberDataPrivateDebug.assertPolymorphicType)(_this.internalModel, relationshipMeta, internalModel);
+          });
         });
-
-        return record._internalModel;
-      });
+      }
 
       _this.hasManyRelationship.computeChanges(internalModels);
 
@@ -80537,7 +80577,7 @@ define('ember-data/-private/transforms/boolean', ['exports', 'ember', 'ember-dat
     deserialize: function deserialize(serialized, options) {
       var type = typeof serialized;
 
-      if (false) {
+      if (true) {
         if (isNone(serialized) && options.allowNull === true) {
           return null;
         }
@@ -80555,7 +80595,7 @@ define('ember-data/-private/transforms/boolean', ['exports', 'ember', 'ember-dat
     },
 
     serialize: function serialize(deserialized, options) {
-      if (false) {
+      if (true) {
         if (isNone(deserialized) && options.allowNull === true) {
           return null;
         }
@@ -84212,6 +84252,7 @@ define('ember-data/serializers/json-api', ['exports', 'ember', 'ember-data/-priv
   
     to the format that the Ember Data store expects.
   
+    @since 1.13.0
     @class JSONAPISerializer
     @namespace DS
     @extends DS.JSONSerializer
@@ -84260,8 +84301,25 @@ define('ember-data/serializers/json-api', ['exports', 'ember', 'ember-data/-priv
       @private
     */
     _normalizeRelationshipDataHelper: function _normalizeRelationshipDataHelper(relationshipDataHash) {
-      var type = this.modelNameFromPayloadKey(relationshipDataHash.type);
-      relationshipDataHash.type = type;
+      if (false) {
+        var modelName = this.modelNameFromPayloadType(relationshipDataHash.type);
+        var deprecatedModelNameLookup = this.modelNameFromPayloadKey(relationshipDataHash.type);
+
+        if (modelName !== deprecatedModelNameLookup && this._hasCustomModelNameFromPayloadKey()) {
+          (0, _emberDataPrivateDebug.deprecate)("You are using modelNameFromPayloadKey to normalize the type for a relationship. This has been deprecated in favor of modelNameFromPayloadType", false, {
+            id: 'ds.json-api-serializer.deprecated-model-name-for-relationship',
+            until: '3.0.0'
+          });
+
+          modelName = deprecatedModelNameLookup;
+        }
+
+        relationshipDataHash.type = modelName;
+      } else {
+        var type = this.modelNameFromPayloadKey(relationshipDataHash.type);
+        relationshipDataHash.type = type;
+      }
+
       return relationshipDataHash;
     },
 
@@ -84276,10 +84334,31 @@ define('ember-data/serializers/json-api', ['exports', 'ember', 'ember-data/-priv
         id: 'ds.serializer.type-is-undefined'
       });
 
-      var modelName = this.modelNameFromPayloadKey(resourceHash.type);
+      var modelName = undefined,
+          usedLookup = undefined;
+
+      if (false) {
+        modelName = this.modelNameFromPayloadType(resourceHash.type);
+        var deprecatedModelNameLookup = this.modelNameFromPayloadKey(resourceHash.type);
+
+        usedLookup = 'modelNameFromPayloadType';
+
+        if (modelName !== deprecatedModelNameLookup && this._hasCustomModelNameFromPayloadKey()) {
+          (0, _emberDataPrivateDebug.deprecate)("You are using modelNameFromPayloadKey to normalize the type for a resource. This has been deprecated in favor of modelNameFromPayloadType", false, {
+            id: 'ds.json-api-serializer.deprecated-model-name-for-resource',
+            until: '3.0.0'
+          });
+
+          modelName = deprecatedModelNameLookup;
+          usedLookup = 'modelNameFromPayloadKey';
+        }
+      } else {
+        modelName = this.modelNameFromPayloadKey(resourceHash.type);
+        usedLookup = 'modelNameFromPayloadKey';
+      }
 
       if (!this.store._hasModelFor(modelName)) {
-        (0, _emberDataPrivateDebug.warn)(this.warnMessageNoModelForType(modelName, resourceHash.type), false, {
+        (0, _emberDataPrivateDebug.warn)(this.warnMessageNoModelForType(modelName, resourceHash.type, usedLookup), false, {
           id: 'ds.serializer.model-for-type-missing'
         });
         return null;
@@ -84349,7 +84428,7 @@ define('ember-data/serializers/json-api', ['exports', 'ember', 'ember-data/-priv
       if (resourceHash.attributes) {
         modelClass.eachAttribute(function (key) {
           var attributeKey = _this.keyForAttribute(key, 'deserialize');
-          if (resourceHash.attributes.hasOwnProperty(attributeKey)) {
+          if (resourceHash.attributes[attributeKey] !== undefined) {
             attributes[key] = resourceHash.attributes[attributeKey];
           }
         });
@@ -84397,7 +84476,7 @@ define('ember-data/serializers/json-api', ['exports', 'ember', 'ember-data/-priv
       if (resourceHash.relationships) {
         modelClass.eachRelationship(function (key, relationshipMeta) {
           var relationshipKey = _this2.keyForRelationship(key, relationshipMeta.kind, 'deserialize');
-          if (resourceHash.relationships.hasOwnProperty(relationshipKey)) {
+          if (resourceHash.relationships[relationshipKey] !== undefined) {
 
             var relationshipHash = resourceHash.relationships[relationshipKey];
             relationships[key] = _this2.extractRelationship(relationshipHash);
@@ -84416,7 +84495,23 @@ define('ember-data/serializers/json-api', ['exports', 'ember', 'ember-data/-priv
       @private
     */
     _extractType: function _extractType(modelClass, resourceHash) {
-      return this.modelNameFromPayloadKey(resourceHash.type);
+      if (false) {
+        var modelName = this.modelNameFromPayloadType(resourceHash.type);
+        var deprecatedModelNameLookup = this.modelNameFromPayloadKey(resourceHash.type);
+
+        if (modelName !== deprecatedModelNameLookup && this._hasCustomModelNameFromPayloadKey()) {
+          (0, _emberDataPrivateDebug.deprecate)("You are using modelNameFromPayloadKey to normalize the type for a polymorphic relationship. This has been deprecated in favor of modelNameFromPayloadType", false, {
+            id: 'ds.json-api-serializer.deprecated-model-name-for-polymorphic-type',
+            until: '3.0.0'
+          });
+
+          modelName = deprecatedModelNameLookup;
+        }
+
+        return modelName;
+      } else {
+        return this.modelNameFromPayloadKey(resourceHash.type);
+      }
     },
 
     /**
@@ -84424,6 +84519,7 @@ define('ember-data/serializers/json-api', ['exports', 'ember', 'ember-data/-priv
       @param {String} key
       @return {String} the model's modelName
     */
+    // TODO @deprecated Use modelNameFromPayloadType instead
     modelNameFromPayloadKey: function modelNameFromPayloadKey(key) {
       return (0, _emberInflector.singularize)((0, _emberDataPrivateSystemNormalizeModelName['default'])(key));
     },
@@ -84433,6 +84529,7 @@ define('ember-data/serializers/json-api', ['exports', 'ember', 'ember-data/-priv
       @param {String} modelName
       @return {String}
     */
+    // TODO @deprecated Use payloadTypeFromModelName instead
     payloadKeyFromModelName: function payloadKeyFromModelName(modelName) {
       return (0, _emberInflector.pluralize)(modelName);
     },
@@ -84523,7 +84620,25 @@ define('ember-data/serializers/json-api', ['exports', 'ember', 'ember-data/-priv
     */
     serialize: function serialize(snapshot, options) {
       var data = this._super.apply(this, arguments);
-      data.type = this.payloadKeyFromModelName(snapshot.modelName);
+
+      var payloadType = undefined;
+      if (false) {
+        payloadType = this.payloadTypeFromModelName(snapshot.modelName);
+        var deprecatedPayloadTypeLookup = this.payloadKeyFromModelName(snapshot.modelName);
+
+        if (payloadType !== deprecatedPayloadTypeLookup && this._hasCustomPayloadKeyFromModelName()) {
+          (0, _emberDataPrivateDebug.deprecate)("You used payloadKeyFromModelName to customize how a type is serialized. Use payloadTypeFromModelName instead.", false, {
+            id: 'ds.json-api-serializer.deprecated-payload-type-for-model',
+            until: '3.0.0'
+          });
+
+          payloadType = deprecatedPayloadTypeLookup;
+        }
+      } else {
+        payloadType = this.payloadKeyFromModelName(snapshot.modelName);
+      }
+
+      data.type = payloadType;
       return { data: data };
     },
 
@@ -84578,8 +84693,26 @@ define('ember-data/serializers/json-api', ['exports', 'ember', 'ember-data/-priv
 
           var data = null;
           if (belongsTo) {
+            var payloadType = undefined;
+
+            if (false) {
+              payloadType = this.payloadTypeFromModelName(belongsTo.modelName);
+              var deprecatedPayloadTypeLookup = this.payloadKeyFromModelName(belongsTo.modelName);
+
+              if (payloadType !== deprecatedPayloadTypeLookup && this._hasCustomPayloadKeyFromModelName()) {
+                (0, _emberDataPrivateDebug.deprecate)("You used payloadKeyFromModelName to serialize type for belongs-to relationship. Use payloadTypeFromModelName instead.", false, {
+                  id: 'ds.json-api-serializer.deprecated-payload-type-for-belongs-to',
+                  until: '3.0.0'
+                });
+
+                payloadType = deprecatedPayloadTypeLookup;
+              }
+            } else {
+              payloadType = this.payloadKeyFromModelName(belongsTo.modelName);
+            }
+
             data = {
-              type: this.payloadKeyFromModelName(belongsTo.modelName),
+              type: payloadType,
               id: belongsTo.id
             };
           }
@@ -84597,8 +84730,12 @@ define('ember-data/serializers/json-api', ['exports', 'ember', 'ember-data/-priv
     */
     serializeHasMany: function serializeHasMany(snapshot, json, relationship) {
       var key = relationship.key;
+      var shouldSerializeHasMany = '_shouldSerializeHasMany';
+      if (false) {
+        shouldSerializeHasMany = 'shouldSerializeHasMany';
+      }
 
-      if (this._shouldSerializeHasMany(snapshot, key, relationship)) {
+      if (this[shouldSerializeHasMany](snapshot, key, relationship)) {
         var hasMany = snapshot.hasMany(key);
         if (hasMany !== undefined) {
 
@@ -84613,8 +84750,27 @@ define('ember-data/serializers/json-api', ['exports', 'ember', 'ember-data/-priv
 
           for (var i = 0; i < hasMany.length; i++) {
             var item = hasMany[i];
+
+            var payloadType = undefined;
+
+            if (false) {
+              payloadType = this.payloadTypeFromModelName(item.modelName);
+              var deprecatedPayloadTypeLookup = this.payloadKeyFromModelName(item.modelName);
+
+              if (payloadType !== deprecatedPayloadTypeLookup && this._hasCustomPayloadKeyFromModelName()) {
+                (0, _emberDataPrivateDebug.deprecate)("You used payloadKeyFromModelName to serialize type for belongs-to relationship. Use payloadTypeFromModelName instead.", false, {
+                  id: 'ds.json-api-serializer.deprecated-payload-type-for-has-many',
+                  until: '3.0.0'
+                });
+
+                payloadType = deprecatedPayloadTypeLookup;
+              }
+            } else {
+              payloadType = this.payloadKeyFromModelName(item.modelName);
+            }
+
             data[i] = {
-              type: this.payloadKeyFromModelName(item.modelName),
+              type: payloadType,
               id: item.id
             };
           }
@@ -84624,6 +84780,100 @@ define('ember-data/serializers/json-api', ['exports', 'ember', 'ember-data/-priv
       }
     }
   });
+
+  if (false) {
+
+    JSONAPISerializer.reopen({
+
+      /**
+        `modelNameFromPayloadType` can be used to change the mapping for a DS model
+        name, taken from the value in the payload.
+         Say your API namespaces the type of a model and returns the following
+        payload for the `post` model:
+         ```javascript
+        // GET /api/posts/1
+        {
+          "data": {
+            "id": 1,
+            "type: "api::v1::post"
+          }
+        }
+        ```
+         By overwriting `modelNameFromPayloadType` you can specify that the
+        `posr` model should be used:
+         ```app/serializers/application.js
+        import DS from "ember-data";
+         export default DS.JSONAPISerializer.extend({
+          modelNameFromPayloadType(payloadType) {
+            return payloadType.replace('api::v1::', '');
+          }
+        });
+        ```
+         By default the modelName for a model is its singularized name in dasherized
+        form.  Usually, Ember Data can use the correct inflection to do this for
+        you. Most of the time, you won't need to override
+        `modelNameFromPayloadType` for this purpose.
+         Also take a look at
+        [payloadTypeFromModelName](#method_payloadTypeFromModelName) to customize
+        how the type of a record should be serialized.
+         @method modelNameFromPayloadType
+        @public
+        @param {String} payloadType type from payload
+        @return {String} modelName
+      */
+      modelNameFromPayloadType: function modelNameFromPayloadType(type) {
+        return (0, _emberInflector.singularize)((0, _emberDataPrivateSystemNormalizeModelName['default'])(type));
+      },
+
+      /**
+        `payloadTypeFromModelName` can be used to change the mapping for the type in
+        the payload, taken from the model name.
+         Say your API namespaces the type of a model and expects the following
+        payload when you update the `post` model:
+         ```javascript
+        // POST /api/posts/1
+        {
+          "data": {
+            "id": 1,
+            "type": "api::v1::post"
+          }
+        }
+        ```
+         By overwriting `payloadTypeFromModelName` you can specify that the
+        namespaces model name for the `post` should be used:
+         ```app/serializers/application.js
+        import DS from "ember-data";
+         export default JSONAPISerializer.extend({
+          payloadTypeFromModelName(modelName) {
+            return "api::v1::" + modelName;
+          }
+        });
+        ```
+         By default the payload type is the pluralized model name. Usually, Ember
+        Data can use the correct inflection to do this for you. Most of the time,
+        you won't need to override `payloadTypeFromModelName` for this purpose.
+         Also take a look at
+        [modelNameFromPayloadType](#method_modelNameFromPayloadType) to customize
+        how the model name from should be mapped from the payload.
+         @method payloadTypeFromModelName
+        @public
+        @param {String} modelname modelName from the record
+        @return {String} payloadType
+      */
+      payloadTypeFromModelName: function payloadTypeFromModelName(modelName) {
+        return (0, _emberInflector.pluralize)(modelName);
+      },
+
+      _hasCustomModelNameFromPayloadKey: function _hasCustomModelNameFromPayloadKey() {
+        return this.modelNameFromPayloadKey !== JSONAPISerializer.prototype.modelNameFromPayloadKey;
+      },
+
+      _hasCustomPayloadKeyFromModelName: function _hasCustomPayloadKeyFromModelName() {
+        return this.payloadKeyFromModelName !== JSONAPISerializer.prototype.payloadKeyFromModelName;
+      }
+
+    });
+  }
 
   (0, _emberDataPrivateDebug.runInDebug)(function () {
     JSONAPISerializer.reopen({
@@ -84635,15 +84885,15 @@ define('ember-data/serializers/json-api', ['exports', 'ember', 'ember-data/-priv
       warnMessageForUndefinedType: function warnMessageForUndefinedType() {
         return 'Encountered a resource object with an undefined type (resolved resource using ' + this.constructor.toString() + ')';
       },
-      warnMessageNoModelForType: function warnMessageNoModelForType(modelName, originalType) {
-        return 'Encountered a resource object with type "' + originalType + '", but no model was found for model name "' + modelName + '" (resolved model name using ' + this.constructor.toString() + '.modelNameFromPayloadKey("' + originalType + '"))';
+      warnMessageNoModelForType: function warnMessageNoModelForType(modelName, originalType, usedLookup) {
+        return 'Encountered a resource object with type "' + originalType + '", but no model was found for model name "' + modelName + '" (resolved model name using \'' + this.constructor.toString() + '.' + usedLookup + '("' + originalType + '")).';
       }
     });
   });
 
   exports['default'] = JSONAPISerializer;
 });
-define('ember-data/serializers/json', ['exports', 'ember', 'ember-data/-private/debug', 'ember-data/serializer', 'ember-data/-private/system/coerce-id', 'ember-data/-private/system/normalize-model-name', 'ember-data/-private/utils', 'ember-data/adapters/errors', 'ember-data/-private/features'], function (exports, _ember, _emberDataPrivateDebug, _emberDataSerializer, _emberDataPrivateSystemCoerceId, _emberDataPrivateSystemNormalizeModelName, _emberDataPrivateUtils, _emberDataAdaptersErrors, _emberDataPrivateFeatures) {
+define('ember-data/serializers/json', ['exports', 'ember', 'ember-data/-private/debug', 'ember-data/serializer', 'ember-data/-private/system/coerce-id', 'ember-data/-private/system/normalize-model-name', 'ember-data/-private/utils', 'ember-data/-private/features', 'ember-data/adapters/errors'], function (exports, _ember, _emberDataPrivateDebug, _emberDataSerializer, _emberDataPrivateSystemCoerceId, _emberDataPrivateSystemNormalizeModelName, _emberDataPrivateUtils, _emberDataPrivateFeatures, _emberDataAdaptersErrors) {
   'use strict';
 
   function _toConsumableArray(arr) {
@@ -84724,7 +84974,7 @@ define('ember-data/serializers/json', ['exports', 'ember', 'ember-data/-private/
     @namespace DS
     @extends DS.Serializer
   */
-  exports['default'] = _emberDataSerializer['default'].extend({
+  var JSONSerializer = _emberDataSerializer['default'].extend({
 
     /**
       The `primaryKey` is used when serializing and deserializing
@@ -84812,23 +85062,16 @@ define('ember-data/serializers/json', ['exports', 'ember', 'ember-data/-private/
     applyTransforms: function applyTransforms(typeClass, data) {
       var _this = this;
 
-      var attributes = undefined;
-      if (true) {
-        attributes = get(typeClass, 'attributes');
-      }
+      var attributes = get(typeClass, 'attributes');
 
       typeClass.eachTransformedAttribute(function (key, typeClass) {
-        if (!(key in data)) {
+        if (data[key] === undefined) {
           return;
         }
 
         var transform = _this.transformFor(typeClass);
-        if (true) {
-          var transformMeta = attributes.get(key);
-          data[key] = transform.deserialize(data[key], transformMeta.options);
-        } else {
-          data[key] = transform.deserialize(data[key]);
-        }
+        var transformMeta = attributes.get(key);
+        data[key] = transform.deserialize(data[key], transformMeta.options);
       });
 
       return data;
@@ -84853,7 +85096,8 @@ define('ember-data/serializers/json', ['exports', 'ember', 'ember-data/-private/
          store.push(normalized);
       });
       ```
-       @method normalizeResponse
+       @since 1.13.0
+      @method normalizeResponse
       @param {DS.Store} store
       @param {DS.Model} primaryModelClass
       @param {Object} payload
@@ -84887,6 +85131,7 @@ define('ember-data/serializers/json', ['exports', 'ember', 'ember-data/-private/
     },
 
     /**
+      @since 1.13.0
       @method normalizeFindRecordResponse
       @param {DS.Store} store
       @param {DS.Model} primaryModelClass
@@ -84900,6 +85145,7 @@ define('ember-data/serializers/json', ['exports', 'ember', 'ember-data/-private/
     },
 
     /**
+      @since 1.13.0
       @method normalizeQueryRecordResponse
       @param {DS.Store} store
       @param {DS.Model} primaryModelClass
@@ -84913,6 +85159,7 @@ define('ember-data/serializers/json', ['exports', 'ember', 'ember-data/-private/
     },
 
     /**
+      @since 1.13.0
       @method normalizeFindAllResponse
       @param {DS.Store} store
       @param {DS.Model} primaryModelClass
@@ -84926,6 +85173,7 @@ define('ember-data/serializers/json', ['exports', 'ember', 'ember-data/-private/
     },
 
     /**
+      @since 1.13.0
       @method normalizeFindBelongsToResponse
       @param {DS.Store} store
       @param {DS.Model} primaryModelClass
@@ -84939,6 +85187,7 @@ define('ember-data/serializers/json', ['exports', 'ember', 'ember-data/-private/
     },
 
     /**
+      @since 1.13.0
       @method normalizeFindHasManyResponse
       @param {DS.Store} store
       @param {DS.Model} primaryModelClass
@@ -84952,6 +85201,7 @@ define('ember-data/serializers/json', ['exports', 'ember', 'ember-data/-private/
     },
 
     /**
+      @since 1.13.0
       @method normalizeFindManyResponse
       @param {DS.Store} store
       @param {DS.Model} primaryModelClass
@@ -84965,6 +85215,7 @@ define('ember-data/serializers/json', ['exports', 'ember', 'ember-data/-private/
     },
 
     /**
+      @since 1.13.0
       @method normalizeQueryResponse
       @param {DS.Store} store
       @param {DS.Model} primaryModelClass
@@ -84978,6 +85229,7 @@ define('ember-data/serializers/json', ['exports', 'ember', 'ember-data/-private/
     },
 
     /**
+      @since 1.13.0
       @method normalizeCreateRecordResponse
       @param {DS.Store} store
       @param {DS.Model} primaryModelClass
@@ -84991,6 +85243,7 @@ define('ember-data/serializers/json', ['exports', 'ember', 'ember-data/-private/
     },
 
     /**
+      @since 1.13.0
       @method normalizeDeleteRecordResponse
       @param {DS.Store} store
       @param {DS.Model} primaryModelClass
@@ -85004,6 +85257,7 @@ define('ember-data/serializers/json', ['exports', 'ember', 'ember-data/-private/
     },
 
     /**
+      @since 1.13.0
       @method normalizeUpdateRecordResponse
       @param {DS.Store} store
       @param {DS.Model} primaryModelClass
@@ -85017,6 +85271,7 @@ define('ember-data/serializers/json', ['exports', 'ember', 'ember-data/-private/
     },
 
     /**
+      @since 1.13.0
       @method normalizeSaveResponse
       @param {DS.Store} store
       @param {DS.Model} primaryModelClass
@@ -85030,6 +85285,7 @@ define('ember-data/serializers/json', ['exports', 'ember', 'ember-data/-private/
     },
 
     /**
+      @since 1.13.0
       @method normalizeSingleResponse
       @param {DS.Store} store
       @param {DS.Model} primaryModelClass
@@ -85043,6 +85299,7 @@ define('ember-data/serializers/json', ['exports', 'ember', 'ember-data/-private/
     },
 
     /**
+      @since 1.13.0
       @method normalizeArrayResponse
       @param {DS.Store} store
       @param {DS.Model} primaryModelClass
@@ -85193,7 +85450,7 @@ define('ember-data/serializers/json', ['exports', 'ember', 'ember-data/-private/
 
       modelClass.eachAttribute(function (key) {
         attributeKey = _this2.keyForAttribute(key, 'deserialize');
-        if (resourceHash.hasOwnProperty(attributeKey)) {
+        if (resourceHash[attributeKey] !== undefined) {
           attributes[key] = resourceHash[attributeKey];
         }
       });
@@ -85225,7 +85482,24 @@ define('ember-data/serializers/json', ['exports', 'ember', 'ember-data/-private/
 
         var modelClass = this.store.modelFor(relationshipModelName);
         if (relationshipHash.type && !(0, _emberDataPrivateUtils.modelHasAttributeOrRelationshipNamedType)(modelClass)) {
-          relationshipHash.type = this.modelNameFromPayloadKey(relationshipHash.type);
+
+          if (false) {
+            var modelName = this.modelNameFromPayloadType(relationshipHash.type);
+            var deprecatedModelNameLookup = this.modelNameFromPayloadKey(relationshipHash.type);
+
+            if (modelName !== deprecatedModelNameLookup && this._hasCustomModelNameFromPayloadKey()) {
+              (0, _emberDataPrivateDebug.deprecate)("You used modelNameFromPayloadKey to customize how a type is normalized. Use modelNameFromPayloadType instead", false, {
+                id: 'ds.json-serializer.deprecated-type-for-polymorphic-relationship',
+                until: '3.0.0'
+              });
+
+              modelName = deprecatedModelNameLookup;
+            }
+
+            relationshipHash.type = modelName;
+          } else {
+            relationshipHash.type = this.modelNameFromPayloadKey(relationshipHash.type);
+          }
         }
         return relationshipHash;
       }
@@ -85268,7 +85542,7 @@ define('ember-data/serializers/json', ['exports', 'ember', 'ember-data/-private/
       modelClass.eachRelationship(function (key, relationshipMeta) {
         var relationship = null;
         var relationshipKey = _this3.keyForRelationship(key, relationshipMeta.kind, 'deserialize');
-        if (resourceHash.hasOwnProperty(relationshipKey)) {
+        if (resourceHash[relationshipKey] !== undefined) {
           var data = null;
           var relationshipHash = resourceHash[relationshipKey];
           if (relationshipMeta.kind === 'belongsTo') {
@@ -85294,7 +85568,7 @@ define('ember-data/serializers/json', ['exports', 'ember', 'ember-data/-private/
         }
 
         var linkKey = _this3.keyForLink(key, relationshipMeta.kind);
-        if (resourceHash.links && resourceHash.links.hasOwnProperty(linkKey)) {
+        if (resourceHash.links && resourceHash.links[linkKey] !== undefined) {
           var related = resourceHash.links[linkKey];
           relationship = relationship || {};
           relationship.links = { related: related };
@@ -85313,6 +85587,7 @@ define('ember-data/serializers/json', ['exports', 'ember', 'ember-data/-private/
       @param {String} key
       @return {String} the model's modelName
     */
+    // TODO @deprecated Use modelNameFromPayloadType instead
     modelNameFromPayloadKey: function modelNameFromPayloadKey(key) {
       return (0, _emberDataPrivateSystemNormalizeModelName['default'])(key);
     },
@@ -85332,7 +85607,7 @@ define('ember-data/serializers/json', ['exports', 'ember', 'ember-data/-private/
           if (key === payloadKey) {
             return;
           }
-          if (!hash.hasOwnProperty(payloadKey)) {
+          if (hash[payloadKey] === undefined) {
             return;
           }
 
@@ -85357,7 +85632,7 @@ define('ember-data/serializers/json', ['exports', 'ember', 'ember-data/-private/
           if (key === payloadKey) {
             return;
           }
-          if (!hash.hasOwnProperty(payloadKey)) {
+          if (hash[payloadKey] === undefined) {
             return;
           }
 
@@ -85379,7 +85654,7 @@ define('ember-data/serializers/json', ['exports', 'ember', 'ember-data/-private/
         for (key in attrs) {
           normalizedKey = payloadKey = this._getMappedKey(key, modelClass);
 
-          if (!hash.hasOwnProperty(payloadKey)) {
+          if (hash[payloadKey] === undefined) {
             continue;
           }
 
@@ -85456,6 +85731,26 @@ define('ember-data/serializers/json', ['exports', 'ember', 'ember-data/-private/
       var attrs = get(this, 'attrs');
 
       return attrs && attrs[key] && attrs[key].serialize === true;
+    },
+
+    /**
+      Check if the given hasMany relationship should be serialized
+       @method shouldSerializeHasMany
+      @param {DS.Snapshot} snapshot
+      @param {String} key
+      @param {String} relationshipType
+      @return {boolean} true if the hasMany relationship should be serialized
+    */
+
+    shouldSerializeHasMany: function shouldSerializeHasMany(snapshot, key, relationship) {
+      if (this._shouldSerializeHasMany !== JSONSerializer.prototype._shouldSerializeHasMany) {
+        (0, _emberDataPrivateDebug.deprecate)('The private method _shouldSerializeHasMany has been promoted to the public API. Please remove the underscore to use the public shouldSerializeHasMany method.', false, {
+          id: 'ds.serializer.private-should-serialize-has-many',
+          until: '3.0.0'
+        });
+      }
+
+      return this._shouldSerializeHasMany(snapshot, key, relationship);
     },
 
     /**
@@ -85672,11 +85967,7 @@ define('ember-data/serializers/json', ['exports', 'ember', 'ember-data/-private/
         var value = snapshot.attr(key);
         if (type) {
           var transform = this.transformFor(type);
-          if (true) {
-            value = transform.serialize(value, attribute.options);
-          } else {
-            value = transform.serialize(value);
-          }
+          value = transform.serialize(value, attribute.options);
         }
 
         // if provided, use the mapping provided by `attrs` in
@@ -85761,8 +86052,12 @@ define('ember-data/serializers/json', ['exports', 'ember', 'ember-data/-private/
     */
     serializeHasMany: function serializeHasMany(snapshot, json, relationship) {
       var key = relationship.key;
+      var shouldSerializeHasMany = '_shouldSerializeHasMany';
+      if (false) {
+        shouldSerializeHasMany = 'shouldSerializeHasMany';
+      }
 
-      if (this._shouldSerializeHasMany(snapshot, key, relationship)) {
+      if (this[shouldSerializeHasMany](snapshot, key, relationship)) {
         var hasMany = snapshot.hasMany(key, { ids: true });
         if (hasMany !== undefined) {
           // if provided, use the mapping provided by `attrs` in
@@ -85829,7 +86124,7 @@ define('ember-data/serializers/json', ['exports', 'ember', 'ember-data/-private/
       @param {Object} payload
     */
     extractMeta: function extractMeta(store, modelClass, payload) {
-      if (payload && payload.hasOwnProperty('meta')) {
+      if (payload && payload['meta'] !== undefined) {
         var meta = payload.meta;
         delete payload.meta;
         return meta;
@@ -85919,7 +86214,7 @@ define('ember-data/serializers/json', ['exports', 'ember', 'ember-data/-private/
 
         typeClass.eachAttribute(function (name) {
           var key = _this7.keyForAttribute(name, 'deserialize');
-          if (key !== name && payload.hasOwnProperty(key)) {
+          if (key !== name && payload[key] !== undefined) {
             payload[name] = payload[key];
             delete payload[key];
           }
@@ -85927,7 +86222,7 @@ define('ember-data/serializers/json', ['exports', 'ember', 'ember-data/-private/
 
         typeClass.eachRelationship(function (name) {
           var key = _this7.keyForRelationship(name, 'deserialize');
-          if (key !== name && payload.hasOwnProperty(key)) {
+          if (key !== name && payload[key] !== undefined) {
             payload[name] = payload[key];
             delete payload[key];
           }
@@ -86010,6 +86305,29 @@ define('ember-data/serializers/json', ['exports', 'ember', 'ember-data/-private/
       return transform;
     }
   });
+
+  if (false) {
+
+    JSONSerializer.reopen({
+
+      /**
+        @method modelNameFromPayloadType
+        @public
+        @param {String} type
+        @return {String} the model's modelName
+        */
+      modelNameFromPayloadType: function modelNameFromPayloadType(type) {
+        return (0, _emberDataPrivateSystemNormalizeModelName['default'])(type);
+      },
+
+      _hasCustomModelNameFromPayloadKey: function _hasCustomModelNameFromPayloadKey() {
+        return this.modelNameFromPayloadKey !== JSONSerializer.prototype.modelNameFromPayloadKey;
+      }
+
+    });
+  }
+
+  exports['default'] = JSONSerializer;
 });
 define("ember-data/serializers/rest", ["exports", "ember", "ember-data/-private/debug", "ember-data/serializers/json", "ember-data/-private/system/normalize-model-name", "ember-inflector", "ember-data/-private/system/coerce-id", "ember-data/-private/utils", "ember-data/-private/features"], function (exports, _ember, _emberDataPrivateDebug, _emberDataSerializersJson, _emberDataPrivateSystemNormalizeModelName, _emberInflector, _emberDataPrivateSystemCoerceId, _emberDataPrivateUtils, _emberDataPrivateFeatures) {
   "use strict";
@@ -86127,7 +86445,7 @@ define("ember-data/serializers/rest", ["exports", "ember", "ember-data/-private/
       * With `App.Comment`, `"comments"` and `{ id: 1, body: "FIRST" }`
       * With `App.Comment`, `"comments"` and `{ id: 2, body: "Rails is unagi" }`
        You can use this method, for example, to normalize underscored keys to camelized
-      or other general-purpose normalizations. You will only need to implement 
+      or other general-purpose normalizations. You will only need to implement
       `normalize` and manipulate the payload as desired.
        For example, if the `IDs` under `"comments"` are provided as `_id` instead of
       `id`, you can specify how to normalize just the comments:
@@ -86137,14 +86455,14 @@ define("ember-data/serializers/rest", ["exports", "ember", "ember-data/-private/
         normalize(model, hash, prop) {
           if (prop === 'comments') {
             hash.id = hash._id;
-            delete hash._id;   
+            delete hash._id;
           }
            return this._super(...arguments);
         }
       });
       ```
-       On each call to the `normalize` method, the third parameter (`prop`) is always 
-      one of the keys that were in the original payload or in the result of another 
+       On each call to the `normalize` method, the third parameter (`prop`) is always
+      one of the keys that were in the original payload or in the result of another
       normalization as `normalizeResponse`.
        @method normalize
       @param {DS.Model} modelClass
@@ -86185,7 +86503,6 @@ define("ember-data/serializers/rest", ["exports", "ember", "ember-data/-private/
       var modelClass = store.modelFor(modelName);
       var serializer = store.serializerFor(modelName);
 
-      /*jshint loopfunc:true*/
       _ember["default"].makeArray(arrayHash).forEach(function (hash) {
         var _normalizePolymorphicRecord2 = _this._normalizePolymorphicRecord(store, hash, prop, modelClass, serializer);
 
@@ -86204,17 +86521,36 @@ define("ember-data/serializers/rest", ["exports", "ember", "ember-data/-private/
     },
 
     _normalizePolymorphicRecord: function _normalizePolymorphicRecord(store, hash, prop, primaryModelClass, primarySerializer) {
-      var serializer = undefined,
-          modelClass = undefined;
+      var serializer = primarySerializer;
+      var modelClass = primaryModelClass;
+
       var primaryHasTypeAttribute = (0, _emberDataPrivateUtils.modelHasAttributeOrRelationshipNamedType)(primaryModelClass);
-      // Support polymorphic records in async relationships
-      if (!primaryHasTypeAttribute && hash.type && store._hasModelFor(this.modelNameFromPayloadKey(hash.type))) {
-        serializer = store.serializerFor(this.modelNameFromPayloadKey(hash.type));
-        modelClass = store.modelFor(this.modelNameFromPayloadKey(hash.type));
-      } else {
-        serializer = primarySerializer;
-        modelClass = primaryModelClass;
+
+      if (!primaryHasTypeAttribute && hash.type) {
+        // Support polymorphic records in async relationships
+        var modelName = undefined;
+        if (false) {
+          modelName = this.modelNameFromPayloadType(hash.type);
+          var deprecatedModelNameLookup = this.modelNameFromPayloadKey(hash.type);
+
+          if (modelName !== deprecatedModelNameLookup && !this._hasCustomModelNameFromPayloadType() && this._hasCustomModelNameFromPayloadKey()) {
+            (0, _emberDataPrivateDebug.deprecate)("You are using modelNameFromPayloadKey to normalize the type for a polymorphic relationship. This is has been deprecated in favor of modelNameFromPayloadType", false, {
+              id: 'ds.rest-serializer.deprecated-model-name-for-polymorphic-type',
+              until: '3.0.0'
+            });
+
+            modelName = deprecatedModelNameLookup;
+          }
+        } else {
+          modelName = this.modelNameFromPayloadKey(hash.type);
+        }
+
+        if (store._hasModelFor(modelName)) {
+          serializer = store.serializerFor(modelName);
+          modelClass = store.modelFor(modelName);
+        }
       }
+
       return serializer.normalize(modelClass, hash, prop);
     },
 
@@ -86331,7 +86667,6 @@ define("ember-data/serializers/rest", ["exports", "ember", "ember-data/-private/
         }
 
         if (isSingle) {
-          /*jshint loopfunc:true*/
           data.forEach(function (resource) {
 
             /*
@@ -86416,7 +86751,6 @@ define("ember-data/serializers/rest", ["exports", "ember", "ember-data/-private/
         var type = store.modelFor(modelName);
         var typeSerializer = store.serializerFor(type.modelName);
 
-        /*jshint loopfunc:true*/
         _ember["default"].makeArray(payload[prop]).forEach(function (hash) {
           var _typeSerializer$normalize = typeSerializer.normalize(type, hash, prop);
 
@@ -86711,7 +87045,11 @@ define("ember-data/serializers/rest", ["exports", "ember", "ember-data/-private/
       if (_ember["default"].isNone(belongsTo)) {
         json[typeKey] = null;
       } else {
-        json[typeKey] = camelize(belongsTo.modelName);
+        if (false) {
+          json[typeKey] = this.payloadTypeFromModelName(belongsTo.modelName);
+        } else {
+          json[typeKey] = camelize(belongsTo.modelName);
+        }
       }
     },
 
@@ -86749,17 +87087,145 @@ define("ember-data/serializers/rest", ["exports", "ember", "ember-data/-private/
       var isPolymorphic = relationshipMeta.options.polymorphic;
       var typeProperty = this.keyForPolymorphicType(key, relationshipType, 'deserialize');
 
-      if (isPolymorphic && resourceHash.hasOwnProperty(typeProperty) && typeof relationshipHash !== 'object') {
-        var type = this.modelNameFromPayloadKey(resourceHash[typeProperty]);
-        return {
-          id: relationshipHash,
-          type: type
-        };
+      if (isPolymorphic && resourceHash[typeProperty] !== undefined && typeof relationshipHash !== 'object') {
+
+        if (false) {
+
+          var payloadType = resourceHash[typeProperty];
+          var type = this.modelNameFromPayloadType(payloadType);
+          var deprecatedTypeLookup = this.modelNameFromPayloadKey(payloadType);
+
+          if (payloadType !== deprecatedTypeLookup && !this._hasCustomModelNameFromPayloadType() && this._hasCustomModelNameFromPayloadKey()) {
+            (0, _emberDataPrivateDebug.deprecate)("You are using modelNameFromPayloadKey to normalize the type for a polymorphic relationship. This has been deprecated in favor of modelNameFromPayloadType", false, {
+              id: 'ds.rest-serializer.deprecated-model-name-for-polymorphic-type',
+              until: '3.0.0'
+            });
+
+            type = deprecatedTypeLookup;
+          }
+
+          return {
+            id: relationshipHash,
+            type: type
+          };
+        } else {
+
+          var type = this.modelNameFromPayloadKey(resourceHash[typeProperty]);
+          return {
+            id: relationshipHash,
+            type: type
+          };
+        }
       }
 
       return this._super.apply(this, arguments);
     }
   });
+
+  if (false) {
+
+    RESTSerializer.reopen({
+
+      /**
+        `modelNameFromPayloadType` can be used to change the mapping for a DS model
+        name, taken from the value in the payload.
+         Say your API namespaces the type of a model and returns the following
+        payload for the `post` model, which has a polymorphic `user` relationship:
+         ```javascript
+        // GET /api/posts/1
+        {
+          "post": {
+            "id": 1,
+            "user": 1,
+            "userType: "api::v1::administrator"
+          }
+        }
+        ```
+         By overwriting `modelNameFromPayloadType` you can specify that the
+        `administrator` model should be used:
+         ```app/serializers/application.js
+        import DS from "ember-data";
+         export default DS.RESTSerializer.extend({
+          modelNameFromPayloadType(payloadType) {
+            return payloadType.replace('api::v1::', '');
+          }
+        });
+        ```
+         By default the modelName for a model is its name in dasherized form.
+        Usually, Ember Data can use the correct inflection to do this for you. Most
+        of the time, you won't need to override `modelNameFromPayloadType` for this
+        purpose.
+         Also take a look at
+        [payloadTypeFromModelName](#method_payloadTypeFromModelName) to customize
+        how the type of a record should be serialized.
+         @method modelNameFromPayloadType
+        @public
+        @param {String} payloadType type from payload
+        @return {String} modelName
+      */
+      modelNameFromPayloadType: function modelNameFromPayloadType(payloadType) {
+        return (0, _emberInflector.singularize)((0, _emberDataPrivateSystemNormalizeModelName["default"])(payloadType));
+      },
+
+      /**
+        `payloadTypeFromModelName` can be used to change the mapping for the type in
+        the payload, taken from the model name.
+         Say your API namespaces the type of a model and expects the following
+        payload when you update the `post` model, which has a polymorphic `user`
+        relationship:
+         ```javascript
+        // POST /api/posts/1
+        {
+          "post": {
+            "id": 1,
+            "user": 1,
+            "userType": "api::v1::administrator"
+          }
+        }
+        ```
+         By overwriting `payloadTypeFromModelName` you can specify that the
+        namespaces model name for the `administrator` should be used:
+         ```app/serializers/application.js
+        import DS from "ember-data";
+         export default DS.RESTSerializer.extend({
+          payloadTypeFromModelName(modelName) {
+            return "api::v1::" + modelName;
+          }
+        });
+        ```
+         By default the payload type is the camelized model name. Usually, Ember
+        Data can use the correct inflection to do this for you. Most of the time,
+        you won't need to override `payloadTypeFromModelName` for this purpose.
+         Also take a look at
+        [modelNameFromPayloadType](#method_modelNameFromPayloadType) to customize
+        how the model name from should be mapped from the payload.
+         @method payloadTypeFromModelName
+        @public
+        @param {String} modelname modelName from the record
+        @return {String} payloadType
+      */
+      payloadTypeFromModelName: function payloadTypeFromModelName(modelName) {
+        return camelize(modelName);
+      },
+
+      _hasCustomModelNameFromPayloadKey: function _hasCustomModelNameFromPayloadKey() {
+        return this.modelNameFromPayloadKey !== RESTSerializer.prototype.modelNameFromPayloadKey;
+      },
+
+      _hasCustomModelNameFromPayloadType: function _hasCustomModelNameFromPayloadType() {
+        return this.modelNameFromPayloadType !== RESTSerializer.prototype.modelNameFromPayloadType;
+      },
+
+      _hasCustomPayloadTypeFromModelName: function _hasCustomPayloadTypeFromModelName() {
+        return this.payloadTypeFromModelName !== RESTSerializer.prototype.payloadTypeFromModelName;
+      },
+
+      _hasCustomPayloadKeyFromModelName: function _hasCustomPayloadKeyFromModelName() {
+        return this.payloadKeyFromModelName !== RESTSerializer.prototype.payloadKeyFromModelName;
+      }
+
+    });
+  }
 
   (0, _emberDataPrivateDebug.runInDebug)(function () {
     RESTSerializer.reopen({
@@ -86834,12 +87300,13 @@ define('ember-data/transform', ['exports', 'ember'], function (exports, _ember) 
       method must return the serialized value.
        Example
        ```javascript
-      serialize: function(deserialized) {
+      serialize: function(deserialized, options) {
         return Ember.isEmpty(deserialized) ? null : Number(deserialized);
       }
       ```
        @method serialize
       @param deserialized The deserialized value
+      @param options hash of options passed to `DS.attr`
       @return The serialized value
     */
     serialize: null,
@@ -86849,12 +87316,13 @@ define('ember-data/transform', ['exports', 'ember'], function (exports, _ember) 
       return the deserialized value for the record attribute.
        Example
        ```javascript
-      deserialize: function(serialized) {
+      deserialize: function(serialized, options) {
         return empty(serialized) ? null : Number(serialized);
       }
       ```
        @method deserialize
       @param serialized The serialized value
+      @param options hash of options passed to `DS.attr`
       @return The deserialized value
     */
     deserialize: null
@@ -86863,7 +87331,7 @@ define('ember-data/transform', ['exports', 'ember'], function (exports, _ember) 
 define("ember-data/version", ["exports"], function (exports) {
   "use strict";
 
-  exports["default"] = "2.6.1";
+  exports["default"] = "2.7.0";
 });
 define('ember-getowner-polyfill/fake-owner', ['exports', 'ember'], function (exports, _ember) {
   'use strict';
