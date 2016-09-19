@@ -7,6 +7,7 @@ var Router = Ember.Router.extend({
 
 Router.map(function() {
   this.route('signin');
+  this.route('register');
   this.route('landing-page', { path: '/' });
   this.route('dashboard');
 

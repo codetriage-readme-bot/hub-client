@@ -301,6 +301,15 @@ a.list-group-item:hover {
 .signin-form-wrapper .signin-form-container {
     width: 400px;
 }
+.register-form-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 55px);
+}
+.register-form-wrapper .register-form-container {
+    width: 400px;
+}
 .c-landing-page__header--jumbotron {
     height: calc(100vh - 55px);
     display: flex;
