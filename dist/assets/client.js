@@ -307,6 +307,36 @@ define('client/components/forms/edit-project-form', ['exports', 'ember'], functi
     }
   });
 });
+define('client/components/forms/edit-user-form', ['exports', 'ember'], function (exports, _ember) {
+  var getOwner = _ember['default'].getOwner;
+  exports['default'] = _ember['default'].Component.extend({
+    store: _ember['default'].inject.service(),
+    session: _ember['default'].inject.service('session'),
+    actions: {
+      save: function save(title, description, id) {
+        var _this = this;
+
+        // get the details about the currently authenticated user
+        this.get('store').findRecord('user', this.get('session.data.authenticated.id')).then(function (user) {
+          user.save().then(function () {
+            // go to the edit item's route after creating it.
+            // remember to pass 'project' as the params since
+            // project.js is expecting an object
+            getOwner(_this).lookup('route:user.user').transitionTo('user.user', user);
+          });
+        });
+      },
+
+      cancel: function cancel(title, description, id) {
+        // don't store the attributes if they are not saved
+        this.get('model').rollbackAttributes();
+
+        // go the project route on cancel
+        getOwner(this).lookup('route:project.project').transitionTo('project.project', id);
+      }
+    }
+  });
+});
 define('client/components/forms/new-card-form', ['exports', 'ember'], function (exports, _ember) {
   var getOwner = _ember['default'].getOwner;
   exports['default'] = _ember['default'].Component.extend({
@@ -793,7 +823,9 @@ define('client/router', ['exports', 'ember', 'client/config/environment'], funct
 
     // route for the single user
     this.route('user', function () {
-      this.route('user', { path: '/:slug' });
+      this.route('user', { path: '/:slug' }, function () {
+        this.route('edit');
+      });
     });
 
     // route for all the cards
@@ -926,6 +958,14 @@ define('client/routes/projects', ['exports', 'ember', 'ember-simple-auth/mixins/
 });
 define('client/routes/signin', ['exports', 'ember', 'ember-simple-auth/mixins/unauthenticated-route-mixin'], function (exports, _ember, _emberSimpleAuthMixinsUnauthenticatedRouteMixin) {
   exports['default'] = _ember['default'].Route.extend(_emberSimpleAuthMixinsUnauthenticatedRouteMixin['default']);
+});
+define('client/routes/user/user/edit', ['exports', 'ember'], function (exports, _ember) {
+  exports['default'] = _ember['default'].Route.extend({
+    setupController: function setupController(controller, model) {
+      this._super(controller, model);
+      controller.set('user', model);
+    }
+  });
 });
 define('client/routes/user/user', ['exports', 'ember', 'ember-simple-auth/mixins/authenticated-route-mixin'], function (exports, _ember, _emberSimpleAuthMixinsAuthenticatedRouteMixin) {
   exports['default'] = _ember['default'].Route.extend(_emberSimpleAuthMixinsAuthenticatedRouteMixin['default'], {
@@ -2322,6 +2362,128 @@ define("client/templates/components/forms/edit-project-form", ["exports"], funct
         return morphs;
       },
       statements: [["inline", "input", [], ["type", "text", "value", ["subexpr", "@mut", [["get", "model.title", ["loc", [null, [4, 30], [4, 41]]]]], [], []], "class", "form-control", "id", "card-title", "placeholder", "Enter the title of the card"], ["loc", [null, [4, 4], [4, 122]]]], ["inline", "textarea", [], ["value", ["subexpr", "@mut", [["get", "model.description", ["loc", [null, [10, 21], [10, 38]]]]], [], []], "class", "form-control", "id", "card-description", "rows", "5"], ["loc", [null, [10, 4], [10, 92]]]], ["element", "action", ["save", ["get", "model.title", ["loc", [null, [15, 28], [15, 39]]]], ["get", "model.description", ["loc", [null, [15, 40], [15, 57]]]], ["get", "model.id", ["loc", [null, [15, 58], [15, 66]]]]], [], ["loc", [null, [15, 12], [15, 68]]]], ["element", "action", ["cancel", ["get", "model.title", ["loc", [null, [16, 30], [16, 41]]]], ["get", "model.description", ["loc", [null, [16, 42], [16, 59]]]], ["get", "model.id", ["loc", [null, [16, 60], [16, 68]]]]], [], ["loc", [null, [16, 12], [16, 70]]]]],
+      locals: [],
+      templates: []
+    };
+  })());
+});
+define("client/templates/components/forms/edit-user-form", ["exports"], function (exports) {
+  exports["default"] = Ember.HTMLBars.template((function () {
+    return {
+      meta: {
+        "fragmentReason": false,
+        "revision": "Ember@2.6.1",
+        "loc": {
+          "source": null,
+          "start": {
+            "line": 1,
+            "column": 0
+          },
+          "end": {
+            "line": 19,
+            "column": 0
+          }
+        },
+        "moduleName": "client/templates/components/forms/edit-user-form.hbs"
+      },
+      isEmpty: false,
+      arity: 0,
+      cachedFragment: null,
+      hasRendered: false,
+      buildFragment: function buildFragment(dom) {
+        var el0 = dom.createDocumentFragment();
+        var el1 = dom.createElement("form");
+        var el2 = dom.createTextNode("\n  ");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createElement("fieldset");
+        dom.setAttribute(el2, "class", "form-group");
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("label");
+        dom.setAttribute(el3, "for", "card-name");
+        var el4 = dom.createTextNode("Name");
+        dom.appendChild(el3, el4);
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createComment("");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("small");
+        dom.setAttribute(el3, "class", "text-muted");
+        var el4 = dom.createTextNode("Change your name");
+        dom.appendChild(el3, el4);
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n  ");
+        dom.appendChild(el2, el3);
+        dom.appendChild(el1, el2);
+        var el2 = dom.createTextNode("\n\n  ");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createElement("fieldset");
+        dom.setAttribute(el2, "class", "form-group");
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("label");
+        dom.setAttribute(el3, "for", "card-email");
+        var el4 = dom.createTextNode("Email");
+        dom.appendChild(el3, el4);
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createComment("");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("small");
+        dom.setAttribute(el3, "class", "text-muted");
+        var el4 = dom.createTextNode("Enter your email");
+        dom.appendChild(el3, el4);
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n  ");
+        dom.appendChild(el2, el3);
+        dom.appendChild(el1, el2);
+        var el2 = dom.createTextNode("\n\n  ");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createElement("div");
+        dom.setAttribute(el2, "class", "form-group");
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("button");
+        dom.setAttribute(el3, "class", "btn btn-success");
+        var el4 = dom.createTextNode("Save");
+        dom.appendChild(el3, el4);
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("button");
+        dom.setAttribute(el3, "class", "btn btn-link");
+        var el4 = dom.createTextNode("Cancel");
+        dom.appendChild(el3, el4);
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n  ");
+        dom.appendChild(el2, el3);
+        dom.appendChild(el1, el2);
+        var el2 = dom.createTextNode("\n");
+        dom.appendChild(el1, el2);
+        dom.appendChild(el0, el1);
+        var el1 = dom.createTextNode("\n");
+        dom.appendChild(el0, el1);
+        return el0;
+      },
+      buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+        var element0 = dom.childAt(fragment, [0]);
+        var element1 = dom.childAt(element0, [5]);
+        var element2 = dom.childAt(element1, [1]);
+        var element3 = dom.childAt(element1, [3]);
+        var morphs = new Array(4);
+        morphs[0] = dom.createMorphAt(dom.childAt(element0, [1]), 3, 3);
+        morphs[1] = dom.createMorphAt(dom.childAt(element0, [3]), 3, 3);
+        morphs[2] = dom.createElementMorph(element2);
+        morphs[3] = dom.createElementMorph(element3);
+        return morphs;
+      },
+      statements: [["inline", "input", [], ["type", "text", "value", ["subexpr", "@mut", [["get", "model.name", ["loc", [null, [4, 30], [4, 40]]]]], [], []], "class", "form-control", "id", "card-name", "placeholder", "John Doe"], ["loc", [null, [4, 4], [4, 101]]]], ["inline", "input", [], ["type", "email", "value", ["subexpr", "@mut", [["get", "model.email", ["loc", [null, [10, 31], [10, 42]]]]], [], []], "class", "form-control", "id", "card-email", "placeholder", "yourname@email.com"], ["loc", [null, [10, 4], [10, 114]]]], ["element", "action", ["save", ["get", "model.name", ["loc", [null, [15, 28], [15, 38]]]], ["get", "model.email", ["loc", [null, [15, 39], [15, 50]]]], ["get", "model.id", ["loc", [null, [15, 51], [15, 59]]]]], [], ["loc", [null, [15, 12], [15, 61]]]], ["element", "action", ["cancel", ["get", "model.name", ["loc", [null, [16, 30], [16, 40]]]], ["get", "model.email", ["loc", [null, [16, 41], [16, 52]]]], ["get", "model.id", ["loc", [null, [16, 53], [16, 61]]]]], [], ["loc", [null, [16, 12], [16, 63]]]]],
       locals: [],
       templates: []
     };
@@ -5064,7 +5226,7 @@ define("client/templates/signin", ["exports"], function (exports) {
     };
   })());
 });
-define("client/templates/user/user", ["exports"], function (exports) {
+define("client/templates/user/user/edit", ["exports"], function (exports) {
   exports["default"] = Ember.HTMLBars.template((function () {
     return {
       meta: {
@@ -5079,7 +5241,122 @@ define("client/templates/user/user", ["exports"], function (exports) {
             "column": 0
           },
           "end": {
-            "line": 25,
+            "line": 13,
+            "column": 0
+          }
+        },
+        "moduleName": "client/templates/user/user/edit.hbs"
+      },
+      isEmpty: false,
+      arity: 0,
+      cachedFragment: null,
+      hasRendered: false,
+      buildFragment: function buildFragment(dom) {
+        var el0 = dom.createDocumentFragment();
+        var el1 = dom.createElement("div");
+        dom.setAttribute(el1, "class", "col-md-6");
+        var el2 = dom.createTextNode("\n  ");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createElement("div");
+        dom.setAttribute(el2, "class", "card c-card");
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("div");
+        dom.setAttribute(el3, "class", "card-header c-card__header");
+        var el4 = dom.createTextNode("\n      ");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createElement("h4");
+        dom.setAttribute(el4, "class", "c-card__title");
+        var el5 = dom.createTextNode("\n        Edit User\n      ");
+        dom.appendChild(el4, el5);
+        dom.appendChild(el3, el4);
+        var el4 = dom.createTextNode("\n    ");
+        dom.appendChild(el3, el4);
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("div");
+        dom.setAttribute(el3, "class", "card-block c-card__block");
+        var el4 = dom.createTextNode("\n      ");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createComment("");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createTextNode("\n    ");
+        dom.appendChild(el3, el4);
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n  ");
+        dom.appendChild(el2, el3);
+        dom.appendChild(el1, el2);
+        var el2 = dom.createTextNode("\n");
+        dom.appendChild(el1, el2);
+        dom.appendChild(el0, el1);
+        var el1 = dom.createTextNode("\n");
+        dom.appendChild(el0, el1);
+        return el0;
+      },
+      buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+        var morphs = new Array(1);
+        morphs[0] = dom.createMorphAt(dom.childAt(fragment, [0, 1, 3]), 1, 1);
+        return morphs;
+      },
+      statements: [["inline", "forms/edit-user-form", [], ["model", ["subexpr", "@mut", [["get", "model", ["loc", [null, [9, 35], [9, 40]]]]], [], []]], ["loc", [null, [9, 6], [9, 42]]]]],
+      locals: [],
+      templates: []
+    };
+  })());
+});
+define("client/templates/user/user", ["exports"], function (exports) {
+  exports["default"] = Ember.HTMLBars.template((function () {
+    var child0 = (function () {
+      return {
+        meta: {
+          "fragmentReason": false,
+          "revision": "Ember@2.6.1",
+          "loc": {
+            "source": null,
+            "start": {
+              "line": 22,
+              "column": 8
+            },
+            "end": {
+              "line": 22,
+              "column": 49
+            }
+          },
+          "moduleName": "client/templates/user/user.hbs"
+        },
+        isEmpty: false,
+        arity: 0,
+        cachedFragment: null,
+        hasRendered: false,
+        buildFragment: function buildFragment(dom) {
+          var el0 = dom.createDocumentFragment();
+          var el1 = dom.createTextNode("Edit");
+          dom.appendChild(el0, el1);
+          return el0;
+        },
+        buildRenderNodes: function buildRenderNodes() {
+          return [];
+        },
+        statements: [],
+        locals: [],
+        templates: []
+      };
+    })();
+    return {
+      meta: {
+        "fragmentReason": {
+          "name": "triple-curlies"
+        },
+        "revision": "Ember@2.6.1",
+        "loc": {
+          "source": null,
+          "start": {
+            "line": 1,
+            "column": 0
+          },
+          "end": {
+            "line": 27,
             "column": 0
           }
         },
@@ -5118,6 +5395,10 @@ define("client/templates/user/user", ["exports"], function (exports) {
         dom.setAttribute(el3, "class", "l-cards-container");
         var el4 = dom.createTextNode("\n      ");
         dom.appendChild(el3, el4);
+        var el4 = dom.createComment("");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createTextNode("\n      ");
+        dom.appendChild(el3, el4);
         var el4 = dom.createElement("div");
         dom.setAttribute(el4, "class", "col-md-6");
         var el5 = dom.createTextNode("\n        ");
@@ -5149,7 +5430,7 @@ define("client/templates/user/user", ["exports"], function (exports) {
         var el7 = dom.createTextNode("\n            ");
         dom.appendChild(el6, el7);
         var el7 = dom.createElement("p");
-        dom.setAttribute(el7, "class", "card-title c-card__description");
+        dom.setAttribute(el7, "class", "c-card__description");
         var el8 = dom.createTextNode("\n              ");
         dom.appendChild(el7, el8);
         var el8 = dom.createComment("");
@@ -5162,6 +5443,10 @@ define("client/templates/user/user", ["exports"], function (exports) {
         dom.appendChild(el5, el6);
         var el6 = dom.createTextNode("\n        ");
         dom.appendChild(el5, el6);
+        dom.appendChild(el4, el5);
+        var el5 = dom.createTextNode("\n        ");
+        dom.appendChild(el4, el5);
+        var el5 = dom.createComment("");
         dom.appendChild(el4, el5);
         var el5 = dom.createTextNode("\n      ");
         dom.appendChild(el4, el5);
@@ -5182,17 +5467,21 @@ define("client/templates/user/user", ["exports"], function (exports) {
       buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
         var element0 = dom.childAt(fragment, [0]);
         var element1 = dom.childAt(element0, [3]);
-        var element2 = dom.childAt(element1, [3, 1, 1]);
-        var morphs = new Array(4);
+        var element2 = dom.childAt(element1, [3]);
+        var element3 = dom.childAt(element2, [3]);
+        var element4 = dom.childAt(element3, [1]);
+        var morphs = new Array(6);
         morphs[0] = dom.createMorphAt(dom.childAt(element0, [1]), 1, 1);
         morphs[1] = dom.createMorphAt(element1, 1, 1);
-        morphs[2] = dom.createMorphAt(dom.childAt(element2, [1, 1]), 1, 1);
-        morphs[3] = dom.createMorphAt(dom.childAt(element2, [3, 1]), 1, 1);
+        morphs[2] = dom.createMorphAt(element2, 1, 1);
+        morphs[3] = dom.createMorphAt(dom.childAt(element4, [1, 1]), 1, 1);
+        morphs[4] = dom.createMorphAt(dom.childAt(element4, [3, 1]), 1, 1);
+        morphs[5] = dom.createMorphAt(element3, 3, 3);
         return morphs;
       },
-      statements: [["content", "layout/side-bar", ["loc", [null, [3, 4], [3, 23]]]], ["content", "layout/secondary-nav-bar", ["loc", [null, [6, 4], [6, 32]]]], ["content", "user.name", ["loc", [null, [12, 14], [12, 27]]]], ["content", "user.email", ["loc", [null, [17, 14], [17, 28]]]]],
+      statements: [["content", "layout/side-bar", ["loc", [null, [3, 4], [3, 23]]]], ["content", "layout/secondary-nav-bar", ["loc", [null, [6, 4], [6, 32]]]], ["content", "outlet", ["loc", [null, [8, 6], [8, 16]]]], ["content", "user.name", ["loc", [null, [13, 14], [13, 27]]]], ["content", "user.email", ["loc", [null, [18, 14], [18, 28]]]], ["block", "link-to", ["user.user.edit", ["get", "user.id", ["loc", [null, [22, 36], [22, 43]]]]], [], 0, null, ["loc", [null, [22, 8], [22, 61]]]]],
       locals: [],
-      templates: []
+      templates: [child0]
     };
   })());
 });

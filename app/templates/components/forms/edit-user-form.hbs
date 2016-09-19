@@ -1,0 +1,18 @@
+<form>
+  <fieldset class="form-group">
+    <label for="card-name">Name</label>
+    {{input type="text" value=model.name class="form-control" id="card-name" placeholder="John Doe"}}
+    <small class="text-muted">Change your name</small>
+  </fieldset>
+
+  <fieldset class="form-group">
+    <label for="card-email">Email</label>
+    {{input type="email" value=model.email class="form-control" id="card-email" placeholder="yourname@email.com"}}
+    <small class="text-muted">Enter your email</small>
+  </fieldset>
+
+  <div class="form-group">
+    <button {{action 'save' model.name model.email model.id}} class="btn btn-success">Save</button>
+    <button {{action 'cancel' model.name model.email model.id}} class="btn btn-link">Cancel</button>
+  </div>
+</form>

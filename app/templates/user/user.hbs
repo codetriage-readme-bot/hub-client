@@ -5,6 +5,7 @@
   <div class="col-md-10 l-main-container">
     {{layout/secondary-nav-bar}}
     <div class="l-cards-container">
+      {{outlet}}
       <div class="col-md-6">
         <div class="card c-card">
           <div class="card-header c-card__header">
@@ -13,11 +14,12 @@
             </h4>
           </div>
           <div class="card-block c-card__block">
-            <p class="card-title c-card__description">
+            <p class="c-card__description">
               {{user.email}}
             </p>
           </div>
         </div>
+        {{#link-to 'user.user.edit' user.id}}Edit{{/link-to}}
       </div>
     </div>
   </div>

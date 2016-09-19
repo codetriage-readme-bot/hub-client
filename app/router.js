@@ -16,7 +16,9 @@ Router.map(function() {
 
   // route for the single user
   this.route('user', function() {
-    this.route('user', { path: '/:slug' });
+    this.route('user', { path: '/:slug' }, function() {
+      this.route('edit');
+    });
   });
 
   // route for all the cards
