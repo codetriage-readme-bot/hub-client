@@ -5700,7 +5700,7 @@ catch(err) {
 /* jshint ignore:start */
 
 if (!runningTests) {
-  require("client/app")["default"].create({"name":"client","version":"0.0.0+948598ff"});
+  require("client/app")["default"].create({"name":"client","version":"0.0.0+c0a78a04"});
 }
 
 /* jshint ignore:end */
