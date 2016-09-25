@@ -219,7 +219,7 @@ define('client/components/forms/edit-card-form', ['exports', 'ember'], function 
         });
       },
 
-      cancel: function cancel(title, description, id) {
+      cancel: function cancel(id) {
         // don't store the attributes if they are not saved
         this.get('model').rollbackAttributes();
 
@@ -228,6 +228,10 @@ define('client/components/forms/edit-card-form', ['exports', 'ember'], function 
       },
 
       selectType: function selectType(type) {
+        if (type === null) {
+          return false;
+        }
+
         this.get('model').set('type', type.id);
       },
 
@@ -313,26 +317,26 @@ define('client/components/forms/edit-user-form', ['exports', 'ember'], function 
     store: _ember['default'].inject.service(),
     session: _ember['default'].inject.service('session'),
     actions: {
-      save: function save(title, description, id) {
+      save: function save(name, email, id) {
         var _this = this;
 
         // get the details about the currently authenticated user
         this.get('store').findRecord('user', this.get('session.data.authenticated.id')).then(function (user) {
           user.save().then(function () {
             // go to the edit item's route after creating it.
-            // remember to pass 'project' as the params since
-            // project.js is expecting an object
+            // remember to pass 'user' as the params since
+            // user.js is expecting an object
             getOwner(_this).lookup('route:user.user').transitionTo('user.user', user);
           });
         });
       },
 
-      cancel: function cancel(title, description, id) {
+      cancel: function cancel(id) {
         // don't store the attributes if they are not saved
         this.get('model').rollbackAttributes();
 
-        // go the project route on cancel
-        getOwner(this).lookup('route:project.project').transitionTo('project.project', id);
+        // go the user route on cancel
+        getOwner(this).lookup('route:user.user').transitionTo('user.user', id);
       }
     }
   });
@@ -1943,11 +1947,11 @@ define("client/templates/components/forms/edit-card-form", ["exports"], function
           "loc": {
             "source": null,
             "start": {
-              "line": 30,
+              "line": 31,
               "column": 4
             },
             "end": {
-              "line": 32,
+              "line": 33,
               "column": 4
             }
           },
@@ -1975,7 +1979,7 @@ define("client/templates/components/forms/edit-card-form", ["exports"], function
           morphs[0] = dom.createMorphAt(dom.childAt(fragment, [1]), 0, 0);
           return morphs;
         },
-        statements: [["content", "errors.type", ["loc", [null, [31, 44], [31, 59]]]]],
+        statements: [["content", "errors.type", ["loc", [null, [32, 44], [32, 59]]]]],
         locals: [],
         templates: []
       };
@@ -1988,11 +1992,11 @@ define("client/templates/components/forms/edit-card-form", ["exports"], function
           "loc": {
             "source": null,
             "start": {
-              "line": 45,
+              "line": 46,
               "column": 4
             },
             "end": {
-              "line": 47,
+              "line": 48,
               "column": 4
             }
           },
@@ -2020,7 +2024,7 @@ define("client/templates/components/forms/edit-card-form", ["exports"], function
           morphs[0] = dom.createMorphAt(dom.childAt(fragment, [1]), 0, 0);
           return morphs;
         },
-        statements: [["content", "errors.title", ["loc", [null, [46, 44], [46, 60]]]]],
+        statements: [["content", "errors.title", ["loc", [null, [47, 44], [47, 60]]]]],
         locals: [],
         templates: []
       };
@@ -2033,11 +2037,11 @@ define("client/templates/components/forms/edit-card-form", ["exports"], function
           "loc": {
             "source": null,
             "start": {
-              "line": 59,
+              "line": 60,
               "column": 4
             },
             "end": {
-              "line": 61,
+              "line": 62,
               "column": 4
             }
           },
@@ -2065,7 +2069,7 @@ define("client/templates/components/forms/edit-card-form", ["exports"], function
           morphs[0] = dom.createMorphAt(dom.childAt(fragment, [1]), 0, 0);
           return morphs;
         },
-        statements: [["content", "errors.description", ["loc", [null, [60, 44], [60, 66]]]]],
+        statements: [["content", "errors.description", ["loc", [null, [61, 44], [61, 66]]]]],
         locals: [],
         templates: []
       };
@@ -2081,7 +2085,7 @@ define("client/templates/components/forms/edit-card-form", ["exports"], function
             "column": 0
           },
           "end": {
-            "line": 69,
+            "line": 70,
             "column": 0
           }
         },
@@ -2239,7 +2243,7 @@ define("client/templates/components/forms/edit-card-form", ["exports"], function
         morphs[9] = dom.createElementMorph(element7);
         return morphs;
       },
-      statements: [["inline", "ember-selectize", [], ["content", ["subexpr", "@mut", [["get", "projects", ["loc", [null, [5, 14], [5, 22]]]]], [], []], "optionValuePath", "content.id", "optionLabelPath", "content.title", "placeholder", "Select a Project", "select-item", "selectProject", "value", ["subexpr", "@mut", [["get", "currentProject.id", ["loc", [null, [10, 12], [10, 29]]]]], [], []], "select-item", "selectProject", "loading", true, "disabled", true], ["loc", [null, [4, 4], [14, 6]]]], ["block", "if", [["get", "errors.project", ["loc", [null, [16, 10], [16, 24]]]]], [], 0, null, ["loc", [null, [16, 4], [18, 11]]]], ["inline", "ember-selectize", [], ["content", ["subexpr", "@mut", [["get", "types", ["loc", [null, [23, 14], [23, 19]]]]], [], []], "optionValuePath", "content.id", "optionLabelPath", "content.title", "value", ["subexpr", "@mut", [["get", "model.type", ["loc", [null, [26, 12], [26, 22]]]]], [], []], "placeholder", "Select a Card Type", "select-item", "selectType"], ["loc", [null, [22, 4], [29, 6]]]], ["block", "if", [["get", "errors.type", ["loc", [null, [30, 10], [30, 21]]]]], [], 1, null, ["loc", [null, [30, 4], [32, 11]]]], ["inline", "input", [], ["type", "text", "value", ["subexpr", "@mut", [["get", "model.title", ["loc", [null, [39, 12], [39, 23]]]]], [], []], "class", "form-control", "id", "card-title", "placeholder", "Enter the title of the card", "focus-out", "validateInputTitle"], ["loc", [null, [37, 4], [44, 6]]]], ["block", "if", [["get", "errors.title", ["loc", [null, [45, 10], [45, 22]]]]], [], 2, null, ["loc", [null, [45, 4], [47, 11]]]], ["inline", "textarea", [], ["value", ["subexpr", "@mut", [["get", "model.description", ["loc", [null, [53, 12], [53, 29]]]]], [], []], "class", "form-control", "id", "card-description", "rows", "5", "focus-out", "validateInputDescription"], ["loc", [null, [52, 4], [58, 6]]]], ["block", "if", [["get", "errors.description", ["loc", [null, [59, 10], [59, 28]]]]], [], 3, null, ["loc", [null, [59, 4], [61, 11]]]], ["element", "action", ["save", ["get", "model.title", ["loc", [null, [65, 28], [65, 39]]]], ["get", "model.description", ["loc", [null, [65, 40], [65, 57]]]], ["get", "model.id", ["loc", [null, [65, 58], [65, 66]]]], ["get", "model.type", ["loc", [null, [65, 67], [65, 77]]]]], [], ["loc", [null, [65, 12], [65, 79]]]], ["element", "action", ["cancel"], [], ["loc", [null, [66, 12], [66, 31]]]]],
+      statements: [["inline", "ember-selectize", [], ["content", ["subexpr", "@mut", [["get", "projects", ["loc", [null, [5, 14], [5, 22]]]]], [], []], "optionValuePath", "content.id", "optionLabelPath", "content.title", "placeholder", "Select a Project", "select-item", "selectProject", "value", ["subexpr", "@mut", [["get", "currentProject.id", ["loc", [null, [10, 12], [10, 29]]]]], [], []], "select-item", "selectProject", "loading", true, "disabled", true], ["loc", [null, [4, 4], [14, 6]]]], ["block", "if", [["get", "errors.project", ["loc", [null, [16, 10], [16, 24]]]]], [], 0, null, ["loc", [null, [16, 4], [18, 11]]]], ["inline", "ember-selectize", [], ["content", ["subexpr", "@mut", [["get", "types", ["loc", [null, [23, 14], [23, 19]]]]], [], []], "optionValuePath", "content.id", "optionLabelPath", "content.title", "value", ["subexpr", "@mut", [["get", "model.type", ["loc", [null, [26, 12], [26, 22]]]]], [], []], "placeholder", "Select a Card Type", "select-item", "selectType", "loading", true], ["loc", [null, [22, 4], [30, 6]]]], ["block", "if", [["get", "errors.type", ["loc", [null, [31, 10], [31, 21]]]]], [], 1, null, ["loc", [null, [31, 4], [33, 11]]]], ["inline", "input", [], ["type", "text", "value", ["subexpr", "@mut", [["get", "model.title", ["loc", [null, [40, 12], [40, 23]]]]], [], []], "class", "form-control", "id", "card-title", "placeholder", "Enter the title of the card", "focus-out", "validateInputTitle"], ["loc", [null, [38, 4], [45, 6]]]], ["block", "if", [["get", "errors.title", ["loc", [null, [46, 10], [46, 22]]]]], [], 2, null, ["loc", [null, [46, 4], [48, 11]]]], ["inline", "textarea", [], ["value", ["subexpr", "@mut", [["get", "model.description", ["loc", [null, [54, 12], [54, 29]]]]], [], []], "class", "form-control", "id", "card-description", "rows", "5", "focus-out", "validateInputDescription"], ["loc", [null, [53, 4], [59, 6]]]], ["block", "if", [["get", "errors.description", ["loc", [null, [60, 10], [60, 28]]]]], [], 3, null, ["loc", [null, [60, 4], [62, 11]]]], ["element", "action", ["save", ["get", "model.title", ["loc", [null, [66, 28], [66, 39]]]], ["get", "model.description", ["loc", [null, [66, 40], [66, 57]]]], ["get", "model.id", ["loc", [null, [66, 58], [66, 66]]]], ["get", "model.type", ["loc", [null, [66, 67], [66, 77]]]]], [], ["loc", [null, [66, 12], [66, 79]]]], ["element", "action", ["cancel", ["get", "model.id", ["loc", [null, [67, 30], [67, 38]]]]], [], ["loc", [null, [67, 12], [67, 40]]]]],
       locals: [],
       templates: [child0, child1, child2, child3]
     };
@@ -2483,7 +2487,7 @@ define("client/templates/components/forms/edit-user-form", ["exports"], function
         morphs[3] = dom.createElementMorph(element3);
         return morphs;
       },
-      statements: [["inline", "input", [], ["type", "text", "value", ["subexpr", "@mut", [["get", "model.name", ["loc", [null, [4, 30], [4, 40]]]]], [], []], "class", "form-control", "id", "card-name", "placeholder", "John Doe"], ["loc", [null, [4, 4], [4, 101]]]], ["inline", "input", [], ["type", "email", "value", ["subexpr", "@mut", [["get", "model.email", ["loc", [null, [10, 31], [10, 42]]]]], [], []], "class", "form-control", "id", "card-email", "placeholder", "yourname@email.com"], ["loc", [null, [10, 4], [10, 114]]]], ["element", "action", ["save", ["get", "model.name", ["loc", [null, [15, 28], [15, 38]]]], ["get", "model.email", ["loc", [null, [15, 39], [15, 50]]]], ["get", "model.id", ["loc", [null, [15, 51], [15, 59]]]]], [], ["loc", [null, [15, 12], [15, 61]]]], ["element", "action", ["cancel", ["get", "model.name", ["loc", [null, [16, 30], [16, 40]]]], ["get", "model.email", ["loc", [null, [16, 41], [16, 52]]]], ["get", "model.id", ["loc", [null, [16, 53], [16, 61]]]]], [], ["loc", [null, [16, 12], [16, 63]]]]],
+      statements: [["inline", "input", [], ["type", "text", "value", ["subexpr", "@mut", [["get", "model.name", ["loc", [null, [4, 30], [4, 40]]]]], [], []], "class", "form-control", "id", "card-name", "placeholder", "John Doe"], ["loc", [null, [4, 4], [4, 101]]]], ["inline", "input", [], ["type", "email", "value", ["subexpr", "@mut", [["get", "model.email", ["loc", [null, [10, 31], [10, 42]]]]], [], []], "class", "form-control", "id", "card-email", "placeholder", "yourname@email.com"], ["loc", [null, [10, 4], [10, 114]]]], ["element", "action", ["save", ["get", "model.name", ["loc", [null, [15, 28], [15, 38]]]], ["get", "model.email", ["loc", [null, [15, 39], [15, 50]]]], ["get", "model.id", ["loc", [null, [15, 51], [15, 59]]]]], [], ["loc", [null, [15, 12], [15, 61]]]], ["element", "action", ["cancel", ["get", "model.id", ["loc", [null, [16, 30], [16, 38]]]]], [], ["loc", [null, [16, 12], [16, 40]]]]],
       locals: [],
       templates: []
     };

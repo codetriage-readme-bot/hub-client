@@ -26,6 +26,7 @@
       value=model.type
       placeholder="Select a Card Type"
       select-item="selectType"
+      loading=true
     }}
     {{#if errors.type}}
       <small class="text-muted text-danger">{{errors.type}}</small>
@@ -63,6 +64,6 @@
 
   <div class="form-group">
     <button {{action 'save' model.title model.description model.id model.type}} class="btn btn-success">Save</button>
-    <button {{action 'cancel'}} class="btn btn-link">Cancel</button>
+    <button {{action 'cancel' model.id}} class="btn btn-link">Cancel</button>
   </div>
 </form>

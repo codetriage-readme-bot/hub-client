@@ -67,7 +67,7 @@ define('client/tests/components/forms/edit-user-form.jshint', ['exports'], funct
   QUnit.module('JSHint | components/forms/edit-user-form.js');
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'components/forms/edit-user-form.js should pass jshint.\ncomponents/forms/edit-user-form.js: line 9, col 30, \'id\' is defined but never used.\ncomponents/forms/edit-user-form.js: line 9, col 17, \'description\' is defined but never used.\ncomponents/forms/edit-user-form.js: line 9, col 10, \'title\' is defined but never used.\n\n3 errors');
+    assert.ok(false, 'components/forms/edit-user-form.js should pass jshint.\ncomponents/forms/edit-user-form.js: line 9, col 23, \'id\' is defined but never used.\ncomponents/forms/edit-user-form.js: line 9, col 16, \'email\' is defined but never used.\ncomponents/forms/edit-user-form.js: line 9, col 10, \'name\' is defined but never used.\n\n3 errors');
   });
 });
 define('client/tests/components/forms/new-card-form.jshint', ['exports'], function (exports) {

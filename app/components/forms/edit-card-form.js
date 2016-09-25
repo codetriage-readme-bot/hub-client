@@ -51,7 +51,7 @@ export default Ember.Component.extend({
       });
     },
 
-    cancel(title, description, id) {
+    cancel(id) {
       // don't store the attributes if they are not saved
       this.get('model').rollbackAttributes();
 
@@ -60,6 +60,10 @@ export default Ember.Component.extend({
     },
 
     selectType(type) {
+      if (type === null) {
+        return false;
+      }
+
       this.get('model').set('type', type.id);
     },
 
