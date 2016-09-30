@@ -580,6 +580,9 @@ define('client/components/layout/side-bar', ['exports', 'ember'], function (expo
 define('client/components/projects/projects-container', ['exports', 'ember'], function (exports, _ember) {
   exports['default'] = _ember['default'].Component.extend({});
 });
+define('client/components/teams/teams-container', ['exports', 'ember'], function (exports, _ember) {
+  exports['default'] = _ember['default'].Component.extend({});
+});
 define('client/components/users/users-container', ['exports', 'ember'], function (exports, _ember) {
   exports['default'] = _ember['default'].Component.extend({});
 });
@@ -798,13 +801,22 @@ define('client/models/project', ['exports', 'ember-data/model', 'ember-data/attr
     cards: (0, _emberDataRelationships.hasMany)('card')
   });
 });
+define('client/models/team', ['exports', 'ember-data/model', 'ember-data/attr', 'ember-data/relationships'], function (exports, _emberDataModel, _emberDataAttr, _emberDataRelationships) {
+  exports['default'] = _emberDataModel['default'].extend({
+    name: (0, _emberDataAttr['default'])('string'),
+    description: (0, _emberDataAttr['default'])('string'),
+    slug: (0, _emberDataAttr['default'])('string'),
+    users: (0, _emberDataRelationships.hasMany)('user')
+  });
+});
 define('client/models/user', ['exports', 'ember-data/model', 'ember-data/attr', 'ember-data/relationships'], function (exports, _emberDataModel, _emberDataAttr, _emberDataRelationships) {
   exports['default'] = _emberDataModel['default'].extend({
     email: (0, _emberDataAttr['default'])('string'),
     name: (0, _emberDataAttr['default'])('string'),
     slug: (0, _emberDataAttr['default'])('string'),
     cards: (0, _emberDataRelationships.hasMany)('card'),
-    projects: (0, _emberDataRelationships.hasMany)('project')
+    projects: (0, _emberDataRelationships.hasMany)('project'),
+    teams: (0, _emberDataRelationships.hasMany)('team')
   });
 });
 define('client/resolver', ['exports', 'ember-resolver'], function (exports, _emberResolver) {
@@ -852,6 +864,9 @@ define('client/router', ['exports', 'ember', 'client/config/environment'], funct
       });
       this.route('new');
     });
+
+    // route for all the teams
+    this.route('teams');
   });
 
   exports['default'] = Router;
@@ -962,6 +977,25 @@ define('client/routes/projects', ['exports', 'ember', 'ember-simple-auth/mixins/
 });
 define('client/routes/signin', ['exports', 'ember', 'ember-simple-auth/mixins/unauthenticated-route-mixin'], function (exports, _ember, _emberSimpleAuthMixinsUnauthenticatedRouteMixin) {
   exports['default'] = _ember['default'].Route.extend(_emberSimpleAuthMixinsUnauthenticatedRouteMixin['default']);
+});
+define('client/routes/teams', ['exports', 'ember', 'ember-simple-auth/mixins/authenticated-route-mixin'], function (exports, _ember, _emberSimpleAuthMixinsAuthenticatedRouteMixin) {
+  exports['default'] = _ember['default'].Route.extend(_emberSimpleAuthMixinsAuthenticatedRouteMixin['default'], {
+    session: _ember['default'].inject.service('session'),
+    model: function model() {
+      // return all the teams from the store
+      // return this.store.findAll('team');
+
+      // return the logged in user's teams
+      return this.store.find('user', this.get('session.data.authenticated.id')).then(function (user) {
+        return user.get('teams');
+      });
+    },
+
+    setupController: function setupController(controller, model) {
+      this._super(controller, model);
+      controller.set('teams', model);
+    }
+  });
 });
 define('client/routes/user/user/edit', ['exports', 'ember'], function (exports, _ember) {
   exports['default'] = _ember['default'].Route.extend({
@@ -3917,6 +3951,49 @@ define("client/templates/components/layout/side-bar", ["exports"], function (exp
         templates: []
       };
     })();
+    var child3 = (function () {
+      return {
+        meta: {
+          "fragmentReason": false,
+          "revision": "Ember@2.6.1",
+          "loc": {
+            "source": null,
+            "start": {
+              "line": 11,
+              "column": 2
+            },
+            "end": {
+              "line": 13,
+              "column": 2
+            }
+          },
+          "moduleName": "client/templates/components/layout/side-bar.hbs"
+        },
+        isEmpty: false,
+        arity: 0,
+        cachedFragment: null,
+        hasRendered: false,
+        buildFragment: function buildFragment(dom) {
+          var el0 = dom.createDocumentFragment();
+          var el1 = dom.createTextNode("    ");
+          dom.appendChild(el0, el1);
+          var el1 = dom.createElement("img");
+          dom.setAttribute(el1, "src", "/assets/fonts/user-list.svg");
+          dom.setAttribute(el1, "class", "c-side-bar__icon");
+          dom.setAttribute(el1, "alt", "Teams");
+          dom.appendChild(el0, el1);
+          var el1 = dom.createTextNode(" Teams\n");
+          dom.appendChild(el0, el1);
+          return el0;
+        },
+        buildRenderNodes: function buildRenderNodes() {
+          return [];
+        },
+        statements: [],
+        locals: [],
+        templates: []
+      };
+    })();
     return {
       meta: {
         "fragmentReason": {
@@ -3952,22 +4029,9 @@ define("client/templates/components/layout/side-bar", ["exports"], function (exp
         dom.appendChild(el1, el2);
         var el2 = dom.createComment("");
         dom.appendChild(el1, el2);
+        var el2 = dom.createComment("");
+        dom.appendChild(el1, el2);
         var el2 = dom.createTextNode("  ");
-        dom.appendChild(el1, el2);
-        var el2 = dom.createElement("a");
-        dom.setAttribute(el2, "href", "#");
-        dom.setAttribute(el2, "class", "list-group-item c-side-bar__list-item");
-        var el3 = dom.createTextNode("\n    ");
-        dom.appendChild(el2, el3);
-        var el3 = dom.createElement("img");
-        dom.setAttribute(el3, "src", "/assets/fonts/user-list.svg");
-        dom.setAttribute(el3, "class", "c-side-bar__icon");
-        dom.setAttribute(el3, "alt", "Teams");
-        dom.appendChild(el2, el3);
-        var el3 = dom.createTextNode(" Teams\n  ");
-        dom.appendChild(el2, el3);
-        dom.appendChild(el1, el2);
-        var el2 = dom.createTextNode("\n  ");
         dom.appendChild(el1, el2);
         var el2 = dom.createElement("a");
         dom.setAttribute(el2, "href", "#");
@@ -3991,15 +4055,16 @@ define("client/templates/components/layout/side-bar", ["exports"], function (exp
       },
       buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
         var element0 = dom.childAt(fragment, [0]);
-        var morphs = new Array(3);
+        var morphs = new Array(4);
         morphs[0] = dom.createMorphAt(element0, 1, 1);
         morphs[1] = dom.createMorphAt(element0, 2, 2);
         morphs[2] = dom.createMorphAt(element0, 3, 3);
+        morphs[3] = dom.createMorphAt(element0, 4, 4);
         return morphs;
       },
-      statements: [["block", "link-to", ["cards"], ["class", "list-group-item c-side-bar__list-item"], 0, null, ["loc", [null, [2, 2], [4, 14]]]], ["block", "link-to", ["users"], ["class", "list-group-item c-side-bar__list-item"], 1, null, ["loc", [null, [5, 2], [7, 14]]]], ["block", "link-to", ["projects"], ["class", "list-group-item c-side-bar__list-item"], 2, null, ["loc", [null, [8, 2], [10, 14]]]]],
+      statements: [["block", "link-to", ["cards"], ["class", "list-group-item c-side-bar__list-item"], 0, null, ["loc", [null, [2, 2], [4, 14]]]], ["block", "link-to", ["users"], ["class", "list-group-item c-side-bar__list-item"], 1, null, ["loc", [null, [5, 2], [7, 14]]]], ["block", "link-to", ["projects"], ["class", "list-group-item c-side-bar__list-item"], 2, null, ["loc", [null, [8, 2], [10, 14]]]], ["block", "link-to", ["teams"], ["class", "list-group-item c-side-bar__list-item"], 3, null, ["loc", [null, [11, 2], [13, 14]]]]],
       locals: [],
-      templates: [child0, child1, child2]
+      templates: [child0, child1, child2, child3]
     };
   })());
 });
@@ -4132,6 +4197,100 @@ define("client/templates/components/projects/projects-container", ["exports"], f
       statements: [["block", "link-to", ["project.project", ["get", "project", ["loc", [null, [2, 31], [2, 38]]]]], ["class", "m-card-container__link"], 0, null, ["loc", [null, [2, 2], [15, 14]]]]],
       locals: [],
       templates: [child0]
+    };
+  })());
+});
+define("client/templates/components/teams/teams-container", ["exports"], function (exports) {
+  exports["default"] = Ember.HTMLBars.template((function () {
+    return {
+      meta: {
+        "fragmentReason": {
+          "name": "triple-curlies"
+        },
+        "revision": "Ember@2.6.1",
+        "loc": {
+          "source": null,
+          "start": {
+            "line": 1,
+            "column": 0
+          },
+          "end": {
+            "line": 17,
+            "column": 0
+          }
+        },
+        "moduleName": "client/templates/components/teams/teams-container.hbs"
+      },
+      isEmpty: false,
+      arity: 0,
+      cachedFragment: null,
+      hasRendered: false,
+      buildFragment: function buildFragment(dom) {
+        var el0 = dom.createDocumentFragment();
+        var el1 = dom.createElement("div");
+        dom.setAttribute(el1, "class", "col-md-4");
+        var el2 = dom.createTextNode("\n");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createTextNode("    ");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createElement("div");
+        dom.setAttribute(el2, "class", "card c-card");
+        var el3 = dom.createTextNode("\n      ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("div");
+        dom.setAttribute(el3, "class", "card-header c-card__header");
+        var el4 = dom.createTextNode("\n        ");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createElement("h4");
+        dom.setAttribute(el4, "class", "c-card__title");
+        var el5 = dom.createTextNode("\n          ");
+        dom.appendChild(el4, el5);
+        var el5 = dom.createComment("");
+        dom.appendChild(el4, el5);
+        var el5 = dom.createTextNode("\n        ");
+        dom.appendChild(el4, el5);
+        dom.appendChild(el3, el4);
+        var el4 = dom.createTextNode("\n      ");
+        dom.appendChild(el3, el4);
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n      ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("div");
+        dom.setAttribute(el3, "class", "card-block c-card__block");
+        var el4 = dom.createTextNode("\n        ");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createElement("p");
+        dom.setAttribute(el4, "class", "card-title c-card__description");
+        var el5 = dom.createTextNode("\n            ");
+        dom.appendChild(el4, el5);
+        var el5 = dom.createComment("");
+        dom.appendChild(el4, el5);
+        var el5 = dom.createTextNode("\n        ");
+        dom.appendChild(el4, el5);
+        dom.appendChild(el3, el4);
+        var el4 = dom.createTextNode("\n      ");
+        dom.appendChild(el3, el4);
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        dom.appendChild(el1, el2);
+        var el2 = dom.createTextNode("\n");
+        dom.appendChild(el1, el2);
+        dom.appendChild(el0, el1);
+        var el1 = dom.createTextNode("\n");
+        dom.appendChild(el0, el1);
+        return el0;
+      },
+      buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+        var element0 = dom.childAt(fragment, [0, 2]);
+        var morphs = new Array(2);
+        morphs[0] = dom.createMorphAt(dom.childAt(element0, [1, 1]), 1, 1);
+        morphs[1] = dom.createMorphAt(dom.childAt(element0, [3, 1]), 1, 1);
+        return morphs;
+      },
+      statements: [["content", "team.name", ["loc", [null, [6, 10], [6, 23]]]], ["content", "team.description", ["loc", [null, [11, 12], [11, 32]]]]],
+      locals: [],
+      templates: []
     };
   })());
 });
@@ -5230,6 +5389,189 @@ define("client/templates/signin", ["exports"], function (exports) {
     };
   })());
 });
+define("client/templates/teams", ["exports"], function (exports) {
+  exports["default"] = Ember.HTMLBars.template((function () {
+    var child0 = (function () {
+      return {
+        meta: {
+          "fragmentReason": false,
+          "revision": "Ember@2.6.1",
+          "loc": {
+            "source": null,
+            "start": {
+              "line": 12,
+              "column": 6
+            },
+            "end": {
+              "line": 14,
+              "column": 6
+            }
+          },
+          "moduleName": "client/templates/teams.hbs"
+        },
+        isEmpty: false,
+        arity: 1,
+        cachedFragment: null,
+        hasRendered: false,
+        buildFragment: function buildFragment(dom) {
+          var el0 = dom.createDocumentFragment();
+          var el1 = dom.createTextNode("        ");
+          dom.appendChild(el0, el1);
+          var el1 = dom.createComment("");
+          dom.appendChild(el0, el1);
+          var el1 = dom.createTextNode("\n");
+          dom.appendChild(el0, el1);
+          return el0;
+        },
+        buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+          var morphs = new Array(1);
+          morphs[0] = dom.createMorphAt(fragment, 1, 1, contextualElement);
+          return morphs;
+        },
+        statements: [["inline", "teams/teams-container", [], ["team", ["subexpr", "@mut", [["get", "team", ["loc", [null, [13, 37], [13, 41]]]]], [], []]], ["loc", [null, [13, 8], [13, 43]]]]],
+        locals: ["team"],
+        templates: []
+      };
+    })();
+    var child1 = (function () {
+      return {
+        meta: {
+          "fragmentReason": false,
+          "revision": "Ember@2.6.1",
+          "loc": {
+            "source": null,
+            "start": {
+              "line": 14,
+              "column": 6
+            },
+            "end": {
+              "line": 16,
+              "column": 6
+            }
+          },
+          "moduleName": "client/templates/teams.hbs"
+        },
+        isEmpty: false,
+        arity: 0,
+        cachedFragment: null,
+        hasRendered: false,
+        buildFragment: function buildFragment(dom) {
+          var el0 = dom.createDocumentFragment();
+          var el1 = dom.createTextNode("        Sorry, nobody is here.\n");
+          dom.appendChild(el0, el1);
+          return el0;
+        },
+        buildRenderNodes: function buildRenderNodes() {
+          return [];
+        },
+        statements: [],
+        locals: [],
+        templates: []
+      };
+    })();
+    return {
+      meta: {
+        "fragmentReason": {
+          "name": "triple-curlies"
+        },
+        "revision": "Ember@2.6.1",
+        "loc": {
+          "source": null,
+          "start": {
+            "line": 1,
+            "column": 0
+          },
+          "end": {
+            "line": 20,
+            "column": 0
+          }
+        },
+        "moduleName": "client/templates/teams.hbs"
+      },
+      isEmpty: false,
+      arity: 0,
+      cachedFragment: null,
+      hasRendered: false,
+      buildFragment: function buildFragment(dom) {
+        var el0 = dom.createDocumentFragment();
+        var el1 = dom.createElement("div");
+        dom.setAttribute(el1, "class", "row");
+        var el2 = dom.createTextNode("\n  ");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createElement("div");
+        dom.setAttribute(el2, "class", "col-md-2 l-left-container");
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createComment("");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n  ");
+        dom.appendChild(el2, el3);
+        dom.appendChild(el1, el2);
+        var el2 = dom.createTextNode("\n  ");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createElement("div");
+        dom.setAttribute(el2, "class", "col-md-10 l-main-container");
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createComment("");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("div");
+        dom.setAttribute(el3, "class", "l-cards-container");
+        var el4 = dom.createTextNode("\n      ");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createElement("div");
+        dom.setAttribute(el4, "class", "m-page");
+        var el5 = dom.createTextNode("\n        ");
+        dom.appendChild(el4, el5);
+        var el5 = dom.createElement("img");
+        dom.setAttribute(el5, "src", "/assets/fonts/folder.svg");
+        dom.setAttribute(el5, "class", "c-side-bar__icon");
+        dom.setAttribute(el5, "alt", "Teams");
+        dom.appendChild(el4, el5);
+        var el5 = dom.createTextNode("\n        ");
+        dom.appendChild(el4, el5);
+        var el5 = dom.createElement("h4");
+        dom.setAttribute(el5, "class", "m-page__heading");
+        var el6 = dom.createTextNode("Teams");
+        dom.appendChild(el5, el6);
+        dom.appendChild(el4, el5);
+        var el5 = dom.createTextNode("\n      ");
+        dom.appendChild(el4, el5);
+        dom.appendChild(el3, el4);
+        var el4 = dom.createTextNode("\n");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createComment("");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createTextNode("    ");
+        dom.appendChild(el3, el4);
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n  ");
+        dom.appendChild(el2, el3);
+        dom.appendChild(el1, el2);
+        var el2 = dom.createTextNode("\n");
+        dom.appendChild(el1, el2);
+        dom.appendChild(el0, el1);
+        var el1 = dom.createTextNode("\n");
+        dom.appendChild(el0, el1);
+        return el0;
+      },
+      buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+        var element0 = dom.childAt(fragment, [0]);
+        var element1 = dom.childAt(element0, [3]);
+        var morphs = new Array(3);
+        morphs[0] = dom.createMorphAt(dom.childAt(element0, [1]), 1, 1);
+        morphs[1] = dom.createMorphAt(element1, 1, 1);
+        morphs[2] = dom.createMorphAt(dom.childAt(element1, [3]), 3, 3);
+        return morphs;
+      },
+      statements: [["content", "layout/side-bar", ["loc", [null, [3, 4], [3, 23]]]], ["content", "layout/secondary-nav-bar", ["loc", [null, [6, 4], [6, 32]]]], ["block", "each", [["get", "teams", ["loc", [null, [12, 14], [12, 19]]]]], [], 0, 1, ["loc", [null, [12, 6], [16, 15]]]]],
+      locals: [],
+      templates: [child0, child1]
+    };
+  })());
+});
 define("client/templates/user/user/edit", ["exports"], function (exports) {
   exports["default"] = Ember.HTMLBars.template((function () {
     return {
@@ -5704,7 +6046,7 @@ catch(err) {
 /* jshint ignore:start */
 
 if (!runningTests) {
-  require("client/app")["default"].create({"name":"client","version":"0.0.0+c0a78a04"});
+  require("client/app")["default"].create({"name":"client","version":"0.0.0+d0a26495"});
 }
 
 /* jshint ignore:end */

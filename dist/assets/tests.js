@@ -142,6 +142,15 @@ define('client/tests/components/projects/projects-container.jshint', ['exports']
     assert.ok(true, 'components/projects/projects-container.js should pass jshint.');
   });
 });
+define('client/tests/components/teams/teams-container.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint | components/teams/teams-container.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'components/teams/teams-container.js should pass jshint.');
+  });
+});
 define('client/tests/components/users/users-container.jshint', ['exports'], function (exports) {
   'use strict';
 
@@ -2084,6 +2093,155 @@ define('client/tests/integration/components/projects/projects-container-test.jsh
     assert.ok(true, 'integration/components/projects/projects-container-test.js should pass jshint.');
   });
 });
+define('client/tests/integration/components/teams/teams-container-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
+
+  (0, _emberQunit.moduleForComponent)('teams/team-container', 'Integration | Component | teams/team container', {
+    integration: true
+  });
+
+  (0, _emberQunit.test)('it renders', function (assert) {
+    // Set any properties with this.set('myProperty', 'value');
+    // Handle any actions with this.on('myAction', function(val) { ... });
+
+    this.render(Ember.HTMLBars.template((function () {
+      return {
+        meta: {
+          'fragmentReason': {
+            'name': 'missing-wrapper',
+            'problems': ['wrong-type']
+          },
+          'revision': 'Ember@2.6.1',
+          'loc': {
+            'source': null,
+            'start': {
+              'line': 1,
+              'column': 0
+            },
+            'end': {
+              'line': 1,
+              'column': 24
+            }
+          }
+        },
+        isEmpty: false,
+        arity: 0,
+        cachedFragment: null,
+        hasRendered: false,
+        buildFragment: function buildFragment(dom) {
+          var el0 = dom.createDocumentFragment();
+          var el1 = dom.createComment('');
+          dom.appendChild(el0, el1);
+          return el0;
+        },
+        buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+          var morphs = new Array(1);
+          morphs[0] = dom.createMorphAt(fragment, 0, 0, contextualElement);
+          dom.insertBoundary(fragment, 0);
+          dom.insertBoundary(fragment, null);
+          return morphs;
+        },
+        statements: [['content', 'teams/team-container', ['loc', [null, [1, 0], [1, 24]]]]],
+        locals: [],
+        templates: []
+      };
+    })()));
+
+    assert.equal(this.$().text().trim(), '');
+
+    // Template block usage:
+    this.render(Ember.HTMLBars.template((function () {
+      var child0 = (function () {
+        return {
+          meta: {
+            'fragmentReason': false,
+            'revision': 'Ember@2.6.1',
+            'loc': {
+              'source': null,
+              'start': {
+                'line': 2,
+                'column': 4
+              },
+              'end': {
+                'line': 4,
+                'column': 4
+              }
+            }
+          },
+          isEmpty: false,
+          arity: 0,
+          cachedFragment: null,
+          hasRendered: false,
+          buildFragment: function buildFragment(dom) {
+            var el0 = dom.createDocumentFragment();
+            var el1 = dom.createTextNode('      template block text\n');
+            dom.appendChild(el0, el1);
+            return el0;
+          },
+          buildRenderNodes: function buildRenderNodes() {
+            return [];
+          },
+          statements: [],
+          locals: [],
+          templates: []
+        };
+      })();
+
+      return {
+        meta: {
+          'fragmentReason': {
+            'name': 'missing-wrapper',
+            'problems': ['wrong-type']
+          },
+          'revision': 'Ember@2.6.1',
+          'loc': {
+            'source': null,
+            'start': {
+              'line': 1,
+              'column': 0
+            },
+            'end': {
+              'line': 5,
+              'column': 2
+            }
+          }
+        },
+        isEmpty: false,
+        arity: 0,
+        cachedFragment: null,
+        hasRendered: false,
+        buildFragment: function buildFragment(dom) {
+          var el0 = dom.createDocumentFragment();
+          var el1 = dom.createTextNode('\n');
+          dom.appendChild(el0, el1);
+          var el1 = dom.createComment('');
+          dom.appendChild(el0, el1);
+          var el1 = dom.createTextNode('  ');
+          dom.appendChild(el0, el1);
+          return el0;
+        },
+        buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+          var morphs = new Array(1);
+          morphs[0] = dom.createMorphAt(fragment, 1, 1, contextualElement);
+          return morphs;
+        },
+        statements: [['block', 'teams/team-container', [], [], 0, null, ['loc', [null, [2, 4], [4, 29]]]]],
+        locals: [],
+        templates: [child0]
+      };
+    })()));
+
+    assert.equal(this.$().text().trim(), 'template block text');
+  });
+});
+define('client/tests/integration/components/teams/teams-container-test.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint | integration/components/teams/teams-container-test.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'integration/components/teams/teams-container-test.js should pass jshint.');
+  });
+});
 define('client/tests/integration/components/users/users-container-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
 
   (0, _emberQunit.moduleForComponent)('users/users-container', 'Integration | Component | users/users container', {
@@ -2251,13 +2409,22 @@ define('client/tests/models/project.jshint', ['exports'], function (exports) {
     assert.ok(true, 'models/project.js should pass jshint.');
   });
 });
+define('client/tests/models/team.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint | models/team.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'models/team.js should pass jshint.');
+  });
+});
 define('client/tests/models/user.jshint', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | models/user.js');
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'models/user.js should pass jshint.');
+    assert.ok(false, 'models/user.js should pass jshint.\nmodels/user.js: line 3, col 19, \'belongsTo\' is defined but never used.\n\n1 error');
   });
 });
 define('client/tests/resolver.jshint', ['exports'], function (exports) {
@@ -2384,6 +2551,15 @@ define('client/tests/routes/signin.jshint', ['exports'], function (exports) {
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
     assert.ok(true, 'routes/signin.js should pass jshint.');
+  });
+});
+define('client/tests/routes/teams.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint | routes/teams.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'routes/teams.js should pass jshint.');
   });
 });
 define('client/tests/routes/user/user/edit.jshint', ['exports'], function (exports) {
@@ -2552,6 +2728,28 @@ define('client/tests/unit/models/project-test.jshint', ['exports'], function (ex
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
     assert.ok(true, 'unit/models/project-test.js should pass jshint.');
+  });
+});
+define('client/tests/unit/models/team-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
+
+  (0, _emberQunit.moduleForModel)('team', 'Unit | Model | team', {
+    // Specify the other units that are required for this test.
+    needs: []
+  });
+
+  (0, _emberQunit.test)('it exists', function (assert) {
+    var model = this.subject();
+    // let store = this.store();
+    assert.ok(!!model);
+  });
+});
+define('client/tests/unit/models/team-test.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint | unit/models/team-test.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'unit/models/team-test.js should pass jshint.');
   });
 });
 define('client/tests/unit/models/user-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
@@ -2847,6 +3045,27 @@ define('client/tests/unit/routes/signin-test.jshint', ['exports'], function (exp
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
     assert.ok(true, 'unit/routes/signin-test.js should pass jshint.');
+  });
+});
+define('client/tests/unit/routes/teams-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
+
+  (0, _emberQunit.moduleFor)('route:teams', 'Unit | Route | teams', {
+    // Specify the other units that are required for this test.
+    // needs: ['controller:foo']
+  });
+
+  (0, _emberQunit.test)('it exists', function (assert) {
+    var route = this.subject();
+    assert.ok(route);
+  });
+});
+define('client/tests/unit/routes/teams-test.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint | unit/routes/teams-test.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'unit/routes/teams-test.js should pass jshint.');
   });
 });
 define('client/tests/unit/routes/user/user/edit-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {

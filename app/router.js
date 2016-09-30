@@ -41,6 +41,9 @@ Router.map(function() {
     });
     this.route('new');
   });
+
+  // route for all the teams
+  this.route('teams');
 });
 
 export default Router;
