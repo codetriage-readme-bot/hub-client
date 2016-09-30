@@ -12,7 +12,9 @@
       {{#each cards as |card|}}
         {{cards/cards-container card=card}}
       {{else}}
-        Sorry, nobody is here.
+        <div class="col-md-4">
+          Sorry, nothing to show.
+        </div>
       {{/each}}
     </div>
   </div>

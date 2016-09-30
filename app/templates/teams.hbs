@@ -6,13 +6,15 @@
     {{layout/secondary-nav-bar}}
     <div class="l-cards-container">
       <div class="m-page">
-        <img src="/assets/fonts/folder.svg" class="c-side-bar__icon" alt="Teams" />
+        <img src="/assets/fonts/user-list.svg" class="c-side-bar__icon" alt="Teams" />
         <h4 class="m-page__heading">Teams</h4>
       </div>
       {{#each teams as |team|}}
         {{teams/teams-container team=team}}
       {{else}}
-        Sorry, nobody is here.
+        <div class="col-md-4">
+          Sorry, nothing to show.
+        </div>
       {{/each}}
     </div>
   </div>

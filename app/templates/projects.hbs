@@ -12,7 +12,9 @@
       {{#each projects as |project|}}
         {{projects/projects-container project=project}}
       {{else}}
-        Sorry, nobody is here.
+        <div class="col-md-4">
+          Sorry, nothing to show.
+        </div>
       {{/each}}
     </div>
   </div>

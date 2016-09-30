@@ -12,7 +12,9 @@
       {{#each users as |user|}}
         {{users/users-container user=user}}
       {{else}}
-        Sorry, nobody is here.
+        <div class="col-md-4">
+          Sorry, nothing to show.
+        </div>
       {{/each}}
     </div>
   </div>

@@ -1817,7 +1817,7 @@ define("client/templates/cards", ["exports"], function (exports) {
               "column": 6
             },
             "end": {
-              "line": 16,
+              "line": 18,
               "column": 6
             }
           },
@@ -1829,7 +1829,14 @@ define("client/templates/cards", ["exports"], function (exports) {
         hasRendered: false,
         buildFragment: function buildFragment(dom) {
           var el0 = dom.createDocumentFragment();
-          var el1 = dom.createTextNode("        Sorry, nobody is here.\n");
+          var el1 = dom.createTextNode("        ");
+          dom.appendChild(el0, el1);
+          var el1 = dom.createElement("div");
+          dom.setAttribute(el1, "class", "col-md-4");
+          var el2 = dom.createTextNode("\n          Sorry, nothing to show.\n        ");
+          dom.appendChild(el1, el2);
+          dom.appendChild(el0, el1);
+          var el1 = dom.createTextNode("\n");
           dom.appendChild(el0, el1);
           return el0;
         },
@@ -1854,7 +1861,7 @@ define("client/templates/cards", ["exports"], function (exports) {
             "column": 0
           },
           "end": {
-            "line": 20,
+            "line": 22,
             "column": 0
           }
         },
@@ -1938,7 +1945,7 @@ define("client/templates/cards", ["exports"], function (exports) {
         morphs[2] = dom.createMorphAt(dom.childAt(element1, [3]), 3, 3);
         return morphs;
       },
-      statements: [["content", "layout/side-bar", ["loc", [null, [3, 4], [3, 23]]]], ["content", "layout/secondary-nav-bar", ["loc", [null, [6, 4], [6, 32]]]], ["block", "each", [["get", "cards", ["loc", [null, [12, 14], [12, 19]]]]], [], 0, 1, ["loc", [null, [12, 6], [16, 15]]]]],
+      statements: [["content", "layout/side-bar", ["loc", [null, [3, 4], [3, 23]]]], ["content", "layout/secondary-nav-bar", ["loc", [null, [6, 4], [6, 32]]]], ["block", "each", [["get", "cards", ["loc", [null, [12, 14], [12, 19]]]]], [], 0, 1, ["loc", [null, [12, 6], [18, 15]]]]],
       locals: [],
       templates: [child0, child1]
     };
@@ -5737,7 +5744,7 @@ define("client/templates/projects", ["exports"], function (exports) {
               "column": 6
             },
             "end": {
-              "line": 16,
+              "line": 18,
               "column": 6
             }
           },
@@ -5749,7 +5756,14 @@ define("client/templates/projects", ["exports"], function (exports) {
         hasRendered: false,
         buildFragment: function buildFragment(dom) {
           var el0 = dom.createDocumentFragment();
-          var el1 = dom.createTextNode("        Sorry, nobody is here.\n");
+          var el1 = dom.createTextNode("        ");
+          dom.appendChild(el0, el1);
+          var el1 = dom.createElement("div");
+          dom.setAttribute(el1, "class", "col-md-4");
+          var el2 = dom.createTextNode("\n          Sorry, nothing to show.\n        ");
+          dom.appendChild(el1, el2);
+          dom.appendChild(el0, el1);
+          var el1 = dom.createTextNode("\n");
           dom.appendChild(el0, el1);
           return el0;
         },
@@ -5774,7 +5788,7 @@ define("client/templates/projects", ["exports"], function (exports) {
             "column": 0
           },
           "end": {
-            "line": 20,
+            "line": 22,
             "column": 0
           }
         },
@@ -5858,7 +5872,7 @@ define("client/templates/projects", ["exports"], function (exports) {
         morphs[2] = dom.createMorphAt(dom.childAt(element1, [3]), 3, 3);
         return morphs;
       },
-      statements: [["content", "layout/side-bar", ["loc", [null, [3, 4], [3, 23]]]], ["content", "layout/secondary-nav-bar", ["loc", [null, [6, 4], [6, 32]]]], ["block", "each", [["get", "projects", ["loc", [null, [12, 14], [12, 22]]]]], [], 0, 1, ["loc", [null, [12, 6], [16, 15]]]]],
+      statements: [["content", "layout/side-bar", ["loc", [null, [3, 4], [3, 23]]]], ["content", "layout/secondary-nav-bar", ["loc", [null, [6, 4], [6, 32]]]], ["block", "each", [["get", "projects", ["loc", [null, [12, 14], [12, 22]]]]], [], 0, 1, ["loc", [null, [12, 6], [18, 15]]]]],
       locals: [],
       templates: [child0, child1]
     };
@@ -6444,7 +6458,7 @@ define("client/templates/teams", ["exports"], function (exports) {
               "column": 6
             },
             "end": {
-              "line": 16,
+              "line": 18,
               "column": 6
             }
           },
@@ -6456,7 +6470,14 @@ define("client/templates/teams", ["exports"], function (exports) {
         hasRendered: false,
         buildFragment: function buildFragment(dom) {
           var el0 = dom.createDocumentFragment();
-          var el1 = dom.createTextNode("        Sorry, nobody is here.\n");
+          var el1 = dom.createTextNode("        ");
+          dom.appendChild(el0, el1);
+          var el1 = dom.createElement("div");
+          dom.setAttribute(el1, "class", "col-md-4");
+          var el2 = dom.createTextNode("\n          Sorry, nothing to show.\n        ");
+          dom.appendChild(el1, el2);
+          dom.appendChild(el0, el1);
+          var el1 = dom.createTextNode("\n");
           dom.appendChild(el0, el1);
           return el0;
         },
@@ -6481,7 +6502,7 @@ define("client/templates/teams", ["exports"], function (exports) {
             "column": 0
           },
           "end": {
-            "line": 20,
+            "line": 22,
             "column": 0
           }
         },
@@ -6525,7 +6546,7 @@ define("client/templates/teams", ["exports"], function (exports) {
         var el5 = dom.createTextNode("\n        ");
         dom.appendChild(el4, el5);
         var el5 = dom.createElement("img");
-        dom.setAttribute(el5, "src", "/assets/fonts/folder.svg");
+        dom.setAttribute(el5, "src", "/assets/fonts/user-list.svg");
         dom.setAttribute(el5, "class", "c-side-bar__icon");
         dom.setAttribute(el5, "alt", "Teams");
         dom.appendChild(el4, el5);
@@ -6565,7 +6586,7 @@ define("client/templates/teams", ["exports"], function (exports) {
         morphs[2] = dom.createMorphAt(dom.childAt(element1, [3]), 3, 3);
         return morphs;
       },
-      statements: [["content", "layout/side-bar", ["loc", [null, [3, 4], [3, 23]]]], ["content", "layout/secondary-nav-bar", ["loc", [null, [6, 4], [6, 32]]]], ["block", "each", [["get", "teams", ["loc", [null, [12, 14], [12, 19]]]]], [], 0, 1, ["loc", [null, [12, 6], [16, 15]]]]],
+      statements: [["content", "layout/side-bar", ["loc", [null, [3, 4], [3, 23]]]], ["content", "layout/secondary-nav-bar", ["loc", [null, [6, 4], [6, 32]]]], ["block", "each", [["get", "teams", ["loc", [null, [12, 14], [12, 19]]]]], [], 0, 1, ["loc", [null, [12, 6], [18, 15]]]]],
       locals: [],
       templates: [child0, child1]
     };
@@ -6886,7 +6907,7 @@ define("client/templates/users", ["exports"], function (exports) {
               "column": 6
             },
             "end": {
-              "line": 16,
+              "line": 18,
               "column": 6
             }
           },
@@ -6898,7 +6919,14 @@ define("client/templates/users", ["exports"], function (exports) {
         hasRendered: false,
         buildFragment: function buildFragment(dom) {
           var el0 = dom.createDocumentFragment();
-          var el1 = dom.createTextNode("        Sorry, nobody is here.\n");
+          var el1 = dom.createTextNode("        ");
+          dom.appendChild(el0, el1);
+          var el1 = dom.createElement("div");
+          dom.setAttribute(el1, "class", "col-md-4");
+          var el2 = dom.createTextNode("\n          Sorry, nothing to show.\n        ");
+          dom.appendChild(el1, el2);
+          dom.appendChild(el0, el1);
+          var el1 = dom.createTextNode("\n");
           dom.appendChild(el0, el1);
           return el0;
         },
@@ -6923,7 +6951,7 @@ define("client/templates/users", ["exports"], function (exports) {
             "column": 0
           },
           "end": {
-            "line": 20,
+            "line": 22,
             "column": 0
           }
         },
@@ -7007,7 +7035,7 @@ define("client/templates/users", ["exports"], function (exports) {
         morphs[2] = dom.createMorphAt(dom.childAt(element1, [3]), 3, 3);
         return morphs;
       },
-      statements: [["content", "layout/side-bar", ["loc", [null, [3, 4], [3, 23]]]], ["content", "layout/secondary-nav-bar", ["loc", [null, [6, 4], [6, 32]]]], ["block", "each", [["get", "users", ["loc", [null, [12, 14], [12, 19]]]]], [], 0, 1, ["loc", [null, [12, 6], [16, 15]]]]],
+      statements: [["content", "layout/side-bar", ["loc", [null, [3, 4], [3, 23]]]], ["content", "layout/secondary-nav-bar", ["loc", [null, [6, 4], [6, 32]]]], ["block", "each", [["get", "users", ["loc", [null, [12, 14], [12, 19]]]]], [], 0, 1, ["loc", [null, [12, 6], [18, 15]]]]],
       locals: [],
       templates: [child0, child1]
     };
