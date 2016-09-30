@@ -311,6 +311,49 @@ define('client/components/forms/edit-project-form', ['exports', 'ember'], functi
     }
   });
 });
+define('client/components/forms/edit-team-form', ['exports', 'ember'], function (exports, _ember) {
+  var getOwner = _ember['default'].getOwner;
+  exports['default'] = _ember['default'].Component.extend({
+    store: _ember['default'].inject.service(),
+    session: _ember['default'].inject.service('session'),
+    actions: {
+      save: function save(title, description, id) {
+        var _this = this;
+
+        // get the details about the currently authenticated user
+        this.get('store').findRecord('user', this.get('session.data.authenticated.id')).then(function (user) {
+          // find the team with the id
+          _this.get('store').findRecord('team', id).then((function (post) {
+            var _this2 = this;
+
+            // set the user as the owner of the current team
+            post.set('users', [user]);
+
+            post.save().then(function (team) {
+              // go to the edit item's route after creating it.
+              // remember to pass 'team' as the params since
+              // team.js is expecting an object
+              getOwner(_this2).lookup('route:team.team').transitionTo('team.team', team);
+            });
+          }).bind(_this));
+        });
+      },
+
+      cancel: function cancel(name, description, id) {
+        // don't store the attributes if they are not saved
+        this.get('model').rollbackAttributes();
+
+        // go the team route on cancel
+        getOwner(this).lookup('route:team.team').transitionTo('team.team', id);
+      },
+
+      setType: function setType(type) {
+        this.set('selectedType', type);
+        this.get('model').set('type', type);
+      }
+    }
+  });
+});
 define('client/components/forms/edit-user-form', ['exports', 'ember'], function (exports, _ember) {
   var getOwner = _ember['default'].getOwner;
   exports['default'] = _ember['default'].Component.extend({
@@ -517,6 +560,92 @@ define('client/components/forms/new-project-form', ['exports', 'ember'], functio
           $('#card-title').closest('.form-group').removeClass('has-danger').addClass('has-success');
         } else {
           this.set('errors.title', 'Title is required!');
+
+          $('#card-title').removeClass('form-control-success').addClass('form-control-danger');
+          $('#card-title').closest('.form-group').removeClass('has-success').addClass('has-danger');
+        }
+      },
+
+      validateInputDescription: function validateInputDescription(data) {
+        if (data) {
+          this.set('errors.description', '');
+
+          $('#card-description').removeClass('form-control-danger').addClass('form-control-success');
+          $('#card-description').closest('.form-group').removeClass('has-danger').addClass('has-success');
+        } else {
+          this.set('errors.description', 'Description is required!');
+          $('#card-description').removeClass('form-control-success').addClass('form-control-danger');
+          $('#card-description').closest('.form-group').removeClass('has-success').addClass('has-danger');
+        }
+      }
+    }
+  });
+});
+define('client/components/forms/new-team-form', ['exports', 'ember'], function (exports, _ember) {
+  var getOwner = _ember['default'].getOwner;
+  exports['default'] = _ember['default'].Component.extend({
+    init: function init() {
+      this._super();
+
+      this.set('errors.name', '');
+      this.set('errors.description', '');
+    },
+    store: _ember['default'].inject.service(),
+    session: _ember['default'].inject.service('session'),
+    errors: {},
+    actions: {
+      save: function save() {
+        var _this = this;
+
+        // if the input fields are not filled up, throw some errors
+        if (!this.get('model.name') || !this.get('model.description')) {
+          this.set('errors.name', 'Name is required!');
+          this.set('errors.description', 'Description is required!');
+
+          $('#card-title').addClass('form-control-danger');
+          $('#card-title').closest('.form-group').addClass('has-danger');
+          $('#card-description').addClass('form-control-danger');
+          $('#card-description').closest('.form-group').addClass('has-danger');
+        } else {
+          // get the details about the currently authenticated user
+          this.get('store').findRecord('user', this.get('session.data.authenticated.id')).then((function (user) {
+
+            // set the user as the owner of the current team
+            _this.get('model').set('users', [user]);
+
+            _this.get('model').save().then(function (team) {
+              // go to the new item's route after creating it.
+              getOwner(_this).lookup('route:team.team').transitionTo('team.team', team);
+            });
+          }).bind(this));
+        }
+      },
+
+      cancel: function cancel() {
+        this.set('errors.name', '');
+        this.set('errors.description', '');
+
+        $('#card-title').removeClass('form-control-danger');
+        $('#card-title').closest('.form-group').removeClass('has-success');
+        $('#card-description').removeClass('form-control-danger');
+        $('#card-description').closest('.form-group').removeClass('has-success');
+
+        getOwner(this).lookup('route:teams').transitionTo('teams');
+      },
+
+      setType: function setType(type) {
+        this.set('selectedType', type);
+        this.get('model').set('type', type);
+      },
+
+      validateInputTitle: function validateInputTitle(data) {
+        if (data) {
+          this.set('errors.name', '');
+
+          $('#card-title').removeClass('form-control-danger').addClass('form-control-success');
+          $('#card-title').closest('.form-group').removeClass('has-danger').addClass('has-success');
+        } else {
+          this.set('errors.name', 'Name is required!');
 
           $('#card-title').removeClass('form-control-success').addClass('form-control-danger');
           $('#card-title').closest('.form-group').removeClass('has-success').addClass('has-danger');
@@ -867,6 +996,13 @@ define('client/router', ['exports', 'ember', 'client/config/environment'], funct
 
     // route for all the teams
     this.route('teams');
+
+    this.route('team', function () {
+      this.route('team', { path: '/:slug' }, function () {
+        this.route('edit');
+      });
+      this.route('new');
+    });
   });
 
   exports['default'] = Router;
@@ -977,6 +1113,34 @@ define('client/routes/projects', ['exports', 'ember', 'ember-simple-auth/mixins/
 });
 define('client/routes/signin', ['exports', 'ember', 'ember-simple-auth/mixins/unauthenticated-route-mixin'], function (exports, _ember, _emberSimpleAuthMixinsUnauthenticatedRouteMixin) {
   exports['default'] = _ember['default'].Route.extend(_emberSimpleAuthMixinsUnauthenticatedRouteMixin['default']);
+});
+define('client/routes/team/new', ['exports', 'ember'], function (exports, _ember) {
+  exports['default'] = _ember['default'].Route.extend({
+    model: function model() {
+      return this.get('store').createRecord('team');
+    }
+  });
+});
+define('client/routes/team/team/edit', ['exports', 'ember'], function (exports, _ember) {
+  exports['default'] = _ember['default'].Route.extend({
+    setupController: function setupController(controller, model) {
+      this._super(controller, model);
+      controller.set('team', model);
+    }
+  });
+});
+define('client/routes/team/team', ['exports', 'ember'], function (exports, _ember) {
+  exports['default'] = _ember['default'].Route.extend({
+    model: function model(params) {
+      // get the individual team from the store
+      return this.store.find('team', params.slug);
+    },
+
+    setupController: function setupController(controller, model) {
+      this._super(controller, model);
+      controller.set('team', model);
+    }
+  });
 });
 define('client/routes/teams', ['exports', 'ember', 'ember-simple-auth/mixins/authenticated-route-mixin'], function (exports, _ember, _emberSimpleAuthMixinsAuthenticatedRouteMixin) {
   exports['default'] = _ember['default'].Route.extend(_emberSimpleAuthMixinsAuthenticatedRouteMixin['default'], {
@@ -2405,6 +2569,128 @@ define("client/templates/components/forms/edit-project-form", ["exports"], funct
     };
   })());
 });
+define("client/templates/components/forms/edit-team-form", ["exports"], function (exports) {
+  exports["default"] = Ember.HTMLBars.template((function () {
+    return {
+      meta: {
+        "fragmentReason": false,
+        "revision": "Ember@2.6.1",
+        "loc": {
+          "source": null,
+          "start": {
+            "line": 1,
+            "column": 0
+          },
+          "end": {
+            "line": 19,
+            "column": 0
+          }
+        },
+        "moduleName": "client/templates/components/forms/edit-team-form.hbs"
+      },
+      isEmpty: false,
+      arity: 0,
+      cachedFragment: null,
+      hasRendered: false,
+      buildFragment: function buildFragment(dom) {
+        var el0 = dom.createDocumentFragment();
+        var el1 = dom.createElement("form");
+        var el2 = dom.createTextNode("\n  ");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createElement("fieldset");
+        dom.setAttribute(el2, "class", "form-group");
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("label");
+        dom.setAttribute(el3, "for", "card-title");
+        var el4 = dom.createTextNode("Team Name");
+        dom.appendChild(el3, el4);
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createComment("");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("small");
+        dom.setAttribute(el3, "class", "text-muted");
+        var el4 = dom.createTextNode("Give your team a nice name");
+        dom.appendChild(el3, el4);
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n  ");
+        dom.appendChild(el2, el3);
+        dom.appendChild(el1, el2);
+        var el2 = dom.createTextNode("\n\n  ");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createElement("fieldset");
+        dom.setAttribute(el2, "class", "form-group");
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("label");
+        dom.setAttribute(el3, "for", "card-description");
+        var el4 = dom.createTextNode("Team Description");
+        dom.appendChild(el3, el4);
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createComment("");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("small");
+        dom.setAttribute(el3, "class", "text-muted");
+        var el4 = dom.createTextNode("Describe your team");
+        dom.appendChild(el3, el4);
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n  ");
+        dom.appendChild(el2, el3);
+        dom.appendChild(el1, el2);
+        var el2 = dom.createTextNode("\n\n  ");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createElement("div");
+        dom.setAttribute(el2, "class", "form-group");
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("button");
+        dom.setAttribute(el3, "class", "btn btn-success");
+        var el4 = dom.createTextNode("Save");
+        dom.appendChild(el3, el4);
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("button");
+        dom.setAttribute(el3, "class", "btn btn-link");
+        var el4 = dom.createTextNode("Cancel");
+        dom.appendChild(el3, el4);
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n  ");
+        dom.appendChild(el2, el3);
+        dom.appendChild(el1, el2);
+        var el2 = dom.createTextNode("\n");
+        dom.appendChild(el1, el2);
+        dom.appendChild(el0, el1);
+        var el1 = dom.createTextNode("\n");
+        dom.appendChild(el0, el1);
+        return el0;
+      },
+      buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+        var element0 = dom.childAt(fragment, [0]);
+        var element1 = dom.childAt(element0, [5]);
+        var element2 = dom.childAt(element1, [1]);
+        var element3 = dom.childAt(element1, [3]);
+        var morphs = new Array(4);
+        morphs[0] = dom.createMorphAt(dom.childAt(element0, [1]), 3, 3);
+        morphs[1] = dom.createMorphAt(dom.childAt(element0, [3]), 3, 3);
+        morphs[2] = dom.createElementMorph(element2);
+        morphs[3] = dom.createElementMorph(element3);
+        return morphs;
+      },
+      statements: [["inline", "input", [], ["type", "text", "value", ["subexpr", "@mut", [["get", "model.name", ["loc", [null, [4, 30], [4, 40]]]]], [], []], "class", "form-control", "id", "card-title", "placeholder", "Enter the name of the team"], ["loc", [null, [4, 4], [4, 120]]]], ["inline", "textarea", [], ["value", ["subexpr", "@mut", [["get", "model.description", ["loc", [null, [10, 21], [10, 38]]]]], [], []], "class", "form-control", "id", "card-description", "rows", "5"], ["loc", [null, [10, 4], [10, 92]]]], ["element", "action", ["save", ["get", "model.name", ["loc", [null, [15, 28], [15, 38]]]], ["get", "model.description", ["loc", [null, [15, 39], [15, 56]]]], ["get", "model.id", ["loc", [null, [15, 57], [15, 65]]]]], [], ["loc", [null, [15, 12], [15, 67]]]], ["element", "action", ["cancel", ["get", "model.name", ["loc", [null, [16, 30], [16, 40]]]], ["get", "model.description", ["loc", [null, [16, 41], [16, 58]]]], ["get", "model.id", ["loc", [null, [16, 59], [16, 67]]]]], [], ["loc", [null, [16, 12], [16, 69]]]]],
+      locals: [],
+      templates: []
+    };
+  })());
+});
 define("client/templates/components/forms/edit-user-form", ["exports"], function (exports) {
   exports["default"] = Ember.HTMLBars.template((function () {
     return {
@@ -3087,6 +3373,216 @@ define("client/templates/components/forms/new-project-form", ["exports"], functi
     };
   })());
 });
+define("client/templates/components/forms/new-team-form", ["exports"], function (exports) {
+  exports["default"] = Ember.HTMLBars.template((function () {
+    var child0 = (function () {
+      return {
+        meta: {
+          "fragmentReason": false,
+          "revision": "Ember@2.6.1",
+          "loc": {
+            "source": null,
+            "start": {
+              "line": 12,
+              "column": 4
+            },
+            "end": {
+              "line": 14,
+              "column": 4
+            }
+          },
+          "moduleName": "client/templates/components/forms/new-team-form.hbs"
+        },
+        isEmpty: false,
+        arity: 0,
+        cachedFragment: null,
+        hasRendered: false,
+        buildFragment: function buildFragment(dom) {
+          var el0 = dom.createDocumentFragment();
+          var el1 = dom.createTextNode("      ");
+          dom.appendChild(el0, el1);
+          var el1 = dom.createElement("small");
+          dom.setAttribute(el1, "class", "text-muted text-danger");
+          var el2 = dom.createComment("");
+          dom.appendChild(el1, el2);
+          dom.appendChild(el0, el1);
+          var el1 = dom.createTextNode("\n");
+          dom.appendChild(el0, el1);
+          return el0;
+        },
+        buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+          var morphs = new Array(1);
+          morphs[0] = dom.createMorphAt(dom.childAt(fragment, [1]), 0, 0);
+          return morphs;
+        },
+        statements: [["content", "errors.name", ["loc", [null, [13, 44], [13, 59]]]]],
+        locals: [],
+        templates: []
+      };
+    })();
+    var child1 = (function () {
+      return {
+        meta: {
+          "fragmentReason": false,
+          "revision": "Ember@2.6.1",
+          "loc": {
+            "source": null,
+            "start": {
+              "line": 26,
+              "column": 4
+            },
+            "end": {
+              "line": 28,
+              "column": 4
+            }
+          },
+          "moduleName": "client/templates/components/forms/new-team-form.hbs"
+        },
+        isEmpty: false,
+        arity: 0,
+        cachedFragment: null,
+        hasRendered: false,
+        buildFragment: function buildFragment(dom) {
+          var el0 = dom.createDocumentFragment();
+          var el1 = dom.createTextNode("      ");
+          dom.appendChild(el0, el1);
+          var el1 = dom.createElement("small");
+          dom.setAttribute(el1, "class", "text-muted text-danger");
+          var el2 = dom.createComment("");
+          dom.appendChild(el1, el2);
+          dom.appendChild(el0, el1);
+          var el1 = dom.createTextNode("\n");
+          dom.appendChild(el0, el1);
+          return el0;
+        },
+        buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+          var morphs = new Array(1);
+          morphs[0] = dom.createMorphAt(dom.childAt(fragment, [1]), 0, 0);
+          return morphs;
+        },
+        statements: [["content", "errors.description", ["loc", [null, [27, 44], [27, 66]]]]],
+        locals: [],
+        templates: []
+      };
+    })();
+    return {
+      meta: {
+        "fragmentReason": false,
+        "revision": "Ember@2.6.1",
+        "loc": {
+          "source": null,
+          "start": {
+            "line": 1,
+            "column": 0
+          },
+          "end": {
+            "line": 36,
+            "column": 0
+          }
+        },
+        "moduleName": "client/templates/components/forms/new-team-form.hbs"
+      },
+      isEmpty: false,
+      arity: 0,
+      cachedFragment: null,
+      hasRendered: false,
+      buildFragment: function buildFragment(dom) {
+        var el0 = dom.createDocumentFragment();
+        var el1 = dom.createElement("form");
+        var el2 = dom.createTextNode("\n  ");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createElement("fieldset");
+        dom.setAttribute(el2, "class", "form-group");
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("label");
+        dom.setAttribute(el3, "for", "card-title");
+        var el4 = dom.createTextNode("Team Name");
+        dom.appendChild(el3, el4);
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createComment("");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createComment("");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("  ");
+        dom.appendChild(el2, el3);
+        dom.appendChild(el1, el2);
+        var el2 = dom.createTextNode("\n\n  ");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createElement("fieldset");
+        dom.setAttribute(el2, "class", "form-group");
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("label");
+        dom.setAttribute(el3, "for", "card-description");
+        var el4 = dom.createTextNode("Team Description");
+        dom.appendChild(el3, el4);
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createComment("");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createComment("");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("  ");
+        dom.appendChild(el2, el3);
+        dom.appendChild(el1, el2);
+        var el2 = dom.createTextNode("\n\n  ");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createElement("div");
+        dom.setAttribute(el2, "class", "form-group");
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("button");
+        dom.setAttribute(el3, "class", "btn btn-success");
+        var el4 = dom.createTextNode("Save");
+        dom.appendChild(el3, el4);
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("button");
+        dom.setAttribute(el3, "class", "btn btn-link");
+        var el4 = dom.createTextNode("Cancel");
+        dom.appendChild(el3, el4);
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n  ");
+        dom.appendChild(el2, el3);
+        dom.appendChild(el1, el2);
+        var el2 = dom.createTextNode("\n");
+        dom.appendChild(el1, el2);
+        dom.appendChild(el0, el1);
+        var el1 = dom.createTextNode("\n");
+        dom.appendChild(el0, el1);
+        return el0;
+      },
+      buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+        var element0 = dom.childAt(fragment, [0]);
+        var element1 = dom.childAt(element0, [1]);
+        var element2 = dom.childAt(element0, [3]);
+        var element3 = dom.childAt(element0, [5]);
+        var element4 = dom.childAt(element3, [1]);
+        var element5 = dom.childAt(element3, [3]);
+        var morphs = new Array(6);
+        morphs[0] = dom.createMorphAt(element1, 3, 3);
+        morphs[1] = dom.createMorphAt(element1, 5, 5);
+        morphs[2] = dom.createMorphAt(element2, 3, 3);
+        morphs[3] = dom.createMorphAt(element2, 5, 5);
+        morphs[4] = dom.createElementMorph(element4);
+        morphs[5] = dom.createElementMorph(element5);
+        return morphs;
+      },
+      statements: [["inline", "input", [], ["type", "text", "value", ["subexpr", "@mut", [["get", "model.name", ["loc", [null, [6, 12], [6, 22]]]]], [], []], "class", "form-control", "id", "card-title", "placeholder", "Enter the name of the team", "focus-out", "validateInputTitle"], ["loc", [null, [4, 4], [11, 6]]]], ["block", "if", [["get", "errors.name", ["loc", [null, [12, 10], [12, 21]]]]], [], 0, null, ["loc", [null, [12, 4], [14, 11]]]], ["inline", "textarea", [], ["value", ["subexpr", "@mut", [["get", "model.description", ["loc", [null, [20, 12], [20, 29]]]]], [], []], "class", "form-control", "id", "card-description", "rows", "5", "focus-out", "validateInputDescription"], ["loc", [null, [19, 4], [25, 6]]]], ["block", "if", [["get", "errors.description", ["loc", [null, [26, 10], [26, 28]]]]], [], 1, null, ["loc", [null, [26, 4], [28, 11]]]], ["element", "action", ["save"], [], ["loc", [null, [32, 12], [32, 29]]]], ["element", "action", ["cancel"], [], ["loc", [null, [33, 12], [33, 31]]]]],
+      locals: [],
+      templates: [child0, child1]
+    };
+  })());
+});
 define("client/templates/components/forms/register-form", ["exports"], function (exports) {
   exports["default"] = Ember.HTMLBars.template((function () {
     return {
@@ -3736,6 +4232,42 @@ define("client/templates/components/layout/secondary-nav-bar", ["exports"], func
         templates: []
       };
     })();
+    var child2 = (function () {
+      return {
+        meta: {
+          "fragmentReason": false,
+          "revision": "Ember@2.6.1",
+          "loc": {
+            "source": null,
+            "start": {
+              "line": 9,
+              "column": 4
+            },
+            "end": {
+              "line": 9,
+              "column": 87
+            }
+          },
+          "moduleName": "client/templates/components/layout/secondary-nav-bar.hbs"
+        },
+        isEmpty: false,
+        arity: 0,
+        cachedFragment: null,
+        hasRendered: false,
+        buildFragment: function buildFragment(dom) {
+          var el0 = dom.createDocumentFragment();
+          var el1 = dom.createTextNode("Create a Team");
+          dom.appendChild(el0, el1);
+          return el0;
+        },
+        buildRenderNodes: function buildRenderNodes() {
+          return [];
+        },
+        statements: [],
+        locals: [],
+        templates: []
+      };
+    })();
     return {
       meta: {
         "fragmentReason": {
@@ -3791,11 +4323,7 @@ define("client/templates/components/layout/secondary-nav-bar", ["exports"], func
         dom.setAttribute(el2, "class", "nav-item c-secondary-nav-bar__nav-item");
         var el3 = dom.createTextNode("\n    ");
         dom.appendChild(el2, el3);
-        var el3 = dom.createElement("a");
-        dom.setAttribute(el3, "class", "nav-link c-secondary-nav-bar__nav-link");
-        dom.setAttribute(el3, "href", "#");
-        var el4 = dom.createTextNode("Create a Team");
-        dom.appendChild(el3, el4);
+        var el3 = dom.createComment("");
         dom.appendChild(el2, el3);
         var el3 = dom.createTextNode("\n  ");
         dom.appendChild(el2, el3);
@@ -3809,14 +4337,15 @@ define("client/templates/components/layout/secondary-nav-bar", ["exports"], func
       },
       buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
         var element0 = dom.childAt(fragment, [0]);
-        var morphs = new Array(2);
+        var morphs = new Array(3);
         morphs[0] = dom.createMorphAt(dom.childAt(element0, [1]), 1, 1);
         morphs[1] = dom.createMorphAt(dom.childAt(element0, [3]), 1, 1);
+        morphs[2] = dom.createMorphAt(dom.childAt(element0, [5]), 1, 1);
         return morphs;
       },
-      statements: [["block", "link-to", ["card.new"], ["class", "nav-link c-secondary-nav-bar__nav-link"], 0, null, ["loc", [null, [3, 4], [3, 96]]]], ["block", "link-to", ["project.new"], ["class", "nav-link c-secondary-nav-bar__nav-link"], 1, null, ["loc", [null, [6, 4], [6, 102]]]]],
+      statements: [["block", "link-to", ["card.new"], ["class", "nav-link c-secondary-nav-bar__nav-link"], 0, null, ["loc", [null, [3, 4], [3, 96]]]], ["block", "link-to", ["project.new"], ["class", "nav-link c-secondary-nav-bar__nav-link"], 1, null, ["loc", [null, [6, 4], [6, 102]]]], ["block", "link-to", ["team.new"], ["class", "nav-link c-secondary-nav-bar__nav-link"], 2, null, ["loc", [null, [9, 4], [9, 99]]]]],
       locals: [],
-      templates: [child0, child1]
+      templates: [child0, child1, child2]
     };
   })());
 });
@@ -4202,6 +4731,89 @@ define("client/templates/components/projects/projects-container", ["exports"], f
 });
 define("client/templates/components/teams/teams-container", ["exports"], function (exports) {
   exports["default"] = Ember.HTMLBars.template((function () {
+    var child0 = (function () {
+      return {
+        meta: {
+          "fragmentReason": false,
+          "revision": "Ember@2.6.1",
+          "loc": {
+            "source": null,
+            "start": {
+              "line": 2,
+              "column": 2
+            },
+            "end": {
+              "line": 15,
+              "column": 2
+            }
+          },
+          "moduleName": "client/templates/components/teams/teams-container.hbs"
+        },
+        isEmpty: false,
+        arity: 0,
+        cachedFragment: null,
+        hasRendered: false,
+        buildFragment: function buildFragment(dom) {
+          var el0 = dom.createDocumentFragment();
+          var el1 = dom.createTextNode("    ");
+          dom.appendChild(el0, el1);
+          var el1 = dom.createElement("div");
+          dom.setAttribute(el1, "class", "card c-card");
+          var el2 = dom.createTextNode("\n      ");
+          dom.appendChild(el1, el2);
+          var el2 = dom.createElement("div");
+          dom.setAttribute(el2, "class", "card-header c-card__header");
+          var el3 = dom.createTextNode("\n        ");
+          dom.appendChild(el2, el3);
+          var el3 = dom.createElement("h4");
+          dom.setAttribute(el3, "class", "c-card__title");
+          var el4 = dom.createTextNode("\n          ");
+          dom.appendChild(el3, el4);
+          var el4 = dom.createComment("");
+          dom.appendChild(el3, el4);
+          var el4 = dom.createTextNode("\n        ");
+          dom.appendChild(el3, el4);
+          dom.appendChild(el2, el3);
+          var el3 = dom.createTextNode("\n      ");
+          dom.appendChild(el2, el3);
+          dom.appendChild(el1, el2);
+          var el2 = dom.createTextNode("\n      ");
+          dom.appendChild(el1, el2);
+          var el2 = dom.createElement("div");
+          dom.setAttribute(el2, "class", "card-block c-card__block");
+          var el3 = dom.createTextNode("\n        ");
+          dom.appendChild(el2, el3);
+          var el3 = dom.createElement("p");
+          dom.setAttribute(el3, "class", "card-title c-card__description");
+          var el4 = dom.createTextNode("\n          ");
+          dom.appendChild(el3, el4);
+          var el4 = dom.createComment("");
+          dom.appendChild(el3, el4);
+          var el4 = dom.createTextNode("\n        ");
+          dom.appendChild(el3, el4);
+          dom.appendChild(el2, el3);
+          var el3 = dom.createTextNode("\n      ");
+          dom.appendChild(el2, el3);
+          dom.appendChild(el1, el2);
+          var el2 = dom.createTextNode("\n    ");
+          dom.appendChild(el1, el2);
+          dom.appendChild(el0, el1);
+          var el1 = dom.createTextNode("\n");
+          dom.appendChild(el0, el1);
+          return el0;
+        },
+        buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+          var element0 = dom.childAt(fragment, [1]);
+          var morphs = new Array(2);
+          morphs[0] = dom.createMorphAt(dom.childAt(element0, [1, 1]), 1, 1);
+          morphs[1] = dom.createMorphAt(dom.childAt(element0, [3, 1]), 1, 1);
+          return morphs;
+        },
+        statements: [["content", "team.name", ["loc", [null, [6, 10], [6, 23]]]], ["content", "team.description", ["loc", [null, [11, 10], [11, 30]]]]],
+        locals: [],
+        templates: []
+      };
+    })();
     return {
       meta: {
         "fragmentReason": {
@@ -4231,50 +4843,7 @@ define("client/templates/components/teams/teams-container", ["exports"], functio
         dom.setAttribute(el1, "class", "col-md-4");
         var el2 = dom.createTextNode("\n");
         dom.appendChild(el1, el2);
-        var el2 = dom.createTextNode("    ");
-        dom.appendChild(el1, el2);
-        var el2 = dom.createElement("div");
-        dom.setAttribute(el2, "class", "card c-card");
-        var el3 = dom.createTextNode("\n      ");
-        dom.appendChild(el2, el3);
-        var el3 = dom.createElement("div");
-        dom.setAttribute(el3, "class", "card-header c-card__header");
-        var el4 = dom.createTextNode("\n        ");
-        dom.appendChild(el3, el4);
-        var el4 = dom.createElement("h4");
-        dom.setAttribute(el4, "class", "c-card__title");
-        var el5 = dom.createTextNode("\n          ");
-        dom.appendChild(el4, el5);
-        var el5 = dom.createComment("");
-        dom.appendChild(el4, el5);
-        var el5 = dom.createTextNode("\n        ");
-        dom.appendChild(el4, el5);
-        dom.appendChild(el3, el4);
-        var el4 = dom.createTextNode("\n      ");
-        dom.appendChild(el3, el4);
-        dom.appendChild(el2, el3);
-        var el3 = dom.createTextNode("\n      ");
-        dom.appendChild(el2, el3);
-        var el3 = dom.createElement("div");
-        dom.setAttribute(el3, "class", "card-block c-card__block");
-        var el4 = dom.createTextNode("\n        ");
-        dom.appendChild(el3, el4);
-        var el4 = dom.createElement("p");
-        dom.setAttribute(el4, "class", "card-title c-card__description");
-        var el5 = dom.createTextNode("\n            ");
-        dom.appendChild(el4, el5);
-        var el5 = dom.createComment("");
-        dom.appendChild(el4, el5);
-        var el5 = dom.createTextNode("\n        ");
-        dom.appendChild(el4, el5);
-        dom.appendChild(el3, el4);
-        var el4 = dom.createTextNode("\n      ");
-        dom.appendChild(el3, el4);
-        dom.appendChild(el2, el3);
-        var el3 = dom.createTextNode("\n    ");
-        dom.appendChild(el2, el3);
-        dom.appendChild(el1, el2);
-        var el2 = dom.createTextNode("\n");
+        var el2 = dom.createComment("");
         dom.appendChild(el1, el2);
         dom.appendChild(el0, el1);
         var el1 = dom.createTextNode("\n");
@@ -4282,15 +4851,13 @@ define("client/templates/components/teams/teams-container", ["exports"], functio
         return el0;
       },
       buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
-        var element0 = dom.childAt(fragment, [0, 2]);
-        var morphs = new Array(2);
-        morphs[0] = dom.createMorphAt(dom.childAt(element0, [1, 1]), 1, 1);
-        morphs[1] = dom.createMorphAt(dom.childAt(element0, [3, 1]), 1, 1);
+        var morphs = new Array(1);
+        morphs[0] = dom.createMorphAt(dom.childAt(fragment, [0]), 1, 1);
         return morphs;
       },
-      statements: [["content", "team.name", ["loc", [null, [6, 10], [6, 23]]]], ["content", "team.description", ["loc", [null, [11, 12], [11, 32]]]]],
+      statements: [["block", "link-to", ["team.team", ["get", "team", ["loc", [null, [2, 25], [2, 29]]]]], ["class", "m-card-container__link"], 0, null, ["loc", [null, [2, 2], [15, 14]]]]],
       locals: [],
-      templates: []
+      templates: [child0]
     };
   })());
 });
@@ -5386,6 +5953,438 @@ define("client/templates/signin", ["exports"], function (exports) {
       statements: [["inline", "forms/signin-form", [["get", "action", ["loc", [null, [1, 20], [1, 26]]]], "authenticate"], ["on", "submit"], ["loc", [null, [1, 0], [1, 55]]]]],
       locals: [],
       templates: []
+    };
+  })());
+});
+define("client/templates/team/new", ["exports"], function (exports) {
+  exports["default"] = Ember.HTMLBars.template((function () {
+    return {
+      meta: {
+        "fragmentReason": {
+          "name": "triple-curlies"
+        },
+        "revision": "Ember@2.6.1",
+        "loc": {
+          "source": null,
+          "start": {
+            "line": 1,
+            "column": 0
+          },
+          "end": {
+            "line": 37,
+            "column": 0
+          }
+        },
+        "moduleName": "client/templates/team/new.hbs"
+      },
+      isEmpty: false,
+      arity: 0,
+      cachedFragment: null,
+      hasRendered: false,
+      buildFragment: function buildFragment(dom) {
+        var el0 = dom.createDocumentFragment();
+        var el1 = dom.createElement("div");
+        dom.setAttribute(el1, "class", "row");
+        var el2 = dom.createTextNode("\n  ");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createElement("div");
+        dom.setAttribute(el2, "class", "col-md-2 l-left-container");
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createComment("");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n  ");
+        dom.appendChild(el2, el3);
+        dom.appendChild(el1, el2);
+        var el2 = dom.createTextNode("\n  ");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createElement("div");
+        dom.setAttribute(el2, "class", "col-md-10 l-main-container");
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createComment("");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("div");
+        dom.setAttribute(el3, "class", "l-cards-container");
+        var el4 = dom.createTextNode("\n      ");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createElement("div");
+        dom.setAttribute(el4, "class", "col-md-6");
+        var el5 = dom.createTextNode("\n        ");
+        dom.appendChild(el4, el5);
+        var el5 = dom.createElement("div");
+        dom.setAttribute(el5, "class", "card c-card");
+        var el6 = dom.createTextNode("\n          ");
+        dom.appendChild(el5, el6);
+        var el6 = dom.createElement("div");
+        dom.setAttribute(el6, "class", "card-header c-card__header");
+        var el7 = dom.createTextNode("\n            ");
+        dom.appendChild(el6, el7);
+        var el7 = dom.createElement("h4");
+        dom.setAttribute(el7, "class", "c-card__title");
+        var el8 = dom.createTextNode("\n              Add Team\n            ");
+        dom.appendChild(el7, el8);
+        dom.appendChild(el6, el7);
+        var el7 = dom.createTextNode("\n          ");
+        dom.appendChild(el6, el7);
+        dom.appendChild(el5, el6);
+        var el6 = dom.createTextNode("\n          ");
+        dom.appendChild(el5, el6);
+        var el6 = dom.createElement("div");
+        dom.setAttribute(el6, "class", "card-block c-card__block");
+        var el7 = dom.createTextNode("\n            ");
+        dom.appendChild(el6, el7);
+        var el7 = dom.createComment("");
+        dom.appendChild(el6, el7);
+        var el7 = dom.createTextNode("\n          ");
+        dom.appendChild(el6, el7);
+        dom.appendChild(el5, el6);
+        var el6 = dom.createTextNode("\n        ");
+        dom.appendChild(el5, el6);
+        dom.appendChild(el4, el5);
+        var el5 = dom.createTextNode("\n      ");
+        dom.appendChild(el4, el5);
+        dom.appendChild(el3, el4);
+        var el4 = dom.createTextNode("\n      ");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createElement("div");
+        dom.setAttribute(el4, "class", "col-md-6");
+        var el5 = dom.createTextNode("\n        ");
+        dom.appendChild(el4, el5);
+        var el5 = dom.createElement("div");
+        dom.setAttribute(el5, "class", "card c-card");
+        var el6 = dom.createTextNode("\n          ");
+        dom.appendChild(el5, el6);
+        var el6 = dom.createElement("div");
+        dom.setAttribute(el6, "class", "card-header c-card__header");
+        var el7 = dom.createTextNode("\n            ");
+        dom.appendChild(el6, el7);
+        var el7 = dom.createElement("h4");
+        dom.setAttribute(el7, "class", "c-card__title");
+        var el8 = dom.createTextNode("\n              ");
+        dom.appendChild(el7, el8);
+        var el8 = dom.createComment("");
+        dom.appendChild(el7, el8);
+        var el8 = dom.createTextNode("\n            ");
+        dom.appendChild(el7, el8);
+        dom.appendChild(el6, el7);
+        var el7 = dom.createTextNode("\n          ");
+        dom.appendChild(el6, el7);
+        dom.appendChild(el5, el6);
+        var el6 = dom.createTextNode("\n          ");
+        dom.appendChild(el5, el6);
+        var el6 = dom.createElement("div");
+        dom.setAttribute(el6, "class", "card-block c-card__block");
+        var el7 = dom.createTextNode("\n            ");
+        dom.appendChild(el6, el7);
+        var el7 = dom.createElement("p");
+        dom.setAttribute(el7, "class", "card-title c-card__description");
+        var el8 = dom.createTextNode("\n              ");
+        dom.appendChild(el7, el8);
+        var el8 = dom.createComment("");
+        dom.appendChild(el7, el8);
+        var el8 = dom.createTextNode("\n            ");
+        dom.appendChild(el7, el8);
+        dom.appendChild(el6, el7);
+        var el7 = dom.createTextNode("\n          ");
+        dom.appendChild(el6, el7);
+        dom.appendChild(el5, el6);
+        var el6 = dom.createTextNode("\n        ");
+        dom.appendChild(el5, el6);
+        dom.appendChild(el4, el5);
+        var el5 = dom.createTextNode("\n      ");
+        dom.appendChild(el4, el5);
+        dom.appendChild(el3, el4);
+        var el4 = dom.createTextNode("\n    ");
+        dom.appendChild(el3, el4);
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n  ");
+        dom.appendChild(el2, el3);
+        dom.appendChild(el1, el2);
+        var el2 = dom.createTextNode("\n");
+        dom.appendChild(el1, el2);
+        dom.appendChild(el0, el1);
+        var el1 = dom.createTextNode("\n");
+        dom.appendChild(el0, el1);
+        return el0;
+      },
+      buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+        var element0 = dom.childAt(fragment, [0]);
+        var element1 = dom.childAt(element0, [3]);
+        var element2 = dom.childAt(element1, [3]);
+        var element3 = dom.childAt(element2, [3, 1]);
+        var morphs = new Array(5);
+        morphs[0] = dom.createMorphAt(dom.childAt(element0, [1]), 1, 1);
+        morphs[1] = dom.createMorphAt(element1, 1, 1);
+        morphs[2] = dom.createMorphAt(dom.childAt(element2, [1, 1, 3]), 1, 1);
+        morphs[3] = dom.createMorphAt(dom.childAt(element3, [1, 1]), 1, 1);
+        morphs[4] = dom.createMorphAt(dom.childAt(element3, [3, 1]), 1, 1);
+        return morphs;
+      },
+      statements: [["content", "layout/side-bar", ["loc", [null, [3, 4], [3, 23]]]], ["content", "layout/secondary-nav-bar", ["loc", [null, [6, 4], [6, 32]]]], ["inline", "forms/new-team-form", [], ["model", ["subexpr", "@mut", [["get", "model", ["loc", [null, [16, 40], [16, 45]]]]], [], []]], ["loc", [null, [16, 12], [16, 47]]]], ["content", "model.name", ["loc", [null, [24, 14], [24, 28]]]], ["content", "model.description", ["loc", [null, [29, 14], [29, 35]]]]],
+      locals: [],
+      templates: []
+    };
+  })());
+});
+define("client/templates/team/team/edit", ["exports"], function (exports) {
+  exports["default"] = Ember.HTMLBars.template((function () {
+    return {
+      meta: {
+        "fragmentReason": {
+          "name": "triple-curlies"
+        },
+        "revision": "Ember@2.6.1",
+        "loc": {
+          "source": null,
+          "start": {
+            "line": 1,
+            "column": 0
+          },
+          "end": {
+            "line": 13,
+            "column": 0
+          }
+        },
+        "moduleName": "client/templates/team/team/edit.hbs"
+      },
+      isEmpty: false,
+      arity: 0,
+      cachedFragment: null,
+      hasRendered: false,
+      buildFragment: function buildFragment(dom) {
+        var el0 = dom.createDocumentFragment();
+        var el1 = dom.createElement("div");
+        dom.setAttribute(el1, "class", "col-md-6");
+        var el2 = dom.createTextNode("\n  ");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createElement("div");
+        dom.setAttribute(el2, "class", "card c-card");
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("div");
+        dom.setAttribute(el3, "class", "card-header c-card__header");
+        var el4 = dom.createTextNode("\n      ");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createElement("h4");
+        dom.setAttribute(el4, "class", "c-card__title");
+        var el5 = dom.createTextNode("\n        Edit Team\n      ");
+        dom.appendChild(el4, el5);
+        dom.appendChild(el3, el4);
+        var el4 = dom.createTextNode("\n    ");
+        dom.appendChild(el3, el4);
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("div");
+        dom.setAttribute(el3, "class", "card-block c-card__block");
+        var el4 = dom.createTextNode("\n      ");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createComment("");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createTextNode("\n    ");
+        dom.appendChild(el3, el4);
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n  ");
+        dom.appendChild(el2, el3);
+        dom.appendChild(el1, el2);
+        var el2 = dom.createTextNode("\n");
+        dom.appendChild(el1, el2);
+        dom.appendChild(el0, el1);
+        var el1 = dom.createTextNode("\n");
+        dom.appendChild(el0, el1);
+        return el0;
+      },
+      buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+        var morphs = new Array(1);
+        morphs[0] = dom.createMorphAt(dom.childAt(fragment, [0, 1, 3]), 1, 1);
+        return morphs;
+      },
+      statements: [["inline", "forms/edit-team-form", [], ["model", ["subexpr", "@mut", [["get", "model", ["loc", [null, [9, 35], [9, 40]]]]], [], []]], ["loc", [null, [9, 6], [9, 42]]]]],
+      locals: [],
+      templates: []
+    };
+  })());
+});
+define("client/templates/team/team", ["exports"], function (exports) {
+  exports["default"] = Ember.HTMLBars.template((function () {
+    var child0 = (function () {
+      return {
+        meta: {
+          "fragmentReason": false,
+          "revision": "Ember@2.6.1",
+          "loc": {
+            "source": null,
+            "start": {
+              "line": 22,
+              "column": 8
+            },
+            "end": {
+              "line": 22,
+              "column": 46
+            }
+          },
+          "moduleName": "client/templates/team/team.hbs"
+        },
+        isEmpty: false,
+        arity: 0,
+        cachedFragment: null,
+        hasRendered: false,
+        buildFragment: function buildFragment(dom) {
+          var el0 = dom.createDocumentFragment();
+          var el1 = dom.createTextNode("Edit");
+          dom.appendChild(el0, el1);
+          return el0;
+        },
+        buildRenderNodes: function buildRenderNodes() {
+          return [];
+        },
+        statements: [],
+        locals: [],
+        templates: []
+      };
+    })();
+    return {
+      meta: {
+        "fragmentReason": {
+          "name": "triple-curlies"
+        },
+        "revision": "Ember@2.6.1",
+        "loc": {
+          "source": null,
+          "start": {
+            "line": 1,
+            "column": 0
+          },
+          "end": {
+            "line": 27,
+            "column": 0
+          }
+        },
+        "moduleName": "client/templates/team/team.hbs"
+      },
+      isEmpty: false,
+      arity: 0,
+      cachedFragment: null,
+      hasRendered: false,
+      buildFragment: function buildFragment(dom) {
+        var el0 = dom.createDocumentFragment();
+        var el1 = dom.createElement("div");
+        dom.setAttribute(el1, "class", "row");
+        var el2 = dom.createTextNode("\n  ");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createElement("div");
+        dom.setAttribute(el2, "class", "col-md-2 l-left-container");
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createComment("");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n  ");
+        dom.appendChild(el2, el3);
+        dom.appendChild(el1, el2);
+        var el2 = dom.createTextNode("\n  ");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createElement("div");
+        dom.setAttribute(el2, "class", "col-md-10 l-main-container");
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createComment("");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("div");
+        dom.setAttribute(el3, "class", "l-cards-container");
+        var el4 = dom.createTextNode("\n      ");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createComment("");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createTextNode("\n      ");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createElement("div");
+        dom.setAttribute(el4, "class", "col-md-6");
+        var el5 = dom.createTextNode("\n        ");
+        dom.appendChild(el4, el5);
+        var el5 = dom.createElement("div");
+        dom.setAttribute(el5, "class", "card c-card");
+        var el6 = dom.createTextNode("\n          ");
+        dom.appendChild(el5, el6);
+        var el6 = dom.createElement("div");
+        dom.setAttribute(el6, "class", "card-header c-card__header");
+        var el7 = dom.createTextNode("\n            ");
+        dom.appendChild(el6, el7);
+        var el7 = dom.createElement("h4");
+        dom.setAttribute(el7, "class", "c-card__title");
+        var el8 = dom.createTextNode("\n              ");
+        dom.appendChild(el7, el8);
+        var el8 = dom.createComment("");
+        dom.appendChild(el7, el8);
+        var el8 = dom.createTextNode("\n            ");
+        dom.appendChild(el7, el8);
+        dom.appendChild(el6, el7);
+        var el7 = dom.createTextNode("\n          ");
+        dom.appendChild(el6, el7);
+        dom.appendChild(el5, el6);
+        var el6 = dom.createTextNode("\n          ");
+        dom.appendChild(el5, el6);
+        var el6 = dom.createElement("div");
+        dom.setAttribute(el6, "class", "card-block c-card__block");
+        var el7 = dom.createTextNode("\n            ");
+        dom.appendChild(el6, el7);
+        var el7 = dom.createElement("p");
+        dom.setAttribute(el7, "class", "c-card__description");
+        var el8 = dom.createTextNode("\n              ");
+        dom.appendChild(el7, el8);
+        var el8 = dom.createComment("");
+        dom.appendChild(el7, el8);
+        var el8 = dom.createTextNode("\n            ");
+        dom.appendChild(el7, el8);
+        dom.appendChild(el6, el7);
+        var el7 = dom.createTextNode("\n          ");
+        dom.appendChild(el6, el7);
+        dom.appendChild(el5, el6);
+        var el6 = dom.createTextNode("\n        ");
+        dom.appendChild(el5, el6);
+        dom.appendChild(el4, el5);
+        var el5 = dom.createTextNode("\n        ");
+        dom.appendChild(el4, el5);
+        var el5 = dom.createComment("");
+        dom.appendChild(el4, el5);
+        var el5 = dom.createTextNode("\n      ");
+        dom.appendChild(el4, el5);
+        dom.appendChild(el3, el4);
+        var el4 = dom.createTextNode("\n    ");
+        dom.appendChild(el3, el4);
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n  ");
+        dom.appendChild(el2, el3);
+        dom.appendChild(el1, el2);
+        var el2 = dom.createTextNode("\n");
+        dom.appendChild(el1, el2);
+        dom.appendChild(el0, el1);
+        var el1 = dom.createTextNode("\n");
+        dom.appendChild(el0, el1);
+        return el0;
+      },
+      buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+        var element0 = dom.childAt(fragment, [0]);
+        var element1 = dom.childAt(element0, [3]);
+        var element2 = dom.childAt(element1, [3]);
+        var element3 = dom.childAt(element2, [3]);
+        var element4 = dom.childAt(element3, [1]);
+        var morphs = new Array(6);
+        morphs[0] = dom.createMorphAt(dom.childAt(element0, [1]), 1, 1);
+        morphs[1] = dom.createMorphAt(element1, 1, 1);
+        morphs[2] = dom.createMorphAt(element2, 1, 1);
+        morphs[3] = dom.createMorphAt(dom.childAt(element4, [1, 1]), 1, 1);
+        morphs[4] = dom.createMorphAt(dom.childAt(element4, [3, 1]), 1, 1);
+        morphs[5] = dom.createMorphAt(element3, 3, 3);
+        return morphs;
+      },
+      statements: [["content", "layout/side-bar", ["loc", [null, [3, 4], [3, 23]]]], ["content", "layout/secondary-nav-bar", ["loc", [null, [6, 4], [6, 32]]]], ["content", "outlet", ["loc", [null, [8, 6], [8, 16]]]], ["content", "team.name", ["loc", [null, [13, 14], [13, 27]]]], ["content", "team.description", ["loc", [null, [18, 14], [18, 34]]]], ["block", "link-to", ["team.team.edit", ["get", "team", ["loc", [null, [22, 36], [22, 40]]]]], [], 0, null, ["loc", [null, [22, 8], [22, 58]]]]],
+      locals: [],
+      templates: [child0]
     };
   })());
 });

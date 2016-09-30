@@ -1,0 +1,35 @@
+<form>
+  <fieldset class="form-group">
+    <label for="card-title">Team Name</label>
+    {{input
+      type="text"
+      value=model.name
+      class="form-control"
+      id="card-title"
+      placeholder="Enter the name of the team"
+      focus-out="validateInputTitle"
+    }}
+    {{#if errors.name}}
+      <small class="text-muted text-danger">{{errors.name}}</small>
+    {{/if}}
+  </fieldset>
+
+  <fieldset class="form-group">
+    <label for="card-description">Team Description</label>
+    {{textarea
+      value=model.description
+      class="form-control"
+      id="card-description"
+      rows="5"
+      focus-out="validateInputDescription"
+    }}
+    {{#if errors.description}}
+      <small class="text-muted text-danger">{{errors.description}}</small>
+    {{/if}}
+  </fieldset>
+
+  <div class="form-group">
+    <button {{action 'save'}} class="btn btn-success">Save</button>
+    <button {{action 'cancel'}} class="btn btn-link">Cancel</button>
+  </div>
+</form>

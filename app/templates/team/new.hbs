@@ -1,0 +1,36 @@
+<div class="row">
+  <div class="col-md-2 l-left-container">
+    {{layout/side-bar}}
+  </div>
+  <div class="col-md-10 l-main-container">
+    {{layout/secondary-nav-bar}}
+    <div class="l-cards-container">
+      <div class="col-md-6">
+        <div class="card c-card">
+          <div class="card-header c-card__header">
+            <h4 class="c-card__title">
+              Add Team
+            </h4>
+          </div>
+          <div class="card-block c-card__block">
+            {{forms/new-team-form model=model}}
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card c-card">
+          <div class="card-header c-card__header">
+            <h4 class="c-card__title">
+              {{model.name}}
+            </h4>
+          </div>
+          <div class="card-block c-card__block">
+            <p class="card-title c-card__description">
+              {{model.description}}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

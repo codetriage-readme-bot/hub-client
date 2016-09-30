@@ -44,6 +44,13 @@ Router.map(function() {
 
   // route for all the teams
   this.route('teams');
+
+  this.route('team', function() {
+    this.route('team', { path: '/:slug' }, function() {
+      this.route('edit');
+    });
+    this.route('new');
+  });
 });
 
 export default Router;

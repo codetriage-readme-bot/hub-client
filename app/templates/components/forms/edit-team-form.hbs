@@ -1,0 +1,18 @@
+<form>
+  <fieldset class="form-group">
+    <label for="card-title">Team Name</label>
+    {{input type="text" value=model.name class="form-control" id="card-title" placeholder="Enter the name of the team"}}
+    <small class="text-muted">Give your team a nice name</small>
+  </fieldset>
+
+  <fieldset class="form-group">
+    <label for="card-description">Team Description</label>
+    {{textarea value=model.description class="form-control" id="card-description" rows="5"}}
+    <small class="text-muted">Describe your team</small>
+  </fieldset>
+
+  <div class="form-group">
+    <button {{action 'save' model.name model.description model.id}} class="btn btn-success">Save</button>
+    <button {{action 'cancel' model.name model.description model.id}} class="btn btn-link">Cancel</button>
+  </div>
+</form>

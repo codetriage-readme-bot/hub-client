@@ -1,0 +1,26 @@
+<div class="row">
+  <div class="col-md-2 l-left-container">
+    {{layout/side-bar}}
+  </div>
+  <div class="col-md-10 l-main-container">
+    {{layout/secondary-nav-bar}}
+    <div class="l-cards-container">
+      {{outlet}}
+      <div class="col-md-6">
+        <div class="card c-card">
+          <div class="card-header c-card__header">
+            <h4 class="c-card__title">
+              {{team.name}}
+            </h4>
+          </div>
+          <div class="card-block c-card__block">
+            <p class="c-card__description">
+              {{team.description}}
+            </p>
+          </div>
+        </div>
+        {{#link-to 'team.team.edit' team}}Edit{{/link-to}}
+      </div>
+    </div>
+  </div>
+</div>
