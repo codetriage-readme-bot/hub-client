@@ -282,15 +282,19 @@ a.list-group-item:hover {
 .nav-pills .nav-link.active:hover {
     background-color: #1fb6ff;
 }
-.c-card {
-    border-radius: 2px;
-}
 .c-card__header,
   .c-card__footer {
     background-color: #fff;
 }
 .c-card__description {
     white-space: pre-line;
+}
+.c-card .list-group-item {
+    border: 0;
+    border-top: 1px solid #ddd;
+}
+.c-card .list-group-item:first-child {
+    border: 0;
 }
 .signin-form-wrapper {
     display: flex;
