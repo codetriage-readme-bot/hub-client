@@ -46,5 +46,15 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
   setupController(controller, model) {
     this._super(controller, model);
     controller.set('card', model);
+  },
+
+  actions: {
+    deleteCard(card) {
+      this.get('store').findRecord('card', card.id, { backgroundReload: false }).then((card) => {
+        // remove the card from the store and do a DELETE request
+        card.destroyRecord();
+        getOwner(this).lookup('route:cards').transitionTo('cards');
+      });
+    }
   }
 });

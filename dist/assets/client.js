@@ -1077,6 +1077,18 @@ define('client/routes/card/card', ['exports', 'ember', 'ember-simple-auth/mixins
     setupController: function setupController(controller, model) {
       this._super(controller, model);
       controller.set('card', model);
+    },
+
+    actions: {
+      deleteCard: function deleteCard(card) {
+        var _this2 = this;
+
+        this.get('store').findRecord('card', card.id, { backgroundReload: false }).then(function (card) {
+          // remove the card from the store and do a DELETE request
+          card.destroyRecord();
+          getOwner(_this2).lookup('route:cards').transitionTo('cards');
+        });
+      }
     }
   });
 });
@@ -1806,7 +1818,10 @@ define("client/templates/card/card", ["exports"], function (exports) {
         dom.appendChild(el6, el7);
         var el7 = dom.createElement("li");
         dom.setAttribute(el7, "class", "list-group-item");
-        var el8 = dom.createTextNode("Delete");
+        var el8 = dom.createElement("a");
+        dom.setAttribute(el8, "href", "#");
+        var el9 = dom.createTextNode("Delete");
+        dom.appendChild(el8, el9);
         dom.appendChild(el7, el8);
         dom.appendChild(el6, el7);
         var el7 = dom.createTextNode("\n          ");
@@ -1836,17 +1851,20 @@ define("client/templates/card/card", ["exports"], function (exports) {
         var element1 = dom.childAt(element0, [3]);
         var element2 = dom.childAt(element1, [3]);
         var element3 = dom.childAt(element2, [3, 1]);
-        var morphs = new Array(7);
+        var element4 = dom.childAt(element2, [7, 1, 3]);
+        var element5 = dom.childAt(element4, [5, 0]);
+        var morphs = new Array(8);
         morphs[0] = dom.createMorphAt(dom.childAt(element0, [1]), 1, 1);
         morphs[1] = dom.createMorphAt(element1, 1, 1);
         morphs[2] = dom.createMorphAt(element2, 1, 1);
         morphs[3] = dom.createMorphAt(dom.childAt(element3, [1, 1]), 0, 0);
         morphs[4] = dom.createMorphAt(dom.childAt(element3, [3, 1]), 1, 1);
         morphs[5] = dom.createMorphAt(dom.childAt(element3, [5, 1]), 1, 1);
-        morphs[6] = dom.createMorphAt(dom.childAt(element2, [7, 1, 3]), 1, 1);
+        morphs[6] = dom.createMorphAt(element4, 1, 1);
+        morphs[7] = dom.createElementMorph(element5);
         return morphs;
       },
-      statements: [["content", "layout/side-bar", ["loc", [null, [3, 4], [3, 23]]]], ["content", "layout/secondary-nav-bar", ["loc", [null, [6, 4], [6, 32]]]], ["content", "outlet", ["loc", [null, [8, 6], [8, 16]]]], ["content", "card.type", ["loc", [null, [12, 18], [12, 31]]]], ["content", "card.title", ["loc", [null, [16, 14], [16, 28]]]], ["content", "card.description", ["loc", [null, [21, 14], [21, 34]]]], ["block", "link-to", ["card.card.edit", ["get", "card", ["loc", [null, [54, 40], [54, 44]]]]], [], 0, null, ["loc", [null, [54, 12], [56, 24]]]]],
+      statements: [["content", "layout/side-bar", ["loc", [null, [3, 4], [3, 23]]]], ["content", "layout/secondary-nav-bar", ["loc", [null, [6, 4], [6, 32]]]], ["content", "outlet", ["loc", [null, [8, 6], [8, 16]]]], ["content", "card.type", ["loc", [null, [12, 18], [12, 31]]]], ["content", "card.title", ["loc", [null, [16, 14], [16, 28]]]], ["content", "card.description", ["loc", [null, [21, 14], [21, 34]]]], ["block", "link-to", ["card.card.edit", ["get", "card", ["loc", [null, [54, 40], [54, 44]]]]], [], 0, null, ["loc", [null, [54, 12], [56, 24]]]], ["element", "action", ["deleteCard", ["get", "card", ["loc", [null, [58, 75], [58, 79]]]]], [], ["loc", [null, [58, 52], [58, 82]]]]],
       locals: [],
       templates: [child0]
     };
