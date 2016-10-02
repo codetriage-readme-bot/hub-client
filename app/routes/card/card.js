@@ -3,10 +3,44 @@ import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-rout
 
 const { getOwner } = Ember;
 
+export const pollInterval = 5000; // time in milliseconds
+
 export default Ember.Route.extend(AuthenticatedRouteMixin, {
-  model(params) {
+  session: Ember.inject.service('session'),
+
+  getCard(params) {
     // get the individual card from the store
-    return this.store.find('card', params.slug);
+    if (params.slug) {
+      return this.store.find('card', params.slug);
+    } else {
+      return this.store.find('card', params);
+    }
+  },
+
+  model(params) {
+    return this.getCard(params);
+  },
+
+  onPoll(id)  {
+    return this.getCard(id)
+      .then((card) => {
+        this.set('currentModel', card);
+      })
+  },
+
+  afterModel(params) {
+    let cardPoller = this.get('cardPoller');
+
+    if (!cardPoller) {
+      cardPoller = this.get('pollboy').add(this, this.onPoll.bind(this, params.id), pollInterval);
+      this.set('cardPoller', cardPoller);
+    }
+  },
+
+  deactivate() {
+    const cardPoller = this.get('cardPoller');
+    this.get('pollboy').remove(cardPoller);
+    this.set('cardPoller', null);
   },
 
   setupController(controller, model) {

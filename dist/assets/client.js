@@ -1032,10 +1032,46 @@ define('client/routes/card/card/edit', ['exports', 'ember'], function (exports, 
 });
 define('client/routes/card/card', ['exports', 'ember', 'ember-simple-auth/mixins/authenticated-route-mixin'], function (exports, _ember, _emberSimpleAuthMixinsAuthenticatedRouteMixin) {
   var getOwner = _ember['default'].getOwner;
+  var pollInterval = 5000;exports.pollInterval = pollInterval;
+  // time in milliseconds
+
   exports['default'] = _ember['default'].Route.extend(_emberSimpleAuthMixinsAuthenticatedRouteMixin['default'], {
-    model: function model(params) {
+    session: _ember['default'].inject.service('session'),
+
+    getCard: function getCard(params) {
       // get the individual card from the store
-      return this.store.find('card', params.slug);
+      if (params.slug) {
+        return this.store.find('card', params.slug);
+      } else {
+        return this.store.find('card', params);
+      }
+    },
+
+    model: function model(params) {
+      return this.getCard(params);
+    },
+
+    onPoll: function onPoll(id) {
+      var _this = this;
+
+      return this.getCard(id).then(function (card) {
+        _this.set('currentModel', card);
+      });
+    },
+
+    afterModel: function afterModel(params) {
+      var cardPoller = this.get('cardPoller');
+
+      if (!cardPoller) {
+        cardPoller = this.get('pollboy').add(this, this.onPoll.bind(this, params.id), pollInterval);
+        this.set('cardPoller', cardPoller);
+      }
+    },
+
+    deactivate: function deactivate() {
+      var cardPoller = this.get('cardPoller');
+      this.get('pollboy').remove(cardPoller);
+      this.set('cardPoller', null);
     },
 
     setupController: function setupController(controller, model) {
