@@ -866,6 +866,18 @@ define('client/initializers/injectStore', ['exports', 'ember'], function (export
     initialize: _ember['default'].K
   };
 });
+define('client/initializers/pollboy', ['exports'], function (exports) {
+  exports.initialize = initialize;
+
+  function initialize(app) {
+    app.inject('route', 'pollboy', 'service:pollboy');
+  }
+
+  exports['default'] = {
+    name: 'pollboy',
+    initialize: initialize
+  };
+});
 define('client/initializers/store', ['exports', 'ember'], function (exports, _ember) {
 
   /*
@@ -1040,16 +1052,43 @@ define('client/routes/card/new', ['exports', 'ember', 'ember-simple-auth/mixins/
   });
 });
 define('client/routes/cards', ['exports', 'ember', 'ember-simple-auth/mixins/authenticated-route-mixin'], function (exports, _ember, _emberSimpleAuthMixinsAuthenticatedRouteMixin) {
+  var pollInterval = 5000;exports.pollInterval = pollInterval;
+  // time in milliseconds
+
   exports['default'] = _ember['default'].Route.extend(_emberSimpleAuthMixinsAuthenticatedRouteMixin['default'], {
     session: _ember['default'].inject.service('session'),
-    model: function model() {
-      // return all the cards from the store
-      // return this.store.findAll('card');
 
-      // return the logged in user's cards
-      return this.store.find('user', this.get('session.data.authenticated.id')).then(function (user) {
+    getCards: function getCards() {
+      return this.get('store').find('user', this.get('session.data.authenticated.id')).then(function (user) {
         return user.get('cards');
       });
+    },
+
+    model: function model() {
+      return this.getCards();
+    },
+
+    onPoll: function onPoll() {
+      var _this = this;
+
+      return this.getCards().then(function (cards) {
+        _this.set('currentModel', cards);
+      });
+    },
+
+    afterModel: function afterModel() {
+      var cardsPoller = this.get('cardsPoller');
+
+      if (!cardsPoller) {
+        cardsPoller = this.get('pollboy').add(this, this.onPoll, pollInterval);
+        this.set('cardsPoller', cardsPoller);
+      }
+    },
+
+    deactivate: function deactivate() {
+      var cardsPoller = this.get('cardsPoller');
+      this.get('pollboy').remove(cardsPoller);
+      this.set('cardsPoller', null);
     },
 
     setupController: function setupController(controller, model) {
@@ -1093,16 +1132,43 @@ define('client/routes/project/project', ['exports', 'ember'], function (exports,
   });
 });
 define('client/routes/projects', ['exports', 'ember', 'ember-simple-auth/mixins/authenticated-route-mixin'], function (exports, _ember, _emberSimpleAuthMixinsAuthenticatedRouteMixin) {
+  var pollInterval = 5000;exports.pollInterval = pollInterval;
+  // time in milliseconds
+
   exports['default'] = _ember['default'].Route.extend(_emberSimpleAuthMixinsAuthenticatedRouteMixin['default'], {
     session: _ember['default'].inject.service('session'),
-    model: function model() {
-      // return all the projects from the store
-      // return this.store.findAll('project');
 
-      // return the logged in user's projects
-      return this.store.find('user', this.get('session.data.authenticated.id')).then(function (user) {
+    getProjects: function getProjects() {
+      return this.get('store').find('user', this.get('session.data.authenticated.id')).then(function (user) {
         return user.get('projects');
       });
+    },
+
+    model: function model() {
+      return this.getProjects();
+    },
+
+    onPoll: function onPoll() {
+      var _this = this;
+
+      return this.getProjects().then(function (projects) {
+        _this.set('currentModel', projects);
+      });
+    },
+
+    afterModel: function afterModel() {
+      var projectsPoller = this.get('projectsPoller');
+
+      if (!projectsPoller) {
+        projectsPoller = this.get('pollboy').add(this, this.onPoll, pollInterval);
+        this.set('projectsPoller', projectsPoller);
+      }
+    },
+
+    deactivate: function deactivate() {
+      var projectsPoller = this.get('projectsPoller');
+      this.get('pollboy').remove(projectsPoller);
+      this.set('projectsPoller', null);
     },
 
     setupController: function setupController(controller, model) {
@@ -1143,16 +1209,43 @@ define('client/routes/team/team', ['exports', 'ember'], function (exports, _embe
   });
 });
 define('client/routes/teams', ['exports', 'ember', 'ember-simple-auth/mixins/authenticated-route-mixin'], function (exports, _ember, _emberSimpleAuthMixinsAuthenticatedRouteMixin) {
+  var pollInterval = 5000;exports.pollInterval = pollInterval;
+  // time in milliseconds
+
   exports['default'] = _ember['default'].Route.extend(_emberSimpleAuthMixinsAuthenticatedRouteMixin['default'], {
     session: _ember['default'].inject.service('session'),
-    model: function model() {
-      // return all the teams from the store
-      // return this.store.findAll('team');
 
-      // return the logged in user's teams
-      return this.store.find('user', this.get('session.data.authenticated.id')).then(function (user) {
+    getTeams: function getTeams() {
+      return this.get('store').find('user', this.get('session.data.authenticated.id')).then(function (user) {
         return user.get('teams');
       });
+    },
+
+    model: function model() {
+      return this.getTeams();
+    },
+
+    onPoll: function onPoll() {
+      var _this = this;
+
+      return this.getTeams().then(function (teams) {
+        _this.set('currentModel', teams);
+      });
+    },
+
+    afterModel: function afterModel() {
+      var teamsPoller = this.get('teamsPoller');
+
+      if (!teamsPoller) {
+        teamsPoller = this.get('pollboy').add(this, this.onPoll, pollInterval);
+        this.set('teamsPoller', teamsPoller);
+      }
+    },
+
+    deactivate: function deactivate() {
+      var teamsPoller = this.get('teamsPoller');
+      this.get('pollboy').remove(teamsPoller);
+      this.set('teamsPoller', null);
     },
 
     setupController: function setupController(controller, model) {
@@ -1182,9 +1275,39 @@ define('client/routes/user/user', ['exports', 'ember', 'ember-simple-auth/mixins
   });
 });
 define('client/routes/users', ['exports', 'ember', 'ember-simple-auth/mixins/authenticated-route-mixin'], function (exports, _ember, _emberSimpleAuthMixinsAuthenticatedRouteMixin) {
+  var pollInterval = 5000;exports.pollInterval = pollInterval;
+  // time in milliseconds
+
   exports['default'] = _ember['default'].Route.extend(_emberSimpleAuthMixinsAuthenticatedRouteMixin['default'], {
+    getUsers: function getUsers() {
+      return this.get('store').findAll('user');
+    },
+
     model: function model() {
-      return this.store.findAll('user');
+      return this.getUsers();
+    },
+
+    onPoll: function onPoll() {
+      var _this = this;
+
+      return this.getUsers().then(function (users) {
+        _this.set('currentModel', users);
+      });
+    },
+
+    afterModel: function afterModel() {
+      var usersPoller = this.get('usersPoller');
+
+      if (!usersPoller) {
+        usersPoller = this.get('pollboy').add(this, this.onPoll, pollInterval);
+        this.set('usersPoller', usersPoller);
+      }
+    },
+
+    deactivate: function deactivate() {
+      var usersPoller = this.get('usersPoller');
+      this.get('pollboy').remove(usersPoller);
+      this.set('usersPoller', null);
     },
 
     setupController: function setupController(controller, model) {
@@ -1210,6 +1333,14 @@ define('client/services/ajax', ['exports', 'ember-ajax/services/ajax'], function
     enumerable: true,
     get: function get() {
       return _emberAjaxServicesAjax['default'];
+    }
+  });
+});
+define('client/services/pollboy', ['exports', 'ember-pollboy/services/pollboy'], function (exports, _emberPollboyServicesPollboy) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberPollboyServicesPollboy['default'];
     }
   });
 });
@@ -7184,7 +7315,7 @@ catch(err) {
 /* jshint ignore:start */
 
 if (!runningTests) {
-  require("client/app")["default"].create({"name":"client","version":"0.0.0+d0a26495"});
+  require("client/app")["default"].create({"name":"client","version":"0.0.0+4546e8d6"});
 }
 
 /* jshint ignore:end */

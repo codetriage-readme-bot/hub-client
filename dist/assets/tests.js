@@ -203,6 +203,40 @@ define('client/tests/helpers/destroy-app.jshint', ['exports'], function (exports
     assert.ok(true, 'helpers/destroy-app.js should pass jshint.');
   });
 });
+define('client/tests/helpers/ember-pollboy', ['exports', 'ember'], function (exports, _ember) {
+  exports.stubPollboy = stubPollboy;
+  var Service = _ember['default'].Service;
+  var PollerMock = _ember['default'].Object.extend({
+    cancel: function cancel() {},
+    pause: function pause() {},
+    poll: function poll() {},
+    resume: function resume() {},
+    schedule: function schedule() {},
+    start: function start() {},
+    stop: function stop() {}
+  });
+
+  exports.PollerMock = PollerMock;
+  var serviceMock = Service.extend({
+    add: function add() {
+      return PollerMock.create();
+    },
+    remove: function remove() {}
+  });
+
+  exports.serviceMock = serviceMock;
+
+  function stubPollboy(application) {
+    application.register('service:mockPollboy', serviceMock);
+    application.inject('route', 'pollboy', 'service:mockPollboy');
+  }
+
+  exports['default'] = {
+    PollerMock: PollerMock,
+    serviceMock: serviceMock,
+    stubPollboy: stubPollboy
+  };
+});
 define('client/tests/helpers/ember-simple-auth', ['exports', 'ember-simple-auth/authenticators/test'], function (exports, _emberSimpleAuthAuthenticatorsTest) {
   exports.authenticateSession = authenticateSession;
   exports.currentSession = currentSession;
@@ -2803,7 +2837,7 @@ define('client/tests/routes/cards.jshint', ['exports'], function (exports) {
   QUnit.module('JSHint | routes/cards.js');
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'routes/cards.js should pass jshint.');
+    assert.ok(false, 'routes/cards.js should pass jshint.\nroutes/cards.js: line 22, col 9, Missing semicolon.\n\n1 error');
   });
 });
 define('client/tests/routes/dashboard.jshint', ['exports'], function (exports) {
@@ -2857,7 +2891,7 @@ define('client/tests/routes/projects.jshint', ['exports'], function (exports) {
   QUnit.module('JSHint | routes/projects.js');
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'routes/projects.js should pass jshint.');
+    assert.ok(false, 'routes/projects.js should pass jshint.\nroutes/projects.js: line 22, col 9, Missing semicolon.\n\n1 error');
   });
 });
 define('client/tests/routes/signin.jshint', ['exports'], function (exports) {
@@ -2902,7 +2936,7 @@ define('client/tests/routes/teams.jshint', ['exports'], function (exports) {
   QUnit.module('JSHint | routes/teams.js');
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'routes/teams.js should pass jshint.');
+    assert.ok(false, 'routes/teams.js should pass jshint.\nroutes/teams.js: line 22, col 9, Missing semicolon.\n\n1 error');
   });
 });
 define('client/tests/routes/user/user/edit.jshint', ['exports'], function (exports) {
@@ -2929,7 +2963,7 @@ define('client/tests/routes/users.jshint', ['exports'], function (exports) {
   QUnit.module('JSHint | routes/users.js');
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'routes/users.js should pass jshint.');
+    assert.ok(false, 'routes/users.js should pass jshint.\nroutes/users.js: line 19, col 9, Missing semicolon.\n\n1 error');
   });
 });
 define('client/tests/serializers/application.jshint', ['exports'], function (exports) {

@@ -88064,6 +88064,176 @@ define('ember-new-computed/utils/can-use-new-syntax', ['exports', 'ember'], func
 
   exports['default'] = supportsSetterGetter;
 });
+define('ember-pollboy/classes/poller', ['exports', 'ember'], function (exports, _ember) {
+  'use strict';
+
+  var run = _ember['default'].run;
+
+  exports['default'] = _ember['default'].Object.extend({
+    /**
+     * Used to determine if poller is currently paused (i.e. when tab is not visible)
+     * @type {Boolean}
+     */
+    isPaused: false,
+    /**
+     * Used to determine if poller is currently stopped
+     * @type {Boolean}
+     */
+    isStopped: false,
+    /**
+     * Schedule next poll interval
+     * @returns {*} Timer information for use in cancelling, see `Ember.run.cancel`.
+     */
+    schedule: function schedule() {
+      // Don't schedule another poll if we're not polling
+      if (!this.get('isPaused') && !this.get('isStopped')) {
+        var interval = this.get('interval');
+
+        return run.later(this, this.poll, interval);
+      }
+    },
+
+    /**
+     * Cancel current polling interval
+     */
+    cancel: function cancel() {
+      var timer = this.get('timer');
+      run.cancel(timer);
+    },
+
+    /**
+     * Pause polling
+     */
+    pause: function pause() {
+      this.set('isPaused', true);
+      this.cancel();
+    },
+
+    /**
+     * Poll immediately
+     */
+    poll: function poll() {
+      var _this = this;
+
+      var callback = this.get('callback');
+      var context = this.get('context');
+
+      this.cancel();
+
+      callback.apply(context).then(function () {
+        _this.set('timer', _this.schedule());
+      });
+    },
+
+    /**
+     * Resume polling if paused
+     */
+    resume: function resume() {
+      var isPaused = this.get('isPaused');
+
+      if (isPaused) {
+        this.poll();
+        this.set('isPaused', false);
+      }
+    },
+
+    /**
+     * Begin polling
+     */
+    start: function start() {
+      this.cancel(); // Make sure no previous polling interval
+      this.set('isStopped', false);
+      var timer = this.schedule();
+      this.set('timer', timer);
+    },
+
+    /**
+     * Stop polling
+     */
+    stop: function stop() {
+      this.set('isStopped', true);
+      this.cancel();
+    }
+  });
+});
+define('ember-pollboy/services/pollboy', ['exports', 'ember', 'ember-pollboy/classes/poller'], function (exports, _ember, _emberPollboyClassesPoller) {
+  'use strict';
+
+  /**
+   * @callback {Function} PollboyCallback
+   * @returns {Ember.RSVP.Promise} Resolved when next polling interval should begin
+   */
+
+  exports['default'] = _ember['default'].Service.extend({
+    pollers: [],
+
+    init: function init() {
+      this._super();
+      document.addEventListener('visibilitychange', this.onVisibilityChange.bind(this), false);
+    },
+
+    /**
+     * Pause/resume polling based on whether or not page is currently visible to user.
+     * When user switches browser tabs polling will stop.
+     * When user switches applications polling will stop.
+     * When page comes back into focus any pollers that were stopped due to loss of page focus will resume.
+     * @param {Event} event - visibilitychange event data
+     */
+    onVisibilityChange: function onVisibilityChange(event) {
+      var pollers = this.get('pollers');
+
+      // If page is no longer visible pause pollers
+      if (event.target.hidden) {
+        pollers.forEach(function (poller) {
+          poller.pause();
+        });
+
+        return;
+      }
+
+      // If page has become visible make sure to resume pollers that were previously paused
+      pollers.forEach(function (poller) {
+        poller.resume();
+      });
+    },
+
+    /**
+     * Add new polling item
+     * @param {Object} context - context to be provided to callback
+     * @param {PollboyCallback} callback - callback function for each poll interval
+     * @param {Number} interval - number of milliseconds between polls
+     * @returns {Poller} poller instance
+     */
+    add: function add(context, callback, interval) {
+      var poller = _emberPollboyClassesPoller['default'].create({
+        callback: callback,
+        context: context,
+        interval: interval
+      });
+
+      poller.start();
+
+      this.get('pollers').push(poller);
+
+      return poller;
+    },
+
+    /**
+     * Remove poller
+     * @param {Poller} poller - Poller to remove
+     */
+    remove: function remove(poller) {
+      poller.stop(); // Make sure poller is no longer polling
+
+      var pollers = this.get('pollers');
+      var index = pollers.indexOf(poller);
+
+      if (index !== -1) {
+        pollers.splice(index, 1);
+      }
+    }
+  });
+});
 define('ember-resolver/container-debug-adapter', ['exports', 'ember', 'ember-resolver/utils/module-registry'], function (exports, _ember, _emberResolverUtilsModuleRegistry) {
   'use strict';
 
