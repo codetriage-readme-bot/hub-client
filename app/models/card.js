@@ -8,6 +8,7 @@ export default Model.extend({
   type: attr('string'),
   project_id: attr('number'),
   slug: attr('string'),
+  status: attr('string'),
   users: hasMany('user'),
   project: belongsTo('project')
 });

@@ -726,11 +726,143 @@ define('client/controllers/application', ['exports', 'ember'], function (exports
     }
   });
 });
+define('client/helpers/and', ['exports', 'ember', 'ember-truth-helpers/helpers/and'], function (exports, _ember, _emberTruthHelpersHelpersAnd) {
+
+  var forExport = null;
+
+  if (_ember['default'].Helper) {
+    forExport = _ember['default'].Helper.helper(_emberTruthHelpersHelpersAnd.andHelper);
+  } else if (_ember['default'].HTMLBars.makeBoundHelper) {
+    forExport = _ember['default'].HTMLBars.makeBoundHelper(_emberTruthHelpersHelpersAnd.andHelper);
+  }
+
+  exports['default'] = forExport;
+});
+define('client/helpers/eq', ['exports', 'ember', 'ember-truth-helpers/helpers/equal'], function (exports, _ember, _emberTruthHelpersHelpersEqual) {
+
+  var forExport = null;
+
+  if (_ember['default'].Helper) {
+    forExport = _ember['default'].Helper.helper(_emberTruthHelpersHelpersEqual.equalHelper);
+  } else if (_ember['default'].HTMLBars.makeBoundHelper) {
+    forExport = _ember['default'].HTMLBars.makeBoundHelper(_emberTruthHelpersHelpersEqual.equalHelper);
+  }
+
+  exports['default'] = forExport;
+});
+define('client/helpers/gt', ['exports', 'ember', 'ember-truth-helpers/helpers/gt'], function (exports, _ember, _emberTruthHelpersHelpersGt) {
+
+  var forExport = null;
+
+  if (_ember['default'].Helper) {
+    forExport = _ember['default'].Helper.helper(_emberTruthHelpersHelpersGt.gtHelper);
+  } else if (_ember['default'].HTMLBars.makeBoundHelper) {
+    forExport = _ember['default'].HTMLBars.makeBoundHelper(_emberTruthHelpersHelpersGt.gtHelper);
+  }
+
+  exports['default'] = forExport;
+});
+define('client/helpers/gte', ['exports', 'ember', 'ember-truth-helpers/helpers/gte'], function (exports, _ember, _emberTruthHelpersHelpersGte) {
+
+  var forExport = null;
+
+  if (_ember['default'].Helper) {
+    forExport = _ember['default'].Helper.helper(_emberTruthHelpersHelpersGte.gteHelper);
+  } else if (_ember['default'].HTMLBars.makeBoundHelper) {
+    forExport = _ember['default'].HTMLBars.makeBoundHelper(_emberTruthHelpersHelpersGte.gteHelper);
+  }
+
+  exports['default'] = forExport;
+});
+define('client/helpers/is-array', ['exports', 'ember', 'ember-truth-helpers/helpers/is-array'], function (exports, _ember, _emberTruthHelpersHelpersIsArray) {
+
+  var forExport = null;
+
+  if (_ember['default'].Helper) {
+    forExport = _ember['default'].Helper.helper(_emberTruthHelpersHelpersIsArray.isArrayHelper);
+  } else if (_ember['default'].HTMLBars.makeBoundHelper) {
+    forExport = _ember['default'].HTMLBars.makeBoundHelper(_emberTruthHelpersHelpersIsArray.isArrayHelper);
+  }
+
+  exports['default'] = forExport;
+});
+define('client/helpers/lt', ['exports', 'ember', 'ember-truth-helpers/helpers/lt'], function (exports, _ember, _emberTruthHelpersHelpersLt) {
+
+  var forExport = null;
+
+  if (_ember['default'].Helper) {
+    forExport = _ember['default'].Helper.helper(_emberTruthHelpersHelpersLt.ltHelper);
+  } else if (_ember['default'].HTMLBars.makeBoundHelper) {
+    forExport = _ember['default'].HTMLBars.makeBoundHelper(_emberTruthHelpersHelpersLt.ltHelper);
+  }
+
+  exports['default'] = forExport;
+});
+define('client/helpers/lte', ['exports', 'ember', 'ember-truth-helpers/helpers/lte'], function (exports, _ember, _emberTruthHelpersHelpersLte) {
+
+  var forExport = null;
+
+  if (_ember['default'].Helper) {
+    forExport = _ember['default'].Helper.helper(_emberTruthHelpersHelpersLte.lteHelper);
+  } else if (_ember['default'].HTMLBars.makeBoundHelper) {
+    forExport = _ember['default'].HTMLBars.makeBoundHelper(_emberTruthHelpersHelpersLte.lteHelper);
+  }
+
+  exports['default'] = forExport;
+});
+define('client/helpers/not-eq', ['exports', 'ember', 'ember-truth-helpers/helpers/not-equal'], function (exports, _ember, _emberTruthHelpersHelpersNotEqual) {
+
+  var forExport = null;
+
+  if (_ember['default'].Helper) {
+    forExport = _ember['default'].Helper.helper(_emberTruthHelpersHelpersNotEqual.notEqualHelper);
+  } else if (_ember['default'].HTMLBars.makeBoundHelper) {
+    forExport = _ember['default'].HTMLBars.makeBoundHelper(_emberTruthHelpersHelpersNotEqual.notEqualHelper);
+  }
+
+  exports['default'] = forExport;
+});
+define('client/helpers/not', ['exports', 'ember', 'ember-truth-helpers/helpers/not'], function (exports, _ember, _emberTruthHelpersHelpersNot) {
+
+  var forExport = null;
+
+  if (_ember['default'].Helper) {
+    forExport = _ember['default'].Helper.helper(_emberTruthHelpersHelpersNot.notHelper);
+  } else if (_ember['default'].HTMLBars.makeBoundHelper) {
+    forExport = _ember['default'].HTMLBars.makeBoundHelper(_emberTruthHelpersHelpersNot.notHelper);
+  }
+
+  exports['default'] = forExport;
+});
+define('client/helpers/or', ['exports', 'ember', 'ember-truth-helpers/helpers/or'], function (exports, _ember, _emberTruthHelpersHelpersOr) {
+
+  var forExport = null;
+
+  if (_ember['default'].Helper) {
+    forExport = _ember['default'].Helper.helper(_emberTruthHelpersHelpersOr.orHelper);
+  } else if (_ember['default'].HTMLBars.makeBoundHelper) {
+    forExport = _ember['default'].HTMLBars.makeBoundHelper(_emberTruthHelpersHelpersOr.orHelper);
+  }
+
+  exports['default'] = forExport;
+});
 define('client/helpers/pluralize', ['exports', 'ember-inflector/lib/helpers/pluralize'], function (exports, _emberInflectorLibHelpersPluralize) {
   exports['default'] = _emberInflectorLibHelpersPluralize['default'];
 });
 define('client/helpers/singularize', ['exports', 'ember-inflector/lib/helpers/singularize'], function (exports, _emberInflectorLibHelpersSingularize) {
   exports['default'] = _emberInflectorLibHelpersSingularize['default'];
+});
+define('client/helpers/xor', ['exports', 'ember', 'ember-truth-helpers/helpers/xor'], function (exports, _ember, _emberTruthHelpersHelpersXor) {
+
+  var forExport = null;
+
+  if (_ember['default'].Helper) {
+    forExport = _ember['default'].Helper.helper(_emberTruthHelpersHelpersXor.xorHelper);
+  } else if (_ember['default'].HTMLBars.makeBoundHelper) {
+    forExport = _ember['default'].HTMLBars.makeBoundHelper(_emberTruthHelpersHelpersXor.xorHelper);
+  }
+
+  exports['default'] = forExport;
 });
 define('client/initializers/app-version', ['exports', 'ember-cli-app-version/initializer-factory', 'client/config/environment'], function (exports, _emberCliAppVersionInitializerFactory, _clientConfigEnvironment) {
   exports['default'] = {
@@ -908,6 +1040,34 @@ define('client/initializers/transforms', ['exports', 'ember'], function (exports
     initialize: _ember['default'].K
   };
 });
+define('client/initializers/truth-helpers', ['exports', 'ember', 'ember-truth-helpers/utils/register-helper', 'ember-truth-helpers/helpers/and', 'ember-truth-helpers/helpers/or', 'ember-truth-helpers/helpers/equal', 'ember-truth-helpers/helpers/not', 'ember-truth-helpers/helpers/is-array', 'ember-truth-helpers/helpers/not-equal', 'ember-truth-helpers/helpers/gt', 'ember-truth-helpers/helpers/gte', 'ember-truth-helpers/helpers/lt', 'ember-truth-helpers/helpers/lte'], function (exports, _ember, _emberTruthHelpersUtilsRegisterHelper, _emberTruthHelpersHelpersAnd, _emberTruthHelpersHelpersOr, _emberTruthHelpersHelpersEqual, _emberTruthHelpersHelpersNot, _emberTruthHelpersHelpersIsArray, _emberTruthHelpersHelpersNotEqual, _emberTruthHelpersHelpersGt, _emberTruthHelpersHelpersGte, _emberTruthHelpersHelpersLt, _emberTruthHelpersHelpersLte) {
+  exports.initialize = initialize;
+
+  function initialize() /* container, application */{
+
+    // Do not register helpers from Ember 1.13 onwards, starting from 1.13 they
+    // will be auto-discovered.
+    if (_ember['default'].Helper) {
+      return;
+    }
+
+    (0, _emberTruthHelpersUtilsRegisterHelper.registerHelper)('and', _emberTruthHelpersHelpersAnd.andHelper);
+    (0, _emberTruthHelpersUtilsRegisterHelper.registerHelper)('or', _emberTruthHelpersHelpersOr.orHelper);
+    (0, _emberTruthHelpersUtilsRegisterHelper.registerHelper)('eq', _emberTruthHelpersHelpersEqual.equalHelper);
+    (0, _emberTruthHelpersUtilsRegisterHelper.registerHelper)('not', _emberTruthHelpersHelpersNot.notHelper);
+    (0, _emberTruthHelpersUtilsRegisterHelper.registerHelper)('is-array', _emberTruthHelpersHelpersIsArray.isArrayHelper);
+    (0, _emberTruthHelpersUtilsRegisterHelper.registerHelper)('not-eq', _emberTruthHelpersHelpersNotEqual.notEqualHelper);
+    (0, _emberTruthHelpersUtilsRegisterHelper.registerHelper)('gt', _emberTruthHelpersHelpersGt.gtHelper);
+    (0, _emberTruthHelpersUtilsRegisterHelper.registerHelper)('gte', _emberTruthHelpersHelpersGte.gteHelper);
+    (0, _emberTruthHelpersUtilsRegisterHelper.registerHelper)('lt', _emberTruthHelpersHelpersLt.ltHelper);
+    (0, _emberTruthHelpersUtilsRegisterHelper.registerHelper)('lte', _emberTruthHelpersHelpersLte.lteHelper);
+  }
+
+  exports['default'] = {
+    name: 'truth-helpers',
+    initialize: initialize
+  };
+});
 define("client/instance-initializers/ember-data", ["exports", "ember-data/-private/instance-initializers/initialize-store-service"], function (exports, _emberDataPrivateInstanceInitializersInitializeStoreService) {
   exports["default"] = {
     name: "ember-data",
@@ -929,6 +1089,7 @@ define('client/models/card', ['exports', 'ember-data/model', 'ember-data/attr', 
     type: (0, _emberDataAttr['default'])('string'),
     project_id: (0, _emberDataAttr['default'])('number'),
     slug: (0, _emberDataAttr['default'])('string'),
+    status: (0, _emberDataAttr['default'])('string'),
     users: (0, _emberDataRelationships.hasMany)('user'),
     project: (0, _emberDataRelationships.belongsTo)('project')
   });
@@ -1087,6 +1248,20 @@ define('client/routes/card/card', ['exports', 'ember', 'ember-simple-auth/mixins
           // remove the card from the store and do a DELETE request
           card.destroyRecord();
           getOwner(_this2).lookup('route:cards').transitionTo('cards');
+        });
+      },
+
+      archiveCard: function archiveCard(card) {
+        this.get('store').findRecord('card', card.id).then(function (card) {
+          card.set('status', 'archived');
+          card.save();
+        });
+      },
+
+      unarchiveCard: function unarchiveCard(card) {
+        this.get('store').findRecord('card', card.id).then(function (card) {
+          card.set('status', 'unarchived');
+          card.save();
         });
       }
     }
@@ -1569,12 +1744,12 @@ define("client/templates/card/card", ["exports"], function (exports) {
           "loc": {
             "source": null,
             "start": {
-              "line": 54,
-              "column": 12
+              "line": 55,
+              "column": 14
             },
             "end": {
-              "line": 56,
-              "column": 12
+              "line": 55,
+              "column": 52
             }
           },
           "moduleName": "client/templates/card/card.hbs"
@@ -1585,14 +1760,7 @@ define("client/templates/card/card", ["exports"], function (exports) {
         hasRendered: false,
         buildFragment: function buildFragment(dom) {
           var el0 = dom.createDocumentFragment();
-          var el1 = dom.createTextNode("              ");
-          dom.appendChild(el0, el1);
-          var el1 = dom.createElement("li");
-          dom.setAttribute(el1, "class", "list-group-item");
-          var el2 = dom.createTextNode("Edit");
-          dom.appendChild(el1, el2);
-          dom.appendChild(el0, el1);
-          var el1 = dom.createTextNode("\n");
+          var el1 = dom.createTextNode("Edit");
           dom.appendChild(el0, el1);
           return el0;
         },
@@ -1600,6 +1768,98 @@ define("client/templates/card/card", ["exports"], function (exports) {
           return [];
         },
         statements: [],
+        locals: [],
+        templates: []
+      };
+    })();
+    var child1 = (function () {
+      return {
+        meta: {
+          "fragmentReason": false,
+          "revision": "Ember@2.6.1",
+          "loc": {
+            "source": null,
+            "start": {
+              "line": 58,
+              "column": 14
+            },
+            "end": {
+              "line": 60,
+              "column": 14
+            }
+          },
+          "moduleName": "client/templates/card/card.hbs"
+        },
+        isEmpty: false,
+        arity: 0,
+        cachedFragment: null,
+        hasRendered: false,
+        buildFragment: function buildFragment(dom) {
+          var el0 = dom.createDocumentFragment();
+          var el1 = dom.createTextNode("                ");
+          dom.appendChild(el0, el1);
+          var el1 = dom.createElement("a");
+          dom.setAttribute(el1, "href", "#");
+          var el2 = dom.createTextNode("Archive");
+          dom.appendChild(el1, el2);
+          dom.appendChild(el0, el1);
+          var el1 = dom.createTextNode("\n");
+          dom.appendChild(el0, el1);
+          return el0;
+        },
+        buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+          var element1 = dom.childAt(fragment, [1]);
+          var morphs = new Array(1);
+          morphs[0] = dom.createElementMorph(element1);
+          return morphs;
+        },
+        statements: [["element", "action", ["archiveCard", ["get", "card", ["loc", [null, [59, 52], [59, 56]]]]], [], ["loc", [null, [59, 28], [59, 59]]]]],
+        locals: [],
+        templates: []
+      };
+    })();
+    var child2 = (function () {
+      return {
+        meta: {
+          "fragmentReason": false,
+          "revision": "Ember@2.6.1",
+          "loc": {
+            "source": null,
+            "start": {
+              "line": 60,
+              "column": 14
+            },
+            "end": {
+              "line": 62,
+              "column": 14
+            }
+          },
+          "moduleName": "client/templates/card/card.hbs"
+        },
+        isEmpty: false,
+        arity: 0,
+        cachedFragment: null,
+        hasRendered: false,
+        buildFragment: function buildFragment(dom) {
+          var el0 = dom.createDocumentFragment();
+          var el1 = dom.createTextNode("                ");
+          dom.appendChild(el0, el1);
+          var el1 = dom.createElement("a");
+          dom.setAttribute(el1, "href", "#");
+          var el2 = dom.createTextNode("Unarchive");
+          dom.appendChild(el1, el2);
+          dom.appendChild(el0, el1);
+          var el1 = dom.createTextNode("\n");
+          dom.appendChild(el0, el1);
+          return el0;
+        },
+        buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+          var element0 = dom.childAt(fragment, [1]);
+          var morphs = new Array(1);
+          morphs[0] = dom.createElementMorph(element0);
+          return morphs;
+        },
+        statements: [["element", "action", ["unarchiveCard", ["get", "card", ["loc", [null, [61, 54], [61, 58]]]]], [], ["loc", [null, [61, 28], [61, 61]]]]],
         locals: [],
         templates: []
       };
@@ -1617,7 +1877,7 @@ define("client/templates/card/card", ["exports"], function (exports) {
             "column": 0
           },
           "end": {
-            "line": 65,
+            "line": 73,
             "column": 0
           }
         },
@@ -1732,8 +1992,15 @@ define("client/templates/card/card", ["exports"], function (exports) {
         var el6 = dom.createTextNode("\n          ");
         dom.appendChild(el5, el6);
         var el6 = dom.createElement("div");
-        dom.setAttribute(el6, "class", "card-header");
-        var el7 = dom.createTextNode("\n            Details\n          ");
+        dom.setAttribute(el6, "class", "card-header c-card__header");
+        var el7 = dom.createTextNode("\n            ");
+        dom.appendChild(el6, el7);
+        var el7 = dom.createElement("h4");
+        dom.setAttribute(el7, "class", "c-card__title");
+        var el8 = dom.createTextNode("Details");
+        dom.appendChild(el7, el8);
+        dom.appendChild(el6, el7);
+        var el7 = dom.createTextNode("\n          ");
         dom.appendChild(el6, el7);
         dom.appendChild(el5, el6);
         var el6 = dom.createTextNode("\n          ");
@@ -1795,33 +2062,55 @@ define("client/templates/card/card", ["exports"], function (exports) {
         var el6 = dom.createTextNode("\n          ");
         dom.appendChild(el5, el6);
         var el6 = dom.createElement("div");
-        dom.setAttribute(el6, "class", "card-header");
-        var el7 = dom.createTextNode("\n            Actions\n          ");
+        dom.setAttribute(el6, "class", "card-header c-card__header");
+        var el7 = dom.createTextNode("\n            ");
+        dom.appendChild(el6, el7);
+        var el7 = dom.createElement("h4");
+        dom.setAttribute(el7, "class", "c-card__title");
+        var el8 = dom.createTextNode("Actions");
+        dom.appendChild(el7, el8);
+        dom.appendChild(el6, el7);
+        var el7 = dom.createTextNode("\n          ");
         dom.appendChild(el6, el7);
         dom.appendChild(el5, el6);
         var el6 = dom.createTextNode("\n          ");
         dom.appendChild(el5, el6);
         var el6 = dom.createElement("ul");
         dom.setAttribute(el6, "class", "list-group");
-        var el7 = dom.createTextNode("\n");
-        dom.appendChild(el6, el7);
-        var el7 = dom.createComment("");
-        dom.appendChild(el6, el7);
-        var el7 = dom.createTextNode("            ");
+        var el7 = dom.createTextNode("\n            ");
         dom.appendChild(el6, el7);
         var el7 = dom.createElement("li");
         dom.setAttribute(el7, "class", "list-group-item");
-        var el8 = dom.createTextNode("Archive");
+        var el8 = dom.createTextNode("\n              ");
+        dom.appendChild(el7, el8);
+        var el8 = dom.createComment("");
+        dom.appendChild(el7, el8);
+        var el8 = dom.createTextNode("\n            ");
         dom.appendChild(el7, el8);
         dom.appendChild(el6, el7);
         var el7 = dom.createTextNode("\n            ");
         dom.appendChild(el6, el7);
         var el7 = dom.createElement("li");
         dom.setAttribute(el7, "class", "list-group-item");
+        var el8 = dom.createTextNode("\n");
+        dom.appendChild(el7, el8);
+        var el8 = dom.createComment("");
+        dom.appendChild(el7, el8);
+        var el8 = dom.createTextNode("            ");
+        dom.appendChild(el7, el8);
+        dom.appendChild(el6, el7);
+        var el7 = dom.createTextNode("\n            ");
+        dom.appendChild(el6, el7);
+        var el7 = dom.createElement("li");
+        dom.setAttribute(el7, "class", "list-group-item");
+        var el8 = dom.createTextNode("\n              ");
+        dom.appendChild(el7, el8);
         var el8 = dom.createElement("a");
         dom.setAttribute(el8, "href", "#");
         var el9 = dom.createTextNode("Delete");
         dom.appendChild(el8, el9);
+        dom.appendChild(el7, el8);
+        var el8 = dom.createTextNode("\n            ");
         dom.appendChild(el7, el8);
         dom.appendChild(el6, el7);
         var el7 = dom.createTextNode("\n          ");
@@ -1847,26 +2136,27 @@ define("client/templates/card/card", ["exports"], function (exports) {
         return el0;
       },
       buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
-        var element0 = dom.childAt(fragment, [0]);
-        var element1 = dom.childAt(element0, [3]);
-        var element2 = dom.childAt(element1, [3]);
-        var element3 = dom.childAt(element2, [3, 1]);
-        var element4 = dom.childAt(element2, [7, 1, 3]);
-        var element5 = dom.childAt(element4, [5, 0]);
-        var morphs = new Array(8);
-        morphs[0] = dom.createMorphAt(dom.childAt(element0, [1]), 1, 1);
-        morphs[1] = dom.createMorphAt(element1, 1, 1);
-        morphs[2] = dom.createMorphAt(element2, 1, 1);
-        morphs[3] = dom.createMorphAt(dom.childAt(element3, [1, 1]), 0, 0);
-        morphs[4] = dom.createMorphAt(dom.childAt(element3, [3, 1]), 1, 1);
-        morphs[5] = dom.createMorphAt(dom.childAt(element3, [5, 1]), 1, 1);
-        morphs[6] = dom.createMorphAt(element4, 1, 1);
-        morphs[7] = dom.createElementMorph(element5);
+        var element2 = dom.childAt(fragment, [0]);
+        var element3 = dom.childAt(element2, [3]);
+        var element4 = dom.childAt(element3, [3]);
+        var element5 = dom.childAt(element4, [3, 1]);
+        var element6 = dom.childAt(element4, [7, 1, 3]);
+        var element7 = dom.childAt(element6, [5, 1]);
+        var morphs = new Array(9);
+        morphs[0] = dom.createMorphAt(dom.childAt(element2, [1]), 1, 1);
+        morphs[1] = dom.createMorphAt(element3, 1, 1);
+        morphs[2] = dom.createMorphAt(element4, 1, 1);
+        morphs[3] = dom.createMorphAt(dom.childAt(element5, [1, 1]), 0, 0);
+        morphs[4] = dom.createMorphAt(dom.childAt(element5, [3, 1]), 1, 1);
+        morphs[5] = dom.createMorphAt(dom.childAt(element5, [5, 1]), 1, 1);
+        morphs[6] = dom.createMorphAt(dom.childAt(element6, [1]), 1, 1);
+        morphs[7] = dom.createMorphAt(dom.childAt(element6, [3]), 1, 1);
+        morphs[8] = dom.createElementMorph(element7);
         return morphs;
       },
-      statements: [["content", "layout/side-bar", ["loc", [null, [3, 4], [3, 23]]]], ["content", "layout/secondary-nav-bar", ["loc", [null, [6, 4], [6, 32]]]], ["content", "outlet", ["loc", [null, [8, 6], [8, 16]]]], ["content", "card.type", ["loc", [null, [12, 18], [12, 31]]]], ["content", "card.title", ["loc", [null, [16, 14], [16, 28]]]], ["content", "card.description", ["loc", [null, [21, 14], [21, 34]]]], ["block", "link-to", ["card.card.edit", ["get", "card", ["loc", [null, [54, 40], [54, 44]]]]], [], 0, null, ["loc", [null, [54, 12], [56, 24]]]], ["element", "action", ["deleteCard", ["get", "card", ["loc", [null, [58, 75], [58, 79]]]]], [], ["loc", [null, [58, 52], [58, 82]]]]],
+      statements: [["content", "layout/side-bar", ["loc", [null, [3, 4], [3, 23]]]], ["content", "layout/secondary-nav-bar", ["loc", [null, [6, 4], [6, 32]]]], ["content", "outlet", ["loc", [null, [8, 6], [8, 16]]]], ["content", "card.type", ["loc", [null, [12, 18], [12, 31]]]], ["content", "card.title", ["loc", [null, [16, 14], [16, 28]]]], ["content", "card.description", ["loc", [null, [21, 14], [21, 34]]]], ["block", "link-to", ["card.card.edit", ["get", "card", ["loc", [null, [55, 42], [55, 46]]]]], [], 0, null, ["loc", [null, [55, 14], [55, 64]]]], ["block", "if", [["subexpr", "eq", [["get", "card.status", ["loc", [null, [58, 24], [58, 35]]]], "unarchived"], [], ["loc", [null, [58, 20], [58, 49]]]]], [], 1, 2, ["loc", [null, [58, 14], [62, 21]]]], ["element", "action", ["deleteCard", ["get", "card", ["loc", [null, [65, 49], [65, 53]]]]], [], ["loc", [null, [65, 26], [65, 56]]]]],
       locals: [],
-      templates: [child0]
+      templates: [child0, child1, child2]
     };
   })());
 });
@@ -7369,7 +7659,7 @@ catch(err) {
 /* jshint ignore:start */
 
 if (!runningTests) {
-  require("client/app")["default"].create({"name":"client","version":"0.0.0+54cdba96"});
+  require("client/app")["default"].create({"name":"client","version":"0.0.0+35a1b03a"});
 }
 
 /* jshint ignore:end */

@@ -55,6 +55,20 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
         card.destroyRecord();
         getOwner(this).lookup('route:cards').transitionTo('cards');
       });
+    },
+
+    archiveCard(card) {
+      this.get('store').findRecord('card', card.id).then((card) => {
+        card.set('status', 'archived');
+        card.save();
+      });
+    },
+
+    unarchiveCard(card) {
+      this.get('store').findRecord('card', card.id).then((card) => {
+        card.set('status', 'unarchived');
+        card.save();
+      });
     }
   }
 });

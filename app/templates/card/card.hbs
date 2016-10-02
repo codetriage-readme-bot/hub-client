@@ -26,8 +26,8 @@
 
       <div class="col-md-3">
         <div class="card c-card">
-          <div class="card-header">
-            Details
+          <div class="card-header c-card__header">
+            <h4 class="c-card__title">Details</h4>
           </div>
           <ul class="list-group">
             <li class="list-group-item">
@@ -47,15 +47,23 @@
 
       <div class="col-md-3">
         <div class="card c-card">
-          <div class="card-header">
-            Actions
+          <div class="card-header c-card__header">
+            <h4 class="c-card__title">Actions</h4>
           </div>
           <ul class="list-group">
-            {{#link-to 'card.card.edit' card}}
-              <li class="list-group-item">Edit</li>
-            {{/link-to}}
-            <li class="list-group-item">Archive</li>
-            <li class="list-group-item"><a href="#" {{ action "deleteCard" card }}>Delete</a></li>
+            <li class="list-group-item">
+              {{#link-to 'card.card.edit' card}}Edit{{/link-to}}
+            </li>
+            <li class="list-group-item">
+              {{#if (eq card.status "unarchived")}}
+                <a href="#" {{ action "archiveCard" card }}>Archive</a>
+              {{else}}
+                <a href="#" {{ action "unarchiveCard" card }}>Unarchive</a>
+              {{/if}}
+            </li>
+            <li class="list-group-item">
+              <a href="#" {{ action "deleteCard" card }}>Delete</a>
+            </li>
           </ul>
         </div>
       </div>
