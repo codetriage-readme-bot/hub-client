@@ -20,32 +20,13 @@
 /* ==========================================================================
    general
    ========================================================================== */
+html,
 body {
     font-weight: normal;
     overflow: hidden;
     background-color: #fff;
+    font-size: 12px;
 }
-/* ==========================================================================
-   layouts
-   ========================================================================== */
-.l-left-container {
-    padding: 0;
-    border-right: 1px solid #e5e5e5;
-    height: 100vh;
-}
-.l-main-container {
-    padding: 0;
-}
-.l-cards-container {
-    background-color: #f9fafc;
-    overflow-y: auto;
-    padding: 15px 0;
-    min-height: calc(100vh - 55px - 60px);
-    height: calc(100vh - 55px - 60px);
-}
-/* ==========================================================================
-   modules
-   ========================================================================== */
 a {
     color: #1fb6ff;
 }
@@ -61,6 +42,38 @@ input {
 textarea {
     font-weight: 200;
     outline: none;
+}
+/* ==========================================================================
+   media-queries
+   ========================================================================== */
+@media screen and (max-width: 768px) {
+    body {
+        overflow-y: auto;
+    }
+}
+.l-left-container {
+    padding: 0;
+    border-right: 1px solid #e5e5e5;
+    height: 100vh;
+}
+.l-main-container {
+    padding: 0;
+}
+.l-cards-container {
+    background-color: #f9fafc;
+    overflow-y: auto;
+    padding: 15px 0;
+    min-height: calc(100vh - 55px - 60px);
+    height: calc(100vh - 55px - 60px);
+}
+@media screen and (max-width: 768px) {
+    .l-left-container {
+        height: auto;
+        border-right: 0;
+    }
+    .l-cards-container {
+        overflow-y: hidden;
+    }
 }
 .m-page {
     height: 50px;
@@ -150,24 +163,6 @@ textarea {
     border-bottom: 3px solid transparent;
     border-top: 3px solid #1FB6FF;
 }
-/* ==========================================================================
-   media-queries
-   ========================================================================== */
-@media screen and (max-width: 768px) {
-    .l-left-container {
-        height: auto;
-        border-right: 0;
-    }
-    .l-cards-container {
-        overflow-y: hidden;
-    }
-    body {
-        overflow-y: auto;
-    }
-}
-/* ==========================================================================
-   vendor
-   ========================================================================== */
 .ember-power-select-trigger.ember-basic-dropdown-trigger {
     height: 50px;
     font-weight: 200;
@@ -285,6 +280,11 @@ a.list-group-item:hover {
 .c-card__header,
   .c-card__footer {
     background-color: #fff;
+    display: flex;
+    align-items: center;
+}
+.c-card__title {
+    margin: 0;
 }
 .c-card__description {
     white-space: pre-line;
@@ -348,7 +348,6 @@ a.list-group-item:hover {
     color: #fff;
 }
 
-
 /* ==========================================================================
    plugins
    ========================================================================== */
@@ -363,4 +362,3 @@ a.list-group-item:hover {
     display: flex;
     align-items: center;
 }
-

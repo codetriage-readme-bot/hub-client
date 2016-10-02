@@ -1,0 +1,104 @@
+.m-page {
+  height: 50px;
+  padding: 15px 0 30px 15px;
+  display: flex;
+  align-items: center;
+
+  &__heading {
+    margin: 0;
+  }
+}
+
+.m-card-container__link {
+  color: $grey-dark;
+
+  .c-card {
+    &:hover {
+      background-color: $grey-light;
+    }
+
+    &__header {
+      height: 50px;
+    }
+
+    &__title {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    &__block {
+      height: 100px;
+    }
+
+    &__description {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+}
+
+.m-img-responsive {
+  width: 100%;
+}
+
+.m-application-loader {
+  &__loader {
+    display: flex;
+    height: calc(100vh - 55px);
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.m-ribbon {
+  position: absolute;
+  right: -5px;
+  top: -5px;
+  z-index: 1;
+  overflow: hidden;
+  width: 75px;
+  height: 75px;
+  text-align: right;
+
+  span {
+    font-size: 10px;
+    font-weight: bold;
+    color: #FFF;
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 20px;
+    transform: rotate(45deg);
+    width: 100px;
+    display: block;
+    background: #1FB6FF;
+    box-shadow: 0 3px 10px -5px rgba(0, 0, 0, 1);
+    position: absolute;
+    top: 19px; right: -21px;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0px;
+      top: 100%;
+      z-index: -1;
+      border-left: 3px solid #1FB6FF;
+      border-right: 3px solid transparent;
+      border-bottom: 3px solid transparent;
+      border-top: 3px solid #1FB6FF;
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      right: 0px;
+      top: 100%;
+      z-index: -1;
+      border-left: 3px solid transparent;
+      border-right: 3px solid #1FB6FF;
+      border-bottom: 3px solid transparent;
+      border-top: 3px solid #1FB6FF;
+    }
+  }
+}

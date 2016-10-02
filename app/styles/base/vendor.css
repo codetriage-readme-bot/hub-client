@@ -1,0 +1,12 @@
+.ember-power-select-trigger.ember-basic-dropdown-trigger {
+  height: 50px;
+  font-weight: 200;
+  display: flex;
+  align-items: center;
+  outline: none;
+}
+
+.ember-power-select {
+  width: 100%;
+  align-self: center;
+}

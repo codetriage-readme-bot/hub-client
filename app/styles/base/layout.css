@@ -1,0 +1,28 @@
+.l-left-container {
+  padding: 0;
+  border-right: 1px solid $border-color;
+  height: 100vh;
+}
+
+.l-main-container {
+  padding: 0;
+}
+
+.l-cards-container {
+  background-color: $grey-light;
+  overflow-y: auto;
+  padding: 15px 0;
+  min-height: calc(100vh - 55px - 60px);
+  height: calc(100vh - 55px - 60px);
+}
+
+@media screen and (max-width: 768px) {
+  .l-left-container {
+    height: auto;
+    border-right: 0;
+  }
+
+  .l-cards-container {
+    overflow-y: hidden;
+  }
+}

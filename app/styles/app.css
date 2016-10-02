@@ -7,6 +7,9 @@
    base
    ========================================================================== */
 @import './base/base.css';
+@import './base/layout.css';
+@import './base/module.css';
+@import './base/vendor.css';
 
 /* ==========================================================================
    components
@@ -19,9 +22,7 @@
 @import './components/register-form.css';
 @import './components/landing-page.css';
 
-
 /* ==========================================================================
    plugins
    ========================================================================== */
 @import './plugins/selectize.css';
-
