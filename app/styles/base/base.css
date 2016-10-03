@@ -6,7 +6,7 @@ body {
   font-weight: normal;
   overflow: hidden;
   background-color: $white;
-  font-size: 12px;
+  font-size: $base-font-size;
 }
 
 a {
@@ -22,11 +22,28 @@ input {
   height: 50px;
   font-weight: $fw-200;
   outline: none;
+
+  &[type="radio"],
+  &[type="checkbox"] {
+    height: $base-font-size;
+  }
+
+  &[type="radio"] {
+    margin: 0 0 0 15px;
+  }
+
+  &[type="checkbox"] {
+    margin: 0 5px 0 15px;
+  }
 }
 
 textarea {
   font-weight: $fw-200;
   outline: none;
+}
+
+label {
+  margin: 0;
 }
 
 /* ==========================================================================

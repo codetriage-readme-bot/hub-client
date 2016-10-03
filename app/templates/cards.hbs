@@ -9,13 +9,7 @@
         <img src="/assets/fonts/credit-card.svg" class="c-side-bar__icon" alt="Cards" />
         <h4 class="m-page__heading">Cards</h4>
       </div>
-      {{#each cards as |card|}}
-        {{cards/cards-container card=card}}
-      {{else}}
-        <div class="col-md-4">
-          Sorry, nothing to show.
-        </div>
-      {{/each}}
+      {{cards/cards-container cards=cards}}
     </div>
   </div>
 </div>
