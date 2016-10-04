@@ -166,7 +166,7 @@ define('client/components/app-version', ['exports', 'ember-cli-app-version/compo
 define('client/components/cards/cards-container', ['exports', 'ember'], function (exports, _ember) {
   exports['default'] = _ember['default'].Component.extend({
     sortedCards: _ember['default'].computed.sort('cards', 'sortDefinition'),
-    sortBy: 'id', // default sort by id
+    sortBy: 'type', // default sort by type
     reverseSort: false, // default sort in ascending order
     sortDefinition: _ember['default'].computed('sortBy', 'reverseSort', function () {
       var sortOrder = this.get('reverseSort') ? 'desc' : 'asc';
@@ -7976,7 +7976,7 @@ catch(err) {
 /* jshint ignore:start */
 
 if (!runningTests) {
-  require("client/app")["default"].create({"name":"client","version":"0.0.0+1a887a7d"});
+  require("client/app")["default"].create({"name":"client","version":"0.0.0+e2faecec"});
 }
 
 /* jshint ignore:end */
