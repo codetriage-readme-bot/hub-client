@@ -19,7 +19,7 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
     return this.getProjects()
       .then((projects) => {
         this.set('currentModel', projects);
-      })
+      });
   },
 
   afterModel() {

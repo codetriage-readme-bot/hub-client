@@ -16,7 +16,7 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
     return this.getUsers()
       .then((users) => {
         this.set('currentModel', users);
-      })
+      });
   },
 
   afterModel() {

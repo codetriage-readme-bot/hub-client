@@ -6,7 +6,7 @@ export default Ember.Component.extend({
   store: Ember.inject.service(),
   session: Ember.inject.service('session'),
   actions: {
-    save(name, email, id) {
+    save() {
       // get the details about the currently authenticated user
       this.get('store').findRecord('user', this.get('session.data.authenticated.id')).then((user) => {
         user.save().then(() => {

@@ -153,16 +153,6 @@ define('client/authenticators/register', ['exports', 'ember-simple-auth/authenti
     }
   });
 });
-define('client/components/app-version', ['exports', 'ember-cli-app-version/components/app-version', 'client/config/environment'], function (exports, _emberCliAppVersionComponentsAppVersion, _clientConfigEnvironment) {
-
-  var name = _clientConfigEnvironment['default'].APP.name;
-  var version = _clientConfigEnvironment['default'].APP.version;
-
-  exports['default'] = _emberCliAppVersionComponentsAppVersion['default'].extend({
-    version: version,
-    name: name
-  });
-});
 define('client/components/cards/cards-container', ['exports', 'ember'], function (exports, _ember) {
   exports['default'] = _ember['default'].Component.extend({
     sortedCards: _ember['default'].computed.sort('cards', 'sortDefinition'),
@@ -368,7 +358,7 @@ define('client/components/forms/edit-user-form', ['exports', 'ember'], function 
     store: _ember['default'].inject.service(),
     session: _ember['default'].inject.service('session'),
     actions: {
-      save: function save(name, email, id) {
+      save: function save() {
         var _this = this;
 
         // get the details about the currently authenticated user
@@ -466,11 +456,11 @@ define('client/components/forms/new-card-form', ['exports', 'ember'], function (
         getOwner(this).lookup('route:cards').transitionTo('cards');
       },
 
-      selectType: function selectType(type) {
+      selectType: function selectType() {
         this.get('model').set('type', this.get('type.id'));
       },
 
-      selectProject: function selectProject(project) {
+      selectProject: function selectProject() {
         this.get('model').set('project_id', this.get('project.id'));
       },
 
@@ -755,6 +745,16 @@ define('client/helpers/and', ['exports', 'ember', 'ember-truth-helpers/helpers/a
 
   exports['default'] = forExport;
 });
+define('client/helpers/app-version', ['exports', 'ember', 'client/config/environment'], function (exports, _ember, _clientConfigEnvironment) {
+  exports.appVersion = appVersion;
+  var version = _clientConfigEnvironment['default'].APP.version;
+
+  function appVersion() {
+    return version;
+  }
+
+  exports['default'] = _ember['default'].Helper.helper(appVersion);
+});
 define('client/helpers/eq', ['exports', 'ember', 'ember-truth-helpers/helpers/equal'], function (exports, _ember, _emberTruthHelpersHelpersEqual) {
 
   var forExport = null;
@@ -882,9 +882,12 @@ define('client/helpers/xor', ['exports', 'ember', 'ember-truth-helpers/helpers/x
   exports['default'] = forExport;
 });
 define('client/initializers/app-version', ['exports', 'ember-cli-app-version/initializer-factory', 'client/config/environment'], function (exports, _emberCliAppVersionInitializerFactory, _clientConfigEnvironment) {
+  var _config$APP = _clientConfigEnvironment['default'].APP;
+  var name = _config$APP.name;
+  var version = _config$APP.version;
   exports['default'] = {
     name: 'App Version',
-    initialize: (0, _emberCliAppVersionInitializerFactory['default'])(_clientConfigEnvironment['default'].APP.name, _clientConfigEnvironment['default'].APP.version)
+    initialize: (0, _emberCliAppVersionInitializerFactory['default'])(name, version)
   };
 });
 define('client/initializers/container-debug-adapter', ['exports', 'ember-resolver/container-debug-adapter'], function (exports, _emberResolverContainerDebugAdapter) {
@@ -934,7 +937,7 @@ define('client/initializers/ember-data', ['exports', 'ember-data/setup-container
       adapter: 'custom'
     });
   
-    App.PostsController = Ember.ArrayController.extend({
+    App.PostsController = Ember.Controller.extend({
       // ...
     });
   
@@ -1605,11 +1608,7 @@ define("client/templates/application", ["exports"], function (exports) {
   exports["default"] = Ember.HTMLBars.template((function () {
     return {
       meta: {
-        "fragmentReason": {
-          "name": "missing-wrapper",
-          "problems": ["multiple-nodes"]
-        },
-        "revision": "Ember@2.6.1",
+        "revision": "Ember@2.8.2",
         "loc": {
           "source": null,
           "start": {
@@ -1617,7 +1616,7 @@ define("client/templates/application", ["exports"], function (exports) {
             "column": 0
           },
           "end": {
-            "line": 9,
+            "line": 14,
             "column": 0
           }
         },
@@ -1648,7 +1647,26 @@ define("client/templates/application", ["exports"], function (exports) {
         dom.setAttribute(el2, "class", "container-fluid");
         var el3 = dom.createTextNode("\n    ");
         dom.appendChild(el2, el3);
-        var el3 = dom.createComment("");
+        var el3 = dom.createElement("div");
+        dom.setAttribute(el3, "class", "row");
+        var el4 = dom.createTextNode("\n      ");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createElement("div");
+        dom.setAttribute(el4, "class", "col-md-10");
+        var el5 = dom.createTextNode("\n        ");
+        dom.appendChild(el4, el5);
+        var el5 = dom.createComment("");
+        dom.appendChild(el4, el5);
+        var el5 = dom.createTextNode("\n      ");
+        dom.appendChild(el4, el5);
+        dom.appendChild(el3, el4);
+        var el4 = dom.createTextNode("\n      ");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createElement("div");
+        dom.setAttribute(el4, "class", "col-md-2");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createTextNode("\n    ");
+        dom.appendChild(el3, el4);
         dom.appendChild(el2, el3);
         var el3 = dom.createTextNode("\n  ");
         dom.appendChild(el2, el3);
@@ -1663,10 +1681,10 @@ define("client/templates/application", ["exports"], function (exports) {
       buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
         var morphs = new Array(2);
         morphs[0] = dom.createMorphAt(dom.childAt(fragment, [0]), 1, 1);
-        morphs[1] = dom.createMorphAt(dom.childAt(fragment, [2, 1]), 1, 1);
+        morphs[1] = dom.createMorphAt(dom.childAt(fragment, [2, 1, 1, 1]), 1, 1);
         return morphs;
       },
-      statements: [["content", "layout/nav-bar", ["loc", [null, [2, 2], [2, 20]]]], ["content", "outlet", ["loc", [null, [6, 4], [6, 14]]]]],
+      statements: [["content", "layout/nav-bar", ["loc", [null, [2, 2], [2, 20]]], 0, 0, 0, 0], ["content", "outlet", ["loc", [null, [8, 8], [8, 18]]], 0, 0, 0, 0]],
       locals: [],
       templates: []
     };
@@ -1676,10 +1694,7 @@ define("client/templates/card/card/edit", ["exports"], function (exports) {
   exports["default"] = Ember.HTMLBars.template((function () {
     return {
       meta: {
-        "fragmentReason": {
-          "name": "triple-curlies"
-        },
-        "revision": "Ember@2.6.1",
+        "revision": "Ember@2.8.2",
         "loc": {
           "source": null,
           "start": {
@@ -1745,7 +1760,7 @@ define("client/templates/card/card/edit", ["exports"], function (exports) {
         morphs[0] = dom.createMorphAt(dom.childAt(fragment, [0, 1, 3]), 1, 1);
         return morphs;
       },
-      statements: [["inline", "forms/edit-card-form", [], ["model", ["subexpr", "@mut", [["get", "model", ["loc", [null, [9, 35], [9, 40]]]]], [], []]], ["loc", [null, [9, 6], [9, 42]]]]],
+      statements: [["inline", "forms/edit-card-form", [], ["model", ["subexpr", "@mut", [["get", "model", ["loc", [null, [9, 35], [9, 40]]], 0, 0, 0, 0]], [], [], 0, 0]], ["loc", [null, [9, 6], [9, 42]]], 0, 0]],
       locals: [],
       templates: []
     };
@@ -1756,8 +1771,7 @@ define("client/templates/card/card", ["exports"], function (exports) {
     var child0 = (function () {
       return {
         meta: {
-          "fragmentReason": false,
-          "revision": "Ember@2.6.1",
+          "revision": "Ember@2.8.2",
           "loc": {
             "source": null,
             "start": {
@@ -1792,8 +1806,7 @@ define("client/templates/card/card", ["exports"], function (exports) {
     var child1 = (function () {
       return {
         meta: {
-          "fragmentReason": false,
-          "revision": "Ember@2.6.1",
+          "revision": "Ember@2.8.2",
           "loc": {
             "source": null,
             "start": {
@@ -1830,7 +1843,7 @@ define("client/templates/card/card", ["exports"], function (exports) {
           morphs[0] = dom.createElementMorph(element1);
           return morphs;
         },
-        statements: [["element", "action", ["archiveCard", ["get", "card", ["loc", [null, [59, 52], [59, 56]]]]], [], ["loc", [null, [59, 28], [59, 59]]]]],
+        statements: [["element", "action", ["archiveCard", ["get", "card", ["loc", [null, [59, 52], [59, 56]]], 0, 0, 0, 0]], [], ["loc", [null, [59, 28], [59, 59]]], 0, 0]],
         locals: [],
         templates: []
       };
@@ -1838,8 +1851,7 @@ define("client/templates/card/card", ["exports"], function (exports) {
     var child2 = (function () {
       return {
         meta: {
-          "fragmentReason": false,
-          "revision": "Ember@2.6.1",
+          "revision": "Ember@2.8.2",
           "loc": {
             "source": null,
             "start": {
@@ -1876,17 +1888,14 @@ define("client/templates/card/card", ["exports"], function (exports) {
           morphs[0] = dom.createElementMorph(element0);
           return morphs;
         },
-        statements: [["element", "action", ["unarchiveCard", ["get", "card", ["loc", [null, [61, 54], [61, 58]]]]], [], ["loc", [null, [61, 28], [61, 61]]]]],
+        statements: [["element", "action", ["unarchiveCard", ["get", "card", ["loc", [null, [61, 54], [61, 58]]], 0, 0, 0, 0]], [], ["loc", [null, [61, 28], [61, 61]]], 0, 0]],
         locals: [],
         templates: []
       };
     })();
     return {
       meta: {
-        "fragmentReason": {
-          "name": "triple-curlies"
-        },
-        "revision": "Ember@2.6.1",
+        "revision": "Ember@2.8.2",
         "loc": {
           "source": null,
           "start": {
@@ -2171,7 +2180,7 @@ define("client/templates/card/card", ["exports"], function (exports) {
         morphs[8] = dom.createElementMorph(element7);
         return morphs;
       },
-      statements: [["content", "layout/side-bar", ["loc", [null, [3, 4], [3, 23]]]], ["content", "layout/secondary-nav-bar", ["loc", [null, [6, 4], [6, 32]]]], ["content", "outlet", ["loc", [null, [8, 6], [8, 16]]]], ["content", "card.type", ["loc", [null, [12, 18], [12, 31]]]], ["content", "card.title", ["loc", [null, [16, 14], [16, 28]]]], ["content", "card.description", ["loc", [null, [21, 14], [21, 34]]]], ["block", "link-to", ["card.card.edit", ["get", "card", ["loc", [null, [55, 42], [55, 46]]]]], [], 0, null, ["loc", [null, [55, 14], [55, 64]]]], ["block", "if", [["subexpr", "eq", [["get", "card.status", ["loc", [null, [58, 24], [58, 35]]]], "unarchived"], [], ["loc", [null, [58, 20], [58, 49]]]]], [], 1, 2, ["loc", [null, [58, 14], [62, 21]]]], ["element", "action", ["deleteCard", ["get", "card", ["loc", [null, [65, 49], [65, 53]]]]], [], ["loc", [null, [65, 26], [65, 56]]]]],
+      statements: [["content", "layout/side-bar", ["loc", [null, [3, 4], [3, 23]]], 0, 0, 0, 0], ["content", "layout/secondary-nav-bar", ["loc", [null, [6, 4], [6, 32]]], 0, 0, 0, 0], ["content", "outlet", ["loc", [null, [8, 6], [8, 16]]], 0, 0, 0, 0], ["content", "card.type", ["loc", [null, [12, 18], [12, 31]]], 0, 0, 0, 0], ["content", "card.title", ["loc", [null, [16, 14], [16, 28]]], 0, 0, 0, 0], ["content", "card.description", ["loc", [null, [21, 14], [21, 34]]], 0, 0, 0, 0], ["block", "link-to", ["card.card.edit", ["get", "card", ["loc", [null, [55, 42], [55, 46]]], 0, 0, 0, 0]], [], 0, null, ["loc", [null, [55, 14], [55, 64]]]], ["block", "if", [["subexpr", "eq", [["get", "card.status", ["loc", [null, [58, 24], [58, 35]]], 0, 0, 0, 0], "unarchived"], [], ["loc", [null, [58, 20], [58, 49]]], 0, 0]], [], 1, 2, ["loc", [null, [58, 14], [62, 21]]]], ["element", "action", ["deleteCard", ["get", "card", ["loc", [null, [65, 49], [65, 53]]], 0, 0, 0, 0]], [], ["loc", [null, [65, 26], [65, 56]]], 0, 0]],
       locals: [],
       templates: [child0, child1, child2]
     };
@@ -2181,10 +2190,7 @@ define("client/templates/card/new", ["exports"], function (exports) {
   exports["default"] = Ember.HTMLBars.template((function () {
     return {
       meta: {
-        "fragmentReason": {
-          "name": "triple-curlies"
-        },
-        "revision": "Ember@2.6.1",
+        "revision": "Ember@2.8.2",
         "loc": {
           "source": null,
           "start": {
@@ -2358,7 +2364,7 @@ define("client/templates/card/new", ["exports"], function (exports) {
         morphs[5] = dom.createMorphAt(dom.childAt(element3, [5, 1]), 1, 1);
         return morphs;
       },
-      statements: [["content", "layout/side-bar", ["loc", [null, [3, 4], [3, 23]]]], ["content", "layout/secondary-nav-bar", ["loc", [null, [6, 4], [6, 32]]]], ["inline", "forms/new-card-form", [], ["model", ["subexpr", "@mut", [["get", "model", ["loc", [null, [16, 40], [16, 45]]]]], [], []]], ["loc", [null, [16, 12], [16, 47]]]], ["content", "model.type", ["loc", [null, [23, 18], [23, 32]]]], ["content", "model.title", ["loc", [null, [27, 14], [27, 29]]]], ["content", "model.description", ["loc", [null, [32, 14], [32, 35]]]]],
+      statements: [["content", "layout/side-bar", ["loc", [null, [3, 4], [3, 23]]], 0, 0, 0, 0], ["content", "layout/secondary-nav-bar", ["loc", [null, [6, 4], [6, 32]]], 0, 0, 0, 0], ["inline", "forms/new-card-form", [], ["model", ["subexpr", "@mut", [["get", "model", ["loc", [null, [16, 40], [16, 45]]], 0, 0, 0, 0]], [], [], 0, 0]], ["loc", [null, [16, 12], [16, 47]]], 0, 0], ["content", "model.type", ["loc", [null, [23, 18], [23, 32]]], 0, 0, 0, 0], ["content", "model.title", ["loc", [null, [27, 14], [27, 29]]], 0, 0, 0, 0], ["content", "model.description", ["loc", [null, [32, 14], [32, 35]]], 0, 0, 0, 0]],
       locals: [],
       templates: []
     };
@@ -2368,10 +2374,7 @@ define("client/templates/cards", ["exports"], function (exports) {
   exports["default"] = Ember.HTMLBars.template((function () {
     return {
       meta: {
-        "fragmentReason": {
-          "name": "triple-curlies"
-        },
-        "revision": "Ember@2.6.1",
+        "revision": "Ember@2.8.2",
         "loc": {
           "source": null,
           "start": {
@@ -2463,7 +2466,7 @@ define("client/templates/cards", ["exports"], function (exports) {
         morphs[2] = dom.createMorphAt(dom.childAt(element1, [3]), 3, 3);
         return morphs;
       },
-      statements: [["content", "layout/side-bar", ["loc", [null, [3, 4], [3, 23]]]], ["content", "layout/secondary-nav-bar", ["loc", [null, [6, 4], [6, 32]]]], ["inline", "cards/cards-container", [], ["cards", ["subexpr", "@mut", [["get", "cards", ["loc", [null, [12, 36], [12, 41]]]]], [], []]], ["loc", [null, [12, 6], [12, 43]]]]],
+      statements: [["content", "layout/side-bar", ["loc", [null, [3, 4], [3, 23]]], 0, 0, 0, 0], ["content", "layout/secondary-nav-bar", ["loc", [null, [6, 4], [6, 32]]], 0, 0, 0, 0], ["inline", "cards/cards-container", [], ["cards", ["subexpr", "@mut", [["get", "cards", ["loc", [null, [12, 36], [12, 41]]], 0, 0, 0, 0]], [], [], 0, 0]], ["loc", [null, [12, 6], [12, 43]]], 0, 0]],
       locals: [],
       templates: []
     };
@@ -2474,8 +2477,7 @@ define("client/templates/components/cards/cards-container", ["exports"], functio
     var child0 = (function () {
       return {
         meta: {
-          "fragmentReason": false,
-          "revision": "Ember@2.6.1",
+          "revision": "Ember@2.8.2",
           "loc": {
             "source": null,
             "start": {
@@ -2510,8 +2512,7 @@ define("client/templates/components/cards/cards-container", ["exports"], functio
     var child1 = (function () {
       return {
         meta: {
-          "fragmentReason": false,
-          "revision": "Ember@2.6.1",
+          "revision": "Ember@2.8.2",
           "loc": {
             "source": null,
             "start": {
@@ -2547,8 +2548,7 @@ define("client/templates/components/cards/cards-container", ["exports"], functio
       var child0 = (function () {
         return {
           meta: {
-            "fragmentReason": false,
-            "revision": "Ember@2.6.1",
+            "revision": "Ember@2.8.2",
             "loc": {
               "source": null,
               "start": {
@@ -2636,15 +2636,14 @@ define("client/templates/components/cards/cards-container", ["exports"], functio
             morphs[2] = dom.createMorphAt(dom.childAt(element0, [5, 1]), 1, 1);
             return morphs;
           },
-          statements: [["content", "card.type", ["loc", [null, [15, 16], [15, 29]]]], ["content", "card.title", ["loc", [null, [19, 12], [19, 26]]]], ["content", "card.description", ["loc", [null, [24, 14], [24, 34]]]]],
+          statements: [["content", "card.type", ["loc", [null, [15, 16], [15, 29]]], 0, 0, 0, 0], ["content", "card.title", ["loc", [null, [19, 12], [19, 26]]], 0, 0, 0, 0], ["content", "card.description", ["loc", [null, [24, 14], [24, 34]]], 0, 0, 0, 0]],
           locals: [],
           templates: []
         };
       })();
       return {
         meta: {
-          "fragmentReason": false,
-          "revision": "Ember@2.6.1",
+          "revision": "Ember@2.8.2",
           "loc": {
             "source": null,
             "start": {
@@ -2684,7 +2683,7 @@ define("client/templates/components/cards/cards-container", ["exports"], functio
           morphs[0] = dom.createMorphAt(dom.childAt(fragment, [1]), 1, 1);
           return morphs;
         },
-        statements: [["block", "link-to", ["card.card", ["get", "card", ["loc", [null, [12, 27], [12, 31]]]]], ["class", "m-card-container__link"], 0, null, ["loc", [null, [12, 4], [28, 16]]]]],
+        statements: [["block", "link-to", ["card.card", ["get", "card", ["loc", [null, [12, 27], [12, 31]]], 0, 0, 0, 0]], ["class", "m-card-container__link"], 0, null, ["loc", [null, [12, 4], [28, 16]]]]],
         locals: ["card"],
         templates: [child0]
       };
@@ -2692,8 +2691,7 @@ define("client/templates/components/cards/cards-container", ["exports"], functio
     var child3 = (function () {
       return {
         meta: {
-          "fragmentReason": false,
-          "revision": "Ember@2.6.1",
+          "revision": "Ember@2.8.2",
           "loc": {
             "source": null,
             "start": {
@@ -2734,11 +2732,7 @@ define("client/templates/components/cards/cards-container", ["exports"], functio
     })();
     return {
       meta: {
-        "fragmentReason": {
-          "name": "missing-wrapper",
-          "problems": ["multiple-nodes", "wrong-type"]
-        },
-        "revision": "Ember@2.6.1",
+        "revision": "Ember@2.8.2",
         "loc": {
           "source": null,
           "start": {
@@ -2798,7 +2792,7 @@ define("client/templates/components/cards/cards-container", ["exports"], functio
         dom.insertBoundary(fragment, null);
         return morphs;
       },
-      statements: [["block", "radio-button", [], ["value", "type", "groupValue", ["subexpr", "@mut", [["get", "sortBy", ["loc", [null, [3, 42], [3, 48]]]]], [], []], "id", "type"], 0, null, ["loc", [null, [3, 2], [3, 81]]]], ["block", "radio-button", [], ["value", "created_at", "groupValue", ["subexpr", "@mut", [["get", "sortBy", ["loc", [null, [4, 48], [4, 54]]]]], [], []], "id", "date"], 1, null, ["loc", [null, [4, 2], [4, 87]]]], ["inline", "input", [], ["type", "checkbox", "checked", ["subexpr", "@mut", [["get", "reverseSort", ["loc", [null, [6, 34], [6, 45]]]]], [], []], "id", "reverse"], ["loc", [null, [6, 2], [6, 60]]]], ["block", "each", [["get", "sortedCards", ["loc", [null, [10, 8], [10, 19]]]]], [], 2, 3, ["loc", [null, [10, 0], [34, 9]]]]],
+      statements: [["block", "radio-button", [], ["value", "type", "groupValue", ["subexpr", "@mut", [["get", "sortBy", ["loc", [null, [3, 42], [3, 48]]], 0, 0, 0, 0]], [], [], 0, 0], "id", "type"], 0, null, ["loc", [null, [3, 2], [3, 81]]]], ["block", "radio-button", [], ["value", "created_at", "groupValue", ["subexpr", "@mut", [["get", "sortBy", ["loc", [null, [4, 48], [4, 54]]], 0, 0, 0, 0]], [], [], 0, 0], "id", "date"], 1, null, ["loc", [null, [4, 2], [4, 87]]]], ["inline", "input", [], ["type", "checkbox", "checked", ["subexpr", "@mut", [["get", "reverseSort", ["loc", [null, [6, 34], [6, 45]]], 0, 0, 0, 0]], [], [], 0, 0], "id", "reverse"], ["loc", [null, [6, 2], [6, 60]]], 0, 0], ["block", "each", [["get", "sortedCards", ["loc", [null, [10, 8], [10, 19]]], 0, 0, 0, 0]], [], 2, 3, ["loc", [null, [10, 0], [34, 9]]]]],
       locals: [],
       templates: [child0, child1, child2, child3]
     };
@@ -2809,8 +2803,7 @@ define("client/templates/components/forms/edit-card-form", ["exports"], function
     var child0 = (function () {
       return {
         meta: {
-          "fragmentReason": false,
-          "revision": "Ember@2.6.1",
+          "revision": "Ember@2.8.2",
           "loc": {
             "source": null,
             "start": {
@@ -2846,7 +2839,7 @@ define("client/templates/components/forms/edit-card-form", ["exports"], function
           morphs[0] = dom.createMorphAt(dom.childAt(fragment, [1]), 0, 0);
           return morphs;
         },
-        statements: [["content", "errors.project", ["loc", [null, [17, 44], [17, 62]]]]],
+        statements: [["content", "errors.project", ["loc", [null, [17, 44], [17, 62]]], 0, 0, 0, 0]],
         locals: [],
         templates: []
       };
@@ -2854,8 +2847,7 @@ define("client/templates/components/forms/edit-card-form", ["exports"], function
     var child1 = (function () {
       return {
         meta: {
-          "fragmentReason": false,
-          "revision": "Ember@2.6.1",
+          "revision": "Ember@2.8.2",
           "loc": {
             "source": null,
             "start": {
@@ -2891,7 +2883,7 @@ define("client/templates/components/forms/edit-card-form", ["exports"], function
           morphs[0] = dom.createMorphAt(dom.childAt(fragment, [1]), 0, 0);
           return morphs;
         },
-        statements: [["content", "errors.type", ["loc", [null, [32, 44], [32, 59]]]]],
+        statements: [["content", "errors.type", ["loc", [null, [32, 44], [32, 59]]], 0, 0, 0, 0]],
         locals: [],
         templates: []
       };
@@ -2899,8 +2891,7 @@ define("client/templates/components/forms/edit-card-form", ["exports"], function
     var child2 = (function () {
       return {
         meta: {
-          "fragmentReason": false,
-          "revision": "Ember@2.6.1",
+          "revision": "Ember@2.8.2",
           "loc": {
             "source": null,
             "start": {
@@ -2936,7 +2927,7 @@ define("client/templates/components/forms/edit-card-form", ["exports"], function
           morphs[0] = dom.createMorphAt(dom.childAt(fragment, [1]), 0, 0);
           return morphs;
         },
-        statements: [["content", "errors.title", ["loc", [null, [47, 44], [47, 60]]]]],
+        statements: [["content", "errors.title", ["loc", [null, [47, 44], [47, 60]]], 0, 0, 0, 0]],
         locals: [],
         templates: []
       };
@@ -2944,8 +2935,7 @@ define("client/templates/components/forms/edit-card-form", ["exports"], function
     var child3 = (function () {
       return {
         meta: {
-          "fragmentReason": false,
-          "revision": "Ember@2.6.1",
+          "revision": "Ember@2.8.2",
           "loc": {
             "source": null,
             "start": {
@@ -2981,15 +2971,14 @@ define("client/templates/components/forms/edit-card-form", ["exports"], function
           morphs[0] = dom.createMorphAt(dom.childAt(fragment, [1]), 0, 0);
           return morphs;
         },
-        statements: [["content", "errors.description", ["loc", [null, [61, 44], [61, 66]]]]],
+        statements: [["content", "errors.description", ["loc", [null, [61, 44], [61, 66]]], 0, 0, 0, 0]],
         locals: [],
         templates: []
       };
     })();
     return {
       meta: {
-        "fragmentReason": false,
-        "revision": "Ember@2.6.1",
+        "revision": "Ember@2.8.2",
         "loc": {
           "source": null,
           "start": {
@@ -3155,7 +3144,7 @@ define("client/templates/components/forms/edit-card-form", ["exports"], function
         morphs[9] = dom.createElementMorph(element7);
         return morphs;
       },
-      statements: [["inline", "ember-selectize", [], ["content", ["subexpr", "@mut", [["get", "projects", ["loc", [null, [5, 14], [5, 22]]]]], [], []], "optionValuePath", "content.id", "optionLabelPath", "content.title", "placeholder", "Select a Project", "select-item", "selectProject", "value", ["subexpr", "@mut", [["get", "currentProject.id", ["loc", [null, [10, 12], [10, 29]]]]], [], []], "select-item", "selectProject", "loading", true, "disabled", true], ["loc", [null, [4, 4], [14, 6]]]], ["block", "if", [["get", "errors.project", ["loc", [null, [16, 10], [16, 24]]]]], [], 0, null, ["loc", [null, [16, 4], [18, 11]]]], ["inline", "ember-selectize", [], ["content", ["subexpr", "@mut", [["get", "types", ["loc", [null, [23, 14], [23, 19]]]]], [], []], "optionValuePath", "content.id", "optionLabelPath", "content.title", "value", ["subexpr", "@mut", [["get", "model.type", ["loc", [null, [26, 12], [26, 22]]]]], [], []], "placeholder", "Select a Card Type", "select-item", "selectType", "loading", true], ["loc", [null, [22, 4], [30, 6]]]], ["block", "if", [["get", "errors.type", ["loc", [null, [31, 10], [31, 21]]]]], [], 1, null, ["loc", [null, [31, 4], [33, 11]]]], ["inline", "input", [], ["type", "text", "value", ["subexpr", "@mut", [["get", "model.title", ["loc", [null, [40, 12], [40, 23]]]]], [], []], "class", "form-control", "id", "card-title", "placeholder", "Enter the title of the card", "focus-out", "validateInputTitle"], ["loc", [null, [38, 4], [45, 6]]]], ["block", "if", [["get", "errors.title", ["loc", [null, [46, 10], [46, 22]]]]], [], 2, null, ["loc", [null, [46, 4], [48, 11]]]], ["inline", "textarea", [], ["value", ["subexpr", "@mut", [["get", "model.description", ["loc", [null, [54, 12], [54, 29]]]]], [], []], "class", "form-control", "id", "card-description", "rows", "5", "focus-out", "validateInputDescription"], ["loc", [null, [53, 4], [59, 6]]]], ["block", "if", [["get", "errors.description", ["loc", [null, [60, 10], [60, 28]]]]], [], 3, null, ["loc", [null, [60, 4], [62, 11]]]], ["element", "action", ["save", ["get", "model.title", ["loc", [null, [66, 28], [66, 39]]]], ["get", "model.description", ["loc", [null, [66, 40], [66, 57]]]], ["get", "model.id", ["loc", [null, [66, 58], [66, 66]]]], ["get", "model.type", ["loc", [null, [66, 67], [66, 77]]]]], [], ["loc", [null, [66, 12], [66, 79]]]], ["element", "action", ["cancel", ["get", "model.id", ["loc", [null, [67, 30], [67, 38]]]]], [], ["loc", [null, [67, 12], [67, 40]]]]],
+      statements: [["inline", "ember-selectize", [], ["content", ["subexpr", "@mut", [["get", "projects", ["loc", [null, [5, 14], [5, 22]]], 0, 0, 0, 0]], [], [], 0, 0], "optionValuePath", "content.id", "optionLabelPath", "content.title", "placeholder", "Select a Project", "select-item", "selectProject", "value", ["subexpr", "@mut", [["get", "currentProject.id", ["loc", [null, [10, 12], [10, 29]]], 0, 0, 0, 0]], [], [], 0, 0], "select-item", "selectProject", "loading", true, "disabled", true], ["loc", [null, [4, 4], [14, 6]]], 0, 0], ["block", "if", [["get", "errors.project", ["loc", [null, [16, 10], [16, 24]]], 0, 0, 0, 0]], [], 0, null, ["loc", [null, [16, 4], [18, 11]]]], ["inline", "ember-selectize", [], ["content", ["subexpr", "@mut", [["get", "types", ["loc", [null, [23, 14], [23, 19]]], 0, 0, 0, 0]], [], [], 0, 0], "optionValuePath", "content.id", "optionLabelPath", "content.title", "value", ["subexpr", "@mut", [["get", "model.type", ["loc", [null, [26, 12], [26, 22]]], 0, 0, 0, 0]], [], [], 0, 0], "placeholder", "Select a Card Type", "select-item", "selectType", "loading", true], ["loc", [null, [22, 4], [30, 6]]], 0, 0], ["block", "if", [["get", "errors.type", ["loc", [null, [31, 10], [31, 21]]], 0, 0, 0, 0]], [], 1, null, ["loc", [null, [31, 4], [33, 11]]]], ["inline", "input", [], ["type", "text", "value", ["subexpr", "@mut", [["get", "model.title", ["loc", [null, [40, 12], [40, 23]]], 0, 0, 0, 0]], [], [], 0, 0], "class", "form-control", "id", "card-title", "placeholder", "Enter the title of the card", "focus-out", "validateInputTitle"], ["loc", [null, [38, 4], [45, 6]]], 0, 0], ["block", "if", [["get", "errors.title", ["loc", [null, [46, 10], [46, 22]]], 0, 0, 0, 0]], [], 2, null, ["loc", [null, [46, 4], [48, 11]]]], ["inline", "textarea", [], ["value", ["subexpr", "@mut", [["get", "model.description", ["loc", [null, [54, 12], [54, 29]]], 0, 0, 0, 0]], [], [], 0, 0], "class", "form-control", "id", "card-description", "rows", "5", "focus-out", "validateInputDescription"], ["loc", [null, [53, 4], [59, 6]]], 0, 0], ["block", "if", [["get", "errors.description", ["loc", [null, [60, 10], [60, 28]]], 0, 0, 0, 0]], [], 3, null, ["loc", [null, [60, 4], [62, 11]]]], ["element", "action", ["save", ["get", "model.title", ["loc", [null, [66, 28], [66, 39]]], 0, 0, 0, 0], ["get", "model.description", ["loc", [null, [66, 40], [66, 57]]], 0, 0, 0, 0], ["get", "model.id", ["loc", [null, [66, 58], [66, 66]]], 0, 0, 0, 0], ["get", "model.type", ["loc", [null, [66, 67], [66, 77]]], 0, 0, 0, 0]], [], ["loc", [null, [66, 12], [66, 79]]], 0, 0], ["element", "action", ["cancel", ["get", "model.id", ["loc", [null, [67, 30], [67, 38]]], 0, 0, 0, 0]], [], ["loc", [null, [67, 12], [67, 40]]], 0, 0]],
       locals: [],
       templates: [child0, child1, child2, child3]
     };
@@ -3165,8 +3154,7 @@ define("client/templates/components/forms/edit-project-form", ["exports"], funct
   exports["default"] = Ember.HTMLBars.template((function () {
     return {
       meta: {
-        "fragmentReason": false,
-        "revision": "Ember@2.6.1",
+        "revision": "Ember@2.8.2",
         "loc": {
           "source": null,
           "start": {
@@ -3277,7 +3265,7 @@ define("client/templates/components/forms/edit-project-form", ["exports"], funct
         morphs[3] = dom.createElementMorph(element3);
         return morphs;
       },
-      statements: [["inline", "input", [], ["type", "text", "value", ["subexpr", "@mut", [["get", "model.title", ["loc", [null, [4, 30], [4, 41]]]]], [], []], "class", "form-control", "id", "card-title", "placeholder", "Enter the title of the card"], ["loc", [null, [4, 4], [4, 122]]]], ["inline", "textarea", [], ["value", ["subexpr", "@mut", [["get", "model.description", ["loc", [null, [10, 21], [10, 38]]]]], [], []], "class", "form-control", "id", "card-description", "rows", "5"], ["loc", [null, [10, 4], [10, 92]]]], ["element", "action", ["save", ["get", "model.title", ["loc", [null, [15, 28], [15, 39]]]], ["get", "model.description", ["loc", [null, [15, 40], [15, 57]]]], ["get", "model.id", ["loc", [null, [15, 58], [15, 66]]]]], [], ["loc", [null, [15, 12], [15, 68]]]], ["element", "action", ["cancel", ["get", "model.title", ["loc", [null, [16, 30], [16, 41]]]], ["get", "model.description", ["loc", [null, [16, 42], [16, 59]]]], ["get", "model.id", ["loc", [null, [16, 60], [16, 68]]]]], [], ["loc", [null, [16, 12], [16, 70]]]]],
+      statements: [["inline", "input", [], ["type", "text", "value", ["subexpr", "@mut", [["get", "model.title", ["loc", [null, [4, 30], [4, 41]]], 0, 0, 0, 0]], [], [], 0, 0], "class", "form-control", "id", "card-title", "placeholder", "Enter the title of the card"], ["loc", [null, [4, 4], [4, 122]]], 0, 0], ["inline", "textarea", [], ["value", ["subexpr", "@mut", [["get", "model.description", ["loc", [null, [10, 21], [10, 38]]], 0, 0, 0, 0]], [], [], 0, 0], "class", "form-control", "id", "card-description", "rows", "5"], ["loc", [null, [10, 4], [10, 92]]], 0, 0], ["element", "action", ["save", ["get", "model.title", ["loc", [null, [15, 28], [15, 39]]], 0, 0, 0, 0], ["get", "model.description", ["loc", [null, [15, 40], [15, 57]]], 0, 0, 0, 0], ["get", "model.id", ["loc", [null, [15, 58], [15, 66]]], 0, 0, 0, 0]], [], ["loc", [null, [15, 12], [15, 68]]], 0, 0], ["element", "action", ["cancel", ["get", "model.title", ["loc", [null, [16, 30], [16, 41]]], 0, 0, 0, 0], ["get", "model.description", ["loc", [null, [16, 42], [16, 59]]], 0, 0, 0, 0], ["get", "model.id", ["loc", [null, [16, 60], [16, 68]]], 0, 0, 0, 0]], [], ["loc", [null, [16, 12], [16, 70]]], 0, 0]],
       locals: [],
       templates: []
     };
@@ -3287,8 +3275,7 @@ define("client/templates/components/forms/edit-team-form", ["exports"], function
   exports["default"] = Ember.HTMLBars.template((function () {
     return {
       meta: {
-        "fragmentReason": false,
-        "revision": "Ember@2.6.1",
+        "revision": "Ember@2.8.2",
         "loc": {
           "source": null,
           "start": {
@@ -3399,7 +3386,7 @@ define("client/templates/components/forms/edit-team-form", ["exports"], function
         morphs[3] = dom.createElementMorph(element3);
         return morphs;
       },
-      statements: [["inline", "input", [], ["type", "text", "value", ["subexpr", "@mut", [["get", "model.name", ["loc", [null, [4, 30], [4, 40]]]]], [], []], "class", "form-control", "id", "card-title", "placeholder", "Enter the name of the team"], ["loc", [null, [4, 4], [4, 120]]]], ["inline", "textarea", [], ["value", ["subexpr", "@mut", [["get", "model.description", ["loc", [null, [10, 21], [10, 38]]]]], [], []], "class", "form-control", "id", "card-description", "rows", "5"], ["loc", [null, [10, 4], [10, 92]]]], ["element", "action", ["save", ["get", "model.name", ["loc", [null, [15, 28], [15, 38]]]], ["get", "model.description", ["loc", [null, [15, 39], [15, 56]]]], ["get", "model.id", ["loc", [null, [15, 57], [15, 65]]]]], [], ["loc", [null, [15, 12], [15, 67]]]], ["element", "action", ["cancel", ["get", "model.name", ["loc", [null, [16, 30], [16, 40]]]], ["get", "model.description", ["loc", [null, [16, 41], [16, 58]]]], ["get", "model.id", ["loc", [null, [16, 59], [16, 67]]]]], [], ["loc", [null, [16, 12], [16, 69]]]]],
+      statements: [["inline", "input", [], ["type", "text", "value", ["subexpr", "@mut", [["get", "model.name", ["loc", [null, [4, 30], [4, 40]]], 0, 0, 0, 0]], [], [], 0, 0], "class", "form-control", "id", "card-title", "placeholder", "Enter the name of the team"], ["loc", [null, [4, 4], [4, 120]]], 0, 0], ["inline", "textarea", [], ["value", ["subexpr", "@mut", [["get", "model.description", ["loc", [null, [10, 21], [10, 38]]], 0, 0, 0, 0]], [], [], 0, 0], "class", "form-control", "id", "card-description", "rows", "5"], ["loc", [null, [10, 4], [10, 92]]], 0, 0], ["element", "action", ["save", ["get", "model.name", ["loc", [null, [15, 28], [15, 38]]], 0, 0, 0, 0], ["get", "model.description", ["loc", [null, [15, 39], [15, 56]]], 0, 0, 0, 0], ["get", "model.id", ["loc", [null, [15, 57], [15, 65]]], 0, 0, 0, 0]], [], ["loc", [null, [15, 12], [15, 67]]], 0, 0], ["element", "action", ["cancel", ["get", "model.name", ["loc", [null, [16, 30], [16, 40]]], 0, 0, 0, 0], ["get", "model.description", ["loc", [null, [16, 41], [16, 58]]], 0, 0, 0, 0], ["get", "model.id", ["loc", [null, [16, 59], [16, 67]]], 0, 0, 0, 0]], [], ["loc", [null, [16, 12], [16, 69]]], 0, 0]],
       locals: [],
       templates: []
     };
@@ -3409,8 +3396,7 @@ define("client/templates/components/forms/edit-user-form", ["exports"], function
   exports["default"] = Ember.HTMLBars.template((function () {
     return {
       meta: {
-        "fragmentReason": false,
-        "revision": "Ember@2.6.1",
+        "revision": "Ember@2.8.2",
         "loc": {
           "source": null,
           "start": {
@@ -3521,7 +3507,7 @@ define("client/templates/components/forms/edit-user-form", ["exports"], function
         morphs[3] = dom.createElementMorph(element3);
         return morphs;
       },
-      statements: [["inline", "input", [], ["type", "text", "value", ["subexpr", "@mut", [["get", "model.name", ["loc", [null, [4, 30], [4, 40]]]]], [], []], "class", "form-control", "id", "card-name", "placeholder", "John Doe"], ["loc", [null, [4, 4], [4, 101]]]], ["inline", "input", [], ["type", "email", "value", ["subexpr", "@mut", [["get", "model.email", ["loc", [null, [10, 31], [10, 42]]]]], [], []], "class", "form-control", "id", "card-email", "placeholder", "yourname@email.com"], ["loc", [null, [10, 4], [10, 114]]]], ["element", "action", ["save", ["get", "model.name", ["loc", [null, [15, 28], [15, 38]]]], ["get", "model.email", ["loc", [null, [15, 39], [15, 50]]]], ["get", "model.id", ["loc", [null, [15, 51], [15, 59]]]]], [], ["loc", [null, [15, 12], [15, 61]]]], ["element", "action", ["cancel", ["get", "model.id", ["loc", [null, [16, 30], [16, 38]]]]], [], ["loc", [null, [16, 12], [16, 40]]]]],
+      statements: [["inline", "input", [], ["type", "text", "value", ["subexpr", "@mut", [["get", "model.name", ["loc", [null, [4, 30], [4, 40]]], 0, 0, 0, 0]], [], [], 0, 0], "class", "form-control", "id", "card-name", "placeholder", "John Doe"], ["loc", [null, [4, 4], [4, 101]]], 0, 0], ["inline", "input", [], ["type", "email", "value", ["subexpr", "@mut", [["get", "model.email", ["loc", [null, [10, 31], [10, 42]]], 0, 0, 0, 0]], [], [], 0, 0], "class", "form-control", "id", "card-email", "placeholder", "yourname@email.com"], ["loc", [null, [10, 4], [10, 114]]], 0, 0], ["element", "action", ["save", ["get", "model.name", ["loc", [null, [15, 28], [15, 38]]], 0, 0, 0, 0], ["get", "model.email", ["loc", [null, [15, 39], [15, 50]]], 0, 0, 0, 0], ["get", "model.id", ["loc", [null, [15, 51], [15, 59]]], 0, 0, 0, 0]], [], ["loc", [null, [15, 12], [15, 61]]], 0, 0], ["element", "action", ["cancel", ["get", "model.id", ["loc", [null, [16, 30], [16, 38]]], 0, 0, 0, 0]], [], ["loc", [null, [16, 12], [16, 40]]], 0, 0]],
       locals: [],
       templates: []
     };
@@ -3532,8 +3518,7 @@ define("client/templates/components/forms/new-card-form", ["exports"], function 
     var child0 = (function () {
       return {
         meta: {
-          "fragmentReason": false,
-          "revision": "Ember@2.6.1",
+          "revision": "Ember@2.8.2",
           "loc": {
             "source": null,
             "start": {
@@ -3569,7 +3554,7 @@ define("client/templates/components/forms/new-card-form", ["exports"], function 
           morphs[0] = dom.createMorphAt(dom.childAt(fragment, [1]), 0, 0);
           return morphs;
         },
-        statements: [["content", "errors.project", ["loc", [null, [14, 44], [14, 62]]]]],
+        statements: [["content", "errors.project", ["loc", [null, [14, 44], [14, 62]]], 0, 0, 0, 0]],
         locals: [],
         templates: []
       };
@@ -3577,8 +3562,7 @@ define("client/templates/components/forms/new-card-form", ["exports"], function 
     var child1 = (function () {
       return {
         meta: {
-          "fragmentReason": false,
-          "revision": "Ember@2.6.1",
+          "revision": "Ember@2.8.2",
           "loc": {
             "source": null,
             "start": {
@@ -3614,7 +3598,7 @@ define("client/templates/components/forms/new-card-form", ["exports"], function 
           morphs[0] = dom.createMorphAt(dom.childAt(fragment, [1]), 0, 0);
           return morphs;
         },
-        statements: [["content", "errors.type", ["loc", [null, [29, 44], [29, 59]]]]],
+        statements: [["content", "errors.type", ["loc", [null, [29, 44], [29, 59]]], 0, 0, 0, 0]],
         locals: [],
         templates: []
       };
@@ -3622,8 +3606,7 @@ define("client/templates/components/forms/new-card-form", ["exports"], function 
     var child2 = (function () {
       return {
         meta: {
-          "fragmentReason": false,
-          "revision": "Ember@2.6.1",
+          "revision": "Ember@2.8.2",
           "loc": {
             "source": null,
             "start": {
@@ -3659,7 +3642,7 @@ define("client/templates/components/forms/new-card-form", ["exports"], function 
           morphs[0] = dom.createMorphAt(dom.childAt(fragment, [1]), 0, 0);
           return morphs;
         },
-        statements: [["content", "errors.title", ["loc", [null, [44, 44], [44, 60]]]]],
+        statements: [["content", "errors.title", ["loc", [null, [44, 44], [44, 60]]], 0, 0, 0, 0]],
         locals: [],
         templates: []
       };
@@ -3667,8 +3650,7 @@ define("client/templates/components/forms/new-card-form", ["exports"], function 
     var child3 = (function () {
       return {
         meta: {
-          "fragmentReason": false,
-          "revision": "Ember@2.6.1",
+          "revision": "Ember@2.8.2",
           "loc": {
             "source": null,
             "start": {
@@ -3704,15 +3686,14 @@ define("client/templates/components/forms/new-card-form", ["exports"], function 
           morphs[0] = dom.createMorphAt(dom.childAt(fragment, [1]), 0, 0);
           return morphs;
         },
-        statements: [["content", "errors.description", ["loc", [null, [58, 44], [58, 66]]]]],
+        statements: [["content", "errors.description", ["loc", [null, [58, 44], [58, 66]]], 0, 0, 0, 0]],
         locals: [],
         templates: []
       };
     })();
     return {
       meta: {
-        "fragmentReason": false,
-        "revision": "Ember@2.6.1",
+        "revision": "Ember@2.8.2",
         "loc": {
           "source": null,
           "start": {
@@ -3871,7 +3852,7 @@ define("client/templates/components/forms/new-card-form", ["exports"], function 
         morphs[9] = dom.createElementMorph(element7);
         return morphs;
       },
-      statements: [["inline", "ember-selectize", [], ["content", ["subexpr", "@mut", [["get", "projects", ["loc", [null, [5, 14], [5, 22]]]]], [], []], "optionValuePath", "content.id", "optionLabelPath", "content.title", "selection", ["subexpr", "@mut", [["get", "project", ["loc", [null, [8, 16], [8, 23]]]]], [], []], "placeholder", "Select a Project", "select-item", "selectProject", "loading", true], ["loc", [null, [4, 4], [12, 6]]]], ["block", "if", [["get", "errors.project", ["loc", [null, [13, 10], [13, 24]]]]], [], 0, null, ["loc", [null, [13, 4], [15, 11]]]], ["inline", "ember-selectize", [], ["content", ["subexpr", "@mut", [["get", "types", ["loc", [null, [21, 14], [21, 19]]]]], [], []], "optionValuePath", "content.id", "optionLabelPath", "content.title", "selection", ["subexpr", "@mut", [["get", "type", ["loc", [null, [24, 16], [24, 20]]]]], [], []], "placeholder", "Select a Card Type", "select-item", "selectType"], ["loc", [null, [20, 4], [27, 6]]]], ["block", "if", [["get", "errors.type", ["loc", [null, [28, 10], [28, 21]]]]], [], 1, null, ["loc", [null, [28, 4], [30, 11]]]], ["inline", "input", [], ["type", "text", "value", ["subexpr", "@mut", [["get", "model.title", ["loc", [null, [37, 12], [37, 23]]]]], [], []], "class", "form-control", "id", "card-title", "placeholder", "Enter the title of the card", "focus-out", "validateInputTitle"], ["loc", [null, [35, 4], [42, 6]]]], ["block", "if", [["get", "errors.title", ["loc", [null, [43, 10], [43, 22]]]]], [], 2, null, ["loc", [null, [43, 4], [45, 11]]]], ["inline", "textarea", [], ["value", ["subexpr", "@mut", [["get", "model.description", ["loc", [null, [51, 12], [51, 29]]]]], [], []], "class", "form-control", "id", "card-description", "rows", "5", "focus-out", "validateInputDescription"], ["loc", [null, [50, 4], [56, 6]]]], ["block", "if", [["get", "errors.description", ["loc", [null, [57, 10], [57, 28]]]]], [], 3, null, ["loc", [null, [57, 4], [59, 11]]]], ["element", "action", ["save"], [], ["loc", [null, [63, 12], [63, 29]]]], ["element", "action", ["cancel"], [], ["loc", [null, [64, 12], [64, 31]]]]],
+      statements: [["inline", "ember-selectize", [], ["content", ["subexpr", "@mut", [["get", "projects", ["loc", [null, [5, 14], [5, 22]]], 0, 0, 0, 0]], [], [], 0, 0], "optionValuePath", "content.id", "optionLabelPath", "content.title", "selection", ["subexpr", "@mut", [["get", "project", ["loc", [null, [8, 16], [8, 23]]], 0, 0, 0, 0]], [], [], 0, 0], "placeholder", "Select a Project", "select-item", "selectProject", "loading", true], ["loc", [null, [4, 4], [12, 6]]], 0, 0], ["block", "if", [["get", "errors.project", ["loc", [null, [13, 10], [13, 24]]], 0, 0, 0, 0]], [], 0, null, ["loc", [null, [13, 4], [15, 11]]]], ["inline", "ember-selectize", [], ["content", ["subexpr", "@mut", [["get", "types", ["loc", [null, [21, 14], [21, 19]]], 0, 0, 0, 0]], [], [], 0, 0], "optionValuePath", "content.id", "optionLabelPath", "content.title", "selection", ["subexpr", "@mut", [["get", "type", ["loc", [null, [24, 16], [24, 20]]], 0, 0, 0, 0]], [], [], 0, 0], "placeholder", "Select a Card Type", "select-item", "selectType"], ["loc", [null, [20, 4], [27, 6]]], 0, 0], ["block", "if", [["get", "errors.type", ["loc", [null, [28, 10], [28, 21]]], 0, 0, 0, 0]], [], 1, null, ["loc", [null, [28, 4], [30, 11]]]], ["inline", "input", [], ["type", "text", "value", ["subexpr", "@mut", [["get", "model.title", ["loc", [null, [37, 12], [37, 23]]], 0, 0, 0, 0]], [], [], 0, 0], "class", "form-control", "id", "card-title", "placeholder", "Enter the title of the card", "focus-out", "validateInputTitle"], ["loc", [null, [35, 4], [42, 6]]], 0, 0], ["block", "if", [["get", "errors.title", ["loc", [null, [43, 10], [43, 22]]], 0, 0, 0, 0]], [], 2, null, ["loc", [null, [43, 4], [45, 11]]]], ["inline", "textarea", [], ["value", ["subexpr", "@mut", [["get", "model.description", ["loc", [null, [51, 12], [51, 29]]], 0, 0, 0, 0]], [], [], 0, 0], "class", "form-control", "id", "card-description", "rows", "5", "focus-out", "validateInputDescription"], ["loc", [null, [50, 4], [56, 6]]], 0, 0], ["block", "if", [["get", "errors.description", ["loc", [null, [57, 10], [57, 28]]], 0, 0, 0, 0]], [], 3, null, ["loc", [null, [57, 4], [59, 11]]]], ["element", "action", ["save"], [], ["loc", [null, [63, 12], [63, 29]]], 0, 0], ["element", "action", ["cancel"], [], ["loc", [null, [64, 12], [64, 31]]], 0, 0]],
       locals: [],
       templates: [child0, child1, child2, child3]
     };
@@ -3882,8 +3863,7 @@ define("client/templates/components/forms/new-project-form", ["exports"], functi
     var child0 = (function () {
       return {
         meta: {
-          "fragmentReason": false,
-          "revision": "Ember@2.6.1",
+          "revision": "Ember@2.8.2",
           "loc": {
             "source": null,
             "start": {
@@ -3919,7 +3899,7 @@ define("client/templates/components/forms/new-project-form", ["exports"], functi
           morphs[0] = dom.createMorphAt(dom.childAt(fragment, [1]), 0, 0);
           return morphs;
         },
-        statements: [["content", "errors.title", ["loc", [null, [13, 44], [13, 60]]]]],
+        statements: [["content", "errors.title", ["loc", [null, [13, 44], [13, 60]]], 0, 0, 0, 0]],
         locals: [],
         templates: []
       };
@@ -3927,8 +3907,7 @@ define("client/templates/components/forms/new-project-form", ["exports"], functi
     var child1 = (function () {
       return {
         meta: {
-          "fragmentReason": false,
-          "revision": "Ember@2.6.1",
+          "revision": "Ember@2.8.2",
           "loc": {
             "source": null,
             "start": {
@@ -3964,15 +3943,14 @@ define("client/templates/components/forms/new-project-form", ["exports"], functi
           morphs[0] = dom.createMorphAt(dom.childAt(fragment, [1]), 0, 0);
           return morphs;
         },
-        statements: [["content", "errors.description", ["loc", [null, [27, 44], [27, 66]]]]],
+        statements: [["content", "errors.description", ["loc", [null, [27, 44], [27, 66]]], 0, 0, 0, 0]],
         locals: [],
         templates: []
       };
     })();
     return {
       meta: {
-        "fragmentReason": false,
-        "revision": "Ember@2.6.1",
+        "revision": "Ember@2.8.2",
         "loc": {
           "source": null,
           "start": {
@@ -4081,7 +4059,7 @@ define("client/templates/components/forms/new-project-form", ["exports"], functi
         morphs[5] = dom.createElementMorph(element5);
         return morphs;
       },
-      statements: [["inline", "input", [], ["type", "text", "value", ["subexpr", "@mut", [["get", "model.title", ["loc", [null, [6, 12], [6, 23]]]]], [], []], "class", "form-control", "id", "card-title", "placeholder", "Enter the title of the card", "focus-out", "validateInputTitle"], ["loc", [null, [4, 4], [11, 6]]]], ["block", "if", [["get", "errors.title", ["loc", [null, [12, 10], [12, 22]]]]], [], 0, null, ["loc", [null, [12, 4], [14, 11]]]], ["inline", "textarea", [], ["value", ["subexpr", "@mut", [["get", "model.description", ["loc", [null, [20, 12], [20, 29]]]]], [], []], "class", "form-control", "id", "card-description", "rows", "5", "focus-out", "validateInputDescription"], ["loc", [null, [19, 4], [25, 6]]]], ["block", "if", [["get", "errors.description", ["loc", [null, [26, 10], [26, 28]]]]], [], 1, null, ["loc", [null, [26, 4], [28, 11]]]], ["element", "action", ["save"], [], ["loc", [null, [32, 12], [32, 29]]]], ["element", "action", ["cancel"], [], ["loc", [null, [33, 12], [33, 31]]]]],
+      statements: [["inline", "input", [], ["type", "text", "value", ["subexpr", "@mut", [["get", "model.title", ["loc", [null, [6, 12], [6, 23]]], 0, 0, 0, 0]], [], [], 0, 0], "class", "form-control", "id", "card-title", "placeholder", "Enter the title of the card", "focus-out", "validateInputTitle"], ["loc", [null, [4, 4], [11, 6]]], 0, 0], ["block", "if", [["get", "errors.title", ["loc", [null, [12, 10], [12, 22]]], 0, 0, 0, 0]], [], 0, null, ["loc", [null, [12, 4], [14, 11]]]], ["inline", "textarea", [], ["value", ["subexpr", "@mut", [["get", "model.description", ["loc", [null, [20, 12], [20, 29]]], 0, 0, 0, 0]], [], [], 0, 0], "class", "form-control", "id", "card-description", "rows", "5", "focus-out", "validateInputDescription"], ["loc", [null, [19, 4], [25, 6]]], 0, 0], ["block", "if", [["get", "errors.description", ["loc", [null, [26, 10], [26, 28]]], 0, 0, 0, 0]], [], 1, null, ["loc", [null, [26, 4], [28, 11]]]], ["element", "action", ["save"], [], ["loc", [null, [32, 12], [32, 29]]], 0, 0], ["element", "action", ["cancel"], [], ["loc", [null, [33, 12], [33, 31]]], 0, 0]],
       locals: [],
       templates: [child0, child1]
     };
@@ -4092,8 +4070,7 @@ define("client/templates/components/forms/new-team-form", ["exports"], function 
     var child0 = (function () {
       return {
         meta: {
-          "fragmentReason": false,
-          "revision": "Ember@2.6.1",
+          "revision": "Ember@2.8.2",
           "loc": {
             "source": null,
             "start": {
@@ -4129,7 +4106,7 @@ define("client/templates/components/forms/new-team-form", ["exports"], function 
           morphs[0] = dom.createMorphAt(dom.childAt(fragment, [1]), 0, 0);
           return morphs;
         },
-        statements: [["content", "errors.name", ["loc", [null, [13, 44], [13, 59]]]]],
+        statements: [["content", "errors.name", ["loc", [null, [13, 44], [13, 59]]], 0, 0, 0, 0]],
         locals: [],
         templates: []
       };
@@ -4137,8 +4114,7 @@ define("client/templates/components/forms/new-team-form", ["exports"], function 
     var child1 = (function () {
       return {
         meta: {
-          "fragmentReason": false,
-          "revision": "Ember@2.6.1",
+          "revision": "Ember@2.8.2",
           "loc": {
             "source": null,
             "start": {
@@ -4174,15 +4150,14 @@ define("client/templates/components/forms/new-team-form", ["exports"], function 
           morphs[0] = dom.createMorphAt(dom.childAt(fragment, [1]), 0, 0);
           return morphs;
         },
-        statements: [["content", "errors.description", ["loc", [null, [27, 44], [27, 66]]]]],
+        statements: [["content", "errors.description", ["loc", [null, [27, 44], [27, 66]]], 0, 0, 0, 0]],
         locals: [],
         templates: []
       };
     })();
     return {
       meta: {
-        "fragmentReason": false,
-        "revision": "Ember@2.6.1",
+        "revision": "Ember@2.8.2",
         "loc": {
           "source": null,
           "start": {
@@ -4291,7 +4266,7 @@ define("client/templates/components/forms/new-team-form", ["exports"], function 
         morphs[5] = dom.createElementMorph(element5);
         return morphs;
       },
-      statements: [["inline", "input", [], ["type", "text", "value", ["subexpr", "@mut", [["get", "model.name", ["loc", [null, [6, 12], [6, 22]]]]], [], []], "class", "form-control", "id", "card-title", "placeholder", "Enter the name of the team", "focus-out", "validateInputTitle"], ["loc", [null, [4, 4], [11, 6]]]], ["block", "if", [["get", "errors.name", ["loc", [null, [12, 10], [12, 21]]]]], [], 0, null, ["loc", [null, [12, 4], [14, 11]]]], ["inline", "textarea", [], ["value", ["subexpr", "@mut", [["get", "model.description", ["loc", [null, [20, 12], [20, 29]]]]], [], []], "class", "form-control", "id", "card-description", "rows", "5", "focus-out", "validateInputDescription"], ["loc", [null, [19, 4], [25, 6]]]], ["block", "if", [["get", "errors.description", ["loc", [null, [26, 10], [26, 28]]]]], [], 1, null, ["loc", [null, [26, 4], [28, 11]]]], ["element", "action", ["save"], [], ["loc", [null, [32, 12], [32, 29]]]], ["element", "action", ["cancel"], [], ["loc", [null, [33, 12], [33, 31]]]]],
+      statements: [["inline", "input", [], ["type", "text", "value", ["subexpr", "@mut", [["get", "model.name", ["loc", [null, [6, 12], [6, 22]]], 0, 0, 0, 0]], [], [], 0, 0], "class", "form-control", "id", "card-title", "placeholder", "Enter the name of the team", "focus-out", "validateInputTitle"], ["loc", [null, [4, 4], [11, 6]]], 0, 0], ["block", "if", [["get", "errors.name", ["loc", [null, [12, 10], [12, 21]]], 0, 0, 0, 0]], [], 0, null, ["loc", [null, [12, 4], [14, 11]]]], ["inline", "textarea", [], ["value", ["subexpr", "@mut", [["get", "model.description", ["loc", [null, [20, 12], [20, 29]]], 0, 0, 0, 0]], [], [], 0, 0], "class", "form-control", "id", "card-description", "rows", "5", "focus-out", "validateInputDescription"], ["loc", [null, [19, 4], [25, 6]]], 0, 0], ["block", "if", [["get", "errors.description", ["loc", [null, [26, 10], [26, 28]]], 0, 0, 0, 0]], [], 1, null, ["loc", [null, [26, 4], [28, 11]]]], ["element", "action", ["save"], [], ["loc", [null, [32, 12], [32, 29]]], 0, 0], ["element", "action", ["cancel"], [], ["loc", [null, [33, 12], [33, 31]]], 0, 0]],
       locals: [],
       templates: [child0, child1]
     };
@@ -4301,10 +4276,7 @@ define("client/templates/components/forms/register-form", ["exports"], function 
   exports["default"] = Ember.HTMLBars.template((function () {
     return {
       meta: {
-        "fragmentReason": {
-          "name": "triple-curlies"
-        },
-        "revision": "Ember@2.6.1",
+        "revision": "Ember@2.8.2",
         "loc": {
           "source": null,
           "start": {
@@ -4405,7 +4377,7 @@ define("client/templates/components/forms/register-form", ["exports"], function 
         morphs[2] = dom.createMorphAt(dom.childAt(element0, [3]), 3, 3);
         return morphs;
       },
-      statements: [["element", "action", ["authenticate"], ["on", "submit"], ["loc", [null, [3, 10], [3, 47]]]], ["inline", "input", [], ["value", ["subexpr", "@mut", [["get", "email", ["loc", [null, [6, 22], [6, 27]]]]], [], []], "type", "email", "class", "form-control", "id", "exampleInputEmail1", "placeholder", "Enter email"], ["loc", [null, [6, 8], [6, 113]]]], ["inline", "input", [], ["value", ["subexpr", "@mut", [["get", "password", ["loc", [null, [11, 22], [11, 30]]]]], [], []], "type", "password", "class", "form-control", "id", "exampleInputPassword1", "placeholder", "Password"], ["loc", [null, [11, 8], [11, 119]]]]],
+      statements: [["element", "action", ["authenticate"], ["on", "submit"], ["loc", [null, [3, 10], [3, 47]]], 0, 0], ["inline", "input", [], ["value", ["subexpr", "@mut", [["get", "email", ["loc", [null, [6, 22], [6, 27]]], 0, 0, 0, 0]], [], [], 0, 0], "type", "email", "class", "form-control", "id", "exampleInputEmail1", "placeholder", "Enter email"], ["loc", [null, [6, 8], [6, 113]]], 0, 0], ["inline", "input", [], ["value", ["subexpr", "@mut", [["get", "password", ["loc", [null, [11, 22], [11, 30]]], 0, 0, 0, 0]], [], [], 0, 0], "type", "password", "class", "form-control", "id", "exampleInputPassword1", "placeholder", "Password"], ["loc", [null, [11, 8], [11, 119]]], 0, 0]],
       locals: [],
       templates: []
     };
@@ -4415,10 +4387,7 @@ define("client/templates/components/forms/signin-form", ["exports"], function (e
   exports["default"] = Ember.HTMLBars.template((function () {
     return {
       meta: {
-        "fragmentReason": {
-          "name": "triple-curlies"
-        },
-        "revision": "Ember@2.6.1",
+        "revision": "Ember@2.8.2",
         "loc": {
           "source": null,
           "start": {
@@ -4519,7 +4488,7 @@ define("client/templates/components/forms/signin-form", ["exports"], function (e
         morphs[2] = dom.createMorphAt(dom.childAt(element0, [3]), 3, 3);
         return morphs;
       },
-      statements: [["element", "action", ["authenticate"], ["on", "submit"], ["loc", [null, [3, 10], [3, 47]]]], ["inline", "input", [], ["value", ["subexpr", "@mut", [["get", "email", ["loc", [null, [6, 22], [6, 27]]]]], [], []], "type", "email", "class", "form-control", "id", "exampleInputEmail1", "placeholder", "Enter email"], ["loc", [null, [6, 8], [6, 113]]]], ["inline", "input", [], ["value", ["subexpr", "@mut", [["get", "password", ["loc", [null, [11, 22], [11, 30]]]]], [], []], "type", "password", "class", "form-control", "id", "exampleInputPassword1", "placeholder", "Password"], ["loc", [null, [11, 8], [11, 119]]]]],
+      statements: [["element", "action", ["authenticate"], ["on", "submit"], ["loc", [null, [3, 10], [3, 47]]], 0, 0], ["inline", "input", [], ["value", ["subexpr", "@mut", [["get", "email", ["loc", [null, [6, 22], [6, 27]]], 0, 0, 0, 0]], [], [], 0, 0], "type", "email", "class", "form-control", "id", "exampleInputEmail1", "placeholder", "Enter email"], ["loc", [null, [6, 8], [6, 113]]], 0, 0], ["inline", "input", [], ["value", ["subexpr", "@mut", [["get", "password", ["loc", [null, [11, 22], [11, 30]]], 0, 0, 0, 0]], [], [], 0, 0], "type", "password", "class", "form-control", "id", "exampleInputPassword1", "placeholder", "Password"], ["loc", [null, [11, 8], [11, 119]]], 0, 0]],
       locals: [],
       templates: []
     };
@@ -4529,11 +4498,7 @@ define("client/templates/components/labeled-radio-button", ["exports"], function
   exports["default"] = Ember.HTMLBars.template((function () {
     return {
       meta: {
-        "fragmentReason": {
-          "name": "missing-wrapper",
-          "problems": ["wrong-type", "multiple-nodes"]
-        },
-        "revision": "Ember@2.6.1",
+        "revision": "Ember@2.8.2",
         "loc": {
           "source": null,
           "start": {
@@ -4570,7 +4535,7 @@ define("client/templates/components/labeled-radio-button", ["exports"], function
         dom.insertBoundary(fragment, 0);
         return morphs;
       },
-      statements: [["inline", "radio-button", [], ["radioClass", ["subexpr", "@mut", [["get", "radioClass", ["loc", [null, [2, 15], [2, 25]]]]], [], []], "radioId", ["subexpr", "@mut", [["get", "radioId", ["loc", [null, [3, 12], [3, 19]]]]], [], []], "changed", "innerRadioChanged", "disabled", ["subexpr", "@mut", [["get", "disabled", ["loc", [null, [5, 13], [5, 21]]]]], [], []], "groupValue", ["subexpr", "@mut", [["get", "groupValue", ["loc", [null, [6, 15], [6, 25]]]]], [], []], "name", ["subexpr", "@mut", [["get", "name", ["loc", [null, [7, 9], [7, 13]]]]], [], []], "required", ["subexpr", "@mut", [["get", "required", ["loc", [null, [8, 13], [8, 21]]]]], [], []], "value", ["subexpr", "@mut", [["get", "value", ["loc", [null, [9, 10], [9, 15]]]]], [], []]], ["loc", [null, [1, 0], [9, 17]]]], ["content", "yield", ["loc", [null, [11, 0], [11, 9]]]]],
+      statements: [["inline", "radio-button", [], ["radioClass", ["subexpr", "@mut", [["get", "radioClass", ["loc", [null, [2, 15], [2, 25]]], 0, 0, 0, 0]], [], [], 0, 0], "radioId", ["subexpr", "@mut", [["get", "radioId", ["loc", [null, [3, 12], [3, 19]]], 0, 0, 0, 0]], [], [], 0, 0], "changed", "innerRadioChanged", "disabled", ["subexpr", "@mut", [["get", "disabled", ["loc", [null, [5, 13], [5, 21]]], 0, 0, 0, 0]], [], [], 0, 0], "groupValue", ["subexpr", "@mut", [["get", "groupValue", ["loc", [null, [6, 15], [6, 25]]], 0, 0, 0, 0]], [], [], 0, 0], "name", ["subexpr", "@mut", [["get", "name", ["loc", [null, [7, 9], [7, 13]]], 0, 0, 0, 0]], [], [], 0, 0], "required", ["subexpr", "@mut", [["get", "required", ["loc", [null, [8, 13], [8, 21]]], 0, 0, 0, 0]], [], [], 0, 0], "value", ["subexpr", "@mut", [["get", "value", ["loc", [null, [9, 10], [9, 15]]], 0, 0, 0, 0]], [], [], 0, 0]], ["loc", [null, [1, 0], [9, 17]]], 0, 0], ["content", "yield", ["loc", [null, [11, 0], [11, 9]]], 0, 0, 0, 0]],
       locals: [],
       templates: []
     };
@@ -4581,8 +4546,7 @@ define("client/templates/components/layout/nav-bar", ["exports"], function (expo
     var child0 = (function () {
       return {
         meta: {
-          "fragmentReason": false,
-          "revision": "Ember@2.6.1",
+          "revision": "Ember@2.8.2",
           "loc": {
             "source": null,
             "start": {
@@ -4618,8 +4582,7 @@ define("client/templates/components/layout/nav-bar", ["exports"], function (expo
       var child0 = (function () {
         return {
           meta: {
-            "fragmentReason": false,
-            "revision": "Ember@2.6.1",
+            "revision": "Ember@2.8.2",
             "loc": {
               "source": null,
               "start": {
@@ -4652,15 +4615,14 @@ define("client/templates/components/layout/nav-bar", ["exports"], function (expo
             morphs[0] = dom.createMorphAt(fragment, 1, 1, contextualElement);
             return morphs;
           },
-          statements: [["content", "session.data.authenticated.name", ["loc", [null, [8, 12], [8, 47]]]]],
+          statements: [["content", "session.data.authenticated.name", ["loc", [null, [8, 12], [8, 47]]], 0, 0, 0, 0]],
           locals: [],
           templates: []
         };
       })();
       return {
         meta: {
-          "fragmentReason": false,
-          "revision": "Ember@2.6.1",
+          "revision": "Ember@2.8.2",
           "loc": {
             "source": null,
             "start": {
@@ -4716,7 +4678,7 @@ define("client/templates/components/layout/nav-bar", ["exports"], function (expo
           morphs[1] = dom.createElementMorph(element0);
           return morphs;
         },
-        statements: [["block", "link-to", ["user.user", ["get", "session.data.authenticated.id", ["loc", [null, [7, 33], [7, 62]]]]], ["class", "nav-link c-nav-bar__link"], 0, null, ["loc", [null, [7, 10], [9, 22]]]], ["element", "action", ["invalidateSession"], [], ["loc", [null, [12, 13], [12, 43]]]]],
+        statements: [["block", "link-to", ["user.user", ["get", "session.data.authenticated.id", ["loc", [null, [7, 33], [7, 62]]], 0, 0, 0, 0]], ["class", "nav-link c-nav-bar__link"], 0, null, ["loc", [null, [7, 10], [9, 22]]]], ["element", "action", ["invalidateSession"], [], ["loc", [null, [12, 13], [12, 43]]], 0, 0]],
         locals: [],
         templates: [child0]
       };
@@ -4725,8 +4687,7 @@ define("client/templates/components/layout/nav-bar", ["exports"], function (expo
       var child0 = (function () {
         return {
           meta: {
-            "fragmentReason": false,
-            "revision": "Ember@2.6.1",
+            "revision": "Ember@2.8.2",
             "loc": {
               "source": null,
               "start": {
@@ -4761,8 +4722,7 @@ define("client/templates/components/layout/nav-bar", ["exports"], function (expo
       var child1 = (function () {
         return {
           meta: {
-            "fragmentReason": false,
-            "revision": "Ember@2.6.1",
+            "revision": "Ember@2.8.2",
             "loc": {
               "source": null,
               "start": {
@@ -4796,8 +4756,7 @@ define("client/templates/components/layout/nav-bar", ["exports"], function (expo
       })();
       return {
         meta: {
-          "fragmentReason": false,
-          "revision": "Ember@2.6.1",
+          "revision": "Ember@2.8.2",
           "loc": {
             "source": null,
             "start": {
@@ -4856,10 +4815,7 @@ define("client/templates/components/layout/nav-bar", ["exports"], function (expo
     })();
     return {
       meta: {
-        "fragmentReason": {
-          "name": "triple-curlies"
-        },
-        "revision": "Ember@2.6.1",
+        "revision": "Ember@2.8.2",
         "loc": {
           "source": null,
           "start": {
@@ -4917,7 +4873,7 @@ define("client/templates/components/layout/nav-bar", ["exports"], function (expo
         morphs[1] = dom.createMorphAt(dom.childAt(element1, [3, 1]), 1, 1);
         return morphs;
       },
-      statements: [["block", "link-to", ["application"], ["class", "navbar-brand"], 0, null, ["loc", [null, [2, 2], [2, 55]]]], ["block", "if", [["get", "session.isAuthenticated", ["loc", [null, [5, 12], [5, 35]]]]], [], 1, 2, ["loc", [null, [5, 6], [21, 13]]]]],
+      statements: [["block", "link-to", ["application"], ["class", "navbar-brand"], 0, null, ["loc", [null, [2, 2], [2, 55]]]], ["block", "if", [["get", "session.isAuthenticated", ["loc", [null, [5, 12], [5, 35]]], 0, 0, 0, 0]], [], 1, 2, ["loc", [null, [5, 6], [21, 13]]]]],
       locals: [],
       templates: [child0, child1, child2]
     };
@@ -4928,8 +4884,7 @@ define("client/templates/components/layout/secondary-nav-bar", ["exports"], func
     var child0 = (function () {
       return {
         meta: {
-          "fragmentReason": false,
-          "revision": "Ember@2.6.1",
+          "revision": "Ember@2.8.2",
           "loc": {
             "source": null,
             "start": {
@@ -4964,8 +4919,7 @@ define("client/templates/components/layout/secondary-nav-bar", ["exports"], func
     var child1 = (function () {
       return {
         meta: {
-          "fragmentReason": false,
-          "revision": "Ember@2.6.1",
+          "revision": "Ember@2.8.2",
           "loc": {
             "source": null,
             "start": {
@@ -5000,8 +4954,7 @@ define("client/templates/components/layout/secondary-nav-bar", ["exports"], func
     var child2 = (function () {
       return {
         meta: {
-          "fragmentReason": false,
-          "revision": "Ember@2.6.1",
+          "revision": "Ember@2.8.2",
           "loc": {
             "source": null,
             "start": {
@@ -5035,10 +4988,7 @@ define("client/templates/components/layout/secondary-nav-bar", ["exports"], func
     })();
     return {
       meta: {
-        "fragmentReason": {
-          "name": "triple-curlies"
-        },
-        "revision": "Ember@2.6.1",
+        "revision": "Ember@2.8.2",
         "loc": {
           "source": null,
           "start": {
@@ -5119,8 +5069,7 @@ define("client/templates/components/layout/side-bar", ["exports"], function (exp
     var child0 = (function () {
       return {
         meta: {
-          "fragmentReason": false,
-          "revision": "Ember@2.6.1",
+          "revision": "Ember@2.8.2",
           "loc": {
             "source": null,
             "start": {
@@ -5162,8 +5111,7 @@ define("client/templates/components/layout/side-bar", ["exports"], function (exp
     var child1 = (function () {
       return {
         meta: {
-          "fragmentReason": false,
-          "revision": "Ember@2.6.1",
+          "revision": "Ember@2.8.2",
           "loc": {
             "source": null,
             "start": {
@@ -5205,8 +5153,7 @@ define("client/templates/components/layout/side-bar", ["exports"], function (exp
     var child2 = (function () {
       return {
         meta: {
-          "fragmentReason": false,
-          "revision": "Ember@2.6.1",
+          "revision": "Ember@2.8.2",
           "loc": {
             "source": null,
             "start": {
@@ -5248,8 +5195,7 @@ define("client/templates/components/layout/side-bar", ["exports"], function (exp
     var child3 = (function () {
       return {
         meta: {
-          "fragmentReason": false,
-          "revision": "Ember@2.6.1",
+          "revision": "Ember@2.8.2",
           "loc": {
             "source": null,
             "start": {
@@ -5290,10 +5236,7 @@ define("client/templates/components/layout/side-bar", ["exports"], function (exp
     })();
     return {
       meta: {
-        "fragmentReason": {
-          "name": "triple-curlies"
-        },
-        "revision": "Ember@2.6.1",
+        "revision": "Ember@2.8.2",
         "loc": {
           "source": null,
           "start": {
@@ -5367,8 +5310,7 @@ define("client/templates/components/projects/projects-container", ["exports"], f
     var child0 = (function () {
       return {
         meta: {
-          "fragmentReason": false,
-          "revision": "Ember@2.6.1",
+          "revision": "Ember@2.8.2",
           "loc": {
             "source": null,
             "start": {
@@ -5442,17 +5384,14 @@ define("client/templates/components/projects/projects-container", ["exports"], f
           morphs[1] = dom.createMorphAt(dom.childAt(element0, [3, 1]), 1, 1);
           return morphs;
         },
-        statements: [["content", "project.title", ["loc", [null, [6, 10], [6, 27]]]], ["content", "project.description", ["loc", [null, [11, 12], [11, 35]]]]],
+        statements: [["content", "project.title", ["loc", [null, [6, 10], [6, 27]]], 0, 0, 0, 0], ["content", "project.description", ["loc", [null, [11, 12], [11, 35]]], 0, 0, 0, 0]],
         locals: [],
         templates: []
       };
     })();
     return {
       meta: {
-        "fragmentReason": {
-          "name": "triple-curlies"
-        },
-        "revision": "Ember@2.6.1",
+        "revision": "Ember@2.8.2",
         "loc": {
           "source": null,
           "start": {
@@ -5488,7 +5427,7 @@ define("client/templates/components/projects/projects-container", ["exports"], f
         morphs[0] = dom.createMorphAt(dom.childAt(fragment, [0]), 1, 1);
         return morphs;
       },
-      statements: [["block", "link-to", ["project.project", ["get", "project", ["loc", [null, [2, 31], [2, 38]]]]], ["class", "m-card-container__link"], 0, null, ["loc", [null, [2, 2], [15, 14]]]]],
+      statements: [["block", "link-to", ["project.project", ["get", "project", ["loc", [null, [2, 31], [2, 38]]], 0, 0, 0, 0]], ["class", "m-card-container__link"], 0, null, ["loc", [null, [2, 2], [15, 14]]]]],
       locals: [],
       templates: [child0]
     };
@@ -5499,10 +5438,7 @@ define("client/templates/components/radio-button", ["exports"], function (export
     var child0 = (function () {
       return {
         meta: {
-          "fragmentReason": {
-            "name": "triple-curlies"
-          },
-          "revision": "Ember@2.6.1",
+          "revision": "Ember@2.8.2",
           "loc": {
             "source": null,
             "start": {
@@ -5549,7 +5485,7 @@ define("client/templates/components/radio-button", ["exports"], function (export
           morphs[3] = dom.createMorphAt(element0, 3, 3);
           return morphs;
         },
-        statements: [["attribute", "class", ["concat", ["ember-radio-button ", ["subexpr", "if", [["get", "checked", ["loc", [null, [2, 40], [2, 47]]]], "checked"], [], ["loc", [null, [2, 35], [2, 59]]]], " ", ["get", "joinedClassNames", ["loc", [null, [2, 62], [2, 78]]]]]]], ["attribute", "for", ["get", "radioId", ["loc", [null, [2, 88], [2, 95]]]]], ["inline", "radio-button-input", [], ["class", ["subexpr", "@mut", [["get", "radioClass", ["loc", [null, [4, 14], [4, 24]]]]], [], []], "id", ["subexpr", "@mut", [["get", "radioId", ["loc", [null, [5, 11], [5, 18]]]]], [], []], "disabled", ["subexpr", "@mut", [["get", "disabled", ["loc", [null, [6, 17], [6, 25]]]]], [], []], "name", ["subexpr", "@mut", [["get", "name", ["loc", [null, [7, 13], [7, 17]]]]], [], []], "required", ["subexpr", "@mut", [["get", "required", ["loc", [null, [8, 17], [8, 25]]]]], [], []], "groupValue", ["subexpr", "@mut", [["get", "groupValue", ["loc", [null, [9, 19], [9, 29]]]]], [], []], "value", ["subexpr", "@mut", [["get", "value", ["loc", [null, [10, 14], [10, 19]]]]], [], []], "changed", "changed"], ["loc", [null, [3, 4], [11, 27]]]], ["content", "yield", ["loc", [null, [13, 4], [13, 13]]]]],
+        statements: [["attribute", "class", ["concat", ["ember-radio-button ", ["subexpr", "if", [["get", "checked", ["loc", [null, [2, 40], [2, 47]]], 0, 0, 0, 0], "checked"], [], ["loc", [null, [2, 35], [2, 59]]], 0, 0], " ", ["get", "joinedClassNames", ["loc", [null, [2, 62], [2, 78]]], 0, 0, 0, 0]], 0, 0, 0, 0, 0], 0, 0, 0, 0], ["attribute", "for", ["get", "radioId", ["loc", [null, [2, 88], [2, 95]]], 0, 0, 0, 0], 0, 0, 0, 0], ["inline", "radio-button-input", [], ["class", ["subexpr", "@mut", [["get", "radioClass", ["loc", [null, [4, 14], [4, 24]]], 0, 0, 0, 0]], [], [], 0, 0], "id", ["subexpr", "@mut", [["get", "radioId", ["loc", [null, [5, 11], [5, 18]]], 0, 0, 0, 0]], [], [], 0, 0], "disabled", ["subexpr", "@mut", [["get", "disabled", ["loc", [null, [6, 17], [6, 25]]], 0, 0, 0, 0]], [], [], 0, 0], "name", ["subexpr", "@mut", [["get", "name", ["loc", [null, [7, 13], [7, 17]]], 0, 0, 0, 0]], [], [], 0, 0], "required", ["subexpr", "@mut", [["get", "required", ["loc", [null, [8, 17], [8, 25]]], 0, 0, 0, 0]], [], [], 0, 0], "groupValue", ["subexpr", "@mut", [["get", "groupValue", ["loc", [null, [9, 19], [9, 29]]], 0, 0, 0, 0]], [], [], 0, 0], "value", ["subexpr", "@mut", [["get", "value", ["loc", [null, [10, 14], [10, 19]]], 0, 0, 0, 0]], [], [], 0, 0], "changed", "changed"], ["loc", [null, [3, 4], [11, 27]]], 0, 0], ["content", "yield", ["loc", [null, [13, 4], [13, 13]]], 0, 0, 0, 0]],
         locals: [],
         templates: []
       };
@@ -5557,8 +5493,7 @@ define("client/templates/components/radio-button", ["exports"], function (export
     var child1 = (function () {
       return {
         meta: {
-          "fragmentReason": false,
-          "revision": "Ember@2.6.1",
+          "revision": "Ember@2.8.2",
           "loc": {
             "source": null,
             "start": {
@@ -5591,18 +5526,14 @@ define("client/templates/components/radio-button", ["exports"], function (export
           morphs[0] = dom.createMorphAt(fragment, 1, 1, contextualElement);
           return morphs;
         },
-        statements: [["inline", "radio-button-input", [], ["class", ["subexpr", "@mut", [["get", "radioClass", ["loc", [null, [17, 12], [17, 22]]]]], [], []], "id", ["subexpr", "@mut", [["get", "radioId", ["loc", [null, [18, 9], [18, 16]]]]], [], []], "disabled", ["subexpr", "@mut", [["get", "disabled", ["loc", [null, [19, 15], [19, 23]]]]], [], []], "name", ["subexpr", "@mut", [["get", "name", ["loc", [null, [20, 11], [20, 15]]]]], [], []], "required", ["subexpr", "@mut", [["get", "required", ["loc", [null, [21, 15], [21, 23]]]]], [], []], "groupValue", ["subexpr", "@mut", [["get", "groupValue", ["loc", [null, [22, 17], [22, 27]]]]], [], []], "value", ["subexpr", "@mut", [["get", "value", ["loc", [null, [23, 12], [23, 17]]]]], [], []], "changed", "changed"], ["loc", [null, [16, 2], [24, 25]]]]],
+        statements: [["inline", "radio-button-input", [], ["class", ["subexpr", "@mut", [["get", "radioClass", ["loc", [null, [17, 12], [17, 22]]], 0, 0, 0, 0]], [], [], 0, 0], "id", ["subexpr", "@mut", [["get", "radioId", ["loc", [null, [18, 9], [18, 16]]], 0, 0, 0, 0]], [], [], 0, 0], "disabled", ["subexpr", "@mut", [["get", "disabled", ["loc", [null, [19, 15], [19, 23]]], 0, 0, 0, 0]], [], [], 0, 0], "name", ["subexpr", "@mut", [["get", "name", ["loc", [null, [20, 11], [20, 15]]], 0, 0, 0, 0]], [], [], 0, 0], "required", ["subexpr", "@mut", [["get", "required", ["loc", [null, [21, 15], [21, 23]]], 0, 0, 0, 0]], [], [], 0, 0], "groupValue", ["subexpr", "@mut", [["get", "groupValue", ["loc", [null, [22, 17], [22, 27]]], 0, 0, 0, 0]], [], [], 0, 0], "value", ["subexpr", "@mut", [["get", "value", ["loc", [null, [23, 12], [23, 17]]], 0, 0, 0, 0]], [], [], 0, 0], "changed", "changed"], ["loc", [null, [16, 2], [24, 25]]], 0, 0]],
         locals: [],
         templates: []
       };
     })();
     return {
       meta: {
-        "fragmentReason": {
-          "name": "missing-wrapper",
-          "problems": ["wrong-type"]
-        },
-        "revision": "Ember@2.6.1",
+        "revision": "Ember@2.8.2",
         "loc": {
           "source": null,
           "start": {
@@ -5633,7 +5564,7 @@ define("client/templates/components/radio-button", ["exports"], function (export
         dom.insertBoundary(fragment, null);
         return morphs;
       },
-      statements: [["block", "if", [["get", "hasBlock", ["loc", [null, [1, 6], [1, 14]]]]], [], 0, 1, ["loc", [null, [1, 0], [25, 7]]]]],
+      statements: [["block", "if", [["get", "hasBlock", ["loc", [null, [1, 6], [1, 14]]], 0, 0, 0, 0]], [], 0, 1, ["loc", [null, [1, 0], [25, 7]]]]],
       locals: [],
       templates: [child0, child1]
     };
@@ -5644,8 +5575,7 @@ define("client/templates/components/teams/teams-container", ["exports"], functio
     var child0 = (function () {
       return {
         meta: {
-          "fragmentReason": false,
-          "revision": "Ember@2.6.1",
+          "revision": "Ember@2.8.2",
           "loc": {
             "source": null,
             "start": {
@@ -5719,17 +5649,14 @@ define("client/templates/components/teams/teams-container", ["exports"], functio
           morphs[1] = dom.createMorphAt(dom.childAt(element0, [3, 1]), 1, 1);
           return morphs;
         },
-        statements: [["content", "team.name", ["loc", [null, [6, 10], [6, 23]]]], ["content", "team.description", ["loc", [null, [11, 10], [11, 30]]]]],
+        statements: [["content", "team.name", ["loc", [null, [6, 10], [6, 23]]], 0, 0, 0, 0], ["content", "team.description", ["loc", [null, [11, 10], [11, 30]]], 0, 0, 0, 0]],
         locals: [],
         templates: []
       };
     })();
     return {
       meta: {
-        "fragmentReason": {
-          "name": "triple-curlies"
-        },
-        "revision": "Ember@2.6.1",
+        "revision": "Ember@2.8.2",
         "loc": {
           "source": null,
           "start": {
@@ -5765,7 +5692,7 @@ define("client/templates/components/teams/teams-container", ["exports"], functio
         morphs[0] = dom.createMorphAt(dom.childAt(fragment, [0]), 1, 1);
         return morphs;
       },
-      statements: [["block", "link-to", ["team.team", ["get", "team", ["loc", [null, [2, 25], [2, 29]]]]], ["class", "m-card-container__link"], 0, null, ["loc", [null, [2, 2], [15, 14]]]]],
+      statements: [["block", "link-to", ["team.team", ["get", "team", ["loc", [null, [2, 25], [2, 29]]], 0, 0, 0, 0]], ["class", "m-card-container__link"], 0, null, ["loc", [null, [2, 2], [15, 14]]]]],
       locals: [],
       templates: [child0]
     };
@@ -5776,8 +5703,7 @@ define("client/templates/components/users/users-container", ["exports"], functio
     var child0 = (function () {
       return {
         meta: {
-          "fragmentReason": false,
-          "revision": "Ember@2.6.1",
+          "revision": "Ember@2.8.2",
           "loc": {
             "source": null,
             "start": {
@@ -5851,17 +5777,14 @@ define("client/templates/components/users/users-container", ["exports"], functio
           morphs[1] = dom.createMorphAt(dom.childAt(element0, [3, 1]), 1, 1);
           return morphs;
         },
-        statements: [["content", "user.name", ["loc", [null, [6, 10], [6, 23]]]], ["content", "user.email", ["loc", [null, [11, 12], [11, 26]]]]],
+        statements: [["content", "user.name", ["loc", [null, [6, 10], [6, 23]]], 0, 0, 0, 0], ["content", "user.email", ["loc", [null, [11, 12], [11, 26]]], 0, 0, 0, 0]],
         locals: [],
         templates: []
       };
     })();
     return {
       meta: {
-        "fragmentReason": {
-          "name": "triple-curlies"
-        },
-        "revision": "Ember@2.6.1",
+        "revision": "Ember@2.8.2",
         "loc": {
           "source": null,
           "start": {
@@ -5897,7 +5820,7 @@ define("client/templates/components/users/users-container", ["exports"], functio
         morphs[0] = dom.createMorphAt(dom.childAt(fragment, [0]), 1, 1);
         return morphs;
       },
-      statements: [["block", "link-to", ["user.user", ["get", "user", ["loc", [null, [2, 25], [2, 29]]]]], ["class", "m-card-container__link"], 0, null, ["loc", [null, [2, 2], [15, 14]]]]],
+      statements: [["block", "link-to", ["user.user", ["get", "user", ["loc", [null, [2, 25], [2, 29]]], 0, 0, 0, 0]], ["class", "m-card-container__link"], 0, null, ["loc", [null, [2, 2], [15, 14]]]]],
       locals: [],
       templates: [child0]
     };
@@ -5907,10 +5830,7 @@ define("client/templates/dashboard", ["exports"], function (exports) {
   exports["default"] = Ember.HTMLBars.template((function () {
     return {
       meta: {
-        "fragmentReason": {
-          "name": "triple-curlies"
-        },
-        "revision": "Ember@2.6.1",
+        "revision": "Ember@2.8.2",
         "loc": {
           "source": null,
           "start": {
@@ -5981,7 +5901,7 @@ define("client/templates/dashboard", ["exports"], function (exports) {
         morphs[2] = dom.createMorphAt(dom.childAt(element1, [3]), 1, 1);
         return morphs;
       },
-      statements: [["content", "layout/side-bar", ["loc", [null, [3, 4], [3, 23]]]], ["content", "layout/secondary-nav-bar", ["loc", [null, [6, 4], [6, 32]]]], ["content", "outlet", ["loc", [null, [8, 6], [8, 16]]]]],
+      statements: [["content", "layout/side-bar", ["loc", [null, [3, 4], [3, 23]]], 0, 0, 0, 0], ["content", "layout/secondary-nav-bar", ["loc", [null, [6, 4], [6, 32]]], 0, 0, 0, 0], ["content", "outlet", ["loc", [null, [8, 6], [8, 16]]], 0, 0, 0, 0]],
       locals: [],
       templates: []
     };
@@ -5992,8 +5912,7 @@ define("client/templates/landing-page", ["exports"], function (exports) {
     var child0 = (function () {
       return {
         meta: {
-          "fragmentReason": false,
-          "revision": "Ember@2.6.1",
+          "revision": "Ember@2.8.2",
           "loc": {
             "source": null,
             "start": {
@@ -6027,10 +5946,7 @@ define("client/templates/landing-page", ["exports"], function (exports) {
     })();
     return {
       meta: {
-        "fragmentReason": {
-          "name": "triple-curlies"
-        },
-        "revision": "Ember@2.6.1",
+        "revision": "Ember@2.8.2",
         "loc": {
           "source": null,
           "start": {
@@ -6091,10 +6007,7 @@ define("client/templates/loading", ["exports"], function (exports) {
   exports["default"] = Ember.HTMLBars.template((function () {
     return {
       meta: {
-        "fragmentReason": {
-          "name": "triple-curlies"
-        },
-        "revision": "Ember@2.6.1",
+        "revision": "Ember@2.8.2",
         "loc": {
           "source": null,
           "start": {
@@ -6149,10 +6062,7 @@ define("client/templates/project/new", ["exports"], function (exports) {
   exports["default"] = Ember.HTMLBars.template((function () {
     return {
       meta: {
-        "fragmentReason": {
-          "name": "triple-curlies"
-        },
-        "revision": "Ember@2.6.1",
+        "revision": "Ember@2.8.2",
         "loc": {
           "source": null,
           "start": {
@@ -6326,7 +6236,7 @@ define("client/templates/project/new", ["exports"], function (exports) {
         morphs[5] = dom.createMorphAt(dom.childAt(element3, [5, 1]), 1, 1);
         return morphs;
       },
-      statements: [["content", "layout/side-bar", ["loc", [null, [3, 4], [3, 23]]]], ["content", "layout/secondary-nav-bar", ["loc", [null, [6, 4], [6, 32]]]], ["inline", "forms/new-project-form", [], ["model", ["subexpr", "@mut", [["get", "model", ["loc", [null, [16, 43], [16, 48]]]]], [], []]], ["loc", [null, [16, 12], [16, 50]]]], ["content", "model.type", ["loc", [null, [23, 18], [23, 32]]]], ["content", "model.title", ["loc", [null, [27, 14], [27, 29]]]], ["content", "model.description", ["loc", [null, [32, 14], [32, 35]]]]],
+      statements: [["content", "layout/side-bar", ["loc", [null, [3, 4], [3, 23]]], 0, 0, 0, 0], ["content", "layout/secondary-nav-bar", ["loc", [null, [6, 4], [6, 32]]], 0, 0, 0, 0], ["inline", "forms/new-project-form", [], ["model", ["subexpr", "@mut", [["get", "model", ["loc", [null, [16, 43], [16, 48]]], 0, 0, 0, 0]], [], [], 0, 0]], ["loc", [null, [16, 12], [16, 50]]], 0, 0], ["content", "model.type", ["loc", [null, [23, 18], [23, 32]]], 0, 0, 0, 0], ["content", "model.title", ["loc", [null, [27, 14], [27, 29]]], 0, 0, 0, 0], ["content", "model.description", ["loc", [null, [32, 14], [32, 35]]], 0, 0, 0, 0]],
       locals: [],
       templates: []
     };
@@ -6336,10 +6246,7 @@ define("client/templates/project/project/edit", ["exports"], function (exports) 
   exports["default"] = Ember.HTMLBars.template((function () {
     return {
       meta: {
-        "fragmentReason": {
-          "name": "triple-curlies"
-        },
-        "revision": "Ember@2.6.1",
+        "revision": "Ember@2.8.2",
         "loc": {
           "source": null,
           "start": {
@@ -6405,7 +6312,7 @@ define("client/templates/project/project/edit", ["exports"], function (exports) 
         morphs[0] = dom.createMorphAt(dom.childAt(fragment, [0, 1, 3]), 1, 1);
         return morphs;
       },
-      statements: [["inline", "forms/edit-project-form", [], ["model", ["subexpr", "@mut", [["get", "model", ["loc", [null, [9, 38], [9, 43]]]]], [], []]], ["loc", [null, [9, 6], [9, 45]]]]],
+      statements: [["inline", "forms/edit-project-form", [], ["model", ["subexpr", "@mut", [["get", "model", ["loc", [null, [9, 38], [9, 43]]], 0, 0, 0, 0]], [], [], 0, 0]], ["loc", [null, [9, 6], [9, 45]]], 0, 0]],
       locals: [],
       templates: []
     };
@@ -6416,8 +6323,7 @@ define("client/templates/project/project", ["exports"], function (exports) {
     var child0 = (function () {
       return {
         meta: {
-          "fragmentReason": false,
-          "revision": "Ember@2.6.1",
+          "revision": "Ember@2.8.2",
           "loc": {
             "source": null,
             "start": {
@@ -6451,10 +6357,7 @@ define("client/templates/project/project", ["exports"], function (exports) {
     })();
     return {
       meta: {
-        "fragmentReason": {
-          "name": "triple-curlies"
-        },
-        "revision": "Ember@2.6.1",
+        "revision": "Ember@2.8.2",
         "loc": {
           "source": null,
           "start": {
@@ -6585,7 +6488,7 @@ define("client/templates/project/project", ["exports"], function (exports) {
         morphs[5] = dom.createMorphAt(element3, 3, 3);
         return morphs;
       },
-      statements: [["content", "layout/side-bar", ["loc", [null, [3, 4], [3, 23]]]], ["content", "layout/secondary-nav-bar", ["loc", [null, [6, 4], [6, 32]]]], ["content", "outlet", ["loc", [null, [8, 6], [8, 16]]]], ["content", "project.title", ["loc", [null, [13, 14], [13, 31]]]], ["content", "project.description", ["loc", [null, [18, 14], [18, 37]]]], ["block", "link-to", ["project.project.edit", ["get", "project", ["loc", [null, [22, 42], [22, 49]]]]], [], 0, null, ["loc", [null, [22, 8], [22, 67]]]]],
+      statements: [["content", "layout/side-bar", ["loc", [null, [3, 4], [3, 23]]], 0, 0, 0, 0], ["content", "layout/secondary-nav-bar", ["loc", [null, [6, 4], [6, 32]]], 0, 0, 0, 0], ["content", "outlet", ["loc", [null, [8, 6], [8, 16]]], 0, 0, 0, 0], ["content", "project.title", ["loc", [null, [13, 14], [13, 31]]], 0, 0, 0, 0], ["content", "project.description", ["loc", [null, [18, 14], [18, 37]]], 0, 0, 0, 0], ["block", "link-to", ["project.project.edit", ["get", "project", ["loc", [null, [22, 42], [22, 49]]], 0, 0, 0, 0]], [], 0, null, ["loc", [null, [22, 8], [22, 67]]]]],
       locals: [],
       templates: [child0]
     };
@@ -6596,8 +6499,7 @@ define("client/templates/projects", ["exports"], function (exports) {
     var child0 = (function () {
       return {
         meta: {
-          "fragmentReason": false,
-          "revision": "Ember@2.6.1",
+          "revision": "Ember@2.8.2",
           "loc": {
             "source": null,
             "start": {
@@ -6630,7 +6532,7 @@ define("client/templates/projects", ["exports"], function (exports) {
           morphs[0] = dom.createMorphAt(fragment, 1, 1, contextualElement);
           return morphs;
         },
-        statements: [["inline", "projects/projects-container", [], ["project", ["subexpr", "@mut", [["get", "project", ["loc", [null, [13, 46], [13, 53]]]]], [], []]], ["loc", [null, [13, 8], [13, 55]]]]],
+        statements: [["inline", "projects/projects-container", [], ["project", ["subexpr", "@mut", [["get", "project", ["loc", [null, [13, 46], [13, 53]]], 0, 0, 0, 0]], [], [], 0, 0]], ["loc", [null, [13, 8], [13, 55]]], 0, 0]],
         locals: ["project"],
         templates: []
       };
@@ -6638,8 +6540,7 @@ define("client/templates/projects", ["exports"], function (exports) {
     var child1 = (function () {
       return {
         meta: {
-          "fragmentReason": false,
-          "revision": "Ember@2.6.1",
+          "revision": "Ember@2.8.2",
           "loc": {
             "source": null,
             "start": {
@@ -6680,10 +6581,7 @@ define("client/templates/projects", ["exports"], function (exports) {
     })();
     return {
       meta: {
-        "fragmentReason": {
-          "name": "triple-curlies"
-        },
-        "revision": "Ember@2.6.1",
+        "revision": "Ember@2.8.2",
         "loc": {
           "source": null,
           "start": {
@@ -6775,7 +6673,7 @@ define("client/templates/projects", ["exports"], function (exports) {
         morphs[2] = dom.createMorphAt(dom.childAt(element1, [3]), 3, 3);
         return morphs;
       },
-      statements: [["content", "layout/side-bar", ["loc", [null, [3, 4], [3, 23]]]], ["content", "layout/secondary-nav-bar", ["loc", [null, [6, 4], [6, 32]]]], ["block", "each", [["get", "projects", ["loc", [null, [12, 14], [12, 22]]]]], [], 0, 1, ["loc", [null, [12, 6], [18, 15]]]]],
+      statements: [["content", "layout/side-bar", ["loc", [null, [3, 4], [3, 23]]], 0, 0, 0, 0], ["content", "layout/secondary-nav-bar", ["loc", [null, [6, 4], [6, 32]]], 0, 0, 0, 0], ["block", "each", [["get", "projects", ["loc", [null, [12, 14], [12, 22]]], 0, 0, 0, 0]], [], 0, 1, ["loc", [null, [12, 6], [18, 15]]]]],
       locals: [],
       templates: [child0, child1]
     };
@@ -6785,11 +6683,7 @@ define("client/templates/register", ["exports"], function (exports) {
   exports["default"] = Ember.HTMLBars.template((function () {
     return {
       meta: {
-        "fragmentReason": {
-          "name": "missing-wrapper",
-          "problems": ["wrong-type"]
-        },
-        "revision": "Ember@2.6.1",
+        "revision": "Ember@2.8.2",
         "loc": {
           "source": null,
           "start": {
@@ -6821,7 +6715,7 @@ define("client/templates/register", ["exports"], function (exports) {
         dom.insertBoundary(fragment, 0);
         return morphs;
       },
-      statements: [["inline", "forms/register-form", [["get", "action", ["loc", [null, [1, 22], [1, 28]]]], "authenticate"], ["on", "submit"], ["loc", [null, [1, 0], [1, 57]]]]],
+      statements: [["inline", "forms/register-form", [["get", "action", ["loc", [null, [1, 22], [1, 28]]], 0, 0, 0, 0], "authenticate"], ["on", "submit"], ["loc", [null, [1, 0], [1, 57]]], 0, 0]],
       locals: [],
       templates: []
     };
@@ -6831,11 +6725,7 @@ define("client/templates/signin", ["exports"], function (exports) {
   exports["default"] = Ember.HTMLBars.template((function () {
     return {
       meta: {
-        "fragmentReason": {
-          "name": "missing-wrapper",
-          "problems": ["wrong-type"]
-        },
-        "revision": "Ember@2.6.1",
+        "revision": "Ember@2.8.2",
         "loc": {
           "source": null,
           "start": {
@@ -6867,7 +6757,7 @@ define("client/templates/signin", ["exports"], function (exports) {
         dom.insertBoundary(fragment, 0);
         return morphs;
       },
-      statements: [["inline", "forms/signin-form", [["get", "action", ["loc", [null, [1, 20], [1, 26]]]], "authenticate"], ["on", "submit"], ["loc", [null, [1, 0], [1, 55]]]]],
+      statements: [["inline", "forms/signin-form", [["get", "action", ["loc", [null, [1, 20], [1, 26]]], 0, 0, 0, 0], "authenticate"], ["on", "submit"], ["loc", [null, [1, 0], [1, 55]]], 0, 0]],
       locals: [],
       templates: []
     };
@@ -6877,10 +6767,7 @@ define("client/templates/team/new", ["exports"], function (exports) {
   exports["default"] = Ember.HTMLBars.template((function () {
     return {
       meta: {
-        "fragmentReason": {
-          "name": "triple-curlies"
-        },
-        "revision": "Ember@2.6.1",
+        "revision": "Ember@2.8.2",
         "loc": {
           "source": null,
           "start": {
@@ -7040,7 +6927,7 @@ define("client/templates/team/new", ["exports"], function (exports) {
         morphs[4] = dom.createMorphAt(dom.childAt(element3, [3, 1]), 1, 1);
         return morphs;
       },
-      statements: [["content", "layout/side-bar", ["loc", [null, [3, 4], [3, 23]]]], ["content", "layout/secondary-nav-bar", ["loc", [null, [6, 4], [6, 32]]]], ["inline", "forms/new-team-form", [], ["model", ["subexpr", "@mut", [["get", "model", ["loc", [null, [16, 40], [16, 45]]]]], [], []]], ["loc", [null, [16, 12], [16, 47]]]], ["content", "model.name", ["loc", [null, [24, 14], [24, 28]]]], ["content", "model.description", ["loc", [null, [29, 14], [29, 35]]]]],
+      statements: [["content", "layout/side-bar", ["loc", [null, [3, 4], [3, 23]]], 0, 0, 0, 0], ["content", "layout/secondary-nav-bar", ["loc", [null, [6, 4], [6, 32]]], 0, 0, 0, 0], ["inline", "forms/new-team-form", [], ["model", ["subexpr", "@mut", [["get", "model", ["loc", [null, [16, 40], [16, 45]]], 0, 0, 0, 0]], [], [], 0, 0]], ["loc", [null, [16, 12], [16, 47]]], 0, 0], ["content", "model.name", ["loc", [null, [24, 14], [24, 28]]], 0, 0, 0, 0], ["content", "model.description", ["loc", [null, [29, 14], [29, 35]]], 0, 0, 0, 0]],
       locals: [],
       templates: []
     };
@@ -7050,10 +6937,7 @@ define("client/templates/team/team/edit", ["exports"], function (exports) {
   exports["default"] = Ember.HTMLBars.template((function () {
     return {
       meta: {
-        "fragmentReason": {
-          "name": "triple-curlies"
-        },
-        "revision": "Ember@2.6.1",
+        "revision": "Ember@2.8.2",
         "loc": {
           "source": null,
           "start": {
@@ -7119,7 +7003,7 @@ define("client/templates/team/team/edit", ["exports"], function (exports) {
         morphs[0] = dom.createMorphAt(dom.childAt(fragment, [0, 1, 3]), 1, 1);
         return morphs;
       },
-      statements: [["inline", "forms/edit-team-form", [], ["model", ["subexpr", "@mut", [["get", "model", ["loc", [null, [9, 35], [9, 40]]]]], [], []]], ["loc", [null, [9, 6], [9, 42]]]]],
+      statements: [["inline", "forms/edit-team-form", [], ["model", ["subexpr", "@mut", [["get", "model", ["loc", [null, [9, 35], [9, 40]]], 0, 0, 0, 0]], [], [], 0, 0]], ["loc", [null, [9, 6], [9, 42]]], 0, 0]],
       locals: [],
       templates: []
     };
@@ -7130,8 +7014,7 @@ define("client/templates/team/team", ["exports"], function (exports) {
     var child0 = (function () {
       return {
         meta: {
-          "fragmentReason": false,
-          "revision": "Ember@2.6.1",
+          "revision": "Ember@2.8.2",
           "loc": {
             "source": null,
             "start": {
@@ -7165,10 +7048,7 @@ define("client/templates/team/team", ["exports"], function (exports) {
     })();
     return {
       meta: {
-        "fragmentReason": {
-          "name": "triple-curlies"
-        },
-        "revision": "Ember@2.6.1",
+        "revision": "Ember@2.8.2",
         "loc": {
           "source": null,
           "start": {
@@ -7299,7 +7179,7 @@ define("client/templates/team/team", ["exports"], function (exports) {
         morphs[5] = dom.createMorphAt(element3, 3, 3);
         return morphs;
       },
-      statements: [["content", "layout/side-bar", ["loc", [null, [3, 4], [3, 23]]]], ["content", "layout/secondary-nav-bar", ["loc", [null, [6, 4], [6, 32]]]], ["content", "outlet", ["loc", [null, [8, 6], [8, 16]]]], ["content", "team.name", ["loc", [null, [13, 14], [13, 27]]]], ["content", "team.description", ["loc", [null, [18, 14], [18, 34]]]], ["block", "link-to", ["team.team.edit", ["get", "team", ["loc", [null, [22, 36], [22, 40]]]]], [], 0, null, ["loc", [null, [22, 8], [22, 58]]]]],
+      statements: [["content", "layout/side-bar", ["loc", [null, [3, 4], [3, 23]]], 0, 0, 0, 0], ["content", "layout/secondary-nav-bar", ["loc", [null, [6, 4], [6, 32]]], 0, 0, 0, 0], ["content", "outlet", ["loc", [null, [8, 6], [8, 16]]], 0, 0, 0, 0], ["content", "team.name", ["loc", [null, [13, 14], [13, 27]]], 0, 0, 0, 0], ["content", "team.description", ["loc", [null, [18, 14], [18, 34]]], 0, 0, 0, 0], ["block", "link-to", ["team.team.edit", ["get", "team", ["loc", [null, [22, 36], [22, 40]]], 0, 0, 0, 0]], [], 0, null, ["loc", [null, [22, 8], [22, 58]]]]],
       locals: [],
       templates: [child0]
     };
@@ -7310,8 +7190,7 @@ define("client/templates/teams", ["exports"], function (exports) {
     var child0 = (function () {
       return {
         meta: {
-          "fragmentReason": false,
-          "revision": "Ember@2.6.1",
+          "revision": "Ember@2.8.2",
           "loc": {
             "source": null,
             "start": {
@@ -7344,7 +7223,7 @@ define("client/templates/teams", ["exports"], function (exports) {
           morphs[0] = dom.createMorphAt(fragment, 1, 1, contextualElement);
           return morphs;
         },
-        statements: [["inline", "teams/teams-container", [], ["team", ["subexpr", "@mut", [["get", "team", ["loc", [null, [13, 37], [13, 41]]]]], [], []]], ["loc", [null, [13, 8], [13, 43]]]]],
+        statements: [["inline", "teams/teams-container", [], ["team", ["subexpr", "@mut", [["get", "team", ["loc", [null, [13, 37], [13, 41]]], 0, 0, 0, 0]], [], [], 0, 0]], ["loc", [null, [13, 8], [13, 43]]], 0, 0]],
         locals: ["team"],
         templates: []
       };
@@ -7352,8 +7231,7 @@ define("client/templates/teams", ["exports"], function (exports) {
     var child1 = (function () {
       return {
         meta: {
-          "fragmentReason": false,
-          "revision": "Ember@2.6.1",
+          "revision": "Ember@2.8.2",
           "loc": {
             "source": null,
             "start": {
@@ -7394,10 +7272,7 @@ define("client/templates/teams", ["exports"], function (exports) {
     })();
     return {
       meta: {
-        "fragmentReason": {
-          "name": "triple-curlies"
-        },
-        "revision": "Ember@2.6.1",
+        "revision": "Ember@2.8.2",
         "loc": {
           "source": null,
           "start": {
@@ -7489,7 +7364,7 @@ define("client/templates/teams", ["exports"], function (exports) {
         morphs[2] = dom.createMorphAt(dom.childAt(element1, [3]), 3, 3);
         return morphs;
       },
-      statements: [["content", "layout/side-bar", ["loc", [null, [3, 4], [3, 23]]]], ["content", "layout/secondary-nav-bar", ["loc", [null, [6, 4], [6, 32]]]], ["block", "each", [["get", "teams", ["loc", [null, [12, 14], [12, 19]]]]], [], 0, 1, ["loc", [null, [12, 6], [18, 15]]]]],
+      statements: [["content", "layout/side-bar", ["loc", [null, [3, 4], [3, 23]]], 0, 0, 0, 0], ["content", "layout/secondary-nav-bar", ["loc", [null, [6, 4], [6, 32]]], 0, 0, 0, 0], ["block", "each", [["get", "teams", ["loc", [null, [12, 14], [12, 19]]], 0, 0, 0, 0]], [], 0, 1, ["loc", [null, [12, 6], [18, 15]]]]],
       locals: [],
       templates: [child0, child1]
     };
@@ -7499,10 +7374,7 @@ define("client/templates/user/user/edit", ["exports"], function (exports) {
   exports["default"] = Ember.HTMLBars.template((function () {
     return {
       meta: {
-        "fragmentReason": {
-          "name": "triple-curlies"
-        },
-        "revision": "Ember@2.6.1",
+        "revision": "Ember@2.8.2",
         "loc": {
           "source": null,
           "start": {
@@ -7568,7 +7440,7 @@ define("client/templates/user/user/edit", ["exports"], function (exports) {
         morphs[0] = dom.createMorphAt(dom.childAt(fragment, [0, 1, 3]), 1, 1);
         return morphs;
       },
-      statements: [["inline", "forms/edit-user-form", [], ["model", ["subexpr", "@mut", [["get", "model", ["loc", [null, [9, 35], [9, 40]]]]], [], []]], ["loc", [null, [9, 6], [9, 42]]]]],
+      statements: [["inline", "forms/edit-user-form", [], ["model", ["subexpr", "@mut", [["get", "model", ["loc", [null, [9, 35], [9, 40]]], 0, 0, 0, 0]], [], [], 0, 0]], ["loc", [null, [9, 6], [9, 42]]], 0, 0]],
       locals: [],
       templates: []
     };
@@ -7579,8 +7451,7 @@ define("client/templates/user/user", ["exports"], function (exports) {
     var child0 = (function () {
       return {
         meta: {
-          "fragmentReason": false,
-          "revision": "Ember@2.6.1",
+          "revision": "Ember@2.8.2",
           "loc": {
             "source": null,
             "start": {
@@ -7614,10 +7485,7 @@ define("client/templates/user/user", ["exports"], function (exports) {
     })();
     return {
       meta: {
-        "fragmentReason": {
-          "name": "triple-curlies"
-        },
-        "revision": "Ember@2.6.1",
+        "revision": "Ember@2.8.2",
         "loc": {
           "source": null,
           "start": {
@@ -7748,7 +7616,7 @@ define("client/templates/user/user", ["exports"], function (exports) {
         morphs[5] = dom.createMorphAt(element3, 3, 3);
         return morphs;
       },
-      statements: [["content", "layout/side-bar", ["loc", [null, [3, 4], [3, 23]]]], ["content", "layout/secondary-nav-bar", ["loc", [null, [6, 4], [6, 32]]]], ["content", "outlet", ["loc", [null, [8, 6], [8, 16]]]], ["content", "user.name", ["loc", [null, [13, 14], [13, 27]]]], ["content", "user.email", ["loc", [null, [18, 14], [18, 28]]]], ["block", "link-to", ["user.user.edit", ["get", "user.id", ["loc", [null, [22, 36], [22, 43]]]]], [], 0, null, ["loc", [null, [22, 8], [22, 61]]]]],
+      statements: [["content", "layout/side-bar", ["loc", [null, [3, 4], [3, 23]]], 0, 0, 0, 0], ["content", "layout/secondary-nav-bar", ["loc", [null, [6, 4], [6, 32]]], 0, 0, 0, 0], ["content", "outlet", ["loc", [null, [8, 6], [8, 16]]], 0, 0, 0, 0], ["content", "user.name", ["loc", [null, [13, 14], [13, 27]]], 0, 0, 0, 0], ["content", "user.email", ["loc", [null, [18, 14], [18, 28]]], 0, 0, 0, 0], ["block", "link-to", ["user.user.edit", ["get", "user.id", ["loc", [null, [22, 36], [22, 43]]], 0, 0, 0, 0]], [], 0, null, ["loc", [null, [22, 8], [22, 61]]]]],
       locals: [],
       templates: [child0]
     };
@@ -7759,8 +7627,7 @@ define("client/templates/users", ["exports"], function (exports) {
     var child0 = (function () {
       return {
         meta: {
-          "fragmentReason": false,
-          "revision": "Ember@2.6.1",
+          "revision": "Ember@2.8.2",
           "loc": {
             "source": null,
             "start": {
@@ -7793,7 +7660,7 @@ define("client/templates/users", ["exports"], function (exports) {
           morphs[0] = dom.createMorphAt(fragment, 1, 1, contextualElement);
           return morphs;
         },
-        statements: [["inline", "users/users-container", [], ["user", ["subexpr", "@mut", [["get", "user", ["loc", [null, [13, 37], [13, 41]]]]], [], []]], ["loc", [null, [13, 8], [13, 43]]]]],
+        statements: [["inline", "users/users-container", [], ["user", ["subexpr", "@mut", [["get", "user", ["loc", [null, [13, 37], [13, 41]]], 0, 0, 0, 0]], [], [], 0, 0]], ["loc", [null, [13, 8], [13, 43]]], 0, 0]],
         locals: ["user"],
         templates: []
       };
@@ -7801,8 +7668,7 @@ define("client/templates/users", ["exports"], function (exports) {
     var child1 = (function () {
       return {
         meta: {
-          "fragmentReason": false,
-          "revision": "Ember@2.6.1",
+          "revision": "Ember@2.8.2",
           "loc": {
             "source": null,
             "start": {
@@ -7843,10 +7709,7 @@ define("client/templates/users", ["exports"], function (exports) {
     })();
     return {
       meta: {
-        "fragmentReason": {
-          "name": "triple-curlies"
-        },
-        "revision": "Ember@2.6.1",
+        "revision": "Ember@2.8.2",
         "loc": {
           "source": null,
           "start": {
@@ -7938,7 +7801,7 @@ define("client/templates/users", ["exports"], function (exports) {
         morphs[2] = dom.createMorphAt(dom.childAt(element1, [3]), 3, 3);
         return morphs;
       },
-      statements: [["content", "layout/side-bar", ["loc", [null, [3, 4], [3, 23]]]], ["content", "layout/secondary-nav-bar", ["loc", [null, [6, 4], [6, 32]]]], ["block", "each", [["get", "users", ["loc", [null, [12, 14], [12, 19]]]]], [], 0, 1, ["loc", [null, [12, 6], [18, 15]]]]],
+      statements: [["content", "layout/side-bar", ["loc", [null, [3, 4], [3, 23]]], 0, 0, 0, 0], ["content", "layout/secondary-nav-bar", ["loc", [null, [6, 4], [6, 32]]], 0, 0, 0, 0], ["block", "each", [["get", "users", ["loc", [null, [12, 14], [12, 19]]], 0, 0, 0, 0]], [], 0, 1, ["loc", [null, [12, 6], [18, 15]]]]],
       locals: [],
       templates: [child0, child1]
     };
@@ -7958,10 +7821,14 @@ define('client/config/environment', ['ember'], function(Ember) {
 
 try {
   var metaName = prefix + '/config/environment';
-  var rawConfig = Ember['default'].$('meta[name="' + metaName + '"]').attr('content');
+  var rawConfig = document.querySelector('meta[name="' + metaName + '"]').getAttribute('content');
   var config = JSON.parse(unescape(rawConfig));
 
-  return { 'default': config };
+  var exports = { 'default': config };
+
+  Object.defineProperty(exports, '__esModule', { value: true });
+
+  return exports;
 }
 catch(err) {
   throw new Error('Could not read config from meta tag with name "' + metaName + '".');
@@ -7976,7 +7843,7 @@ catch(err) {
 /* jshint ignore:start */
 
 if (!runningTests) {
-  require("client/app")["default"].create({"name":"client","version":"0.0.0+e2faecec"});
+  require("client/app")["default"].create({"name":"client","version":"0.0.0+6ae500d6"});
 }
 
 /* jshint ignore:end */

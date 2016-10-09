@@ -76,11 +76,11 @@ export default Ember.Component.extend({
       getOwner(this).lookup('route:cards').transitionTo('cards');
     },
 
-    selectType(type) {
+    selectType() {
       this.get('model').set('type', this.get('type.id'));
     },
 
-    selectProject(project) {
+    selectProject() {
       this.get('model').set('project_id', this.get('project.id'));
     },
 

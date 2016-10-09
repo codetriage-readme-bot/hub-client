@@ -1,4 +1,6 @@
-define('client/tests/adapters/application.jshint', ['exports'], function (exports) {
+'use strict';
+
+define('client/tests/adapters/application.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | adapters/application.js');
@@ -7,7 +9,7 @@ define('client/tests/adapters/application.jshint', ['exports'], function (export
     assert.ok(true, 'adapters/application.js should pass jshint.');
   });
 });
-define('client/tests/app.jshint', ['exports'], function (exports) {
+define('client/tests/app.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | app.js');
@@ -16,7 +18,7 @@ define('client/tests/app.jshint', ['exports'], function (exports) {
     assert.ok(true, 'app.js should pass jshint.');
   });
 });
-define('client/tests/authenticators/devise.jshint', ['exports'], function (exports) {
+define('client/tests/authenticators/devise.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | authenticators/devise.js');
@@ -25,7 +27,7 @@ define('client/tests/authenticators/devise.jshint', ['exports'], function (expor
     assert.ok(true, 'authenticators/devise.js should pass jshint.');
   });
 });
-define('client/tests/authenticators/register.jshint', ['exports'], function (exports) {
+define('client/tests/authenticators/register.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | authenticators/register.js');
@@ -34,7 +36,7 @@ define('client/tests/authenticators/register.jshint', ['exports'], function (exp
     assert.ok(true, 'authenticators/register.js should pass jshint.');
   });
 });
-define('client/tests/components/cards/cards-container.jshint', ['exports'], function (exports) {
+define('client/tests/components/cards/cards-container.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | components/cards/cards-container.js');
@@ -43,7 +45,7 @@ define('client/tests/components/cards/cards-container.jshint', ['exports'], func
     assert.ok(true, 'components/cards/cards-container.js should pass jshint.');
   });
 });
-define('client/tests/components/forms/edit-card-form.jshint', ['exports'], function (exports) {
+define('client/tests/components/forms/edit-card-form.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | components/forms/edit-card-form.js');
@@ -52,7 +54,7 @@ define('client/tests/components/forms/edit-card-form.jshint', ['exports'], funct
     assert.ok(true, 'components/forms/edit-card-form.js should pass jshint.');
   });
 });
-define('client/tests/components/forms/edit-project-form.jshint', ['exports'], function (exports) {
+define('client/tests/components/forms/edit-project-form.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | components/forms/edit-project-form.js');
@@ -61,7 +63,7 @@ define('client/tests/components/forms/edit-project-form.jshint', ['exports'], fu
     assert.ok(true, 'components/forms/edit-project-form.js should pass jshint.');
   });
 });
-define('client/tests/components/forms/edit-team-form.jshint', ['exports'], function (exports) {
+define('client/tests/components/forms/edit-team-form.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | components/forms/edit-team-form.js');
@@ -70,25 +72,25 @@ define('client/tests/components/forms/edit-team-form.jshint', ['exports'], funct
     assert.ok(true, 'components/forms/edit-team-form.js should pass jshint.');
   });
 });
-define('client/tests/components/forms/edit-user-form.jshint', ['exports'], function (exports) {
+define('client/tests/components/forms/edit-user-form.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | components/forms/edit-user-form.js');
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'components/forms/edit-user-form.js should pass jshint.\ncomponents/forms/edit-user-form.js: line 9, col 23, \'id\' is defined but never used.\ncomponents/forms/edit-user-form.js: line 9, col 16, \'email\' is defined but never used.\ncomponents/forms/edit-user-form.js: line 9, col 10, \'name\' is defined but never used.\n\n3 errors');
+    assert.ok(true, 'components/forms/edit-user-form.js should pass jshint.');
   });
 });
-define('client/tests/components/forms/new-card-form.jshint', ['exports'], function (exports) {
+define('client/tests/components/forms/new-card-form.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | components/forms/new-card-form.js');
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'components/forms/new-card-form.js should pass jshint.\ncomponents/forms/new-card-form.js: line 79, col 16, \'type\' is defined but never used.\ncomponents/forms/new-card-form.js: line 83, col 19, \'project\' is defined but never used.\n\n2 errors');
+    assert.ok(true, 'components/forms/new-card-form.js should pass jshint.');
   });
 });
-define('client/tests/components/forms/new-project-form.jshint', ['exports'], function (exports) {
+define('client/tests/components/forms/new-project-form.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | components/forms/new-project-form.js');
@@ -97,7 +99,7 @@ define('client/tests/components/forms/new-project-form.jshint', ['exports'], fun
     assert.ok(true, 'components/forms/new-project-form.js should pass jshint.');
   });
 });
-define('client/tests/components/forms/new-team-form.jshint', ['exports'], function (exports) {
+define('client/tests/components/forms/new-team-form.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | components/forms/new-team-form.js');
@@ -106,7 +108,7 @@ define('client/tests/components/forms/new-team-form.jshint', ['exports'], functi
     assert.ok(true, 'components/forms/new-team-form.js should pass jshint.');
   });
 });
-define('client/tests/components/forms/register-form.jshint', ['exports'], function (exports) {
+define('client/tests/components/forms/register-form.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | components/forms/register-form.js');
@@ -115,7 +117,7 @@ define('client/tests/components/forms/register-form.jshint', ['exports'], functi
     assert.ok(true, 'components/forms/register-form.js should pass jshint.');
   });
 });
-define('client/tests/components/forms/signin-form.jshint', ['exports'], function (exports) {
+define('client/tests/components/forms/signin-form.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | components/forms/signin-form.js');
@@ -124,7 +126,7 @@ define('client/tests/components/forms/signin-form.jshint', ['exports'], function
     assert.ok(true, 'components/forms/signin-form.js should pass jshint.');
   });
 });
-define('client/tests/components/layout/nav-bar.jshint', ['exports'], function (exports) {
+define('client/tests/components/layout/nav-bar.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | components/layout/nav-bar.js');
@@ -133,7 +135,7 @@ define('client/tests/components/layout/nav-bar.jshint', ['exports'], function (e
     assert.ok(true, 'components/layout/nav-bar.js should pass jshint.');
   });
 });
-define('client/tests/components/layout/secondary-nav-bar.jshint', ['exports'], function (exports) {
+define('client/tests/components/layout/secondary-nav-bar.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | components/layout/secondary-nav-bar.js');
@@ -142,7 +144,7 @@ define('client/tests/components/layout/secondary-nav-bar.jshint', ['exports'], f
     assert.ok(true, 'components/layout/secondary-nav-bar.js should pass jshint.');
   });
 });
-define('client/tests/components/layout/side-bar.jshint', ['exports'], function (exports) {
+define('client/tests/components/layout/side-bar.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | components/layout/side-bar.js');
@@ -151,7 +153,7 @@ define('client/tests/components/layout/side-bar.jshint', ['exports'], function (
     assert.ok(true, 'components/layout/side-bar.js should pass jshint.');
   });
 });
-define('client/tests/components/projects/projects-container.jshint', ['exports'], function (exports) {
+define('client/tests/components/projects/projects-container.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | components/projects/projects-container.js');
@@ -160,7 +162,7 @@ define('client/tests/components/projects/projects-container.jshint', ['exports']
     assert.ok(true, 'components/projects/projects-container.js should pass jshint.');
   });
 });
-define('client/tests/components/teams/teams-container.jshint', ['exports'], function (exports) {
+define('client/tests/components/teams/teams-container.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | components/teams/teams-container.js');
@@ -169,7 +171,7 @@ define('client/tests/components/teams/teams-container.jshint', ['exports'], func
     assert.ok(true, 'components/teams/teams-container.js should pass jshint.');
   });
 });
-define('client/tests/components/users/users-container.jshint', ['exports'], function (exports) {
+define('client/tests/components/users/users-container.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | components/users/users-container.js');
@@ -178,7 +180,7 @@ define('client/tests/components/users/users-container.jshint', ['exports'], func
     assert.ok(true, 'components/users/users-container.js should pass jshint.');
   });
 });
-define('client/tests/controllers/application.jshint', ['exports'], function (exports) {
+define('client/tests/controllers/application.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | controllers/application.js');
@@ -194,7 +196,7 @@ define('client/tests/helpers/destroy-app', ['exports', 'ember'], function (expor
     _ember['default'].run(application, 'destroy');
   }
 });
-define('client/tests/helpers/destroy-app.jshint', ['exports'], function (exports) {
+define('client/tests/helpers/destroy-app.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | helpers/destroy-app.js');
@@ -301,7 +303,7 @@ define('client/tests/helpers/module-for-acceptance', ['exports', 'qunit', 'clien
     });
   };
 });
-define('client/tests/helpers/module-for-acceptance.jshint', ['exports'], function (exports) {
+define('client/tests/helpers/module-for-acceptance.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | helpers/module-for-acceptance.js');
@@ -321,7 +323,7 @@ define('client/tests/helpers/resolver', ['exports', 'client/resolver', 'client/c
 
   exports['default'] = resolver;
 });
-define('client/tests/helpers/resolver.jshint', ['exports'], function (exports) {
+define('client/tests/helpers/resolver.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | helpers/resolver.js');
@@ -348,7 +350,7 @@ define('client/tests/helpers/start-app', ['exports', 'ember', 'client/app', 'cli
     return application;
   }
 });
-define('client/tests/helpers/start-app.jshint', ['exports'], function (exports) {
+define('client/tests/helpers/start-app.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | helpers/start-app.js');
@@ -370,11 +372,7 @@ define('client/tests/integration/components/cards/cards-container-test', ['expor
     this.render(Ember.HTMLBars.template((function () {
       return {
         meta: {
-          'fragmentReason': {
-            'name': 'missing-wrapper',
-            'problems': ['wrong-type']
-          },
-          'revision': 'Ember@2.6.1',
+          'revision': 'Ember@2.8.2',
           'loc': {
             'source': null,
             'start': {
@@ -404,7 +402,7 @@ define('client/tests/integration/components/cards/cards-container-test', ['expor
           dom.insertBoundary(fragment, null);
           return morphs;
         },
-        statements: [['content', 'cards/cards-container', ['loc', [null, [1, 0], [1, 25]]]]],
+        statements: [['content', 'cards/cards-container', ['loc', [null, [1, 0], [1, 25]]], 0, 0, 0, 0]],
         locals: [],
         templates: []
       };
@@ -417,8 +415,7 @@ define('client/tests/integration/components/cards/cards-container-test', ['expor
       var child0 = (function () {
         return {
           meta: {
-            'fragmentReason': false,
-            'revision': 'Ember@2.6.1',
+            'revision': 'Ember@2.8.2',
             'loc': {
               'source': null,
               'start': {
@@ -452,11 +449,7 @@ define('client/tests/integration/components/cards/cards-container-test', ['expor
 
       return {
         meta: {
-          'fragmentReason': {
-            'name': 'missing-wrapper',
-            'problems': ['wrong-type']
-          },
-          'revision': 'Ember@2.6.1',
+          'revision': 'Ember@2.8.2',
           'loc': {
             'source': null,
             'start': {
@@ -497,7 +490,7 @@ define('client/tests/integration/components/cards/cards-container-test', ['expor
     assert.equal(this.$().text().trim(), 'template block text');
   });
 });
-define('client/tests/integration/components/cards/cards-container-test.jshint', ['exports'], function (exports) {
+define('client/tests/integration/components/cards/cards-container-test.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | integration/components/cards/cards-container-test.js');
@@ -519,11 +512,7 @@ define('client/tests/integration/components/forms/edit-card-form-test', ['export
     this.render(Ember.HTMLBars.template((function () {
       return {
         meta: {
-          'fragmentReason': {
-            'name': 'missing-wrapper',
-            'problems': ['wrong-type']
-          },
-          'revision': 'Ember@2.6.1',
+          'revision': 'Ember@2.8.2',
           'loc': {
             'source': null,
             'start': {
@@ -553,7 +542,7 @@ define('client/tests/integration/components/forms/edit-card-form-test', ['export
           dom.insertBoundary(fragment, null);
           return morphs;
         },
-        statements: [['content', 'forms/edit-card-form', ['loc', [null, [1, 0], [1, 24]]]]],
+        statements: [['content', 'forms/edit-card-form', ['loc', [null, [1, 0], [1, 24]]], 0, 0, 0, 0]],
         locals: [],
         templates: []
       };
@@ -566,8 +555,7 @@ define('client/tests/integration/components/forms/edit-card-form-test', ['export
       var child0 = (function () {
         return {
           meta: {
-            'fragmentReason': false,
-            'revision': 'Ember@2.6.1',
+            'revision': 'Ember@2.8.2',
             'loc': {
               'source': null,
               'start': {
@@ -601,11 +589,7 @@ define('client/tests/integration/components/forms/edit-card-form-test', ['export
 
       return {
         meta: {
-          'fragmentReason': {
-            'name': 'missing-wrapper',
-            'problems': ['wrong-type']
-          },
-          'revision': 'Ember@2.6.1',
+          'revision': 'Ember@2.8.2',
           'loc': {
             'source': null,
             'start': {
@@ -646,7 +630,7 @@ define('client/tests/integration/components/forms/edit-card-form-test', ['export
     assert.equal(this.$().text().trim(), 'template block text');
   });
 });
-define('client/tests/integration/components/forms/edit-card-form-test.jshint', ['exports'], function (exports) {
+define('client/tests/integration/components/forms/edit-card-form-test.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | integration/components/forms/edit-card-form-test.js');
@@ -668,11 +652,7 @@ define('client/tests/integration/components/forms/edit-project-form-test', ['exp
     this.render(Ember.HTMLBars.template((function () {
       return {
         meta: {
-          'fragmentReason': {
-            'name': 'missing-wrapper',
-            'problems': ['wrong-type']
-          },
-          'revision': 'Ember@2.6.1',
+          'revision': 'Ember@2.8.2',
           'loc': {
             'source': null,
             'start': {
@@ -702,7 +682,7 @@ define('client/tests/integration/components/forms/edit-project-form-test', ['exp
           dom.insertBoundary(fragment, null);
           return morphs;
         },
-        statements: [['content', 'forms/edit-project-form', ['loc', [null, [1, 0], [1, 27]]]]],
+        statements: [['content', 'forms/edit-project-form', ['loc', [null, [1, 0], [1, 27]]], 0, 0, 0, 0]],
         locals: [],
         templates: []
       };
@@ -715,8 +695,7 @@ define('client/tests/integration/components/forms/edit-project-form-test', ['exp
       var child0 = (function () {
         return {
           meta: {
-            'fragmentReason': false,
-            'revision': 'Ember@2.6.1',
+            'revision': 'Ember@2.8.2',
             'loc': {
               'source': null,
               'start': {
@@ -750,11 +729,7 @@ define('client/tests/integration/components/forms/edit-project-form-test', ['exp
 
       return {
         meta: {
-          'fragmentReason': {
-            'name': 'missing-wrapper',
-            'problems': ['wrong-type']
-          },
-          'revision': 'Ember@2.6.1',
+          'revision': 'Ember@2.8.2',
           'loc': {
             'source': null,
             'start': {
@@ -795,7 +770,7 @@ define('client/tests/integration/components/forms/edit-project-form-test', ['exp
     assert.equal(this.$().text().trim(), 'template block text');
   });
 });
-define('client/tests/integration/components/forms/edit-project-form-test.jshint', ['exports'], function (exports) {
+define('client/tests/integration/components/forms/edit-project-form-test.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | integration/components/forms/edit-project-form-test.js');
@@ -817,11 +792,7 @@ define('client/tests/integration/components/forms/edit-team-form-test', ['export
     this.render(Ember.HTMLBars.template((function () {
       return {
         meta: {
-          'fragmentReason': {
-            'name': 'missing-wrapper',
-            'problems': ['wrong-type']
-          },
-          'revision': 'Ember@2.6.1',
+          'revision': 'Ember@2.8.2',
           'loc': {
             'source': null,
             'start': {
@@ -851,7 +822,7 @@ define('client/tests/integration/components/forms/edit-team-form-test', ['export
           dom.insertBoundary(fragment, null);
           return morphs;
         },
-        statements: [['content', 'forms/edit-team-form', ['loc', [null, [1, 0], [1, 24]]]]],
+        statements: [['content', 'forms/edit-team-form', ['loc', [null, [1, 0], [1, 24]]], 0, 0, 0, 0]],
         locals: [],
         templates: []
       };
@@ -864,8 +835,7 @@ define('client/tests/integration/components/forms/edit-team-form-test', ['export
       var child0 = (function () {
         return {
           meta: {
-            'fragmentReason': false,
-            'revision': 'Ember@2.6.1',
+            'revision': 'Ember@2.8.2',
             'loc': {
               'source': null,
               'start': {
@@ -899,11 +869,7 @@ define('client/tests/integration/components/forms/edit-team-form-test', ['export
 
       return {
         meta: {
-          'fragmentReason': {
-            'name': 'missing-wrapper',
-            'problems': ['wrong-type']
-          },
-          'revision': 'Ember@2.6.1',
+          'revision': 'Ember@2.8.2',
           'loc': {
             'source': null,
             'start': {
@@ -944,7 +910,7 @@ define('client/tests/integration/components/forms/edit-team-form-test', ['export
     assert.equal(this.$().text().trim(), 'template block text');
   });
 });
-define('client/tests/integration/components/forms/edit-team-form-test.jshint', ['exports'], function (exports) {
+define('client/tests/integration/components/forms/edit-team-form-test.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | integration/components/forms/edit-team-form-test.js');
@@ -966,11 +932,7 @@ define('client/tests/integration/components/forms/edit-user-form-test', ['export
     this.render(Ember.HTMLBars.template((function () {
       return {
         meta: {
-          'fragmentReason': {
-            'name': 'missing-wrapper',
-            'problems': ['wrong-type']
-          },
-          'revision': 'Ember@2.6.1',
+          'revision': 'Ember@2.8.2',
           'loc': {
             'source': null,
             'start': {
@@ -1000,7 +962,7 @@ define('client/tests/integration/components/forms/edit-user-form-test', ['export
           dom.insertBoundary(fragment, null);
           return morphs;
         },
-        statements: [['content', 'forms/edit-user-form', ['loc', [null, [1, 0], [1, 24]]]]],
+        statements: [['content', 'forms/edit-user-form', ['loc', [null, [1, 0], [1, 24]]], 0, 0, 0, 0]],
         locals: [],
         templates: []
       };
@@ -1013,8 +975,7 @@ define('client/tests/integration/components/forms/edit-user-form-test', ['export
       var child0 = (function () {
         return {
           meta: {
-            'fragmentReason': false,
-            'revision': 'Ember@2.6.1',
+            'revision': 'Ember@2.8.2',
             'loc': {
               'source': null,
               'start': {
@@ -1048,11 +1009,7 @@ define('client/tests/integration/components/forms/edit-user-form-test', ['export
 
       return {
         meta: {
-          'fragmentReason': {
-            'name': 'missing-wrapper',
-            'problems': ['wrong-type']
-          },
-          'revision': 'Ember@2.6.1',
+          'revision': 'Ember@2.8.2',
           'loc': {
             'source': null,
             'start': {
@@ -1093,7 +1050,7 @@ define('client/tests/integration/components/forms/edit-user-form-test', ['export
     assert.equal(this.$().text().trim(), 'template block text');
   });
 });
-define('client/tests/integration/components/forms/edit-user-form-test.jshint', ['exports'], function (exports) {
+define('client/tests/integration/components/forms/edit-user-form-test.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | integration/components/forms/edit-user-form-test.js');
@@ -1115,11 +1072,7 @@ define('client/tests/integration/components/forms/new-card-form-test', ['exports
     this.render(Ember.HTMLBars.template((function () {
       return {
         meta: {
-          'fragmentReason': {
-            'name': 'missing-wrapper',
-            'problems': ['wrong-type']
-          },
-          'revision': 'Ember@2.6.1',
+          'revision': 'Ember@2.8.2',
           'loc': {
             'source': null,
             'start': {
@@ -1149,7 +1102,7 @@ define('client/tests/integration/components/forms/new-card-form-test', ['exports
           dom.insertBoundary(fragment, null);
           return morphs;
         },
-        statements: [['content', 'forms/new-card-form', ['loc', [null, [1, 0], [1, 23]]]]],
+        statements: [['content', 'forms/new-card-form', ['loc', [null, [1, 0], [1, 23]]], 0, 0, 0, 0]],
         locals: [],
         templates: []
       };
@@ -1162,8 +1115,7 @@ define('client/tests/integration/components/forms/new-card-form-test', ['exports
       var child0 = (function () {
         return {
           meta: {
-            'fragmentReason': false,
-            'revision': 'Ember@2.6.1',
+            'revision': 'Ember@2.8.2',
             'loc': {
               'source': null,
               'start': {
@@ -1197,11 +1149,7 @@ define('client/tests/integration/components/forms/new-card-form-test', ['exports
 
       return {
         meta: {
-          'fragmentReason': {
-            'name': 'missing-wrapper',
-            'problems': ['wrong-type']
-          },
-          'revision': 'Ember@2.6.1',
+          'revision': 'Ember@2.8.2',
           'loc': {
             'source': null,
             'start': {
@@ -1242,7 +1190,7 @@ define('client/tests/integration/components/forms/new-card-form-test', ['exports
     assert.equal(this.$().text().trim(), 'template block text');
   });
 });
-define('client/tests/integration/components/forms/new-card-form-test.jshint', ['exports'], function (exports) {
+define('client/tests/integration/components/forms/new-card-form-test.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | integration/components/forms/new-card-form-test.js');
@@ -1264,11 +1212,7 @@ define('client/tests/integration/components/forms/new-project-form-test', ['expo
     this.render(Ember.HTMLBars.template((function () {
       return {
         meta: {
-          'fragmentReason': {
-            'name': 'missing-wrapper',
-            'problems': ['wrong-type']
-          },
-          'revision': 'Ember@2.6.1',
+          'revision': 'Ember@2.8.2',
           'loc': {
             'source': null,
             'start': {
@@ -1298,7 +1242,7 @@ define('client/tests/integration/components/forms/new-project-form-test', ['expo
           dom.insertBoundary(fragment, null);
           return morphs;
         },
-        statements: [['content', 'forms/new-project-form', ['loc', [null, [1, 0], [1, 26]]]]],
+        statements: [['content', 'forms/new-project-form', ['loc', [null, [1, 0], [1, 26]]], 0, 0, 0, 0]],
         locals: [],
         templates: []
       };
@@ -1311,8 +1255,7 @@ define('client/tests/integration/components/forms/new-project-form-test', ['expo
       var child0 = (function () {
         return {
           meta: {
-            'fragmentReason': false,
-            'revision': 'Ember@2.6.1',
+            'revision': 'Ember@2.8.2',
             'loc': {
               'source': null,
               'start': {
@@ -1346,11 +1289,7 @@ define('client/tests/integration/components/forms/new-project-form-test', ['expo
 
       return {
         meta: {
-          'fragmentReason': {
-            'name': 'missing-wrapper',
-            'problems': ['wrong-type']
-          },
-          'revision': 'Ember@2.6.1',
+          'revision': 'Ember@2.8.2',
           'loc': {
             'source': null,
             'start': {
@@ -1391,7 +1330,7 @@ define('client/tests/integration/components/forms/new-project-form-test', ['expo
     assert.equal(this.$().text().trim(), 'template block text');
   });
 });
-define('client/tests/integration/components/forms/new-project-form-test.jshint', ['exports'], function (exports) {
+define('client/tests/integration/components/forms/new-project-form-test.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | integration/components/forms/new-project-form-test.js');
@@ -1413,11 +1352,7 @@ define('client/tests/integration/components/forms/new-team-form-test', ['exports
     this.render(Ember.HTMLBars.template((function () {
       return {
         meta: {
-          'fragmentReason': {
-            'name': 'missing-wrapper',
-            'problems': ['wrong-type']
-          },
-          'revision': 'Ember@2.6.1',
+          'revision': 'Ember@2.8.2',
           'loc': {
             'source': null,
             'start': {
@@ -1447,7 +1382,7 @@ define('client/tests/integration/components/forms/new-team-form-test', ['exports
           dom.insertBoundary(fragment, null);
           return morphs;
         },
-        statements: [['content', 'forms/new-team-form', ['loc', [null, [1, 0], [1, 23]]]]],
+        statements: [['content', 'forms/new-team-form', ['loc', [null, [1, 0], [1, 23]]], 0, 0, 0, 0]],
         locals: [],
         templates: []
       };
@@ -1460,8 +1395,7 @@ define('client/tests/integration/components/forms/new-team-form-test', ['exports
       var child0 = (function () {
         return {
           meta: {
-            'fragmentReason': false,
-            'revision': 'Ember@2.6.1',
+            'revision': 'Ember@2.8.2',
             'loc': {
               'source': null,
               'start': {
@@ -1495,11 +1429,7 @@ define('client/tests/integration/components/forms/new-team-form-test', ['exports
 
       return {
         meta: {
-          'fragmentReason': {
-            'name': 'missing-wrapper',
-            'problems': ['wrong-type']
-          },
-          'revision': 'Ember@2.6.1',
+          'revision': 'Ember@2.8.2',
           'loc': {
             'source': null,
             'start': {
@@ -1540,7 +1470,7 @@ define('client/tests/integration/components/forms/new-team-form-test', ['exports
     assert.equal(this.$().text().trim(), 'template block text');
   });
 });
-define('client/tests/integration/components/forms/new-team-form-test.jshint', ['exports'], function (exports) {
+define('client/tests/integration/components/forms/new-team-form-test.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | integration/components/forms/new-team-form-test.js');
@@ -1562,11 +1492,7 @@ define('client/tests/integration/components/forms/register-form-test', ['exports
     this.render(Ember.HTMLBars.template((function () {
       return {
         meta: {
-          'fragmentReason': {
-            'name': 'missing-wrapper',
-            'problems': ['wrong-type']
-          },
-          'revision': 'Ember@2.6.1',
+          'revision': 'Ember@2.8.2',
           'loc': {
             'source': null,
             'start': {
@@ -1596,7 +1522,7 @@ define('client/tests/integration/components/forms/register-form-test', ['exports
           dom.insertBoundary(fragment, null);
           return morphs;
         },
-        statements: [['content', 'forms/register-form', ['loc', [null, [1, 0], [1, 23]]]]],
+        statements: [['content', 'forms/register-form', ['loc', [null, [1, 0], [1, 23]]], 0, 0, 0, 0]],
         locals: [],
         templates: []
       };
@@ -1609,8 +1535,7 @@ define('client/tests/integration/components/forms/register-form-test', ['exports
       var child0 = (function () {
         return {
           meta: {
-            'fragmentReason': false,
-            'revision': 'Ember@2.6.1',
+            'revision': 'Ember@2.8.2',
             'loc': {
               'source': null,
               'start': {
@@ -1644,11 +1569,7 @@ define('client/tests/integration/components/forms/register-form-test', ['exports
 
       return {
         meta: {
-          'fragmentReason': {
-            'name': 'missing-wrapper',
-            'problems': ['wrong-type']
-          },
-          'revision': 'Ember@2.6.1',
+          'revision': 'Ember@2.8.2',
           'loc': {
             'source': null,
             'start': {
@@ -1689,7 +1610,7 @@ define('client/tests/integration/components/forms/register-form-test', ['exports
     assert.equal(this.$().text().trim(), 'template block text');
   });
 });
-define('client/tests/integration/components/forms/register-form-test.jshint', ['exports'], function (exports) {
+define('client/tests/integration/components/forms/register-form-test.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | integration/components/forms/register-form-test.js');
@@ -1711,11 +1632,7 @@ define('client/tests/integration/components/forms/signin-form-test', ['exports',
     this.render(Ember.HTMLBars.template((function () {
       return {
         meta: {
-          'fragmentReason': {
-            'name': 'missing-wrapper',
-            'problems': ['wrong-type']
-          },
-          'revision': 'Ember@2.6.1',
+          'revision': 'Ember@2.8.2',
           'loc': {
             'source': null,
             'start': {
@@ -1745,7 +1662,7 @@ define('client/tests/integration/components/forms/signin-form-test', ['exports',
           dom.insertBoundary(fragment, null);
           return morphs;
         },
-        statements: [['content', 'forms/signin-form', ['loc', [null, [1, 0], [1, 21]]]]],
+        statements: [['content', 'forms/signin-form', ['loc', [null, [1, 0], [1, 21]]], 0, 0, 0, 0]],
         locals: [],
         templates: []
       };
@@ -1758,8 +1675,7 @@ define('client/tests/integration/components/forms/signin-form-test', ['exports',
       var child0 = (function () {
         return {
           meta: {
-            'fragmentReason': false,
-            'revision': 'Ember@2.6.1',
+            'revision': 'Ember@2.8.2',
             'loc': {
               'source': null,
               'start': {
@@ -1793,11 +1709,7 @@ define('client/tests/integration/components/forms/signin-form-test', ['exports',
 
       return {
         meta: {
-          'fragmentReason': {
-            'name': 'missing-wrapper',
-            'problems': ['wrong-type']
-          },
-          'revision': 'Ember@2.6.1',
+          'revision': 'Ember@2.8.2',
           'loc': {
             'source': null,
             'start': {
@@ -1838,7 +1750,7 @@ define('client/tests/integration/components/forms/signin-form-test', ['exports',
     assert.equal(this.$().text().trim(), 'template block text');
   });
 });
-define('client/tests/integration/components/forms/signin-form-test.jshint', ['exports'], function (exports) {
+define('client/tests/integration/components/forms/signin-form-test.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | integration/components/forms/signin-form-test.js');
@@ -1860,11 +1772,7 @@ define('client/tests/integration/components/layout/nav-bar-test', ['exports', 'e
     this.render(Ember.HTMLBars.template((function () {
       return {
         meta: {
-          'fragmentReason': {
-            'name': 'missing-wrapper',
-            'problems': ['wrong-type']
-          },
-          'revision': 'Ember@2.6.1',
+          'revision': 'Ember@2.8.2',
           'loc': {
             'source': null,
             'start': {
@@ -1894,7 +1802,7 @@ define('client/tests/integration/components/layout/nav-bar-test', ['exports', 'e
           dom.insertBoundary(fragment, null);
           return morphs;
         },
-        statements: [['content', 'layout/nav-bar', ['loc', [null, [1, 0], [1, 18]]]]],
+        statements: [['content', 'layout/nav-bar', ['loc', [null, [1, 0], [1, 18]]], 0, 0, 0, 0]],
         locals: [],
         templates: []
       };
@@ -1907,8 +1815,7 @@ define('client/tests/integration/components/layout/nav-bar-test', ['exports', 'e
       var child0 = (function () {
         return {
           meta: {
-            'fragmentReason': false,
-            'revision': 'Ember@2.6.1',
+            'revision': 'Ember@2.8.2',
             'loc': {
               'source': null,
               'start': {
@@ -1942,11 +1849,7 @@ define('client/tests/integration/components/layout/nav-bar-test', ['exports', 'e
 
       return {
         meta: {
-          'fragmentReason': {
-            'name': 'missing-wrapper',
-            'problems': ['wrong-type']
-          },
-          'revision': 'Ember@2.6.1',
+          'revision': 'Ember@2.8.2',
           'loc': {
             'source': null,
             'start': {
@@ -1987,7 +1890,7 @@ define('client/tests/integration/components/layout/nav-bar-test', ['exports', 'e
     assert.equal(this.$().text().trim(), 'template block text');
   });
 });
-define('client/tests/integration/components/layout/nav-bar-test.jshint', ['exports'], function (exports) {
+define('client/tests/integration/components/layout/nav-bar-test.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | integration/components/layout/nav-bar-test.js');
@@ -2009,11 +1912,7 @@ define('client/tests/integration/components/layout/secondary-nav-bar-test', ['ex
     this.render(Ember.HTMLBars.template((function () {
       return {
         meta: {
-          'fragmentReason': {
-            'name': 'missing-wrapper',
-            'problems': ['wrong-type']
-          },
-          'revision': 'Ember@2.6.1',
+          'revision': 'Ember@2.8.2',
           'loc': {
             'source': null,
             'start': {
@@ -2043,7 +1942,7 @@ define('client/tests/integration/components/layout/secondary-nav-bar-test', ['ex
           dom.insertBoundary(fragment, null);
           return morphs;
         },
-        statements: [['content', 'layout/secondary-nav-bar', ['loc', [null, [1, 0], [1, 28]]]]],
+        statements: [['content', 'layout/secondary-nav-bar', ['loc', [null, [1, 0], [1, 28]]], 0, 0, 0, 0]],
         locals: [],
         templates: []
       };
@@ -2056,8 +1955,7 @@ define('client/tests/integration/components/layout/secondary-nav-bar-test', ['ex
       var child0 = (function () {
         return {
           meta: {
-            'fragmentReason': false,
-            'revision': 'Ember@2.6.1',
+            'revision': 'Ember@2.8.2',
             'loc': {
               'source': null,
               'start': {
@@ -2091,11 +1989,7 @@ define('client/tests/integration/components/layout/secondary-nav-bar-test', ['ex
 
       return {
         meta: {
-          'fragmentReason': {
-            'name': 'missing-wrapper',
-            'problems': ['wrong-type']
-          },
-          'revision': 'Ember@2.6.1',
+          'revision': 'Ember@2.8.2',
           'loc': {
             'source': null,
             'start': {
@@ -2136,7 +2030,7 @@ define('client/tests/integration/components/layout/secondary-nav-bar-test', ['ex
     assert.equal(this.$().text().trim(), 'template block text');
   });
 });
-define('client/tests/integration/components/layout/secondary-nav-bar-test.jshint', ['exports'], function (exports) {
+define('client/tests/integration/components/layout/secondary-nav-bar-test.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | integration/components/layout/secondary-nav-bar-test.js');
@@ -2158,11 +2052,7 @@ define('client/tests/integration/components/layout/side-bar-test', ['exports', '
     this.render(Ember.HTMLBars.template((function () {
       return {
         meta: {
-          'fragmentReason': {
-            'name': 'missing-wrapper',
-            'problems': ['wrong-type']
-          },
-          'revision': 'Ember@2.6.1',
+          'revision': 'Ember@2.8.2',
           'loc': {
             'source': null,
             'start': {
@@ -2192,7 +2082,7 @@ define('client/tests/integration/components/layout/side-bar-test', ['exports', '
           dom.insertBoundary(fragment, null);
           return morphs;
         },
-        statements: [['content', 'layout/side-bar', ['loc', [null, [1, 0], [1, 19]]]]],
+        statements: [['content', 'layout/side-bar', ['loc', [null, [1, 0], [1, 19]]], 0, 0, 0, 0]],
         locals: [],
         templates: []
       };
@@ -2205,8 +2095,7 @@ define('client/tests/integration/components/layout/side-bar-test', ['exports', '
       var child0 = (function () {
         return {
           meta: {
-            'fragmentReason': false,
-            'revision': 'Ember@2.6.1',
+            'revision': 'Ember@2.8.2',
             'loc': {
               'source': null,
               'start': {
@@ -2240,11 +2129,7 @@ define('client/tests/integration/components/layout/side-bar-test', ['exports', '
 
       return {
         meta: {
-          'fragmentReason': {
-            'name': 'missing-wrapper',
-            'problems': ['wrong-type']
-          },
-          'revision': 'Ember@2.6.1',
+          'revision': 'Ember@2.8.2',
           'loc': {
             'source': null,
             'start': {
@@ -2285,7 +2170,7 @@ define('client/tests/integration/components/layout/side-bar-test', ['exports', '
     assert.equal(this.$().text().trim(), 'template block text');
   });
 });
-define('client/tests/integration/components/layout/side-bar-test.jshint', ['exports'], function (exports) {
+define('client/tests/integration/components/layout/side-bar-test.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | integration/components/layout/side-bar-test.js');
@@ -2307,11 +2192,7 @@ define('client/tests/integration/components/projects/projects-container-test', [
     this.render(Ember.HTMLBars.template((function () {
       return {
         meta: {
-          'fragmentReason': {
-            'name': 'missing-wrapper',
-            'problems': ['wrong-type']
-          },
-          'revision': 'Ember@2.6.1',
+          'revision': 'Ember@2.8.2',
           'loc': {
             'source': null,
             'start': {
@@ -2341,7 +2222,7 @@ define('client/tests/integration/components/projects/projects-container-test', [
           dom.insertBoundary(fragment, null);
           return morphs;
         },
-        statements: [['content', 'projects/project-container', ['loc', [null, [1, 0], [1, 30]]]]],
+        statements: [['content', 'projects/project-container', ['loc', [null, [1, 0], [1, 30]]], 0, 0, 0, 0]],
         locals: [],
         templates: []
       };
@@ -2354,8 +2235,7 @@ define('client/tests/integration/components/projects/projects-container-test', [
       var child0 = (function () {
         return {
           meta: {
-            'fragmentReason': false,
-            'revision': 'Ember@2.6.1',
+            'revision': 'Ember@2.8.2',
             'loc': {
               'source': null,
               'start': {
@@ -2389,11 +2269,7 @@ define('client/tests/integration/components/projects/projects-container-test', [
 
       return {
         meta: {
-          'fragmentReason': {
-            'name': 'missing-wrapper',
-            'problems': ['wrong-type']
-          },
-          'revision': 'Ember@2.6.1',
+          'revision': 'Ember@2.8.2',
           'loc': {
             'source': null,
             'start': {
@@ -2434,7 +2310,7 @@ define('client/tests/integration/components/projects/projects-container-test', [
     assert.equal(this.$().text().trim(), 'template block text');
   });
 });
-define('client/tests/integration/components/projects/projects-container-test.jshint', ['exports'], function (exports) {
+define('client/tests/integration/components/projects/projects-container-test.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | integration/components/projects/projects-container-test.js');
@@ -2456,11 +2332,7 @@ define('client/tests/integration/components/teams/teams-container-test', ['expor
     this.render(Ember.HTMLBars.template((function () {
       return {
         meta: {
-          'fragmentReason': {
-            'name': 'missing-wrapper',
-            'problems': ['wrong-type']
-          },
-          'revision': 'Ember@2.6.1',
+          'revision': 'Ember@2.8.2',
           'loc': {
             'source': null,
             'start': {
@@ -2490,7 +2362,7 @@ define('client/tests/integration/components/teams/teams-container-test', ['expor
           dom.insertBoundary(fragment, null);
           return morphs;
         },
-        statements: [['content', 'teams/team-container', ['loc', [null, [1, 0], [1, 24]]]]],
+        statements: [['content', 'teams/team-container', ['loc', [null, [1, 0], [1, 24]]], 0, 0, 0, 0]],
         locals: [],
         templates: []
       };
@@ -2503,8 +2375,7 @@ define('client/tests/integration/components/teams/teams-container-test', ['expor
       var child0 = (function () {
         return {
           meta: {
-            'fragmentReason': false,
-            'revision': 'Ember@2.6.1',
+            'revision': 'Ember@2.8.2',
             'loc': {
               'source': null,
               'start': {
@@ -2538,11 +2409,7 @@ define('client/tests/integration/components/teams/teams-container-test', ['expor
 
       return {
         meta: {
-          'fragmentReason': {
-            'name': 'missing-wrapper',
-            'problems': ['wrong-type']
-          },
-          'revision': 'Ember@2.6.1',
+          'revision': 'Ember@2.8.2',
           'loc': {
             'source': null,
             'start': {
@@ -2583,7 +2450,7 @@ define('client/tests/integration/components/teams/teams-container-test', ['expor
     assert.equal(this.$().text().trim(), 'template block text');
   });
 });
-define('client/tests/integration/components/teams/teams-container-test.jshint', ['exports'], function (exports) {
+define('client/tests/integration/components/teams/teams-container-test.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | integration/components/teams/teams-container-test.js');
@@ -2605,11 +2472,7 @@ define('client/tests/integration/components/users/users-container-test', ['expor
     this.render(Ember.HTMLBars.template((function () {
       return {
         meta: {
-          'fragmentReason': {
-            'name': 'missing-wrapper',
-            'problems': ['wrong-type']
-          },
-          'revision': 'Ember@2.6.1',
+          'revision': 'Ember@2.8.2',
           'loc': {
             'source': null,
             'start': {
@@ -2639,7 +2502,7 @@ define('client/tests/integration/components/users/users-container-test', ['expor
           dom.insertBoundary(fragment, null);
           return morphs;
         },
-        statements: [['content', 'users/users-container', ['loc', [null, [1, 0], [1, 25]]]]],
+        statements: [['content', 'users/users-container', ['loc', [null, [1, 0], [1, 25]]], 0, 0, 0, 0]],
         locals: [],
         templates: []
       };
@@ -2652,8 +2515,7 @@ define('client/tests/integration/components/users/users-container-test', ['expor
       var child0 = (function () {
         return {
           meta: {
-            'fragmentReason': false,
-            'revision': 'Ember@2.6.1',
+            'revision': 'Ember@2.8.2',
             'loc': {
               'source': null,
               'start': {
@@ -2687,11 +2549,7 @@ define('client/tests/integration/components/users/users-container-test', ['expor
 
       return {
         meta: {
-          'fragmentReason': {
-            'name': 'missing-wrapper',
-            'problems': ['wrong-type']
-          },
-          'revision': 'Ember@2.6.1',
+          'revision': 'Ember@2.8.2',
           'loc': {
             'source': null,
             'start': {
@@ -2732,7 +2590,7 @@ define('client/tests/integration/components/users/users-container-test', ['expor
     assert.equal(this.$().text().trim(), 'template block text');
   });
 });
-define('client/tests/integration/components/users/users-container-test.jshint', ['exports'], function (exports) {
+define('client/tests/integration/components/users/users-container-test.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | integration/components/users/users-container-test.js');
@@ -2741,7 +2599,7 @@ define('client/tests/integration/components/users/users-container-test.jshint', 
     assert.ok(true, 'integration/components/users/users-container-test.js should pass jshint.');
   });
 });
-define('client/tests/models/card.jshint', ['exports'], function (exports) {
+define('client/tests/models/card.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | models/card.js');
@@ -2750,7 +2608,7 @@ define('client/tests/models/card.jshint', ['exports'], function (exports) {
     assert.ok(true, 'models/card.js should pass jshint.');
   });
 });
-define('client/tests/models/project.jshint', ['exports'], function (exports) {
+define('client/tests/models/project.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | models/project.js');
@@ -2759,7 +2617,7 @@ define('client/tests/models/project.jshint', ['exports'], function (exports) {
     assert.ok(true, 'models/project.js should pass jshint.');
   });
 });
-define('client/tests/models/team.jshint', ['exports'], function (exports) {
+define('client/tests/models/team.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | models/team.js');
@@ -2768,16 +2626,16 @@ define('client/tests/models/team.jshint', ['exports'], function (exports) {
     assert.ok(true, 'models/team.js should pass jshint.');
   });
 });
-define('client/tests/models/user.jshint', ['exports'], function (exports) {
+define('client/tests/models/user.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | models/user.js');
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'models/user.js should pass jshint.\nmodels/user.js: line 3, col 19, \'belongsTo\' is defined but never used.\n\n1 error');
+    assert.ok(true, 'models/user.js should pass jshint.');
   });
 });
-define('client/tests/resolver.jshint', ['exports'], function (exports) {
+define('client/tests/resolver.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | resolver.js');
@@ -2786,7 +2644,7 @@ define('client/tests/resolver.jshint', ['exports'], function (exports) {
     assert.ok(true, 'resolver.js should pass jshint.');
   });
 });
-define('client/tests/router.jshint', ['exports'], function (exports) {
+define('client/tests/router.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | router.js');
@@ -2795,7 +2653,7 @@ define('client/tests/router.jshint', ['exports'], function (exports) {
     assert.ok(true, 'router.js should pass jshint.');
   });
 });
-define('client/tests/routes/application.jshint', ['exports'], function (exports) {
+define('client/tests/routes/application.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | routes/application.js');
@@ -2804,7 +2662,7 @@ define('client/tests/routes/application.jshint', ['exports'], function (exports)
     assert.ok(true, 'routes/application.js should pass jshint.');
   });
 });
-define('client/tests/routes/card/card/edit.jshint', ['exports'], function (exports) {
+define('client/tests/routes/card/card/edit.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | routes/card/card/edit.js');
@@ -2813,16 +2671,16 @@ define('client/tests/routes/card/card/edit.jshint', ['exports'], function (expor
     assert.ok(true, 'routes/card/card/edit.js should pass jshint.');
   });
 });
-define('client/tests/routes/card/card.jshint', ['exports'], function (exports) {
+define('client/tests/routes/card/card.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | routes/card/card.js');
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'routes/card/card.js should pass jshint.\nroutes/card/card.js: line 28, col 9, Missing semicolon.\n\n1 error');
+    assert.ok(true, 'routes/card/card.js should pass jshint.');
   });
 });
-define('client/tests/routes/card/new.jshint', ['exports'], function (exports) {
+define('client/tests/routes/card/new.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | routes/card/new.js');
@@ -2831,16 +2689,16 @@ define('client/tests/routes/card/new.jshint', ['exports'], function (exports) {
     assert.ok(true, 'routes/card/new.js should pass jshint.');
   });
 });
-define('client/tests/routes/cards.jshint', ['exports'], function (exports) {
+define('client/tests/routes/cards.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | routes/cards.js');
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'routes/cards.js should pass jshint.\nroutes/cards.js: line 22, col 9, Missing semicolon.\n\n1 error');
+    assert.ok(true, 'routes/cards.js should pass jshint.');
   });
 });
-define('client/tests/routes/dashboard.jshint', ['exports'], function (exports) {
+define('client/tests/routes/dashboard.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | routes/dashboard.js');
@@ -2849,7 +2707,7 @@ define('client/tests/routes/dashboard.jshint', ['exports'], function (exports) {
     assert.ok(true, 'routes/dashboard.js should pass jshint.');
   });
 });
-define('client/tests/routes/landing-page.jshint', ['exports'], function (exports) {
+define('client/tests/routes/landing-page.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | routes/landing-page.js');
@@ -2858,7 +2716,7 @@ define('client/tests/routes/landing-page.jshint', ['exports'], function (exports
     assert.ok(true, 'routes/landing-page.js should pass jshint.');
   });
 });
-define('client/tests/routes/project/new.jshint', ['exports'], function (exports) {
+define('client/tests/routes/project/new.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | routes/project/new.js');
@@ -2867,7 +2725,7 @@ define('client/tests/routes/project/new.jshint', ['exports'], function (exports)
     assert.ok(true, 'routes/project/new.js should pass jshint.');
   });
 });
-define('client/tests/routes/project/project/edit.jshint', ['exports'], function (exports) {
+define('client/tests/routes/project/project/edit.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | routes/project/project/edit.js');
@@ -2876,7 +2734,7 @@ define('client/tests/routes/project/project/edit.jshint', ['exports'], function 
     assert.ok(true, 'routes/project/project/edit.js should pass jshint.');
   });
 });
-define('client/tests/routes/project/project.jshint', ['exports'], function (exports) {
+define('client/tests/routes/project/project.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | routes/project/project.js');
@@ -2885,16 +2743,16 @@ define('client/tests/routes/project/project.jshint', ['exports'], function (expo
     assert.ok(true, 'routes/project/project.js should pass jshint.');
   });
 });
-define('client/tests/routes/projects.jshint', ['exports'], function (exports) {
+define('client/tests/routes/projects.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | routes/projects.js');
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'routes/projects.js should pass jshint.\nroutes/projects.js: line 22, col 9, Missing semicolon.\n\n1 error');
+    assert.ok(true, 'routes/projects.js should pass jshint.');
   });
 });
-define('client/tests/routes/signin.jshint', ['exports'], function (exports) {
+define('client/tests/routes/signin.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | routes/signin.js');
@@ -2903,7 +2761,7 @@ define('client/tests/routes/signin.jshint', ['exports'], function (exports) {
     assert.ok(true, 'routes/signin.js should pass jshint.');
   });
 });
-define('client/tests/routes/team/new.jshint', ['exports'], function (exports) {
+define('client/tests/routes/team/new.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | routes/team/new.js');
@@ -2912,7 +2770,7 @@ define('client/tests/routes/team/new.jshint', ['exports'], function (exports) {
     assert.ok(true, 'routes/team/new.js should pass jshint.');
   });
 });
-define('client/tests/routes/team/team/edit.jshint', ['exports'], function (exports) {
+define('client/tests/routes/team/team/edit.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | routes/team/team/edit.js');
@@ -2921,7 +2779,7 @@ define('client/tests/routes/team/team/edit.jshint', ['exports'], function (expor
     assert.ok(true, 'routes/team/team/edit.js should pass jshint.');
   });
 });
-define('client/tests/routes/team/team.jshint', ['exports'], function (exports) {
+define('client/tests/routes/team/team.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | routes/team/team.js');
@@ -2930,16 +2788,16 @@ define('client/tests/routes/team/team.jshint', ['exports'], function (exports) {
     assert.ok(true, 'routes/team/team.js should pass jshint.');
   });
 });
-define('client/tests/routes/teams.jshint', ['exports'], function (exports) {
+define('client/tests/routes/teams.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | routes/teams.js');
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'routes/teams.js should pass jshint.\nroutes/teams.js: line 22, col 9, Missing semicolon.\n\n1 error');
+    assert.ok(true, 'routes/teams.js should pass jshint.');
   });
 });
-define('client/tests/routes/user/user/edit.jshint', ['exports'], function (exports) {
+define('client/tests/routes/user/user/edit.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | routes/user/user/edit.js');
@@ -2948,7 +2806,7 @@ define('client/tests/routes/user/user/edit.jshint', ['exports'], function (expor
     assert.ok(true, 'routes/user/user/edit.js should pass jshint.');
   });
 });
-define('client/tests/routes/user/user.jshint', ['exports'], function (exports) {
+define('client/tests/routes/user/user.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | routes/user/user.js');
@@ -2957,16 +2815,16 @@ define('client/tests/routes/user/user.jshint', ['exports'], function (exports) {
     assert.ok(true, 'routes/user/user.js should pass jshint.');
   });
 });
-define('client/tests/routes/users.jshint', ['exports'], function (exports) {
+define('client/tests/routes/users.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | routes/users.js');
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'routes/users.js should pass jshint.\nroutes/users.js: line 19, col 9, Missing semicolon.\n\n1 error');
+    assert.ok(true, 'routes/users.js should pass jshint.');
   });
 });
-define('client/tests/serializers/application.jshint', ['exports'], function (exports) {
+define('client/tests/serializers/application.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | serializers/application.js');
@@ -2975,7 +2833,7 @@ define('client/tests/serializers/application.jshint', ['exports'], function (exp
     assert.ok(true, 'serializers/application.js should pass jshint.');
   });
 });
-define('client/tests/services/signin.jshint', ['exports'], function (exports) {
+define('client/tests/services/signin.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | services/signin.js');
@@ -2988,7 +2846,7 @@ define('client/tests/test-helper', ['exports', 'client/tests/helpers/resolver', 
 
   (0, _emberQunit.setResolver)(_clientTestsHelpersResolver['default']);
 });
-define('client/tests/test-helper.jshint', ['exports'], function (exports) {
+define('client/tests/test-helper.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | test-helper.js');
@@ -3010,7 +2868,7 @@ define('client/tests/unit/adapters/application-test', ['exports', 'ember-qunit']
     assert.ok(adapter);
   });
 });
-define('client/tests/unit/adapters/application-test.jshint', ['exports'], function (exports) {
+define('client/tests/unit/adapters/application-test.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | unit/adapters/application-test.js');
@@ -3032,7 +2890,7 @@ define('client/tests/unit/controllers/application-test', ['exports', 'ember-quni
     assert.ok(controller);
   });
 });
-define('client/tests/unit/controllers/application-test.jshint', ['exports'], function (exports) {
+define('client/tests/unit/controllers/application-test.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | unit/controllers/application-test.js');
@@ -3054,7 +2912,7 @@ define('client/tests/unit/controllers/signin-test', ['exports', 'ember-qunit'], 
     assert.ok(controller);
   });
 });
-define('client/tests/unit/controllers/signin-test.jshint', ['exports'], function (exports) {
+define('client/tests/unit/controllers/signin-test.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | unit/controllers/signin-test.js');
@@ -3076,7 +2934,7 @@ define('client/tests/unit/models/card-test', ['exports', 'ember-qunit'], functio
     assert.ok(!!model);
   });
 });
-define('client/tests/unit/models/card-test.jshint', ['exports'], function (exports) {
+define('client/tests/unit/models/card-test.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | unit/models/card-test.js');
@@ -3098,7 +2956,7 @@ define('client/tests/unit/models/project-test', ['exports', 'ember-qunit'], func
     assert.ok(!!model);
   });
 });
-define('client/tests/unit/models/project-test.jshint', ['exports'], function (exports) {
+define('client/tests/unit/models/project-test.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | unit/models/project-test.js');
@@ -3120,7 +2978,7 @@ define('client/tests/unit/models/team-test', ['exports', 'ember-qunit'], functio
     assert.ok(!!model);
   });
 });
-define('client/tests/unit/models/team-test.jshint', ['exports'], function (exports) {
+define('client/tests/unit/models/team-test.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | unit/models/team-test.js');
@@ -3142,7 +3000,7 @@ define('client/tests/unit/models/user-test', ['exports', 'ember-qunit'], functio
     assert.ok(!!model);
   });
 });
-define('client/tests/unit/models/user-test.jshint', ['exports'], function (exports) {
+define('client/tests/unit/models/user-test.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | unit/models/user-test.js');
@@ -3163,7 +3021,7 @@ define('client/tests/unit/routes/application-test', ['exports', 'ember-qunit'], 
     assert.ok(route);
   });
 });
-define('client/tests/unit/routes/application-test.jshint', ['exports'], function (exports) {
+define('client/tests/unit/routes/application-test.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | unit/routes/application-test.js');
@@ -3184,7 +3042,7 @@ define('client/tests/unit/routes/card/card/edit-test', ['exports', 'ember-qunit'
     assert.ok(route);
   });
 });
-define('client/tests/unit/routes/card/card/edit-test.jshint', ['exports'], function (exports) {
+define('client/tests/unit/routes/card/card/edit-test.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | unit/routes/card/card/edit-test.js');
@@ -3205,7 +3063,7 @@ define('client/tests/unit/routes/card/card-test', ['exports', 'ember-qunit'], fu
     assert.ok(route);
   });
 });
-define('client/tests/unit/routes/card/card-test.jshint', ['exports'], function (exports) {
+define('client/tests/unit/routes/card/card-test.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | unit/routes/card/card-test.js');
@@ -3226,7 +3084,7 @@ define('client/tests/unit/routes/card/new-test', ['exports', 'ember-qunit'], fun
     assert.ok(route);
   });
 });
-define('client/tests/unit/routes/card/new-test.jshint', ['exports'], function (exports) {
+define('client/tests/unit/routes/card/new-test.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | unit/routes/card/new-test.js');
@@ -3247,7 +3105,7 @@ define('client/tests/unit/routes/cards-test', ['exports', 'ember-qunit'], functi
     assert.ok(route);
   });
 });
-define('client/tests/unit/routes/cards-test.jshint', ['exports'], function (exports) {
+define('client/tests/unit/routes/cards-test.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | unit/routes/cards-test.js');
@@ -3268,7 +3126,7 @@ define('client/tests/unit/routes/dashboard-test', ['exports', 'ember-qunit'], fu
     assert.ok(route);
   });
 });
-define('client/tests/unit/routes/dashboard-test.jshint', ['exports'], function (exports) {
+define('client/tests/unit/routes/dashboard-test.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | unit/routes/dashboard-test.js');
@@ -3289,7 +3147,7 @@ define('client/tests/unit/routes/landing-page-test', ['exports', 'ember-qunit'],
     assert.ok(route);
   });
 });
-define('client/tests/unit/routes/landing-page-test.jshint', ['exports'], function (exports) {
+define('client/tests/unit/routes/landing-page-test.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | unit/routes/landing-page-test.js');
@@ -3310,7 +3168,7 @@ define('client/tests/unit/routes/project/new-test', ['exports', 'ember-qunit'], 
     assert.ok(route);
   });
 });
-define('client/tests/unit/routes/project/new-test.jshint', ['exports'], function (exports) {
+define('client/tests/unit/routes/project/new-test.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | unit/routes/project/new-test.js');
@@ -3331,7 +3189,7 @@ define('client/tests/unit/routes/project/project/edit-test', ['exports', 'ember-
     assert.ok(route);
   });
 });
-define('client/tests/unit/routes/project/project/edit-test.jshint', ['exports'], function (exports) {
+define('client/tests/unit/routes/project/project/edit-test.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | unit/routes/project/project/edit-test.js');
@@ -3352,7 +3210,7 @@ define('client/tests/unit/routes/project/project-test', ['exports', 'ember-qunit
     assert.ok(route);
   });
 });
-define('client/tests/unit/routes/project/project-test.jshint', ['exports'], function (exports) {
+define('client/tests/unit/routes/project/project-test.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | unit/routes/project/project-test.js');
@@ -3373,7 +3231,7 @@ define('client/tests/unit/routes/projects-test', ['exports', 'ember-qunit'], fun
     assert.ok(route);
   });
 });
-define('client/tests/unit/routes/projects-test.jshint', ['exports'], function (exports) {
+define('client/tests/unit/routes/projects-test.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | unit/routes/projects-test.js');
@@ -3394,7 +3252,7 @@ define('client/tests/unit/routes/protected-test', ['exports', 'ember-qunit'], fu
     assert.ok(route);
   });
 });
-define('client/tests/unit/routes/protected-test.jshint', ['exports'], function (exports) {
+define('client/tests/unit/routes/protected-test.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | unit/routes/protected-test.js');
@@ -3415,7 +3273,7 @@ define('client/tests/unit/routes/signin-test', ['exports', 'ember-qunit'], funct
     assert.ok(route);
   });
 });
-define('client/tests/unit/routes/signin-test.jshint', ['exports'], function (exports) {
+define('client/tests/unit/routes/signin-test.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | unit/routes/signin-test.js');
@@ -3436,7 +3294,7 @@ define('client/tests/unit/routes/team/new-test', ['exports', 'ember-qunit'], fun
     assert.ok(route);
   });
 });
-define('client/tests/unit/routes/team/new-test.jshint', ['exports'], function (exports) {
+define('client/tests/unit/routes/team/new-test.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | unit/routes/team/new-test.js');
@@ -3457,7 +3315,7 @@ define('client/tests/unit/routes/team/team/edit-test', ['exports', 'ember-qunit'
     assert.ok(route);
   });
 });
-define('client/tests/unit/routes/team/team/edit-test.jshint', ['exports'], function (exports) {
+define('client/tests/unit/routes/team/team/edit-test.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | unit/routes/team/team/edit-test.js');
@@ -3478,7 +3336,7 @@ define('client/tests/unit/routes/team/team-test', ['exports', 'ember-qunit'], fu
     assert.ok(route);
   });
 });
-define('client/tests/unit/routes/team/team-test.jshint', ['exports'], function (exports) {
+define('client/tests/unit/routes/team/team-test.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | unit/routes/team/team-test.js');
@@ -3499,7 +3357,7 @@ define('client/tests/unit/routes/teams-test', ['exports', 'ember-qunit'], functi
     assert.ok(route);
   });
 });
-define('client/tests/unit/routes/teams-test.jshint', ['exports'], function (exports) {
+define('client/tests/unit/routes/teams-test.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | unit/routes/teams-test.js');
@@ -3520,7 +3378,7 @@ define('client/tests/unit/routes/user/user/edit-test', ['exports', 'ember-qunit'
     assert.ok(route);
   });
 });
-define('client/tests/unit/routes/user/user/edit-test.jshint', ['exports'], function (exports) {
+define('client/tests/unit/routes/user/user/edit-test.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | unit/routes/user/user/edit-test.js');
@@ -3541,7 +3399,7 @@ define('client/tests/unit/routes/user/user-test', ['exports', 'ember-qunit'], fu
     assert.ok(route);
   });
 });
-define('client/tests/unit/routes/user/user-test.jshint', ['exports'], function (exports) {
+define('client/tests/unit/routes/user/user-test.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | unit/routes/user/user-test.js');
@@ -3562,7 +3420,7 @@ define('client/tests/unit/routes/users-test', ['exports', 'ember-qunit'], functi
     assert.ok(route);
   });
 });
-define('client/tests/unit/routes/users-test.jshint', ['exports'], function (exports) {
+define('client/tests/unit/routes/users-test.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | unit/routes/users-test.js');
@@ -3587,7 +3445,7 @@ define('client/tests/unit/serializers/application-test', ['exports', 'ember-quni
     assert.ok(serializedRecord);
   });
 });
-define('client/tests/unit/serializers/application-test.jshint', ['exports'], function (exports) {
+define('client/tests/unit/serializers/application-test.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | unit/serializers/application-test.js');
@@ -3609,7 +3467,7 @@ define('client/tests/unit/services/signin-test', ['exports', 'ember-qunit'], fun
     assert.ok(service);
   });
 });
-define('client/tests/unit/services/signin-test.jshint', ['exports'], function (exports) {
+define('client/tests/unit/services/signin-test.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | unit/services/signin-test.js');

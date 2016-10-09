@@ -4,7 +4,6 @@
 html,
 body {
   font-weight: normal;
-  overflow: hidden;
   background-color: $white;
   font-size: $base-font-size;
 }

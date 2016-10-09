@@ -19,7 +19,7 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
     return this.getTeams()
       .then((teams) => {
         this.set('currentModel', teams);
-      })
+      });
   },
 
   afterModel() {

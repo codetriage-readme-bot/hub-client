@@ -19,7 +19,7 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
     return this.getCards()
       .then((cards) => {
         this.set('currentModel', cards);
-      })
+      });
   },
 
   afterModel() {
