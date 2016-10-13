@@ -1616,7 +1616,7 @@ define("client/templates/application", ["exports"], function (exports) {
             "column": 0
           },
           "end": {
-            "line": 14,
+            "line": 9,
             "column": 0
           }
         },
@@ -1647,26 +1647,7 @@ define("client/templates/application", ["exports"], function (exports) {
         dom.setAttribute(el2, "class", "container-fluid");
         var el3 = dom.createTextNode("\n    ");
         dom.appendChild(el2, el3);
-        var el3 = dom.createElement("div");
-        dom.setAttribute(el3, "class", "row");
-        var el4 = dom.createTextNode("\n      ");
-        dom.appendChild(el3, el4);
-        var el4 = dom.createElement("div");
-        dom.setAttribute(el4, "class", "col-md-10");
-        var el5 = dom.createTextNode("\n        ");
-        dom.appendChild(el4, el5);
-        var el5 = dom.createComment("");
-        dom.appendChild(el4, el5);
-        var el5 = dom.createTextNode("\n      ");
-        dom.appendChild(el4, el5);
-        dom.appendChild(el3, el4);
-        var el4 = dom.createTextNode("\n      ");
-        dom.appendChild(el3, el4);
-        var el4 = dom.createElement("div");
-        dom.setAttribute(el4, "class", "col-md-2");
-        dom.appendChild(el3, el4);
-        var el4 = dom.createTextNode("\n    ");
-        dom.appendChild(el3, el4);
+        var el3 = dom.createComment("");
         dom.appendChild(el2, el3);
         var el3 = dom.createTextNode("\n  ");
         dom.appendChild(el2, el3);
@@ -1681,10 +1662,10 @@ define("client/templates/application", ["exports"], function (exports) {
       buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
         var morphs = new Array(2);
         morphs[0] = dom.createMorphAt(dom.childAt(fragment, [0]), 1, 1);
-        morphs[1] = dom.createMorphAt(dom.childAt(fragment, [2, 1, 1, 1]), 1, 1);
+        morphs[1] = dom.createMorphAt(dom.childAt(fragment, [2, 1]), 1, 1);
         return morphs;
       },
-      statements: [["content", "layout/nav-bar", ["loc", [null, [2, 2], [2, 20]]], 0, 0, 0, 0], ["content", "outlet", ["loc", [null, [8, 8], [8, 18]]], 0, 0, 0, 0]],
+      statements: [["content", "layout/nav-bar", ["loc", [null, [2, 2], [2, 20]]], 0, 0, 0, 0], ["content", "outlet", ["loc", [null, [6, 4], [6, 14]]], 0, 0, 0, 0]],
       locals: [],
       templates: []
     };
@@ -7843,7 +7824,7 @@ catch(err) {
 /* jshint ignore:start */
 
 if (!runningTests) {
-  require("client/app")["default"].create({"name":"client","version":"0.0.0+6ae500d6"});
+  require("client/app")["default"].create({"name":"client","version":"0.0.0+67ca8cdf"});
 }
 
 /* jshint ignore:end */
