@@ -79,7 +79,7 @@ label {
     background-color: #f9fafc;
     overflow-y: auto;
     padding: 15px 0;
-    min-height: calc(100vh - 55px - 60px);
+    min-height: calc(100vh - 55px);
 }
 @media screen and (max-width: 768px) {
     .l-left-container {
