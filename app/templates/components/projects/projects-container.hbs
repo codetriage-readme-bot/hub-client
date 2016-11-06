@@ -1,16 +1,34 @@
-<div class="col-md-4">
-  {{#link-to 'project.project' project class="m-card-container__link"}}
-    <div class="card c-card">
-      <div class="card-header c-card__header">
-        <h4 class="c-card__title">
-          {{project.title}}
-        </h4>
-      </div>
-      <div class="card-block c-card__block">
-        <p class="card-title c-card__description">
-            {{project.description}}
-        </p>
-      </div>
-    </div>
-  {{/link-to}}
+<div class="m-page">
+  Sort by
+  {{#radio-button value='type' groupValue=sortBy id="type"}}Type{{/radio-button}}
+  {{#radio-button value='created_at' groupValue=sortBy id="date"}}Date{{/radio-button}}
+
+  {{input type='checkbox' checked=reverseSort id="reverse"}}
+  <label for="reverse">Reverse your search</label>
 </div>
+
+{{#each sortedProjects as |project|}}
+  <div class="col-md-4">
+    {{#link-to 'project.project' project class="m-card-container__link"}}
+      <div class="card c-card">
+        <div class="m-ribbon">
+          <span>{{project.type}}</span>
+        </div>
+        <div class="card-header c-card__header">
+          <h4 class="c-card__title">
+            {{project.title}}
+          </h4>
+        </div>
+        <div class="card-block c-card__block">
+          <p class="card-title c-card__description">
+              {{project.description}}
+          </p>
+        </div>
+      </div>
+    {{/link-to}}
+  </div>
+{{else}}
+  <div class="col-md-4">
+    Sorry, nothing to show.
+  </div>
+{{/each}}

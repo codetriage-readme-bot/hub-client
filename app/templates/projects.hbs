@@ -6,16 +6,10 @@
     {{layout/secondary-nav-bar}}
     <div class="l-cards-container">
       <div class="m-page">
-        <img src="/assets/fonts/folder.svg" class="c-side-bar__icon" alt="Projects" />
+        <img src="/assets/fonts/credit-card.svg" class="c-side-bar__icon" alt="Projects" />
         <h4 class="m-page__heading">Projects</h4>
       </div>
-      {{#each projects as |project|}}
-        {{projects/projects-container project=project}}
-      {{else}}
-        <div class="col-md-4">
-          Sorry, nothing to show.
-        </div>
-      {{/each}}
+      {{projects/projects-container projects=projects}}
     </div>
   </div>
 </div>
