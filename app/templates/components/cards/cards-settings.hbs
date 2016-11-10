@@ -1,24 +1,21 @@
-<div class="card c-card">
-  <div class="card-header c-card__header">
-    <h4 class="c-card__title">Actions</h4>
+<div class="btn-group l-pull-right">
+  {{#if isEditing}}
+    <button type="button" class="btn btn-primary" {{ action "isNotEditing" card.id}}>Cancel</button>
+  {{else}}
+    <button type="button" class="btn btn-primary" {{ action "isEditing" card.id}}>Edit</button>
+  {{/if}}
+
+  <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <span class="sr-only">Actions</span>
+  </button>
+  <div class="dropdown-menu">
+    {{#if isEditing}}
+    {{/if}}
+    {{#if (eq card.status "unarchived")}}
+      <a href="#" {{ action "archiveCard" card }} class="dropdown-item">Archive</a>
+    {{else}}
+      <a href="#" {{ action "unarchiveCard" card }} class="dropdown-item">Unarchive</a>
+    {{/if}}
+    <a href="#" {{ action "deleteCard" card }} class="dropdown-item">Delete</a>
   </div>
-  <ul class="list-group">
-    <li class="list-group-item">
-      {{#if isEditing}}
-        <a href="#" {{ action "isNotEditing" card.id}}>Cancel</a>
-      {{else}}
-        <a href="#" {{ action "isEditing" card.id}}>Edit</a>
-      {{/if}}
-    </li>
-    <li class="list-group-item">
-      {{#if (eq card.status "unarchived")}}
-        <a href="#" {{ action "archiveCard" card }}>Archive</a>
-      {{else}}
-        <a href="#" {{ action "unarchiveCard" card }}>Unarchive</a>
-      {{/if}}
-    </li>
-    <li class="list-group-item">
-      <a href="#" {{ action "deleteCard" card }}>Delete</a>
-    </li>
-  </ul>
 </div>

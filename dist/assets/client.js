@@ -1796,7 +1796,7 @@ define("client/templates/card/card", ["exports"], function (exports) {
             "column": 0
           },
           "end": {
-            "line": 54,
+            "line": 37,
             "column": 0
           }
         },
@@ -1835,148 +1835,98 @@ define("client/templates/card/card", ["exports"], function (exports) {
         dom.setAttribute(el3, "class", "l-cards-container");
         var el4 = dom.createTextNode("\n      ");
         dom.appendChild(el3, el4);
-        var el4 = dom.createComment("");
+        var el4 = dom.createElement("div");
+        dom.setAttribute(el4, "class", "row l-action-container");
+        var el5 = dom.createTextNode("\n        ");
+        dom.appendChild(el4, el5);
+        var el5 = dom.createElement("div");
+        dom.setAttribute(el5, "class", "col-md-10");
+        var el6 = dom.createTextNode("\n          ");
+        dom.appendChild(el5, el6);
+        var el6 = dom.createElement("h2");
+        var el7 = dom.createTextNode("\n            ");
+        dom.appendChild(el6, el7);
+        var el7 = dom.createElement("img");
+        dom.setAttribute(el7, "src", "/assets/fonts/credit-card.svg");
+        dom.setAttribute(el7, "class", "c-side-bar__icon");
+        dom.setAttribute(el7, "alt", "Cards");
+        dom.appendChild(el6, el7);
+        var el7 = dom.createTextNode("\n            ");
+        dom.appendChild(el6, el7);
+        var el7 = dom.createComment("");
+        dom.appendChild(el6, el7);
+        var el7 = dom.createTextNode("\n          ");
+        dom.appendChild(el6, el7);
+        dom.appendChild(el5, el6);
+        var el6 = dom.createTextNode("\n        ");
+        dom.appendChild(el5, el6);
+        dom.appendChild(el4, el5);
+        var el5 = dom.createTextNode("\n        ");
+        dom.appendChild(el4, el5);
+        var el5 = dom.createElement("div");
+        dom.setAttribute(el5, "class", "col-md-2 pull-right");
+        var el6 = dom.createTextNode("\n          ");
+        dom.appendChild(el5, el6);
+        var el6 = dom.createComment("");
+        dom.appendChild(el5, el6);
+        var el6 = dom.createTextNode("\n        ");
+        dom.appendChild(el5, el6);
+        dom.appendChild(el4, el5);
+        var el5 = dom.createTextNode("\n      ");
+        dom.appendChild(el4, el5);
         dom.appendChild(el3, el4);
         var el4 = dom.createTextNode("\n      ");
         dom.appendChild(el3, el4);
         var el4 = dom.createElement("div");
-        dom.setAttribute(el4, "class", "col-md-6");
-        var el5 = dom.createTextNode("\n        ");
-        dom.appendChild(el4, el5);
-        var el5 = dom.createElement("div");
-        dom.setAttribute(el5, "class", "card c-card");
-        var el6 = dom.createTextNode("\n          ");
-        dom.appendChild(el5, el6);
-        var el6 = dom.createElement("div");
-        dom.setAttribute(el6, "class", "m-ribbon");
-        var el7 = dom.createTextNode("\n            ");
-        dom.appendChild(el6, el7);
-        var el7 = dom.createElement("span");
-        var el8 = dom.createComment("");
-        dom.appendChild(el7, el8);
-        dom.appendChild(el6, el7);
-        var el7 = dom.createTextNode("\n          ");
-        dom.appendChild(el6, el7);
-        dom.appendChild(el5, el6);
-        var el6 = dom.createTextNode("\n          ");
-        dom.appendChild(el5, el6);
-        var el6 = dom.createElement("div");
-        dom.setAttribute(el6, "class", "card-header c-card__header");
-        var el7 = dom.createTextNode("\n            ");
-        dom.appendChild(el6, el7);
-        var el7 = dom.createElement("h4");
-        dom.setAttribute(el7, "class", "c-card__title");
-        var el8 = dom.createTextNode("\n              ");
-        dom.appendChild(el7, el8);
-        var el8 = dom.createComment("");
-        dom.appendChild(el7, el8);
-        var el8 = dom.createTextNode("\n            ");
-        dom.appendChild(el7, el8);
-        dom.appendChild(el6, el7);
-        var el7 = dom.createTextNode("\n          ");
-        dom.appendChild(el6, el7);
-        dom.appendChild(el5, el6);
-        var el6 = dom.createTextNode("\n          ");
-        dom.appendChild(el5, el6);
-        var el6 = dom.createElement("div");
-        dom.setAttribute(el6, "class", "card-block c-card__block");
-        var el7 = dom.createTextNode("\n            ");
-        dom.appendChild(el6, el7);
-        var el7 = dom.createElement("p");
-        dom.setAttribute(el7, "class", "c-card__description");
-        var el8 = dom.createTextNode("\n              ");
-        dom.appendChild(el7, el8);
-        var el8 = dom.createComment("");
-        dom.appendChild(el7, el8);
-        var el8 = dom.createTextNode("\n            ");
-        dom.appendChild(el7, el8);
-        dom.appendChild(el6, el7);
-        var el7 = dom.createTextNode("\n          ");
-        dom.appendChild(el6, el7);
-        dom.appendChild(el5, el6);
-        var el6 = dom.createTextNode("\n        ");
-        dom.appendChild(el5, el6);
-        dom.appendChild(el4, el5);
-        var el5 = dom.createTextNode("\n      ");
-        dom.appendChild(el4, el5);
-        dom.appendChild(el3, el4);
-        var el4 = dom.createTextNode("\n\n      ");
-        dom.appendChild(el3, el4);
-        var el4 = dom.createElement("div");
-        dom.setAttribute(el4, "class", "col-md-3");
-        var el5 = dom.createTextNode("\n        ");
-        dom.appendChild(el4, el5);
-        var el5 = dom.createElement("div");
-        dom.setAttribute(el5, "class", "card c-card");
-        var el6 = dom.createTextNode("\n          ");
-        dom.appendChild(el5, el6);
-        var el6 = dom.createElement("div");
-        dom.setAttribute(el6, "class", "card-header c-card__header");
-        var el7 = dom.createTextNode("\n            ");
-        dom.appendChild(el6, el7);
-        var el7 = dom.createElement("h4");
-        dom.setAttribute(el7, "class", "c-card__title");
-        var el8 = dom.createTextNode("Details");
-        dom.appendChild(el7, el8);
-        dom.appendChild(el6, el7);
-        var el7 = dom.createTextNode("\n          ");
-        dom.appendChild(el6, el7);
-        dom.appendChild(el5, el6);
-        var el6 = dom.createTextNode("\n          ");
-        dom.appendChild(el5, el6);
-        var el6 = dom.createElement("ul");
-        dom.setAttribute(el6, "class", "list-group");
-        var el7 = dom.createTextNode("\n            ");
-        dom.appendChild(el6, el7);
-        var el7 = dom.createElement("li");
-        dom.setAttribute(el7, "class", "list-group-item");
-        var el8 = dom.createTextNode("\n              ");
-        dom.appendChild(el7, el8);
-        var el8 = dom.createElement("span");
-        dom.setAttribute(el8, "class", "tag tag-default tag-pill pull-xs-right");
-        var el9 = dom.createTextNode("14");
-        dom.appendChild(el8, el9);
-        dom.appendChild(el7, el8);
-        var el8 = dom.createTextNode("\n              Members\n            ");
-        dom.appendChild(el7, el8);
-        dom.appendChild(el6, el7);
-        var el7 = dom.createTextNode("\n            ");
-        dom.appendChild(el6, el7);
-        var el7 = dom.createElement("li");
-        dom.setAttribute(el7, "class", "list-group-item");
-        var el8 = dom.createTextNode("\n              ");
-        dom.appendChild(el7, el8);
-        var el8 = dom.createElement("span");
-        dom.setAttribute(el8, "class", "tag tag-default tag-pill pull-xs-right");
-        var el9 = dom.createTextNode("2");
-        dom.appendChild(el8, el9);
-        dom.appendChild(el7, el8);
-        var el8 = dom.createTextNode("\n              Views\n            ");
-        dom.appendChild(el7, el8);
-        dom.appendChild(el6, el7);
-        var el7 = dom.createTextNode("\n            ");
-        dom.appendChild(el6, el7);
-        var el7 = dom.createElement("li");
-        dom.setAttribute(el7, "class", "list-group-item");
-        var el8 = dom.createTextNode("\n              In Progress\n            ");
-        dom.appendChild(el7, el8);
-        dom.appendChild(el6, el7);
-        var el7 = dom.createTextNode("\n          ");
-        dom.appendChild(el6, el7);
-        dom.appendChild(el5, el6);
-        var el6 = dom.createTextNode("\n        ");
-        dom.appendChild(el5, el6);
-        dom.appendChild(el4, el5);
-        var el5 = dom.createTextNode("\n      ");
-        dom.appendChild(el4, el5);
-        dom.appendChild(el3, el4);
-        var el4 = dom.createTextNode("\n\n      ");
-        dom.appendChild(el3, el4);
-        var el4 = dom.createElement("div");
-        dom.setAttribute(el4, "class", "col-md-3");
+        dom.setAttribute(el4, "class", "row");
         var el5 = dom.createTextNode("\n        ");
         dom.appendChild(el4, el5);
         var el5 = dom.createComment("");
+        dom.appendChild(el4, el5);
+        var el5 = dom.createTextNode("\n        ");
+        dom.appendChild(el4, el5);
+        var el5 = dom.createElement("div");
+        dom.setAttribute(el5, "class", "col-md-6");
+        var el6 = dom.createTextNode("\n          ");
+        dom.appendChild(el5, el6);
+        var el6 = dom.createElement("div");
+        dom.setAttribute(el6, "class", "card c-card");
+        var el7 = dom.createTextNode("\n            ");
+        dom.appendChild(el6, el7);
+        var el7 = dom.createElement("div");
+        dom.setAttribute(el7, "class", "m-ribbon");
+        var el8 = dom.createTextNode("\n              ");
+        dom.appendChild(el7, el8);
+        var el8 = dom.createElement("span");
+        var el9 = dom.createComment("");
+        dom.appendChild(el8, el9);
+        dom.appendChild(el7, el8);
+        var el8 = dom.createTextNode("\n            ");
+        dom.appendChild(el7, el8);
+        dom.appendChild(el6, el7);
+        var el7 = dom.createTextNode("\n            ");
+        dom.appendChild(el6, el7);
+        var el7 = dom.createElement("div");
+        dom.setAttribute(el7, "class", "card-block c-card__block");
+        var el8 = dom.createTextNode("\n              ");
+        dom.appendChild(el7, el8);
+        var el8 = dom.createElement("p");
+        dom.setAttribute(el8, "class", "c-card__description");
+        var el9 = dom.createTextNode("\n                ");
+        dom.appendChild(el8, el9);
+        var el9 = dom.createComment("");
+        dom.appendChild(el8, el9);
+        var el9 = dom.createTextNode("\n              ");
+        dom.appendChild(el8, el9);
+        dom.appendChild(el7, el8);
+        var el8 = dom.createTextNode("\n            ");
+        dom.appendChild(el7, el8);
+        dom.appendChild(el6, el7);
+        var el7 = dom.createTextNode("\n          ");
+        dom.appendChild(el6, el7);
+        dom.appendChild(el5, el6);
+        var el6 = dom.createTextNode("\n        ");
+        dom.appendChild(el5, el6);
         dom.appendChild(el4, el5);
         var el5 = dom.createTextNode("\n      ");
         dom.appendChild(el4, el5);
@@ -1998,18 +1948,20 @@ define("client/templates/card/card", ["exports"], function (exports) {
         var element0 = dom.childAt(fragment, [0]);
         var element1 = dom.childAt(element0, [3]);
         var element2 = dom.childAt(element1, [3]);
-        var element3 = dom.childAt(element2, [3, 1]);
+        var element3 = dom.childAt(element2, [1]);
+        var element4 = dom.childAt(element2, [3]);
+        var element5 = dom.childAt(element4, [3, 1]);
         var morphs = new Array(7);
         morphs[0] = dom.createMorphAt(dom.childAt(element0, [1]), 1, 1);
         morphs[1] = dom.createMorphAt(element1, 1, 1);
-        morphs[2] = dom.createMorphAt(element2, 1, 1);
-        morphs[3] = dom.createMorphAt(dom.childAt(element3, [1, 1]), 0, 0);
-        morphs[4] = dom.createMorphAt(dom.childAt(element3, [3, 1]), 1, 1);
-        morphs[5] = dom.createMorphAt(dom.childAt(element3, [5, 1]), 1, 1);
-        morphs[6] = dom.createMorphAt(dom.childAt(element2, [7]), 1, 1);
+        morphs[2] = dom.createMorphAt(dom.childAt(element3, [1, 1]), 3, 3);
+        morphs[3] = dom.createMorphAt(dom.childAt(element3, [3]), 1, 1);
+        morphs[4] = dom.createMorphAt(element4, 1, 1);
+        morphs[5] = dom.createMorphAt(dom.childAt(element5, [1, 1]), 0, 0);
+        morphs[6] = dom.createMorphAt(dom.childAt(element5, [3, 1]), 1, 1);
         return morphs;
       },
-      statements: [["content", "layout/side-bar", ["loc", [null, [3, 4], [3, 23]]], 0, 0, 0, 0], ["content", "layout/secondary-nav-bar", ["loc", [null, [6, 4], [6, 32]]], 0, 0, 0, 0], ["content", "outlet", ["loc", [null, [8, 6], [8, 16]]], 0, 0, 0, 0], ["content", "card.type", ["loc", [null, [12, 18], [12, 31]]], 0, 0, 0, 0], ["content", "card.title", ["loc", [null, [16, 14], [16, 28]]], 0, 0, 0, 0], ["content", "card.description", ["loc", [null, [21, 14], [21, 34]]], 0, 0, 0, 0], ["inline", "cards/cards-settings", [], ["card", ["subexpr", "@mut", [["get", "model", ["loc", [null, [49, 36], [49, 41]]], 0, 0, 0, 0]], [], [], 0, 0]], ["loc", [null, [49, 8], [49, 43]]], 0, 0]],
+      statements: [["content", "layout/side-bar", ["loc", [null, [3, 4], [3, 23]]], 0, 0, 0, 0], ["content", "layout/secondary-nav-bar", ["loc", [null, [6, 4], [6, 32]]], 0, 0, 0, 0], ["content", "card.title", ["loc", [null, [12, 12], [12, 26]]], 0, 0, 0, 0], ["inline", "cards/cards-settings", [], ["card", ["subexpr", "@mut", [["get", "model", ["loc", [null, [16, 38], [16, 43]]], 0, 0, 0, 0]], [], [], 0, 0]], ["loc", [null, [16, 10], [16, 45]]], 0, 0], ["content", "outlet", ["loc", [null, [20, 8], [20, 18]]], 0, 0, 0, 0], ["content", "card.type", ["loc", [null, [24, 20], [24, 33]]], 0, 0, 0, 0], ["content", "card.description", ["loc", [null, [28, 16], [28, 36]]], 0, 0, 0, 0]],
       locals: [],
       templates: []
     };
@@ -2636,12 +2588,12 @@ define("client/templates/components/cards/cards-settings", ["exports"], function
           "loc": {
             "source": null,
             "start": {
-              "line": 7,
-              "column": 6
+              "line": 2,
+              "column": 2
             },
             "end": {
-              "line": 9,
-              "column": 6
+              "line": 4,
+              "column": 2
             }
           },
           "moduleName": "client/templates/components/cards/cards-settings.hbs"
@@ -2652,10 +2604,11 @@ define("client/templates/components/cards/cards-settings", ["exports"], function
         hasRendered: false,
         buildFragment: function buildFragment(dom) {
           var el0 = dom.createDocumentFragment();
-          var el1 = dom.createTextNode("        ");
+          var el1 = dom.createTextNode("    ");
           dom.appendChild(el0, el1);
-          var el1 = dom.createElement("a");
-          dom.setAttribute(el1, "href", "#");
+          var el1 = dom.createElement("button");
+          dom.setAttribute(el1, "type", "button");
+          dom.setAttribute(el1, "class", "btn btn-primary");
           var el2 = dom.createTextNode("Cancel");
           dom.appendChild(el1, el2);
           dom.appendChild(el0, el1);
@@ -2669,7 +2622,7 @@ define("client/templates/components/cards/cards-settings", ["exports"], function
           morphs[0] = dom.createElementMorph(element3);
           return morphs;
         },
-        statements: [["element", "action", ["isNotEditing", ["get", "card.id", ["loc", [null, [8, 45], [8, 52]]], 0, 0, 0, 0]], [], ["loc", [null, [8, 20], [8, 54]]], 0, 0]],
+        statements: [["element", "action", ["isNotEditing", ["get", "card.id", ["loc", [null, [3, 75], [3, 82]]], 0, 0, 0, 0]], [], ["loc", [null, [3, 50], [3, 84]]], 0, 0]],
         locals: [],
         templates: []
       };
@@ -2681,12 +2634,12 @@ define("client/templates/components/cards/cards-settings", ["exports"], function
           "loc": {
             "source": null,
             "start": {
-              "line": 9,
-              "column": 6
+              "line": 4,
+              "column": 2
             },
             "end": {
-              "line": 11,
-              "column": 6
+              "line": 6,
+              "column": 2
             }
           },
           "moduleName": "client/templates/components/cards/cards-settings.hbs"
@@ -2697,10 +2650,11 @@ define("client/templates/components/cards/cards-settings", ["exports"], function
         hasRendered: false,
         buildFragment: function buildFragment(dom) {
           var el0 = dom.createDocumentFragment();
-          var el1 = dom.createTextNode("        ");
+          var el1 = dom.createTextNode("    ");
           dom.appendChild(el0, el1);
-          var el1 = dom.createElement("a");
-          dom.setAttribute(el1, "href", "#");
+          var el1 = dom.createElement("button");
+          dom.setAttribute(el1, "type", "button");
+          dom.setAttribute(el1, "class", "btn btn-primary");
           var el2 = dom.createTextNode("Edit");
           dom.appendChild(el1, el2);
           dom.appendChild(el0, el1);
@@ -2714,7 +2668,7 @@ define("client/templates/components/cards/cards-settings", ["exports"], function
           morphs[0] = dom.createElementMorph(element2);
           return morphs;
         },
-        statements: [["element", "action", ["isEditing", ["get", "card.id", ["loc", [null, [10, 42], [10, 49]]], 0, 0, 0, 0]], [], ["loc", [null, [10, 20], [10, 51]]], 0, 0]],
+        statements: [["element", "action", ["isEditing", ["get", "card.id", ["loc", [null, [5, 72], [5, 79]]], 0, 0, 0, 0]], [], ["loc", [null, [5, 50], [5, 81]]], 0, 0]],
         locals: [],
         templates: []
       };
@@ -2726,12 +2680,45 @@ define("client/templates/components/cards/cards-settings", ["exports"], function
           "loc": {
             "source": null,
             "start": {
+              "line": 12,
+              "column": 4
+            },
+            "end": {
+              "line": 13,
+              "column": 4
+            }
+          },
+          "moduleName": "client/templates/components/cards/cards-settings.hbs"
+        },
+        isEmpty: true,
+        arity: 0,
+        cachedFragment: null,
+        hasRendered: false,
+        buildFragment: function buildFragment(dom) {
+          var el0 = dom.createDocumentFragment();
+          return el0;
+        },
+        buildRenderNodes: function buildRenderNodes() {
+          return [];
+        },
+        statements: [],
+        locals: [],
+        templates: []
+      };
+    })();
+    var child3 = (function () {
+      return {
+        meta: {
+          "revision": "Ember@2.8.2",
+          "loc": {
+            "source": null,
+            "start": {
               "line": 14,
-              "column": 6
+              "column": 4
             },
             "end": {
               "line": 16,
-              "column": 6
+              "column": 4
             }
           },
           "moduleName": "client/templates/components/cards/cards-settings.hbs"
@@ -2742,10 +2729,11 @@ define("client/templates/components/cards/cards-settings", ["exports"], function
         hasRendered: false,
         buildFragment: function buildFragment(dom) {
           var el0 = dom.createDocumentFragment();
-          var el1 = dom.createTextNode("        ");
+          var el1 = dom.createTextNode("      ");
           dom.appendChild(el0, el1);
           var el1 = dom.createElement("a");
           dom.setAttribute(el1, "href", "#");
+          dom.setAttribute(el1, "class", "dropdown-item");
           var el2 = dom.createTextNode("Archive");
           dom.appendChild(el1, el2);
           dom.appendChild(el0, el1);
@@ -2759,12 +2747,12 @@ define("client/templates/components/cards/cards-settings", ["exports"], function
           morphs[0] = dom.createElementMorph(element1);
           return morphs;
         },
-        statements: [["element", "action", ["archiveCard", ["get", "card", ["loc", [null, [15, 44], [15, 48]]], 0, 0, 0, 0]], [], ["loc", [null, [15, 20], [15, 51]]], 0, 0]],
+        statements: [["element", "action", ["archiveCard", ["get", "card", ["loc", [null, [15, 42], [15, 46]]], 0, 0, 0, 0]], [], ["loc", [null, [15, 18], [15, 49]]], 0, 0]],
         locals: [],
         templates: []
       };
     })();
-    var child3 = (function () {
+    var child4 = (function () {
       return {
         meta: {
           "revision": "Ember@2.8.2",
@@ -2772,11 +2760,11 @@ define("client/templates/components/cards/cards-settings", ["exports"], function
             "source": null,
             "start": {
               "line": 16,
-              "column": 6
+              "column": 4
             },
             "end": {
               "line": 18,
-              "column": 6
+              "column": 4
             }
           },
           "moduleName": "client/templates/components/cards/cards-settings.hbs"
@@ -2787,10 +2775,11 @@ define("client/templates/components/cards/cards-settings", ["exports"], function
         hasRendered: false,
         buildFragment: function buildFragment(dom) {
           var el0 = dom.createDocumentFragment();
-          var el1 = dom.createTextNode("        ");
+          var el1 = dom.createTextNode("      ");
           dom.appendChild(el0, el1);
           var el1 = dom.createElement("a");
           dom.setAttribute(el1, "href", "#");
+          dom.setAttribute(el1, "class", "dropdown-item");
           var el2 = dom.createTextNode("Unarchive");
           dom.appendChild(el1, el2);
           dom.appendChild(el0, el1);
@@ -2804,7 +2793,7 @@ define("client/templates/components/cards/cards-settings", ["exports"], function
           morphs[0] = dom.createElementMorph(element0);
           return morphs;
         },
-        statements: [["element", "action", ["unarchiveCard", ["get", "card", ["loc", [null, [17, 46], [17, 50]]], 0, 0, 0, 0]], [], ["loc", [null, [17, 20], [17, 53]]], 0, 0]],
+        statements: [["element", "action", ["unarchiveCard", ["get", "card", ["loc", [null, [17, 44], [17, 48]]], 0, 0, 0, 0]], [], ["loc", [null, [17, 18], [17, 51]]], 0, 0]],
         locals: [],
         templates: []
       };
@@ -2819,7 +2808,7 @@ define("client/templates/components/cards/cards-settings", ["exports"], function
             "column": 0
           },
           "end": {
-            "line": 25,
+            "line": 22,
             "column": 0
           }
         },
@@ -2832,15 +2821,23 @@ define("client/templates/components/cards/cards-settings", ["exports"], function
       buildFragment: function buildFragment(dom) {
         var el0 = dom.createDocumentFragment();
         var el1 = dom.createElement("div");
-        dom.setAttribute(el1, "class", "card c-card");
+        dom.setAttribute(el1, "class", "btn-group l-pull-right");
+        var el2 = dom.createTextNode("\n");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createComment("");
+        dom.appendChild(el1, el2);
         var el2 = dom.createTextNode("\n  ");
         dom.appendChild(el1, el2);
-        var el2 = dom.createElement("div");
-        dom.setAttribute(el2, "class", "card-header c-card__header");
+        var el2 = dom.createElement("button");
+        dom.setAttribute(el2, "type", "button");
+        dom.setAttribute(el2, "class", "btn btn-primary dropdown-toggle dropdown-toggle-split");
+        dom.setAttribute(el2, "data-toggle", "dropdown");
+        dom.setAttribute(el2, "aria-haspopup", "true");
+        dom.setAttribute(el2, "aria-expanded", "false");
         var el3 = dom.createTextNode("\n    ");
         dom.appendChild(el2, el3);
-        var el3 = dom.createElement("h4");
-        dom.setAttribute(el3, "class", "c-card__title");
+        var el3 = dom.createElement("span");
+        dom.setAttribute(el3, "class", "sr-only");
         var el4 = dom.createTextNode("Actions");
         dom.appendChild(el3, el4);
         dom.appendChild(el2, el3);
@@ -2849,42 +2846,20 @@ define("client/templates/components/cards/cards-settings", ["exports"], function
         dom.appendChild(el1, el2);
         var el2 = dom.createTextNode("\n  ");
         dom.appendChild(el1, el2);
-        var el2 = dom.createElement("ul");
-        dom.setAttribute(el2, "class", "list-group");
-        var el3 = dom.createTextNode("\n    ");
+        var el2 = dom.createElement("div");
+        dom.setAttribute(el2, "class", "dropdown-menu");
+        var el3 = dom.createTextNode("\n");
         dom.appendChild(el2, el3);
-        var el3 = dom.createElement("li");
-        dom.setAttribute(el3, "class", "list-group-item");
-        var el4 = dom.createTextNode("\n");
-        dom.appendChild(el3, el4);
-        var el4 = dom.createComment("");
-        dom.appendChild(el3, el4);
-        var el4 = dom.createTextNode("    ");
-        dom.appendChild(el3, el4);
+        var el3 = dom.createComment("");
         dom.appendChild(el2, el3);
-        var el3 = dom.createTextNode("\n    ");
+        var el3 = dom.createComment("");
         dom.appendChild(el2, el3);
-        var el3 = dom.createElement("li");
-        dom.setAttribute(el3, "class", "list-group-item");
-        var el4 = dom.createTextNode("\n");
-        dom.appendChild(el3, el4);
-        var el4 = dom.createComment("");
-        dom.appendChild(el3, el4);
-        var el4 = dom.createTextNode("    ");
-        dom.appendChild(el3, el4);
+        var el3 = dom.createTextNode("    ");
         dom.appendChild(el2, el3);
-        var el3 = dom.createTextNode("\n    ");
-        dom.appendChild(el2, el3);
-        var el3 = dom.createElement("li");
-        dom.setAttribute(el3, "class", "list-group-item");
-        var el4 = dom.createTextNode("\n      ");
-        dom.appendChild(el3, el4);
-        var el4 = dom.createElement("a");
-        dom.setAttribute(el4, "href", "#");
-        var el5 = dom.createTextNode("Delete");
-        dom.appendChild(el4, el5);
-        dom.appendChild(el3, el4);
-        var el4 = dom.createTextNode("\n    ");
+        var el3 = dom.createElement("a");
+        dom.setAttribute(el3, "href", "#");
+        dom.setAttribute(el3, "class", "dropdown-item");
+        var el4 = dom.createTextNode("Delete");
         dom.appendChild(el3, el4);
         dom.appendChild(el2, el3);
         var el3 = dom.createTextNode("\n  ");
@@ -2898,17 +2873,19 @@ define("client/templates/components/cards/cards-settings", ["exports"], function
         return el0;
       },
       buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
-        var element4 = dom.childAt(fragment, [0, 3]);
-        var element5 = dom.childAt(element4, [5, 1]);
-        var morphs = new Array(3);
-        morphs[0] = dom.createMorphAt(dom.childAt(element4, [1]), 1, 1);
-        morphs[1] = dom.createMorphAt(dom.childAt(element4, [3]), 1, 1);
-        morphs[2] = dom.createElementMorph(element5);
+        var element4 = dom.childAt(fragment, [0]);
+        var element5 = dom.childAt(element4, [5]);
+        var element6 = dom.childAt(element5, [4]);
+        var morphs = new Array(4);
+        morphs[0] = dom.createMorphAt(element4, 1, 1);
+        morphs[1] = dom.createMorphAt(element5, 1, 1);
+        morphs[2] = dom.createMorphAt(element5, 2, 2);
+        morphs[3] = dom.createElementMorph(element6);
         return morphs;
       },
-      statements: [["block", "if", [["get", "isEditing", ["loc", [null, [7, 12], [7, 21]]], 0, 0, 0, 0]], [], 0, 1, ["loc", [null, [7, 6], [11, 13]]]], ["block", "if", [["subexpr", "eq", [["get", "card.status", ["loc", [null, [14, 16], [14, 27]]], 0, 0, 0, 0], "unarchived"], [], ["loc", [null, [14, 12], [14, 41]]], 0, 0]], [], 2, 3, ["loc", [null, [14, 6], [18, 13]]]], ["element", "action", ["deleteCard", ["get", "card", ["loc", [null, [21, 41], [21, 45]]], 0, 0, 0, 0]], [], ["loc", [null, [21, 18], [21, 48]]], 0, 0]],
+      statements: [["block", "if", [["get", "isEditing", ["loc", [null, [2, 8], [2, 17]]], 0, 0, 0, 0]], [], 0, 1, ["loc", [null, [2, 2], [6, 9]]]], ["block", "if", [["get", "isEditing", ["loc", [null, [12, 10], [12, 19]]], 0, 0, 0, 0]], [], 2, null, ["loc", [null, [12, 4], [13, 11]]]], ["block", "if", [["subexpr", "eq", [["get", "card.status", ["loc", [null, [14, 14], [14, 25]]], 0, 0, 0, 0], "unarchived"], [], ["loc", [null, [14, 10], [14, 39]]], 0, 0]], [], 3, 4, ["loc", [null, [14, 4], [18, 11]]]], ["element", "action", ["deleteCard", ["get", "card", ["loc", [null, [19, 39], [19, 43]]], 0, 0, 0, 0]], [], ["loc", [null, [19, 16], [19, 46]]], 0, 0]],
       locals: [],
-      templates: [child0, child1, child2, child3]
+      templates: [child0, child1, child2, child3, child4]
     };
   })());
 });
@@ -3100,7 +3077,7 @@ define("client/templates/components/forms/edit-card-form", ["exports"], function
             "column": 0
           },
           "end": {
-            "line": 70,
+            "line": 69,
             "column": 0
           }
         },
@@ -3219,13 +3196,6 @@ define("client/templates/components/forms/edit-card-form", ["exports"], function
         var el4 = dom.createTextNode("Save");
         dom.appendChild(el3, el4);
         dom.appendChild(el2, el3);
-        var el3 = dom.createTextNode("\n    ");
-        dom.appendChild(el2, el3);
-        var el3 = dom.createElement("button");
-        dom.setAttribute(el3, "class", "btn btn-link");
-        var el4 = dom.createTextNode("Cancel");
-        dom.appendChild(el3, el4);
-        dom.appendChild(el2, el3);
         var el3 = dom.createTextNode("\n  ");
         dom.appendChild(el2, el3);
         dom.appendChild(el1, el2);
@@ -3242,10 +3212,8 @@ define("client/templates/components/forms/edit-card-form", ["exports"], function
         var element2 = dom.childAt(element0, [3]);
         var element3 = dom.childAt(element0, [5]);
         var element4 = dom.childAt(element0, [7]);
-        var element5 = dom.childAt(element0, [9]);
-        var element6 = dom.childAt(element5, [1]);
-        var element7 = dom.childAt(element5, [3]);
-        var morphs = new Array(10);
+        var element5 = dom.childAt(element0, [9, 1]);
+        var morphs = new Array(9);
         morphs[0] = dom.createMorphAt(element1, 3, 3);
         morphs[1] = dom.createMorphAt(element1, 7, 7);
         morphs[2] = dom.createMorphAt(element2, 3, 3);
@@ -3254,11 +3222,10 @@ define("client/templates/components/forms/edit-card-form", ["exports"], function
         morphs[5] = dom.createMorphAt(element3, 5, 5);
         morphs[6] = dom.createMorphAt(element4, 3, 3);
         morphs[7] = dom.createMorphAt(element4, 5, 5);
-        morphs[8] = dom.createElementMorph(element6);
-        morphs[9] = dom.createElementMorph(element7);
+        morphs[8] = dom.createElementMorph(element5);
         return morphs;
       },
-      statements: [["inline", "ember-selectize", [], ["content", ["subexpr", "@mut", [["get", "projects", ["loc", [null, [5, 14], [5, 22]]], 0, 0, 0, 0]], [], [], 0, 0], "optionValuePath", "content.id", "optionLabelPath", "content.title", "placeholder", "Select a Project", "select-item", "selectProject", "value", ["subexpr", "@mut", [["get", "currentProject.id", ["loc", [null, [10, 12], [10, 29]]], 0, 0, 0, 0]], [], [], 0, 0], "select-item", "selectProject", "loading", true, "disabled", true], ["loc", [null, [4, 4], [14, 6]]], 0, 0], ["block", "if", [["get", "errors.project", ["loc", [null, [16, 10], [16, 24]]], 0, 0, 0, 0]], [], 0, null, ["loc", [null, [16, 4], [18, 11]]]], ["inline", "ember-selectize", [], ["content", ["subexpr", "@mut", [["get", "types", ["loc", [null, [23, 14], [23, 19]]], 0, 0, 0, 0]], [], [], 0, 0], "optionValuePath", "content.id", "optionLabelPath", "content.title", "value", ["subexpr", "@mut", [["get", "model.type", ["loc", [null, [26, 12], [26, 22]]], 0, 0, 0, 0]], [], [], 0, 0], "placeholder", "Select a Card Type", "select-item", "selectType", "loading", true], ["loc", [null, [22, 4], [30, 6]]], 0, 0], ["block", "if", [["get", "errors.type", ["loc", [null, [31, 10], [31, 21]]], 0, 0, 0, 0]], [], 1, null, ["loc", [null, [31, 4], [33, 11]]]], ["inline", "input", [], ["type", "text", "value", ["subexpr", "@mut", [["get", "model.title", ["loc", [null, [40, 12], [40, 23]]], 0, 0, 0, 0]], [], [], 0, 0], "class", "form-control", "id", "card-title", "placeholder", "Enter the title of the card", "focus-out", "validateInputTitle"], ["loc", [null, [38, 4], [45, 6]]], 0, 0], ["block", "if", [["get", "errors.title", ["loc", [null, [46, 10], [46, 22]]], 0, 0, 0, 0]], [], 2, null, ["loc", [null, [46, 4], [48, 11]]]], ["inline", "textarea", [], ["value", ["subexpr", "@mut", [["get", "model.description", ["loc", [null, [54, 12], [54, 29]]], 0, 0, 0, 0]], [], [], 0, 0], "class", "form-control", "id", "card-description", "rows", "5", "focus-out", "validateInputDescription"], ["loc", [null, [53, 4], [59, 6]]], 0, 0], ["block", "if", [["get", "errors.description", ["loc", [null, [60, 10], [60, 28]]], 0, 0, 0, 0]], [], 3, null, ["loc", [null, [60, 4], [62, 11]]]], ["element", "action", ["save", ["get", "model.title", ["loc", [null, [66, 28], [66, 39]]], 0, 0, 0, 0], ["get", "model.description", ["loc", [null, [66, 40], [66, 57]]], 0, 0, 0, 0], ["get", "model.id", ["loc", [null, [66, 58], [66, 66]]], 0, 0, 0, 0], ["get", "model.type", ["loc", [null, [66, 67], [66, 77]]], 0, 0, 0, 0]], [], ["loc", [null, [66, 12], [66, 79]]], 0, 0], ["element", "action", ["cancel", ["get", "model.id", ["loc", [null, [67, 30], [67, 38]]], 0, 0, 0, 0]], [], ["loc", [null, [67, 12], [67, 40]]], 0, 0]],
+      statements: [["inline", "ember-selectize", [], ["content", ["subexpr", "@mut", [["get", "projects", ["loc", [null, [5, 14], [5, 22]]], 0, 0, 0, 0]], [], [], 0, 0], "optionValuePath", "content.id", "optionLabelPath", "content.title", "placeholder", "Select a Project", "select-item", "selectProject", "value", ["subexpr", "@mut", [["get", "currentProject.id", ["loc", [null, [10, 12], [10, 29]]], 0, 0, 0, 0]], [], [], 0, 0], "select-item", "selectProject", "loading", true, "disabled", true], ["loc", [null, [4, 4], [14, 6]]], 0, 0], ["block", "if", [["get", "errors.project", ["loc", [null, [16, 10], [16, 24]]], 0, 0, 0, 0]], [], 0, null, ["loc", [null, [16, 4], [18, 11]]]], ["inline", "ember-selectize", [], ["content", ["subexpr", "@mut", [["get", "types", ["loc", [null, [23, 14], [23, 19]]], 0, 0, 0, 0]], [], [], 0, 0], "optionValuePath", "content.id", "optionLabelPath", "content.title", "value", ["subexpr", "@mut", [["get", "model.type", ["loc", [null, [26, 12], [26, 22]]], 0, 0, 0, 0]], [], [], 0, 0], "placeholder", "Select a Card Type", "select-item", "selectType", "loading", true], ["loc", [null, [22, 4], [30, 6]]], 0, 0], ["block", "if", [["get", "errors.type", ["loc", [null, [31, 10], [31, 21]]], 0, 0, 0, 0]], [], 1, null, ["loc", [null, [31, 4], [33, 11]]]], ["inline", "input", [], ["type", "text", "value", ["subexpr", "@mut", [["get", "model.title", ["loc", [null, [40, 12], [40, 23]]], 0, 0, 0, 0]], [], [], 0, 0], "class", "form-control", "id", "card-title", "placeholder", "Enter the title of the card", "focus-out", "validateInputTitle"], ["loc", [null, [38, 4], [45, 6]]], 0, 0], ["block", "if", [["get", "errors.title", ["loc", [null, [46, 10], [46, 22]]], 0, 0, 0, 0]], [], 2, null, ["loc", [null, [46, 4], [48, 11]]]], ["inline", "textarea", [], ["value", ["subexpr", "@mut", [["get", "model.description", ["loc", [null, [54, 12], [54, 29]]], 0, 0, 0, 0]], [], [], 0, 0], "class", "form-control", "id", "card-description", "rows", "5", "focus-out", "validateInputDescription"], ["loc", [null, [53, 4], [59, 6]]], 0, 0], ["block", "if", [["get", "errors.description", ["loc", [null, [60, 10], [60, 28]]], 0, 0, 0, 0]], [], 3, null, ["loc", [null, [60, 4], [62, 11]]]], ["element", "action", ["save", ["get", "model.title", ["loc", [null, [66, 28], [66, 39]]], 0, 0, 0, 0], ["get", "model.description", ["loc", [null, [66, 40], [66, 57]]], 0, 0, 0, 0], ["get", "model.id", ["loc", [null, [66, 58], [66, 66]]], 0, 0, 0, 0], ["get", "model.type", ["loc", [null, [66, 67], [66, 77]]], 0, 0, 0, 0]], [], ["loc", [null, [66, 12], [66, 79]]], 0, 0]],
       locals: [],
       templates: [child0, child1, child2, child3]
     };
@@ -8072,7 +8039,7 @@ catch(err) {
 /* jshint ignore:start */
 
 if (!runningTests) {
-  require("client/app")["default"].create({"name":"client","version":"0.0.0+cb408ce2"});
+  require("client/app")["default"].create({"name":"client","version":"0.0.0+7de1ed39"});
 }
 
 /* jshint ignore:end */

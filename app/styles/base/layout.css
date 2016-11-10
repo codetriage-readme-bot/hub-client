@@ -12,8 +12,22 @@
 .l-cards-container {
   background-color: $grey-light;
   overflow-y: auto;
-  padding: 15px 0;
   min-height: calc(100vh - 55px);
+  margin: 15px;
+  border: 1px solid $border-color;
+  padding: 15px 0;
+}
+
+.l-action-container {
+  background: $white;
+  padding: 10px 5px;
+  border-bottom: 1px solid $border-color;
+  margin: -15px 0 15px;
+}
+
+.l-pull-right {
+  text-align: right;
+  float: right;
 }
 
 @media screen and (max-width: 768px) {

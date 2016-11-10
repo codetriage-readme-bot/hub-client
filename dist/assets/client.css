@@ -58,6 +58,12 @@ textarea {
 label {
     margin: 0;
 }
+.container-fluid {
+    padding: 0;
+}
+.row {
+    margin: 0;
+}
 /* ==========================================================================
    media-queries
    ========================================================================== */
@@ -78,8 +84,20 @@ label {
 .l-cards-container {
     background-color: #f9fafc;
     overflow-y: auto;
-    padding: 15px 0;
     min-height: calc(100vh - 55px);
+    margin: 15px;
+    border: 1px solid #e5e5e5;
+    padding: 15px 0;
+}
+.l-action-container {
+    background: #fff;
+    padding: 10px 5px;
+    border-bottom: 1px solid #e5e5e5;
+    margin: -15px 0 15px;
+}
+.l-pull-right {
+    text-align: right;
+    float: right;
 }
 @media screen and (max-width: 768px) {
     .l-left-container {
@@ -95,6 +113,7 @@ label {
     padding: 15px;
     display: flex;
     align-items: center;
+    margin: -15px 0 0;
 }
 .m-page__heading {
     margin: 0;

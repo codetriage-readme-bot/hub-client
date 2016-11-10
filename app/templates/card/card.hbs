@@ -5,48 +5,31 @@
   <div class="col-md-10 l-main-container">
     {{layout/secondary-nav-bar}}
     <div class="l-cards-container">
-      {{outlet}}
-      <div class="col-md-6">
-        <div class="card c-card">
-          <div class="m-ribbon">
-            <span>{{card.type}}</span>
-          </div>
-          <div class="card-header c-card__header">
-            <h4 class="c-card__title">
-              {{card.title}}
-            </h4>
-          </div>
-          <div class="card-block c-card__block">
-            <p class="c-card__description">
-              {{card.description}}
-            </p>
-          </div>
+      <div class="row l-action-container">
+        <div class="col-md-10">
+          <h2>
+            <img src="/assets/fonts/credit-card.svg" class="c-side-bar__icon" alt="Cards">
+            {{card.title}}
+          </h2>
+        </div>
+        <div class="col-md-2 pull-right">
+          {{cards/cards-settings card=model}}
         </div>
       </div>
-
-      <div class="col-md-3">
-        <div class="card c-card">
-          <div class="card-header c-card__header">
-            <h4 class="c-card__title">Details</h4>
+      <div class="row">
+        {{outlet}}
+        <div class="col-md-6">
+          <div class="card c-card">
+            <div class="m-ribbon">
+              <span>{{card.type}}</span>
+            </div>
+            <div class="card-block c-card__block">
+              <p class="c-card__description">
+                {{card.description}}
+              </p>
+            </div>
           </div>
-          <ul class="list-group">
-            <li class="list-group-item">
-              <span class="tag tag-default tag-pill pull-xs-right">14</span>
-              Members
-            </li>
-            <li class="list-group-item">
-              <span class="tag tag-default tag-pill pull-xs-right">2</span>
-              Views
-            </li>
-            <li class="list-group-item">
-              In Progress
-            </li>
-          </ul>
         </div>
-      </div>
-
-      <div class="col-md-3">
-        {{cards/cards-settings card=model}}
       </div>
     </div>
   </div>
