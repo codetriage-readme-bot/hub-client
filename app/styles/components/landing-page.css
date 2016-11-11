@@ -9,7 +9,6 @@
 
       &::after {
         content: "";
-        background: url('/assets/images/landing-page-background.jpg');
         opacity: 0.25;
         top: 0;
         left: 0;
