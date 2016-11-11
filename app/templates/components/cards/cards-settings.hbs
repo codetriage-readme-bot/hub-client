@@ -1,11 +1,11 @@
-<div class="btn-group l-pull-right">
+<div class="btn-group">
   {{#if isEditing}}
-    <button type="button" class="btn btn-primary" {{ action "isNotEditing" card.id}}>Cancel</button>
+    <button type="button" class="btn btn-secondary" {{ action "isNotEditing" card.id}}>Cancel</button>
   {{else}}
-    <button type="button" class="btn btn-primary" {{ action "isEditing" card.id}}>Edit</button>
+    <button type="button" class="btn btn-secondary" {{ action "isEditing" card.id}}>Edit</button>
   {{/if}}
 
-  <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+  <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     <span class="sr-only">Actions</span>
   </button>
   <div class="dropdown-menu">

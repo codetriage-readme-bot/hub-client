@@ -18,7 +18,7 @@ a {
 }
 
 input {
-  height: 50px;
+  height: 35px;
   font-weight: $fw-200;
   outline: none;
 

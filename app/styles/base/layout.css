@@ -18,11 +18,17 @@
   padding: 15px 0;
 }
 
-.l-action-container {
+.l-title-container {
   background: $white;
   padding: 10px 5px;
   border-bottom: 1px solid $border-color;
   margin: -15px 0 15px;
+  display: flex;
+  align-items: center;
+
+  h2 {
+    margin-bottom: 0;
+  }
 }
 
 .l-pull-right {

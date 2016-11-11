@@ -1,5 +1,6 @@
+/* ember power select */
 .ember-power-select-trigger.ember-basic-dropdown-trigger {
-  height: 50px;
+  height: 35px;
   font-weight: 200;
   display: flex;
   align-items: center;

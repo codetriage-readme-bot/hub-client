@@ -5,14 +5,14 @@
   <div class="col-md-10 l-main-container">
     {{layout/secondary-nav-bar}}
     <div class="l-cards-container">
-      <div class="row l-action-container">
+      <div class="row l-title-container">
         <div class="col-md-10">
           <h2>
-            <img src="/assets/fonts/credit-card.svg" class="c-side-bar__icon" alt="Cards">
+            <img src="/assets/fonts/credit-card.svg" class="c-side-bar__icon" alt="Cards" />
             {{card.title}}
           </h2>
         </div>
-        <div class="col-md-2 pull-right">
+        <div class="col-md-2 l-pull-right">
           {{cards/cards-settings card=model}}
         </div>
       </div>
@@ -20,9 +20,6 @@
         {{outlet}}
         <div class="col-md-6">
           <div class="card c-card">
-            <div class="m-ribbon">
-              <span>{{card.type}}</span>
-            </div>
             <div class="card-block c-card__block">
               <p class="c-card__description">
                 {{card.description}}
