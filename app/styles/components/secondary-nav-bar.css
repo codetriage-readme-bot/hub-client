@@ -4,6 +4,7 @@
   display: flex;
   align-items: center;
   border-bottom: 1px solid $border-color;
+  border-top: 1px solid $border-color;
   padding: 0 20px;
 
   &__nav-link {

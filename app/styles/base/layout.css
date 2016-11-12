@@ -1,18 +1,23 @@
 .l-left-container {
   padding: 0;
   height: 100vh;
+  background-color: $brand-color-2;
+  position: fixed;
+  width: 16.66667%;
+  min-width: 65px;
 }
 
 .l-main-container {
   border-left: 1px solid $border-color;
   border-right: 1px solid $border-color;
   padding: 0;
+  margin-left: 16.66667%;
 }
 
 .l-cards-container {
   background-color: $grey-light;
   overflow-y: auto;
-  min-height: calc(100vh - 55px);
+  height: calc(100vh - 60px - 70px);
   margin: 15px;
   border: 1px solid $border-color;
   padding: 15px 0;
@@ -36,13 +41,11 @@
   float: right;
 }
 
-@media screen and (max-width: 768px) {
-  .l-left-container {
-    height: auto;
-    border-right: 0;
-  }
-
-  .l-cards-container {
-    overflow-y: hidden;
+/* ==========================================================================
+   media-queries
+   ========================================================================== */
+@media screen and (max-width: 390px) {
+  .l-main-container {
+    margin-left: 65px;
   }
 }

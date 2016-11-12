@@ -1,6 +1,4 @@
 .c-nav-bar {
-  border-bottom: 1px solid $border-color;
-
   &__link {
     color: $grey;
 

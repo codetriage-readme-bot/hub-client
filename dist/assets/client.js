@@ -8012,7 +8012,7 @@ catch(err) {
 /* jshint ignore:start */
 
 if (!runningTests) {
-  require("client/app")["default"].create({"name":"client","version":"0.0.0+fe776a18"});
+  require("client/app")["default"].create({"name":"client","version":"0.0.0+50de5a28"});
 }
 
 /* jshint ignore:end */

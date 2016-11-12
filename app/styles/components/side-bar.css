@@ -2,29 +2,31 @@
   padding: 15px 0;
 
   &__list-item {
-    background-color: $white;
+    background-color: $brand-color-2;
     border: 0;
     border-radius: 0;
-    border-left: 5px solid $white;
+    border-left: 3px solid $brand-color-2;
     padding: 10px 10px 10px 20px;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
+    color: $grey-light;
 
     &.active {
-      background-color: $grey-light;
-      color: $black;
-      border-left: 5px solid $brand-color-1;
+      background-color: $grey-dark;
+      color: $white;
+      border-left: 3px solid $brand-color-1;
 
       &:hover {
-        background-color: $grey-light;
-        color: $black;
+        background-color: $grey-dark;
+        color: $white;
       }
     }
 
     &:hover {
-      background-color: $grey-light;
-      border-left: 5px solid $brand-color-1;
+      background-color: $grey-dark;
+      color: $white;
+      border-left: 3px solid $brand-color-1;
     }
 
     &:first-child,
@@ -38,11 +40,4 @@
     width: 20px;
     margin: 0 5px 0 0;
   }
-}
-
-/* ==========================================================================
-   override bootstrap class
-   ========================================================================== */
-a.list-group-item:hover {
-  background-color: $grey-light;
 }

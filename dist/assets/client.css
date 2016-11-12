@@ -28,12 +28,13 @@ body {
     font-weight: normal;
     background-color: #fff;
     font-size: 12px;
+    overflow: hidden;
 }
 a {
     color: #1fb6ff;
 }
 a:hover {
-    color: #1f2d3d;
+    color: #222933;
     text-decoration: none;
 }
 input {
@@ -75,16 +76,21 @@ label {
 .l-left-container {
     padding: 0;
     height: 100vh;
+    background-color: #2b333e;
+    position: fixed;
+    width: 16.66667%;
+    min-width: 65px;
 }
 .l-main-container {
     border-left: 1px solid #e5e5e5;
     border-right: 1px solid #e5e5e5;
     padding: 0;
+    margin-left: 16.66667%;
 }
 .l-cards-container {
     background-color: #f9fafc;
     overflow-y: auto;
-    min-height: calc(100vh - 55px);
+    height: calc(100vh - 60px - 70px);
     margin: 15px;
     border: 1px solid #e5e5e5;
     padding: 15px 0;
@@ -104,13 +110,12 @@ label {
     text-align: right;
     float: right;
 }
-@media screen and (max-width: 768px) {
-    .l-left-container {
-        height: auto;
-        border-right: 0;
-    }
-    .l-cards-container {
-        overflow-y: hidden;
+/* ==========================================================================
+   media-queries
+   ========================================================================== */
+@media screen and (max-width: 390px) {
+    .l-main-container {
+        margin-left: 65px;
     }
 }
 .m-page {
@@ -124,7 +129,7 @@ label {
     margin: 0;
 }
 .m-card-container__link {
-    color: #1f2d3d;
+    color: #222933;
 }
 .m-card-container__link .c-card:hover {
     background-color: #f9fafc;
@@ -222,27 +227,29 @@ label {
     padding: 15px 0;
 }
 .c-side-bar__list-item {
-    background-color: #fff;
+    background-color: #2b333e;
     border: 0;
     border-radius: 0;
-    border-left: 5px solid #fff;
+    border-left: 3px solid #2b333e;
     padding: 10px 10px 10px 20px;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
+    color: #f9fafc;
 }
 .c-side-bar__list-item.active {
-    background-color: #f9fafc;
-    color: #000;
-    border-left: 5px solid #1fb6ff;
+    background-color: #222933;
+    color: #fff;
+    border-left: 3px solid #1fb6ff;
 }
 .c-side-bar__list-item.active:hover {
-    background-color: #f9fafc;
-    color: #000;
+    background-color: #222933;
+    color: #fff;
 }
 .c-side-bar__list-item:hover {
-    background-color: #f9fafc;
-    border-left: 5px solid #1fb6ff;
+    background-color: #222933;
+    color: #fff;
+    border-left: 3px solid #1fb6ff;
 }
 .c-side-bar__list-item:first-child,
     .c-side-bar__list-item:last-child {
@@ -252,15 +259,6 @@ label {
     height: 20px;
     width: 20px;
     margin: 0 5px 0 0;
-}
-/* ==========================================================================
-   override bootstrap class
-   ========================================================================== */
-a.list-group-item:hover {
-    background-color: #f9fafc;
-}
-.c-nav-bar {
-    border-bottom: 1px solid #e5e5e5;
 }
 .c-nav-bar__link {
     color: #8492a6;
@@ -303,6 +301,7 @@ a.list-group-item:hover {
     display: flex;
     align-items: center;
     border-bottom: 1px solid #e5e5e5;
+    border-top: 1px solid #e5e5e5;
     padding: 0 20px;
 }
 .c-secondary-nav-bar__nav-link.active {
