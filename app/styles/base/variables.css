@@ -12,9 +12,10 @@ $black: #000;
 $red: #d9534f;
 $green: #13ce66;
 
-$grey-light: #f9fafc;
-$grey: #8492a6;
-$grey-dark: #222933;
+$grey-1: #f9fafc;
+$grey-2: #f1f4f8;
+$grey-3: #8492a6;
+$grey-4: #222933;
 
 /* ==========================================================================
    utility colors

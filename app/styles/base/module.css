@@ -11,11 +11,11 @@
 }
 
 .m-card-container__link {
-  color: $grey-dark;
+  color: $grey-4;
 
   .c-card {
     &:hover {
-      background-color: $grey-light;
+      background-color: $grey-1;
     }
 
     &__header {

@@ -82,10 +82,9 @@ label {
     min-width: 65px;
 }
 .l-main-container {
-    border-left: 1px solid #e5e5e5;
-    border-right: 1px solid #e5e5e5;
     padding: 0;
     margin-left: 16.66667%;
+    background-color: #f1f4f8;
 }
 .l-cards-container {
     background-color: #f9fafc;
@@ -325,9 +324,6 @@ label {
 .c-card__title {
     margin: 0;
 }
-/*&__description {
-    white-space: pre-line;
- }*/
 .c-card .list-group-item {
     border: 0;
     border-top: 1px solid #ddd;

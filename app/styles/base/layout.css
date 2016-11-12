@@ -8,14 +8,13 @@
 }
 
 .l-main-container {
-  border-left: 1px solid $border-color;
-  border-right: 1px solid $border-color;
   padding: 0;
   margin-left: 16.66667%;
+  background-color: $grey-2;
 }
 
 .l-cards-container {
-  background-color: $grey-light;
+  background-color: $grey-1;
   overflow-y: auto;
   height: calc(100vh - 60px - 70px);
   margin: 15px;

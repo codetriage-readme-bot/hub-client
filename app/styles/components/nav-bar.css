@@ -1,6 +1,6 @@
 .c-nav-bar {
   &__link {
-    color: $grey;
+    color: $grey-3;
 
     &.active {
       color: $brand-color-1;
@@ -36,7 +36,7 @@
    override bootstrap class
    ========================================================================== */
 .navbar-light .navbar-nav .nav-link {
-  color: $grey;
+  color: $grey-3;
 
   &.active {
     color: $brand-color-1;
