@@ -210,6 +210,7 @@ label {
 .dropdown-menu {
     right: 0;
     left: auto;
+    padding: 0;
 }
 .dropdown-menu .dropdown-item {
     border-bottom: 1px solid #ddd;

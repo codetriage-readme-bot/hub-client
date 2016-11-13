@@ -1275,9 +1275,8 @@ define('client/routes/card/card/edit', ['exports', 'ember'], function (exports, 
   });
 });
 define('client/routes/card/card', ['exports', 'ember', 'ember-simple-auth/mixins/authenticated-route-mixin'], function (exports, _ember, _emberSimpleAuthMixinsAuthenticatedRouteMixin) {
-  var getOwner = _ember['default'].getOwner;
-  var pollInterval = 5000;exports.pollInterval = pollInterval;
-  // time in milliseconds
+
+  // export const pollInterval = 5000; // time in milliseconds
 
   exports['default'] = _ember['default'].Route.extend(_emberSimpleAuthMixinsAuthenticatedRouteMixin['default'], {
     session: _ember['default'].inject.service('session'),
@@ -1295,28 +1294,27 @@ define('client/routes/card/card', ['exports', 'ember', 'ember-simple-auth/mixins
       return this.getCard(params);
     },
 
-    onPoll: function onPoll(id) {
-      var _this = this;
+    // onPoll(id)  {
+    //   return this.getCard(id)
+    //     .then((card) => {
+    //       this.set('currentModel', card);
+    //     });
+    // },
 
-      return this.getCard(id).then(function (card) {
-        _this.set('currentModel', card);
-      });
-    },
+    // afterModel(params) {
+    //   let cardPoller = this.get('cardPoller');
 
-    afterModel: function afterModel(params) {
-      var cardPoller = this.get('cardPoller');
+    //   if (!cardPoller) {
+    //     cardPoller = this.get('pollboy').add(this, this.onPoll.bind(this, params.id), pollInterval);
+    //     this.set('cardPoller', cardPoller);
+    //   }
+    // },
 
-      if (!cardPoller) {
-        cardPoller = this.get('pollboy').add(this, this.onPoll.bind(this, params.id), pollInterval);
-        this.set('cardPoller', cardPoller);
-      }
-    },
-
-    deactivate: function deactivate() {
-      var cardPoller = this.get('cardPoller');
-      this.get('pollboy').remove(cardPoller);
-      this.set('cardPoller', null);
-    },
+    // deactivate() {
+    //   const cardPoller = this.get('cardPoller');
+    //   this.get('pollboy').remove(cardPoller);
+    //   this.set('cardPoller', null);
+    // },
 
     setupController: function setupController(controller, model) {
       this._super(controller, model);
@@ -1332,8 +1330,8 @@ define('client/routes/card/new', ['exports', 'ember', 'ember-simple-auth/mixins/
   });
 });
 define('client/routes/cards', ['exports', 'ember', 'ember-simple-auth/mixins/authenticated-route-mixin'], function (exports, _ember, _emberSimpleAuthMixinsAuthenticatedRouteMixin) {
-  var pollInterval = 5000;exports.pollInterval = pollInterval;
-  // time in milliseconds
+
+  // export const pollInterval = 5000; // time in milliseconds
 
   exports['default'] = _ember['default'].Route.extend(_emberSimpleAuthMixinsAuthenticatedRouteMixin['default'], {
     session: _ember['default'].inject.service('session'),
@@ -1348,28 +1346,27 @@ define('client/routes/cards', ['exports', 'ember', 'ember-simple-auth/mixins/aut
       return this.getCards();
     },
 
-    onPoll: function onPoll() {
-      var _this = this;
+    // onPoll()  {
+    //   return this.getCards()
+    //     .then((cards) => {
+    //       this.set('currentModel', cards);
+    //     });
+    // },
 
-      return this.getCards().then(function (cards) {
-        _this.set('currentModel', cards);
-      });
-    },
+    // afterModel() {
+    //   let cardsPoller = this.get('cardsPoller');
 
-    afterModel: function afterModel() {
-      var cardsPoller = this.get('cardsPoller');
+    //   if (!cardsPoller) {
+    //     cardsPoller = this.get('pollboy').add(this, this.onPoll, pollInterval);
+    //     this.set('cardsPoller', cardsPoller);
+    //   }
+    // },
 
-      if (!cardsPoller) {
-        cardsPoller = this.get('pollboy').add(this, this.onPoll, pollInterval);
-        this.set('cardsPoller', cardsPoller);
-      }
-    },
-
-    deactivate: function deactivate() {
-      var cardsPoller = this.get('cardsPoller');
-      this.get('pollboy').remove(cardsPoller);
-      this.set('cardsPoller', null);
-    },
+    // deactivate() {
+    //   const cardsPoller = this.get('cardsPoller');
+    //   this.get('pollboy').remove(cardsPoller);
+    //   this.set('cardsPoller', null);
+    // },
 
     setupController: function setupController(controller, model) {
       this._super(controller, model);
@@ -1412,8 +1409,8 @@ define('client/routes/project/project', ['exports', 'ember'], function (exports,
   });
 });
 define('client/routes/projects', ['exports', 'ember', 'ember-simple-auth/mixins/authenticated-route-mixin'], function (exports, _ember, _emberSimpleAuthMixinsAuthenticatedRouteMixin) {
-  var pollInterval = 5000;exports.pollInterval = pollInterval;
-  // time in milliseconds
+
+  // export const pollInterval = 5000; // time in milliseconds
 
   exports['default'] = _ember['default'].Route.extend(_emberSimpleAuthMixinsAuthenticatedRouteMixin['default'], {
     session: _ember['default'].inject.service('session'),
@@ -1428,28 +1425,27 @@ define('client/routes/projects', ['exports', 'ember', 'ember-simple-auth/mixins/
       return this.getProjects();
     },
 
-    onPoll: function onPoll() {
-      var _this = this;
+    // onPoll()  {
+    //   return this.getProjects()
+    //     .then((projects) => {
+    //       this.set('currentModel', projects);
+    //     });
+    // },
 
-      return this.getProjects().then(function (projects) {
-        _this.set('currentModel', projects);
-      });
-    },
+    // afterModel() {
+    //   let projectsPoller = this.get('projectsPoller');
 
-    afterModel: function afterModel() {
-      var projectsPoller = this.get('projectsPoller');
+    //   if (!projectsPoller) {
+    //     projectsPoller = this.get('pollboy').add(this, this.onPoll, pollInterval);
+    //     this.set('projectsPoller', projectsPoller);
+    //   }
+    // },
 
-      if (!projectsPoller) {
-        projectsPoller = this.get('pollboy').add(this, this.onPoll, pollInterval);
-        this.set('projectsPoller', projectsPoller);
-      }
-    },
-
-    deactivate: function deactivate() {
-      var projectsPoller = this.get('projectsPoller');
-      this.get('pollboy').remove(projectsPoller);
-      this.set('projectsPoller', null);
-    },
+    // deactivate() {
+    //   const projectsPoller = this.get('projectsPoller');
+    //   this.get('pollboy').remove(projectsPoller);
+    //   this.set('projectsPoller', null);
+    // },
 
     setupController: function setupController(controller, model) {
       this._super(controller, model);
@@ -1489,8 +1485,8 @@ define('client/routes/team/team', ['exports', 'ember'], function (exports, _embe
   });
 });
 define('client/routes/teams', ['exports', 'ember', 'ember-simple-auth/mixins/authenticated-route-mixin'], function (exports, _ember, _emberSimpleAuthMixinsAuthenticatedRouteMixin) {
-  var pollInterval = 5000;exports.pollInterval = pollInterval;
-  // time in milliseconds
+
+  // export const pollInterval = 5000; // time in milliseconds
 
   exports['default'] = _ember['default'].Route.extend(_emberSimpleAuthMixinsAuthenticatedRouteMixin['default'], {
     session: _ember['default'].inject.service('session'),
@@ -1505,28 +1501,27 @@ define('client/routes/teams', ['exports', 'ember', 'ember-simple-auth/mixins/aut
       return this.getTeams();
     },
 
-    onPoll: function onPoll() {
-      var _this = this;
+    // onPoll()  {
+    //   return this.getTeams()
+    //     .then((teams) => {
+    //       this.set('currentModel', teams);
+    //     });
+    // },
 
-      return this.getTeams().then(function (teams) {
-        _this.set('currentModel', teams);
-      });
-    },
+    // afterModel() {
+    //   let teamsPoller = this.get('teamsPoller');
 
-    afterModel: function afterModel() {
-      var teamsPoller = this.get('teamsPoller');
+    //   if (!teamsPoller) {
+    //     teamsPoller = this.get('pollboy').add(this, this.onPoll, pollInterval);
+    //     this.set('teamsPoller', teamsPoller);
+    //   }
+    // },
 
-      if (!teamsPoller) {
-        teamsPoller = this.get('pollboy').add(this, this.onPoll, pollInterval);
-        this.set('teamsPoller', teamsPoller);
-      }
-    },
-
-    deactivate: function deactivate() {
-      var teamsPoller = this.get('teamsPoller');
-      this.get('pollboy').remove(teamsPoller);
-      this.set('teamsPoller', null);
-    },
+    // deactivate() {
+    //   const teamsPoller = this.get('teamsPoller');
+    //   this.get('pollboy').remove(teamsPoller);
+    //   this.set('teamsPoller', null);
+    // },
 
     setupController: function setupController(controller, model) {
       this._super(controller, model);
@@ -1555,8 +1550,8 @@ define('client/routes/user/user', ['exports', 'ember', 'ember-simple-auth/mixins
   });
 });
 define('client/routes/users', ['exports', 'ember', 'ember-simple-auth/mixins/authenticated-route-mixin'], function (exports, _ember, _emberSimpleAuthMixinsAuthenticatedRouteMixin) {
-  var pollInterval = 5000;exports.pollInterval = pollInterval;
-  // time in milliseconds
+
+  // export const pollInterval = 5000; // time in milliseconds
 
   exports['default'] = _ember['default'].Route.extend(_emberSimpleAuthMixinsAuthenticatedRouteMixin['default'], {
     getUsers: function getUsers() {
@@ -1567,28 +1562,27 @@ define('client/routes/users', ['exports', 'ember', 'ember-simple-auth/mixins/aut
       return this.getUsers();
     },
 
-    onPoll: function onPoll() {
-      var _this = this;
+    // onPoll()  {
+    //   return this.getUsers()
+    //     .then((users) => {
+    //       this.set('currentModel', users);
+    //     });
+    // },
 
-      return this.getUsers().then(function (users) {
-        _this.set('currentModel', users);
-      });
-    },
+    // afterModel() {
+    //   let usersPoller = this.get('usersPoller');
 
-    afterModel: function afterModel() {
-      var usersPoller = this.get('usersPoller');
+    //   if (!usersPoller) {
+    //     usersPoller = this.get('pollboy').add(this, this.onPoll, pollInterval);
+    //     this.set('usersPoller', usersPoller);
+    //   }
+    // },
 
-      if (!usersPoller) {
-        usersPoller = this.get('pollboy').add(this, this.onPoll, pollInterval);
-        this.set('usersPoller', usersPoller);
-      }
-    },
-
-    deactivate: function deactivate() {
-      var usersPoller = this.get('usersPoller');
-      this.get('pollboy').remove(usersPoller);
-      this.set('usersPoller', null);
-    },
+    // deactivate() {
+    //   const usersPoller = this.get('usersPoller');
+    //   this.get('pollboy').remove(usersPoller);
+    //   this.set('usersPoller', null);
+    // },
 
     setupController: function setupController(controller, model) {
       this._super(controller, model);
@@ -8373,7 +8367,7 @@ catch(err) {
 /* jshint ignore:start */
 
 if (!runningTests) {
-  require("client/app")["default"].create({"name":"client","version":"0.0.0+50de5a28"});
+  require("client/app")["default"].create({"name":"client","version":"0.0.0+99aa8fb7"});
 }
 
 /* jshint ignore:end */
