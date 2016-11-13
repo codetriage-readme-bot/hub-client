@@ -1,13 +1,14 @@
-/* ember power select */
-.ember-power-select-trigger.ember-basic-dropdown-trigger {
-  height: 35px;
-  font-weight: 200;
-  display: flex;
-  align-items: center;
-  outline: none;
-}
+/* bootstrap */
+.dropdown-menu {
+  right: 0;
+  left: auto;
 
-.ember-power-select {
-  width: 100%;
-  align-self: center;
+  .dropdown-item {
+    border-bottom: 1px solid #ddd;
+    padding: 5px 10px;
+
+    &:last-child {
+      border-bottom: 0;
+    }
+  }
 }
