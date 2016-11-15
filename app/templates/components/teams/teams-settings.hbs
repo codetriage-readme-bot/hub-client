@@ -1,0 +1,7 @@
+<div class="btn-group">
+  {{#if isEditing}}
+    <button type="button" class="btn btn-secondary" {{ action "isNotEditing" team.id}}>Cancel</button>
+  {{else}}
+    <button type="button" class="btn btn-secondary" {{ action "isEditing" team.id}}>Edit</button>
+  {{/if}}
+</div>

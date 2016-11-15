@@ -5,21 +5,28 @@
   <div class="col-md-10 l-main-container">
     {{layout/secondary-nav-bar}}
     <div class="l-cards-container">
-      {{outlet}}
-      <div class="col-md-6">
-        <div class="card c-card">
-          <div class="card-header c-card__header">
-            <h4 class="c-card__title">
-              {{team.name}}
-            </h4>
-          </div>
-          <div class="card-block c-card__block">
-            <p class="c-card__description">
-              {{team.description}}
-            </p>
+      <div class="row l-title-container">
+        <div class="col-md-10">
+          <h2>
+            <img src="/assets/fonts/user-list.svg" class="c-side-bar__icon" alt="Teams" />
+            {{team.name}}
+          </h2>
+        </div>
+        <div class="col-md-2 l-pull-right">
+          {{teams/teams-settings team=model}}
+        </div>
+      </div>
+      <div class="row">
+        {{outlet}}
+        <div class="col-md-6">
+          <div class="card c-card">
+            <div class="card-block c-card__block">
+              <p class="c-card__description">
+                {{{team.description}}}
+              </p>
+            </div>
           </div>
         </div>
-        {{#link-to 'team.team.edit' team}}Edit{{/link-to}}
       </div>
     </div>
   </div>

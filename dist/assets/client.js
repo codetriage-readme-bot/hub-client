@@ -813,6 +813,25 @@ define('client/components/radio-button', ['exports', 'ember-radio-button/compone
 define('client/components/teams/teams-container', ['exports', 'ember'], function (exports, _ember) {
   exports['default'] = _ember['default'].Component.extend({});
 });
+define('client/components/teams/teams-settings', ['exports', 'ember'], function (exports, _ember) {
+  var getOwner = _ember['default'].getOwner;
+  exports['default'] = _ember['default'].Component.extend({
+    store: _ember['default'].inject.service(),
+    actions: {
+      isNotEditing: function isNotEditing(id) {
+        this.set('isEditing', false);
+
+        // go the team route on cancel
+        getOwner(this).lookup('route:team.team').transitionTo('team.team', id);
+      },
+
+      isEditing: function isEditing(id) {
+        this.set('isEditing', true);
+        getOwner(this).lookup('route:team.team.edit').transitionTo('team.team.edit', id);
+      }
+    }
+  });
+});
 define('client/components/users/users-container', ['exports', 'ember'], function (exports, _ember) {
   exports['default'] = _ember['default'].Component.extend({});
 });
@@ -6279,6 +6298,144 @@ define("client/templates/components/teams/teams-container", ["exports"], functio
     };
   })());
 });
+define("client/templates/components/teams/teams-settings", ["exports"], function (exports) {
+  exports["default"] = Ember.HTMLBars.template((function () {
+    var child0 = (function () {
+      return {
+        meta: {
+          "revision": "Ember@2.8.2",
+          "loc": {
+            "source": null,
+            "start": {
+              "line": 2,
+              "column": 2
+            },
+            "end": {
+              "line": 4,
+              "column": 2
+            }
+          },
+          "moduleName": "client/templates/components/teams/teams-settings.hbs"
+        },
+        isEmpty: false,
+        arity: 0,
+        cachedFragment: null,
+        hasRendered: false,
+        buildFragment: function buildFragment(dom) {
+          var el0 = dom.createDocumentFragment();
+          var el1 = dom.createTextNode("    ");
+          dom.appendChild(el0, el1);
+          var el1 = dom.createElement("button");
+          dom.setAttribute(el1, "type", "button");
+          dom.setAttribute(el1, "class", "btn btn-secondary");
+          var el2 = dom.createTextNode("Cancel");
+          dom.appendChild(el1, el2);
+          dom.appendChild(el0, el1);
+          var el1 = dom.createTextNode("\n");
+          dom.appendChild(el0, el1);
+          return el0;
+        },
+        buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+          var element1 = dom.childAt(fragment, [1]);
+          var morphs = new Array(1);
+          morphs[0] = dom.createElementMorph(element1);
+          return morphs;
+        },
+        statements: [["element", "action", ["isNotEditing", ["get", "team.id", ["loc", [null, [3, 77], [3, 84]]], 0, 0, 0, 0]], [], ["loc", [null, [3, 52], [3, 86]]], 0, 0]],
+        locals: [],
+        templates: []
+      };
+    })();
+    var child1 = (function () {
+      return {
+        meta: {
+          "revision": "Ember@2.8.2",
+          "loc": {
+            "source": null,
+            "start": {
+              "line": 4,
+              "column": 2
+            },
+            "end": {
+              "line": 6,
+              "column": 2
+            }
+          },
+          "moduleName": "client/templates/components/teams/teams-settings.hbs"
+        },
+        isEmpty: false,
+        arity: 0,
+        cachedFragment: null,
+        hasRendered: false,
+        buildFragment: function buildFragment(dom) {
+          var el0 = dom.createDocumentFragment();
+          var el1 = dom.createTextNode("    ");
+          dom.appendChild(el0, el1);
+          var el1 = dom.createElement("button");
+          dom.setAttribute(el1, "type", "button");
+          dom.setAttribute(el1, "class", "btn btn-secondary");
+          var el2 = dom.createTextNode("Edit");
+          dom.appendChild(el1, el2);
+          dom.appendChild(el0, el1);
+          var el1 = dom.createTextNode("\n");
+          dom.appendChild(el0, el1);
+          return el0;
+        },
+        buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+          var element0 = dom.childAt(fragment, [1]);
+          var morphs = new Array(1);
+          morphs[0] = dom.createElementMorph(element0);
+          return morphs;
+        },
+        statements: [["element", "action", ["isEditing", ["get", "team.id", ["loc", [null, [5, 74], [5, 81]]], 0, 0, 0, 0]], [], ["loc", [null, [5, 52], [5, 83]]], 0, 0]],
+        locals: [],
+        templates: []
+      };
+    })();
+    return {
+      meta: {
+        "revision": "Ember@2.8.2",
+        "loc": {
+          "source": null,
+          "start": {
+            "line": 1,
+            "column": 0
+          },
+          "end": {
+            "line": 8,
+            "column": 0
+          }
+        },
+        "moduleName": "client/templates/components/teams/teams-settings.hbs"
+      },
+      isEmpty: false,
+      arity: 0,
+      cachedFragment: null,
+      hasRendered: false,
+      buildFragment: function buildFragment(dom) {
+        var el0 = dom.createDocumentFragment();
+        var el1 = dom.createElement("div");
+        dom.setAttribute(el1, "class", "btn-group");
+        var el2 = dom.createTextNode("\n");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createComment("");
+        dom.appendChild(el1, el2);
+        dom.appendChild(el0, el1);
+        var el1 = dom.createTextNode("\n");
+        dom.appendChild(el0, el1);
+        return el0;
+      },
+      buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+        var morphs = new Array(1);
+        morphs[0] = dom.createMorphAt(dom.childAt(fragment, [0]), 1, 1);
+        return morphs;
+      },
+      statements: [["block", "if", [["get", "isEditing", ["loc", [null, [2, 8], [2, 17]]], 0, 0, 0, 0]], [], 0, 1, ["loc", [null, [2, 2], [6, 9]]]]],
+      locals: [],
+      templates: [child0, child1]
+    };
+  })());
+});
 define("client/templates/components/users/users-container", ["exports"], function (exports) {
   exports["default"] = Ember.HTMLBars.template((function () {
     var child0 = (function () {
@@ -8026,41 +8183,6 @@ define("client/templates/team/team/edit", ["exports"], function (exports) {
 });
 define("client/templates/team/team", ["exports"], function (exports) {
   exports["default"] = Ember.HTMLBars.template((function () {
-    var child0 = (function () {
-      return {
-        meta: {
-          "revision": "Ember@2.8.2",
-          "loc": {
-            "source": null,
-            "start": {
-              "line": 22,
-              "column": 8
-            },
-            "end": {
-              "line": 22,
-              "column": 46
-            }
-          },
-          "moduleName": "client/templates/team/team.hbs"
-        },
-        isEmpty: false,
-        arity: 0,
-        cachedFragment: null,
-        hasRendered: false,
-        buildFragment: function buildFragment(dom) {
-          var el0 = dom.createDocumentFragment();
-          var el1 = dom.createTextNode("Edit");
-          dom.appendChild(el0, el1);
-          return el0;
-        },
-        buildRenderNodes: function buildRenderNodes() {
-          return [];
-        },
-        statements: [],
-        locals: [],
-        templates: []
-      };
-    })();
     return {
       meta: {
         "revision": "Ember@2.8.2",
@@ -8071,7 +8193,7 @@ define("client/templates/team/team", ["exports"], function (exports) {
             "column": 0
           },
           "end": {
-            "line": 27,
+            "line": 34,
             "column": 0
           }
         },
@@ -8110,48 +8232,25 @@ define("client/templates/team/team", ["exports"], function (exports) {
         dom.setAttribute(el3, "class", "l-cards-container");
         var el4 = dom.createTextNode("\n      ");
         dom.appendChild(el3, el4);
-        var el4 = dom.createComment("");
-        dom.appendChild(el3, el4);
-        var el4 = dom.createTextNode("\n      ");
-        dom.appendChild(el3, el4);
         var el4 = dom.createElement("div");
-        dom.setAttribute(el4, "class", "col-md-6");
+        dom.setAttribute(el4, "class", "row l-title-container");
         var el5 = dom.createTextNode("\n        ");
         dom.appendChild(el4, el5);
         var el5 = dom.createElement("div");
-        dom.setAttribute(el5, "class", "card c-card");
+        dom.setAttribute(el5, "class", "col-md-10");
         var el6 = dom.createTextNode("\n          ");
         dom.appendChild(el5, el6);
-        var el6 = dom.createElement("div");
-        dom.setAttribute(el6, "class", "card-header c-card__header");
+        var el6 = dom.createElement("h2");
         var el7 = dom.createTextNode("\n            ");
         dom.appendChild(el6, el7);
-        var el7 = dom.createElement("h4");
-        dom.setAttribute(el7, "class", "c-card__title");
-        var el8 = dom.createTextNode("\n              ");
-        dom.appendChild(el7, el8);
-        var el8 = dom.createComment("");
-        dom.appendChild(el7, el8);
-        var el8 = dom.createTextNode("\n            ");
-        dom.appendChild(el7, el8);
+        var el7 = dom.createElement("img");
+        dom.setAttribute(el7, "src", "/assets/fonts/user-list.svg");
+        dom.setAttribute(el7, "class", "c-side-bar__icon");
+        dom.setAttribute(el7, "alt", "Teams");
         dom.appendChild(el6, el7);
-        var el7 = dom.createTextNode("\n          ");
-        dom.appendChild(el6, el7);
-        dom.appendChild(el5, el6);
-        var el6 = dom.createTextNode("\n          ");
-        dom.appendChild(el5, el6);
-        var el6 = dom.createElement("div");
-        dom.setAttribute(el6, "class", "card-block c-card__block");
         var el7 = dom.createTextNode("\n            ");
         dom.appendChild(el6, el7);
-        var el7 = dom.createElement("p");
-        dom.setAttribute(el7, "class", "c-card__description");
-        var el8 = dom.createTextNode("\n              ");
-        dom.appendChild(el7, el8);
-        var el8 = dom.createComment("");
-        dom.appendChild(el7, el8);
-        var el8 = dom.createTextNode("\n            ");
-        dom.appendChild(el7, el8);
+        var el7 = dom.createComment("");
         dom.appendChild(el6, el7);
         var el7 = dom.createTextNode("\n          ");
         dom.appendChild(el6, el7);
@@ -8161,7 +8260,57 @@ define("client/templates/team/team", ["exports"], function (exports) {
         dom.appendChild(el4, el5);
         var el5 = dom.createTextNode("\n        ");
         dom.appendChild(el4, el5);
+        var el5 = dom.createElement("div");
+        dom.setAttribute(el5, "class", "col-md-2 l-pull-right");
+        var el6 = dom.createTextNode("\n          ");
+        dom.appendChild(el5, el6);
+        var el6 = dom.createComment("");
+        dom.appendChild(el5, el6);
+        var el6 = dom.createTextNode("\n        ");
+        dom.appendChild(el5, el6);
+        dom.appendChild(el4, el5);
+        var el5 = dom.createTextNode("\n      ");
+        dom.appendChild(el4, el5);
+        dom.appendChild(el3, el4);
+        var el4 = dom.createTextNode("\n      ");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createElement("div");
+        dom.setAttribute(el4, "class", "row");
+        var el5 = dom.createTextNode("\n        ");
+        dom.appendChild(el4, el5);
         var el5 = dom.createComment("");
+        dom.appendChild(el4, el5);
+        var el5 = dom.createTextNode("\n        ");
+        dom.appendChild(el4, el5);
+        var el5 = dom.createElement("div");
+        dom.setAttribute(el5, "class", "col-md-6");
+        var el6 = dom.createTextNode("\n          ");
+        dom.appendChild(el5, el6);
+        var el6 = dom.createElement("div");
+        dom.setAttribute(el6, "class", "card c-card");
+        var el7 = dom.createTextNode("\n            ");
+        dom.appendChild(el6, el7);
+        var el7 = dom.createElement("div");
+        dom.setAttribute(el7, "class", "card-block c-card__block");
+        var el8 = dom.createTextNode("\n              ");
+        dom.appendChild(el7, el8);
+        var el8 = dom.createElement("p");
+        dom.setAttribute(el8, "class", "c-card__description");
+        var el9 = dom.createTextNode("\n                ");
+        dom.appendChild(el8, el9);
+        var el9 = dom.createComment("");
+        dom.appendChild(el8, el9);
+        var el9 = dom.createTextNode("\n              ");
+        dom.appendChild(el8, el9);
+        dom.appendChild(el7, el8);
+        var el8 = dom.createTextNode("\n            ");
+        dom.appendChild(el7, el8);
+        dom.appendChild(el6, el7);
+        var el7 = dom.createTextNode("\n          ");
+        dom.appendChild(el6, el7);
+        dom.appendChild(el5, el6);
+        var el6 = dom.createTextNode("\n        ");
+        dom.appendChild(el5, el6);
         dom.appendChild(el4, el5);
         var el5 = dom.createTextNode("\n      ");
         dom.appendChild(el4, el5);
@@ -8183,20 +8332,20 @@ define("client/templates/team/team", ["exports"], function (exports) {
         var element0 = dom.childAt(fragment, [0]);
         var element1 = dom.childAt(element0, [3]);
         var element2 = dom.childAt(element1, [3]);
-        var element3 = dom.childAt(element2, [3]);
-        var element4 = dom.childAt(element3, [1]);
+        var element3 = dom.childAt(element2, [1]);
+        var element4 = dom.childAt(element2, [3]);
         var morphs = new Array(6);
         morphs[0] = dom.createMorphAt(dom.childAt(element0, [1]), 1, 1);
         morphs[1] = dom.createMorphAt(element1, 1, 1);
-        morphs[2] = dom.createMorphAt(element2, 1, 1);
-        morphs[3] = dom.createMorphAt(dom.childAt(element4, [1, 1]), 1, 1);
-        morphs[4] = dom.createMorphAt(dom.childAt(element4, [3, 1]), 1, 1);
-        morphs[5] = dom.createMorphAt(element3, 3, 3);
+        morphs[2] = dom.createMorphAt(dom.childAt(element3, [1, 1]), 3, 3);
+        morphs[3] = dom.createMorphAt(dom.childAt(element3, [3]), 1, 1);
+        morphs[4] = dom.createMorphAt(element4, 1, 1);
+        morphs[5] = dom.createUnsafeMorphAt(dom.childAt(element4, [3, 1, 1, 1]), 1, 1);
         return morphs;
       },
-      statements: [["content", "layout/side-bar", ["loc", [null, [3, 4], [3, 23]]], 0, 0, 0, 0], ["content", "layout/secondary-nav-bar", ["loc", [null, [6, 4], [6, 32]]], 0, 0, 0, 0], ["content", "outlet", ["loc", [null, [8, 6], [8, 16]]], 0, 0, 0, 0], ["content", "team.name", ["loc", [null, [13, 14], [13, 27]]], 0, 0, 0, 0], ["content", "team.description", ["loc", [null, [18, 14], [18, 34]]], 0, 0, 0, 0], ["block", "link-to", ["team.team.edit", ["get", "team", ["loc", [null, [22, 36], [22, 40]]], 0, 0, 0, 0]], [], 0, null, ["loc", [null, [22, 8], [22, 58]]]]],
+      statements: [["content", "layout/side-bar", ["loc", [null, [3, 4], [3, 23]]], 0, 0, 0, 0], ["content", "layout/secondary-nav-bar", ["loc", [null, [6, 4], [6, 32]]], 0, 0, 0, 0], ["content", "team.name", ["loc", [null, [12, 12], [12, 25]]], 0, 0, 0, 0], ["inline", "teams/teams-settings", [], ["team", ["subexpr", "@mut", [["get", "model", ["loc", [null, [16, 38], [16, 43]]], 0, 0, 0, 0]], [], [], 0, 0]], ["loc", [null, [16, 10], [16, 45]]], 0, 0], ["content", "outlet", ["loc", [null, [20, 8], [20, 18]]], 0, 0, 0, 0], ["content", "team.description", ["loc", [null, [25, 16], [25, 38]]], 0, 0, 0, 0]],
       locals: [],
-      templates: [child0]
+      templates: []
     };
   })());
 });
