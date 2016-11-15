@@ -20,6 +20,7 @@
   margin: 15px;
   border: 1px solid $border-color;
   padding: 15px 0;
+  border-radius: 4px;
 }
 
 .l-title-container {

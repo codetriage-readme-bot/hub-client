@@ -1,5 +1,7 @@
 .c-card {
-  border-radius: 0;
+  border-radius: 4px;
+  border: 0;
+  box-shadow: 0 10px 15px 0 rgba(0, 0, 0, .03);
 
   &__header,
   &__footer {
@@ -26,7 +28,18 @@
     width: 100%;
   }
 
-  &__description:last-child {
-    margin-bottom: 0;
+  &__description {
+    white-space: pre-line;
+    display: flex;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.l-cards-container {
+  .c-card {
+    margin-bottom: 20px;
   }
 }

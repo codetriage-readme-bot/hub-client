@@ -1891,7 +1891,7 @@ define("client/templates/card/card", ["exports"], function (exports) {
         dom.setAttribute(el7, "class", "card-block c-card__block");
         var el8 = dom.createTextNode("\n              ");
         dom.appendChild(el7, el8);
-        var el8 = dom.createElement("p");
+        var el8 = dom.createElement("div");
         dom.setAttribute(el8, "class", "c-card__description");
         var el9 = dom.createTextNode("\n                ");
         dom.appendChild(el8, el9);
@@ -1937,10 +1937,10 @@ define("client/templates/card/card", ["exports"], function (exports) {
         morphs[2] = dom.createMorphAt(dom.childAt(element3, [1, 1]), 3, 3);
         morphs[3] = dom.createMorphAt(dom.childAt(element3, [3]), 1, 1);
         morphs[4] = dom.createMorphAt(element4, 1, 1);
-        morphs[5] = dom.createMorphAt(dom.childAt(element4, [3, 1, 1, 1]), 1, 1);
+        morphs[5] = dom.createUnsafeMorphAt(dom.childAt(element4, [3, 1, 1, 1]), 1, 1);
         return morphs;
       },
-      statements: [["content", "layout/side-bar", ["loc", [null, [3, 4], [3, 23]]], 0, 0, 0, 0], ["content", "layout/secondary-nav-bar", ["loc", [null, [6, 4], [6, 32]]], 0, 0, 0, 0], ["content", "card.title", ["loc", [null, [12, 12], [12, 26]]], 0, 0, 0, 0], ["inline", "cards/cards-settings", [], ["card", ["subexpr", "@mut", [["get", "model", ["loc", [null, [16, 38], [16, 43]]], 0, 0, 0, 0]], [], [], 0, 0]], ["loc", [null, [16, 10], [16, 45]]], 0, 0], ["content", "outlet", ["loc", [null, [20, 8], [20, 18]]], 0, 0, 0, 0], ["content", "card.description", ["loc", [null, [25, 16], [25, 36]]], 0, 0, 0, 0]],
+      statements: [["content", "layout/side-bar", ["loc", [null, [3, 4], [3, 23]]], 0, 0, 0, 0], ["content", "layout/secondary-nav-bar", ["loc", [null, [6, 4], [6, 32]]], 0, 0, 0, 0], ["content", "card.title", ["loc", [null, [12, 12], [12, 26]]], 0, 0, 0, 0], ["inline", "cards/cards-settings", [], ["card", ["subexpr", "@mut", [["get", "model", ["loc", [null, [16, 38], [16, 43]]], 0, 0, 0, 0]], [], [], 0, 0]], ["loc", [null, [16, 10], [16, 45]]], 0, 0], ["content", "outlet", ["loc", [null, [20, 8], [20, 18]]], 0, 0, 0, 0], ["content", "card.description", ["loc", [null, [25, 16], [25, 38]]], 0, 0, 0, 0]],
       locals: [],
       templates: []
     };
@@ -8367,7 +8367,7 @@ catch(err) {
 /* jshint ignore:start */
 
 if (!runningTests) {
-  require("client/app")["default"].create({"name":"client","version":"0.0.0+99aa8fb7"});
+  require("client/app")["default"].create({"name":"client","version":"0.0.0+f643df2c"});
 }
 
 /* jshint ignore:end */

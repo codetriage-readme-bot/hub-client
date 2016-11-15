@@ -3,8 +3,7 @@
   height: 60px;
   display: flex;
   align-items: center;
-  border-bottom: 1px solid $border-color;
-  border-top: 1px solid $border-color;
+  box-shadow: 0 10px 15px 0 rgba(0, 0, 0, .03);
   padding: 0 20px;
 
   &__nav-link {
@@ -12,15 +11,45 @@
       background-color: $brand-color-1;
     }
   }
+
+  &__container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 }
 
-/* ==========================================================================
-   override bootstrap class
-   ========================================================================== */
-.nav-pills .nav-link.active {
-  background-color: $brand-color-1;
+.c-nav-bar {
+  &__link {
+    color: $grey-3;
 
-  &:hover {
-    background-color: $brand-color-1;
+    &.active {
+      color: $brand-color-1;
+    }
+
+    &--sign-out {
+      background-color: $red;
+      padding: 0 15px;
+      border-radius: 4px;
+      color: $white !important;
+
+      &:hover {
+        box-shadow: inset 0 -2px 0 rgba(31,45,61,0.15);
+        cursor: pointer;
+      }
+    }
+
+    &--sign-in {
+      background-color: $green;
+      padding: 0 15px;
+      border-radius: 4px;
+      color: $white !important;
+
+      &:hover {
+        box-shadow: inset 0 -2px 0 rgba(31,45,61,0.15);
+        cursor: pointer;
+      }
+    }
   }
 }
