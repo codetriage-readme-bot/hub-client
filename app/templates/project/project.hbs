@@ -5,21 +5,33 @@
   <div class="col-md-10 l-main-container">
     {{layout/secondary-nav-bar}}
     <div class="l-cards-container">
-      {{outlet}}
-      <div class="col-md-6">
-        <div class="card c-card">
-          <div class="card-header c-card__header">
-            <h4 class="c-card__title">
-              {{project.title}}
-            </h4>
-          </div>
-          <div class="card-block c-card__block">
-            <p class="c-card__description">
-              {{project.description}}
-            </p>
+      <div class="row l-title-container">
+        <div class="col-md-10">
+          <h2>
+            <img src="/assets/fonts/folder.svg" class="c-side-bar__icon" alt="Projects" />
+            {{project.title}}
+          </h2>
+        </div>
+        <div class="col-md-2 l-pull-right">
+          {{projects/projects-settings project=model}}
+        </div>
+      </div>
+      <div class="row">
+        {{outlet}}
+        <div class="col-md-6">
+          <div class="card c-card">
+            <div class="card-header c-card__header">
+              <h4 class="c-card__title">
+                {{project.title}}
+              </h4>
+            </div>
+            <div class="card-block c-card__block">
+              <p class="c-card__description">
+                {{project.description}}
+              </p>
+            </div>
           </div>
         </div>
-        {{#link-to 'project.project.edit' project}}Edit{{/link-to}}
       </div>
     </div>
   </div>

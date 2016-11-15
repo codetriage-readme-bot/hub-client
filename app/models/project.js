@@ -7,5 +7,6 @@ export default Model.extend({
   description: attr('string'),
   slug: attr('string'),
   users: hasMany('user'),
-  cards: hasMany('card')
+  cards: hasMany('card'),
+  status: attr('string')
 });

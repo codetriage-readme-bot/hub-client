@@ -1,0 +1,21 @@
+<div class="btn-group">
+  {{#if isEditing}}
+    <button type="button" class="btn btn-secondary" {{ action "isNotEditing" project.id}}>Cancel</button>
+  {{else}}
+    <button type="button" class="btn btn-secondary" {{ action "isEditing" project.id}}>Edit</button>
+  {{/if}}
+
+  <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <span class="sr-only">Actions</span>
+  </button>
+  <div class="dropdown-menu">
+    {{#if isEditing}}
+    {{/if}}
+    {{#if (eq project.status "unarchived")}}
+      <a href="#" {{ action "archiveProject" project }} class="dropdown-item">Archive</a>
+    {{else}}
+      <a href="#" {{ action "unarchiveProject" project }} class="dropdown-item">Unarchive</a>
+    {{/if}}
+    <a href="#" {{ action "deleteProject" project }} class="dropdown-item">Delete</a>
+  </div>
+</div>

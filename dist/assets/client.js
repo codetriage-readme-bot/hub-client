@@ -761,6 +761,49 @@ define('client/components/projects/projects-container', ['exports', 'ember'], fu
     })
   });
 });
+define('client/components/projects/projects-settings', ['exports', 'ember'], function (exports, _ember) {
+  var getOwner = _ember['default'].getOwner;
+  exports['default'] = _ember['default'].Component.extend({
+    store: _ember['default'].inject.service(),
+    actions: {
+      deleteProject: function deleteProject(project) {
+        var _this = this;
+
+        this.get('store').findRecord('project', project.id, { backgroundReload: false }).then(function (project) {
+          // remove the project from the store and do a DELETE request
+          project.destroyRecord();
+          getOwner(_this).lookup('route:projects').transitionTo('projects');
+        });
+      },
+
+      archiveProject: function archiveProject(project) {
+        this.get('store').findRecord('project', project.id).then(function (project) {
+          project.set('status', 'archived');
+          project.save();
+        });
+      },
+
+      unarchiveProject: function unarchiveProject(project) {
+        this.get('store').findRecord('project', project.id).then(function (project) {
+          project.set('status', 'unarchived');
+          project.save();
+        });
+      },
+
+      isNotEditing: function isNotEditing(id) {
+        this.set('isEditing', false);
+
+        // go the project route on cancel
+        getOwner(this).lookup('route:project.project').transitionTo('project.project', id);
+      },
+
+      isEditing: function isEditing(id) {
+        this.set('isEditing', true);
+        getOwner(this).lookup('route:project.project.edit').transitionTo('project.project.edit', id);
+      }
+    }
+  });
+});
 define('client/components/radio-button-input', ['exports', 'ember-radio-button/components/radio-button-input'], function (exports, _emberRadioButtonComponentsRadioButtonInput) {
   exports['default'] = _emberRadioButtonComponentsRadioButtonInput['default'];
 });
@@ -1183,7 +1226,8 @@ define('client/models/project', ['exports', 'ember-data/model', 'ember-data/attr
     description: (0, _emberDataAttr['default'])('string'),
     slug: (0, _emberDataAttr['default'])('string'),
     users: (0, _emberDataRelationships.hasMany)('user'),
-    cards: (0, _emberDataRelationships.hasMany)('card')
+    cards: (0, _emberDataRelationships.hasMany)('card'),
+    status: (0, _emberDataAttr['default'])('string')
   });
 });
 define('client/models/team', ['exports', 'ember-data/model', 'ember-data/attr', 'ember-data/relationships'], function (exports, _emberDataModel, _emberDataAttr, _emberDataRelationships) {
@@ -3290,7 +3334,7 @@ define("client/templates/components/forms/edit-project-form", ["exports"], funct
             "column": 0
           },
           "end": {
-            "line": 19,
+            "line": 18,
             "column": 0
           }
         },
@@ -3364,13 +3408,6 @@ define("client/templates/components/forms/edit-project-form", ["exports"], funct
         var el4 = dom.createTextNode("Save");
         dom.appendChild(el3, el4);
         dom.appendChild(el2, el3);
-        var el3 = dom.createTextNode("\n    ");
-        dom.appendChild(el2, el3);
-        var el3 = dom.createElement("button");
-        dom.setAttribute(el3, "class", "btn btn-link");
-        var el4 = dom.createTextNode("Cancel");
-        dom.appendChild(el3, el4);
-        dom.appendChild(el2, el3);
         var el3 = dom.createTextNode("\n  ");
         dom.appendChild(el2, el3);
         dom.appendChild(el1, el2);
@@ -3383,17 +3420,14 @@ define("client/templates/components/forms/edit-project-form", ["exports"], funct
       },
       buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
         var element0 = dom.childAt(fragment, [0]);
-        var element1 = dom.childAt(element0, [5]);
-        var element2 = dom.childAt(element1, [1]);
-        var element3 = dom.childAt(element1, [3]);
-        var morphs = new Array(4);
+        var element1 = dom.childAt(element0, [5, 1]);
+        var morphs = new Array(3);
         morphs[0] = dom.createMorphAt(dom.childAt(element0, [1]), 3, 3);
         morphs[1] = dom.createMorphAt(dom.childAt(element0, [3]), 3, 3);
-        morphs[2] = dom.createElementMorph(element2);
-        morphs[3] = dom.createElementMorph(element3);
+        morphs[2] = dom.createElementMorph(element1);
         return morphs;
       },
-      statements: [["inline", "input", [], ["type", "text", "value", ["subexpr", "@mut", [["get", "model.title", ["loc", [null, [4, 30], [4, 41]]], 0, 0, 0, 0]], [], [], 0, 0], "class", "form-control", "id", "card-title", "placeholder", "Enter the title of the card"], ["loc", [null, [4, 4], [4, 122]]], 0, 0], ["inline", "textarea", [], ["value", ["subexpr", "@mut", [["get", "model.description", ["loc", [null, [10, 21], [10, 38]]], 0, 0, 0, 0]], [], [], 0, 0], "class", "form-control", "id", "card-description", "rows", "5"], ["loc", [null, [10, 4], [10, 92]]], 0, 0], ["element", "action", ["save", ["get", "model.title", ["loc", [null, [15, 28], [15, 39]]], 0, 0, 0, 0], ["get", "model.description", ["loc", [null, [15, 40], [15, 57]]], 0, 0, 0, 0], ["get", "model.id", ["loc", [null, [15, 58], [15, 66]]], 0, 0, 0, 0]], [], ["loc", [null, [15, 12], [15, 68]]], 0, 0], ["element", "action", ["cancel", ["get", "model.title", ["loc", [null, [16, 30], [16, 41]]], 0, 0, 0, 0], ["get", "model.description", ["loc", [null, [16, 42], [16, 59]]], 0, 0, 0, 0], ["get", "model.id", ["loc", [null, [16, 60], [16, 68]]], 0, 0, 0, 0]], [], ["loc", [null, [16, 12], [16, 70]]], 0, 0]],
+      statements: [["inline", "input", [], ["type", "text", "value", ["subexpr", "@mut", [["get", "model.title", ["loc", [null, [4, 30], [4, 41]]], 0, 0, 0, 0]], [], [], 0, 0], "class", "form-control", "id", "card-title", "placeholder", "Enter the title of the card"], ["loc", [null, [4, 4], [4, 122]]], 0, 0], ["inline", "textarea", [], ["value", ["subexpr", "@mut", [["get", "model.description", ["loc", [null, [10, 21], [10, 38]]], 0, 0, 0, 0]], [], [], 0, 0], "class", "form-control", "id", "card-description", "rows", "5"], ["loc", [null, [10, 4], [10, 92]]], 0, 0], ["element", "action", ["save", ["get", "model.title", ["loc", [null, [15, 28], [15, 39]]], 0, 0, 0, 0], ["get", "model.description", ["loc", [null, [15, 40], [15, 57]]], 0, 0, 0, 0], ["get", "model.id", ["loc", [null, [15, 58], [15, 66]]], 0, 0, 0, 0]], [], ["loc", [null, [15, 12], [15, 68]]], 0, 0]],
       locals: [],
       templates: []
     };
@@ -5661,6 +5695,316 @@ define("client/templates/components/projects/projects-container", ["exports"], f
     };
   })());
 });
+define("client/templates/components/projects/projects-settings", ["exports"], function (exports) {
+  exports["default"] = Ember.HTMLBars.template((function () {
+    var child0 = (function () {
+      return {
+        meta: {
+          "revision": "Ember@2.8.2",
+          "loc": {
+            "source": null,
+            "start": {
+              "line": 2,
+              "column": 2
+            },
+            "end": {
+              "line": 4,
+              "column": 2
+            }
+          },
+          "moduleName": "client/templates/components/projects/projects-settings.hbs"
+        },
+        isEmpty: false,
+        arity: 0,
+        cachedFragment: null,
+        hasRendered: false,
+        buildFragment: function buildFragment(dom) {
+          var el0 = dom.createDocumentFragment();
+          var el1 = dom.createTextNode("    ");
+          dom.appendChild(el0, el1);
+          var el1 = dom.createElement("button");
+          dom.setAttribute(el1, "type", "button");
+          dom.setAttribute(el1, "class", "btn btn-secondary");
+          var el2 = dom.createTextNode("Cancel");
+          dom.appendChild(el1, el2);
+          dom.appendChild(el0, el1);
+          var el1 = dom.createTextNode("\n");
+          dom.appendChild(el0, el1);
+          return el0;
+        },
+        buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+          var element3 = dom.childAt(fragment, [1]);
+          var morphs = new Array(1);
+          morphs[0] = dom.createElementMorph(element3);
+          return morphs;
+        },
+        statements: [["element", "action", ["isNotEditing", ["get", "project.id", ["loc", [null, [3, 77], [3, 87]]], 0, 0, 0, 0]], [], ["loc", [null, [3, 52], [3, 89]]], 0, 0]],
+        locals: [],
+        templates: []
+      };
+    })();
+    var child1 = (function () {
+      return {
+        meta: {
+          "revision": "Ember@2.8.2",
+          "loc": {
+            "source": null,
+            "start": {
+              "line": 4,
+              "column": 2
+            },
+            "end": {
+              "line": 6,
+              "column": 2
+            }
+          },
+          "moduleName": "client/templates/components/projects/projects-settings.hbs"
+        },
+        isEmpty: false,
+        arity: 0,
+        cachedFragment: null,
+        hasRendered: false,
+        buildFragment: function buildFragment(dom) {
+          var el0 = dom.createDocumentFragment();
+          var el1 = dom.createTextNode("    ");
+          dom.appendChild(el0, el1);
+          var el1 = dom.createElement("button");
+          dom.setAttribute(el1, "type", "button");
+          dom.setAttribute(el1, "class", "btn btn-secondary");
+          var el2 = dom.createTextNode("Edit");
+          dom.appendChild(el1, el2);
+          dom.appendChild(el0, el1);
+          var el1 = dom.createTextNode("\n");
+          dom.appendChild(el0, el1);
+          return el0;
+        },
+        buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+          var element2 = dom.childAt(fragment, [1]);
+          var morphs = new Array(1);
+          morphs[0] = dom.createElementMorph(element2);
+          return morphs;
+        },
+        statements: [["element", "action", ["isEditing", ["get", "project.id", ["loc", [null, [5, 74], [5, 84]]], 0, 0, 0, 0]], [], ["loc", [null, [5, 52], [5, 86]]], 0, 0]],
+        locals: [],
+        templates: []
+      };
+    })();
+    var child2 = (function () {
+      return {
+        meta: {
+          "revision": "Ember@2.8.2",
+          "loc": {
+            "source": null,
+            "start": {
+              "line": 12,
+              "column": 4
+            },
+            "end": {
+              "line": 13,
+              "column": 4
+            }
+          },
+          "moduleName": "client/templates/components/projects/projects-settings.hbs"
+        },
+        isEmpty: true,
+        arity: 0,
+        cachedFragment: null,
+        hasRendered: false,
+        buildFragment: function buildFragment(dom) {
+          var el0 = dom.createDocumentFragment();
+          return el0;
+        },
+        buildRenderNodes: function buildRenderNodes() {
+          return [];
+        },
+        statements: [],
+        locals: [],
+        templates: []
+      };
+    })();
+    var child3 = (function () {
+      return {
+        meta: {
+          "revision": "Ember@2.8.2",
+          "loc": {
+            "source": null,
+            "start": {
+              "line": 14,
+              "column": 4
+            },
+            "end": {
+              "line": 16,
+              "column": 4
+            }
+          },
+          "moduleName": "client/templates/components/projects/projects-settings.hbs"
+        },
+        isEmpty: false,
+        arity: 0,
+        cachedFragment: null,
+        hasRendered: false,
+        buildFragment: function buildFragment(dom) {
+          var el0 = dom.createDocumentFragment();
+          var el1 = dom.createTextNode("      ");
+          dom.appendChild(el0, el1);
+          var el1 = dom.createElement("a");
+          dom.setAttribute(el1, "href", "#");
+          dom.setAttribute(el1, "class", "dropdown-item");
+          var el2 = dom.createTextNode("Archive");
+          dom.appendChild(el1, el2);
+          dom.appendChild(el0, el1);
+          var el1 = dom.createTextNode("\n");
+          dom.appendChild(el0, el1);
+          return el0;
+        },
+        buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+          var element1 = dom.childAt(fragment, [1]);
+          var morphs = new Array(1);
+          morphs[0] = dom.createElementMorph(element1);
+          return morphs;
+        },
+        statements: [["element", "action", ["archiveProject", ["get", "project", ["loc", [null, [15, 45], [15, 52]]], 0, 0, 0, 0]], [], ["loc", [null, [15, 18], [15, 55]]], 0, 0]],
+        locals: [],
+        templates: []
+      };
+    })();
+    var child4 = (function () {
+      return {
+        meta: {
+          "revision": "Ember@2.8.2",
+          "loc": {
+            "source": null,
+            "start": {
+              "line": 16,
+              "column": 4
+            },
+            "end": {
+              "line": 18,
+              "column": 4
+            }
+          },
+          "moduleName": "client/templates/components/projects/projects-settings.hbs"
+        },
+        isEmpty: false,
+        arity: 0,
+        cachedFragment: null,
+        hasRendered: false,
+        buildFragment: function buildFragment(dom) {
+          var el0 = dom.createDocumentFragment();
+          var el1 = dom.createTextNode("      ");
+          dom.appendChild(el0, el1);
+          var el1 = dom.createElement("a");
+          dom.setAttribute(el1, "href", "#");
+          dom.setAttribute(el1, "class", "dropdown-item");
+          var el2 = dom.createTextNode("Unarchive");
+          dom.appendChild(el1, el2);
+          dom.appendChild(el0, el1);
+          var el1 = dom.createTextNode("\n");
+          dom.appendChild(el0, el1);
+          return el0;
+        },
+        buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+          var element0 = dom.childAt(fragment, [1]);
+          var morphs = new Array(1);
+          morphs[0] = dom.createElementMorph(element0);
+          return morphs;
+        },
+        statements: [["element", "action", ["unarchiveProject", ["get", "project", ["loc", [null, [17, 47], [17, 54]]], 0, 0, 0, 0]], [], ["loc", [null, [17, 18], [17, 57]]], 0, 0]],
+        locals: [],
+        templates: []
+      };
+    })();
+    return {
+      meta: {
+        "revision": "Ember@2.8.2",
+        "loc": {
+          "source": null,
+          "start": {
+            "line": 1,
+            "column": 0
+          },
+          "end": {
+            "line": 22,
+            "column": 0
+          }
+        },
+        "moduleName": "client/templates/components/projects/projects-settings.hbs"
+      },
+      isEmpty: false,
+      arity: 0,
+      cachedFragment: null,
+      hasRendered: false,
+      buildFragment: function buildFragment(dom) {
+        var el0 = dom.createDocumentFragment();
+        var el1 = dom.createElement("div");
+        dom.setAttribute(el1, "class", "btn-group");
+        var el2 = dom.createTextNode("\n");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createComment("");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createTextNode("\n  ");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createElement("button");
+        dom.setAttribute(el2, "type", "button");
+        dom.setAttribute(el2, "class", "btn btn-secondary dropdown-toggle dropdown-toggle-split");
+        dom.setAttribute(el2, "data-toggle", "dropdown");
+        dom.setAttribute(el2, "aria-haspopup", "true");
+        dom.setAttribute(el2, "aria-expanded", "false");
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("span");
+        dom.setAttribute(el3, "class", "sr-only");
+        var el4 = dom.createTextNode("Actions");
+        dom.appendChild(el3, el4);
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n  ");
+        dom.appendChild(el2, el3);
+        dom.appendChild(el1, el2);
+        var el2 = dom.createTextNode("\n  ");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createElement("div");
+        dom.setAttribute(el2, "class", "dropdown-menu");
+        var el3 = dom.createTextNode("\n");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createComment("");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createComment("");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("a");
+        dom.setAttribute(el3, "href", "#");
+        dom.setAttribute(el3, "class", "dropdown-item");
+        var el4 = dom.createTextNode("Delete");
+        dom.appendChild(el3, el4);
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n  ");
+        dom.appendChild(el2, el3);
+        dom.appendChild(el1, el2);
+        var el2 = dom.createTextNode("\n");
+        dom.appendChild(el1, el2);
+        dom.appendChild(el0, el1);
+        var el1 = dom.createTextNode("\n");
+        dom.appendChild(el0, el1);
+        return el0;
+      },
+      buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+        var element4 = dom.childAt(fragment, [0]);
+        var element5 = dom.childAt(element4, [5]);
+        var element6 = dom.childAt(element5, [4]);
+        var morphs = new Array(4);
+        morphs[0] = dom.createMorphAt(element4, 1, 1);
+        morphs[1] = dom.createMorphAt(element5, 1, 1);
+        morphs[2] = dom.createMorphAt(element5, 2, 2);
+        morphs[3] = dom.createElementMorph(element6);
+        return morphs;
+      },
+      statements: [["block", "if", [["get", "isEditing", ["loc", [null, [2, 8], [2, 17]]], 0, 0, 0, 0]], [], 0, 1, ["loc", [null, [2, 2], [6, 9]]]], ["block", "if", [["get", "isEditing", ["loc", [null, [12, 10], [12, 19]]], 0, 0, 0, 0]], [], 2, null, ["loc", [null, [12, 4], [13, 11]]]], ["block", "if", [["subexpr", "eq", [["get", "project.status", ["loc", [null, [14, 14], [14, 28]]], 0, 0, 0, 0], "unarchived"], [], ["loc", [null, [14, 10], [14, 42]]], 0, 0]], [], 3, 4, ["loc", [null, [14, 4], [18, 11]]]], ["element", "action", ["deleteProject", ["get", "project", ["loc", [null, [19, 42], [19, 49]]], 0, 0, 0, 0]], [], ["loc", [null, [19, 16], [19, 52]]], 0, 0]],
+      locals: [],
+      templates: [child0, child1, child2, child3, child4]
+    };
+  })());
+});
 define("client/templates/components/radio-button", ["exports"], function (exports) {
   exports["default"] = Ember.HTMLBars.template((function () {
     var child0 = (function () {
@@ -6735,41 +7079,6 @@ define("client/templates/project/project/edit", ["exports"], function (exports) 
 });
 define("client/templates/project/project", ["exports"], function (exports) {
   exports["default"] = Ember.HTMLBars.template((function () {
-    var child0 = (function () {
-      return {
-        meta: {
-          "revision": "Ember@2.8.2",
-          "loc": {
-            "source": null,
-            "start": {
-              "line": 22,
-              "column": 8
-            },
-            "end": {
-              "line": 22,
-              "column": 55
-            }
-          },
-          "moduleName": "client/templates/project/project.hbs"
-        },
-        isEmpty: false,
-        arity: 0,
-        cachedFragment: null,
-        hasRendered: false,
-        buildFragment: function buildFragment(dom) {
-          var el0 = dom.createDocumentFragment();
-          var el1 = dom.createTextNode("Edit");
-          dom.appendChild(el0, el1);
-          return el0;
-        },
-        buildRenderNodes: function buildRenderNodes() {
-          return [];
-        },
-        statements: [],
-        locals: [],
-        templates: []
-      };
-    })();
     return {
       meta: {
         "revision": "Ember@2.8.2",
@@ -6780,7 +7089,7 @@ define("client/templates/project/project", ["exports"], function (exports) {
             "column": 0
           },
           "end": {
-            "line": 27,
+            "line": 39,
             "column": 0
           }
         },
@@ -6819,48 +7128,25 @@ define("client/templates/project/project", ["exports"], function (exports) {
         dom.setAttribute(el3, "class", "l-cards-container");
         var el4 = dom.createTextNode("\n      ");
         dom.appendChild(el3, el4);
-        var el4 = dom.createComment("");
-        dom.appendChild(el3, el4);
-        var el4 = dom.createTextNode("\n      ");
-        dom.appendChild(el3, el4);
         var el4 = dom.createElement("div");
-        dom.setAttribute(el4, "class", "col-md-6");
+        dom.setAttribute(el4, "class", "row l-title-container");
         var el5 = dom.createTextNode("\n        ");
         dom.appendChild(el4, el5);
         var el5 = dom.createElement("div");
-        dom.setAttribute(el5, "class", "card c-card");
+        dom.setAttribute(el5, "class", "col-md-10");
         var el6 = dom.createTextNode("\n          ");
         dom.appendChild(el5, el6);
-        var el6 = dom.createElement("div");
-        dom.setAttribute(el6, "class", "card-header c-card__header");
+        var el6 = dom.createElement("h2");
         var el7 = dom.createTextNode("\n            ");
         dom.appendChild(el6, el7);
-        var el7 = dom.createElement("h4");
-        dom.setAttribute(el7, "class", "c-card__title");
-        var el8 = dom.createTextNode("\n              ");
-        dom.appendChild(el7, el8);
-        var el8 = dom.createComment("");
-        dom.appendChild(el7, el8);
-        var el8 = dom.createTextNode("\n            ");
-        dom.appendChild(el7, el8);
+        var el7 = dom.createElement("img");
+        dom.setAttribute(el7, "src", "/assets/fonts/folder.svg");
+        dom.setAttribute(el7, "class", "c-side-bar__icon");
+        dom.setAttribute(el7, "alt", "Projects");
         dom.appendChild(el6, el7);
-        var el7 = dom.createTextNode("\n          ");
-        dom.appendChild(el6, el7);
-        dom.appendChild(el5, el6);
-        var el6 = dom.createTextNode("\n          ");
-        dom.appendChild(el5, el6);
-        var el6 = dom.createElement("div");
-        dom.setAttribute(el6, "class", "card-block c-card__block");
         var el7 = dom.createTextNode("\n            ");
         dom.appendChild(el6, el7);
-        var el7 = dom.createElement("p");
-        dom.setAttribute(el7, "class", "c-card__description");
-        var el8 = dom.createTextNode("\n              ");
-        dom.appendChild(el7, el8);
-        var el8 = dom.createComment("");
-        dom.appendChild(el7, el8);
-        var el8 = dom.createTextNode("\n            ");
-        dom.appendChild(el7, el8);
+        var el7 = dom.createComment("");
         dom.appendChild(el6, el7);
         var el7 = dom.createTextNode("\n          ");
         dom.appendChild(el6, el7);
@@ -6870,7 +7156,75 @@ define("client/templates/project/project", ["exports"], function (exports) {
         dom.appendChild(el4, el5);
         var el5 = dom.createTextNode("\n        ");
         dom.appendChild(el4, el5);
+        var el5 = dom.createElement("div");
+        dom.setAttribute(el5, "class", "col-md-2 l-pull-right");
+        var el6 = dom.createTextNode("\n          ");
+        dom.appendChild(el5, el6);
+        var el6 = dom.createComment("");
+        dom.appendChild(el5, el6);
+        var el6 = dom.createTextNode("\n        ");
+        dom.appendChild(el5, el6);
+        dom.appendChild(el4, el5);
+        var el5 = dom.createTextNode("\n      ");
+        dom.appendChild(el4, el5);
+        dom.appendChild(el3, el4);
+        var el4 = dom.createTextNode("\n      ");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createElement("div");
+        dom.setAttribute(el4, "class", "row");
+        var el5 = dom.createTextNode("\n        ");
+        dom.appendChild(el4, el5);
         var el5 = dom.createComment("");
+        dom.appendChild(el4, el5);
+        var el5 = dom.createTextNode("\n        ");
+        dom.appendChild(el4, el5);
+        var el5 = dom.createElement("div");
+        dom.setAttribute(el5, "class", "col-md-6");
+        var el6 = dom.createTextNode("\n          ");
+        dom.appendChild(el5, el6);
+        var el6 = dom.createElement("div");
+        dom.setAttribute(el6, "class", "card c-card");
+        var el7 = dom.createTextNode("\n            ");
+        dom.appendChild(el6, el7);
+        var el7 = dom.createElement("div");
+        dom.setAttribute(el7, "class", "card-header c-card__header");
+        var el8 = dom.createTextNode("\n              ");
+        dom.appendChild(el7, el8);
+        var el8 = dom.createElement("h4");
+        dom.setAttribute(el8, "class", "c-card__title");
+        var el9 = dom.createTextNode("\n                ");
+        dom.appendChild(el8, el9);
+        var el9 = dom.createComment("");
+        dom.appendChild(el8, el9);
+        var el9 = dom.createTextNode("\n              ");
+        dom.appendChild(el8, el9);
+        dom.appendChild(el7, el8);
+        var el8 = dom.createTextNode("\n            ");
+        dom.appendChild(el7, el8);
+        dom.appendChild(el6, el7);
+        var el7 = dom.createTextNode("\n            ");
+        dom.appendChild(el6, el7);
+        var el7 = dom.createElement("div");
+        dom.setAttribute(el7, "class", "card-block c-card__block");
+        var el8 = dom.createTextNode("\n              ");
+        dom.appendChild(el7, el8);
+        var el8 = dom.createElement("p");
+        dom.setAttribute(el8, "class", "c-card__description");
+        var el9 = dom.createTextNode("\n                ");
+        dom.appendChild(el8, el9);
+        var el9 = dom.createComment("");
+        dom.appendChild(el8, el9);
+        var el9 = dom.createTextNode("\n              ");
+        dom.appendChild(el8, el9);
+        dom.appendChild(el7, el8);
+        var el8 = dom.createTextNode("\n            ");
+        dom.appendChild(el7, el8);
+        dom.appendChild(el6, el7);
+        var el7 = dom.createTextNode("\n          ");
+        dom.appendChild(el6, el7);
+        dom.appendChild(el5, el6);
+        var el6 = dom.createTextNode("\n        ");
+        dom.appendChild(el5, el6);
         dom.appendChild(el4, el5);
         var el5 = dom.createTextNode("\n      ");
         dom.appendChild(el4, el5);
@@ -6892,20 +7246,22 @@ define("client/templates/project/project", ["exports"], function (exports) {
         var element0 = dom.childAt(fragment, [0]);
         var element1 = dom.childAt(element0, [3]);
         var element2 = dom.childAt(element1, [3]);
-        var element3 = dom.childAt(element2, [3]);
-        var element4 = dom.childAt(element3, [1]);
-        var morphs = new Array(6);
+        var element3 = dom.childAt(element2, [1]);
+        var element4 = dom.childAt(element2, [3]);
+        var element5 = dom.childAt(element4, [3, 1]);
+        var morphs = new Array(7);
         morphs[0] = dom.createMorphAt(dom.childAt(element0, [1]), 1, 1);
         morphs[1] = dom.createMorphAt(element1, 1, 1);
-        morphs[2] = dom.createMorphAt(element2, 1, 1);
-        morphs[3] = dom.createMorphAt(dom.childAt(element4, [1, 1]), 1, 1);
-        morphs[4] = dom.createMorphAt(dom.childAt(element4, [3, 1]), 1, 1);
-        morphs[5] = dom.createMorphAt(element3, 3, 3);
+        morphs[2] = dom.createMorphAt(dom.childAt(element3, [1, 1]), 3, 3);
+        morphs[3] = dom.createMorphAt(dom.childAt(element3, [3]), 1, 1);
+        morphs[4] = dom.createMorphAt(element4, 1, 1);
+        morphs[5] = dom.createMorphAt(dom.childAt(element5, [1, 1]), 1, 1);
+        morphs[6] = dom.createMorphAt(dom.childAt(element5, [3, 1]), 1, 1);
         return morphs;
       },
-      statements: [["content", "layout/side-bar", ["loc", [null, [3, 4], [3, 23]]], 0, 0, 0, 0], ["content", "layout/secondary-nav-bar", ["loc", [null, [6, 4], [6, 32]]], 0, 0, 0, 0], ["content", "outlet", ["loc", [null, [8, 6], [8, 16]]], 0, 0, 0, 0], ["content", "project.title", ["loc", [null, [13, 14], [13, 31]]], 0, 0, 0, 0], ["content", "project.description", ["loc", [null, [18, 14], [18, 37]]], 0, 0, 0, 0], ["block", "link-to", ["project.project.edit", ["get", "project", ["loc", [null, [22, 42], [22, 49]]], 0, 0, 0, 0]], [], 0, null, ["loc", [null, [22, 8], [22, 67]]]]],
+      statements: [["content", "layout/side-bar", ["loc", [null, [3, 4], [3, 23]]], 0, 0, 0, 0], ["content", "layout/secondary-nav-bar", ["loc", [null, [6, 4], [6, 32]]], 0, 0, 0, 0], ["content", "project.title", ["loc", [null, [12, 12], [12, 29]]], 0, 0, 0, 0], ["inline", "projects/projects-settings", [], ["project", ["subexpr", "@mut", [["get", "model", ["loc", [null, [16, 47], [16, 52]]], 0, 0, 0, 0]], [], [], 0, 0]], ["loc", [null, [16, 10], [16, 54]]], 0, 0], ["content", "outlet", ["loc", [null, [20, 8], [20, 18]]], 0, 0, 0, 0], ["content", "project.title", ["loc", [null, [25, 16], [25, 33]]], 0, 0, 0, 0], ["content", "project.description", ["loc", [null, [30, 16], [30, 39]]], 0, 0, 0, 0]],
       locals: [],
-      templates: [child0]
+      templates: []
     };
   })());
 });
