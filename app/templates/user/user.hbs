@@ -5,21 +5,33 @@
   <div class="col-md-10 l-main-container">
     {{layout/secondary-nav-bar}}
     <div class="l-cards-container">
-      {{outlet}}
-      <div class="col-md-6">
-        <div class="card c-card">
-          <div class="card-header c-card__header">
-            <h4 class="c-card__title">
-              {{user.name}}
-            </h4>
-          </div>
-          <div class="card-block c-card__block">
-            <p class="c-card__description">
-              {{user.email}}
-            </p>
+      <div class="row l-title-container">
+        <div class="col-md-10">
+          <h2>
+            <img src="/assets/fonts/avatar.svg" class="c-side-bar__icon" alt="Users" />
+            {{user.name}}
+          </h2>
+        </div>
+        <div class="col-md-2 l-pull-right">
+          {{users/users-settings user=model}}
+        </div>
+      </div>
+      <div class="row">
+        {{outlet}}
+        <div class="col-md-6">
+          <div class="card c-card">
+            <div class="card-header c-card__header">
+              <h4 class="c-card__title">
+                {{user.name}}
+              </h4>
+            </div>
+            <div class="card-block c-card__block">
+              <p class="c-card__description">
+                {{user.email}}
+              </p>
+            </div>
           </div>
         </div>
-        {{#link-to 'user.user.edit' user.id}}Edit{{/link-to}}
       </div>
     </div>
   </div>
