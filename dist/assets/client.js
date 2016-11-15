@@ -7393,7 +7393,7 @@ define("client/templates/project/project", ["exports"], function (exports) {
             "column": 0
           },
           "end": {
-            "line": 39,
+            "line": 34,
             "column": 0
           }
         },
@@ -7491,24 +7491,6 @@ define("client/templates/project/project", ["exports"], function (exports) {
         var el7 = dom.createTextNode("\n            ");
         dom.appendChild(el6, el7);
         var el7 = dom.createElement("div");
-        dom.setAttribute(el7, "class", "card-header c-card__header");
-        var el8 = dom.createTextNode("\n              ");
-        dom.appendChild(el7, el8);
-        var el8 = dom.createElement("h4");
-        dom.setAttribute(el8, "class", "c-card__title");
-        var el9 = dom.createTextNode("\n                ");
-        dom.appendChild(el8, el9);
-        var el9 = dom.createComment("");
-        dom.appendChild(el8, el9);
-        var el9 = dom.createTextNode("\n              ");
-        dom.appendChild(el8, el9);
-        dom.appendChild(el7, el8);
-        var el8 = dom.createTextNode("\n            ");
-        dom.appendChild(el7, el8);
-        dom.appendChild(el6, el7);
-        var el7 = dom.createTextNode("\n            ");
-        dom.appendChild(el6, el7);
-        var el7 = dom.createElement("div");
         dom.setAttribute(el7, "class", "card-block c-card__block");
         var el8 = dom.createTextNode("\n              ");
         dom.appendChild(el7, el8);
@@ -7552,18 +7534,16 @@ define("client/templates/project/project", ["exports"], function (exports) {
         var element2 = dom.childAt(element1, [3]);
         var element3 = dom.childAt(element2, [1]);
         var element4 = dom.childAt(element2, [3]);
-        var element5 = dom.childAt(element4, [3, 1]);
-        var morphs = new Array(7);
+        var morphs = new Array(6);
         morphs[0] = dom.createMorphAt(dom.childAt(element0, [1]), 1, 1);
         morphs[1] = dom.createMorphAt(element1, 1, 1);
         morphs[2] = dom.createMorphAt(dom.childAt(element3, [1, 1]), 3, 3);
         morphs[3] = dom.createMorphAt(dom.childAt(element3, [3]), 1, 1);
         morphs[4] = dom.createMorphAt(element4, 1, 1);
-        morphs[5] = dom.createMorphAt(dom.childAt(element5, [1, 1]), 1, 1);
-        morphs[6] = dom.createMorphAt(dom.childAt(element5, [3, 1]), 1, 1);
+        morphs[5] = dom.createUnsafeMorphAt(dom.childAt(element4, [3, 1, 1, 1]), 1, 1);
         return morphs;
       },
-      statements: [["content", "layout/side-bar", ["loc", [null, [3, 4], [3, 23]]], 0, 0, 0, 0], ["content", "layout/secondary-nav-bar", ["loc", [null, [6, 4], [6, 32]]], 0, 0, 0, 0], ["content", "project.title", ["loc", [null, [12, 12], [12, 29]]], 0, 0, 0, 0], ["inline", "projects/projects-settings", [], ["project", ["subexpr", "@mut", [["get", "model", ["loc", [null, [16, 47], [16, 52]]], 0, 0, 0, 0]], [], [], 0, 0]], ["loc", [null, [16, 10], [16, 54]]], 0, 0], ["content", "outlet", ["loc", [null, [20, 8], [20, 18]]], 0, 0, 0, 0], ["content", "project.title", ["loc", [null, [25, 16], [25, 33]]], 0, 0, 0, 0], ["content", "project.description", ["loc", [null, [30, 16], [30, 39]]], 0, 0, 0, 0]],
+      statements: [["content", "layout/side-bar", ["loc", [null, [3, 4], [3, 23]]], 0, 0, 0, 0], ["content", "layout/secondary-nav-bar", ["loc", [null, [6, 4], [6, 32]]], 0, 0, 0, 0], ["content", "project.title", ["loc", [null, [12, 12], [12, 29]]], 0, 0, 0, 0], ["inline", "projects/projects-settings", [], ["project", ["subexpr", "@mut", [["get", "model", ["loc", [null, [16, 47], [16, 52]]], 0, 0, 0, 0]], [], [], 0, 0]], ["loc", [null, [16, 10], [16, 54]]], 0, 0], ["content", "outlet", ["loc", [null, [20, 8], [20, 18]]], 0, 0, 0, 0], ["content", "project.description", ["loc", [null, [25, 16], [25, 41]]], 0, 0, 0, 0]],
       locals: [],
       templates: []
     };
@@ -8628,7 +8608,7 @@ define("client/templates/user/user", ["exports"], function (exports) {
             "column": 0
           },
           "end": {
-            "line": 39,
+            "line": 34,
             "column": 0
           }
         },
@@ -8726,24 +8706,6 @@ define("client/templates/user/user", ["exports"], function (exports) {
         var el7 = dom.createTextNode("\n            ");
         dom.appendChild(el6, el7);
         var el7 = dom.createElement("div");
-        dom.setAttribute(el7, "class", "card-header c-card__header");
-        var el8 = dom.createTextNode("\n              ");
-        dom.appendChild(el7, el8);
-        var el8 = dom.createElement("h4");
-        dom.setAttribute(el8, "class", "c-card__title");
-        var el9 = dom.createTextNode("\n                ");
-        dom.appendChild(el8, el9);
-        var el9 = dom.createComment("");
-        dom.appendChild(el8, el9);
-        var el9 = dom.createTextNode("\n              ");
-        dom.appendChild(el8, el9);
-        dom.appendChild(el7, el8);
-        var el8 = dom.createTextNode("\n            ");
-        dom.appendChild(el7, el8);
-        dom.appendChild(el6, el7);
-        var el7 = dom.createTextNode("\n            ");
-        dom.appendChild(el6, el7);
-        var el7 = dom.createElement("div");
         dom.setAttribute(el7, "class", "card-block c-card__block");
         var el8 = dom.createTextNode("\n              ");
         dom.appendChild(el7, el8);
@@ -8787,18 +8749,16 @@ define("client/templates/user/user", ["exports"], function (exports) {
         var element2 = dom.childAt(element1, [3]);
         var element3 = dom.childAt(element2, [1]);
         var element4 = dom.childAt(element2, [3]);
-        var element5 = dom.childAt(element4, [3, 1]);
-        var morphs = new Array(7);
+        var morphs = new Array(6);
         morphs[0] = dom.createMorphAt(dom.childAt(element0, [1]), 1, 1);
         morphs[1] = dom.createMorphAt(element1, 1, 1);
         morphs[2] = dom.createMorphAt(dom.childAt(element3, [1, 1]), 3, 3);
         morphs[3] = dom.createMorphAt(dom.childAt(element3, [3]), 1, 1);
         morphs[4] = dom.createMorphAt(element4, 1, 1);
-        morphs[5] = dom.createMorphAt(dom.childAt(element5, [1, 1]), 1, 1);
-        morphs[6] = dom.createMorphAt(dom.childAt(element5, [3, 1]), 1, 1);
+        morphs[5] = dom.createMorphAt(dom.childAt(element4, [3, 1, 1, 1]), 1, 1);
         return morphs;
       },
-      statements: [["content", "layout/side-bar", ["loc", [null, [3, 4], [3, 23]]], 0, 0, 0, 0], ["content", "layout/secondary-nav-bar", ["loc", [null, [6, 4], [6, 32]]], 0, 0, 0, 0], ["content", "user.name", ["loc", [null, [12, 12], [12, 25]]], 0, 0, 0, 0], ["inline", "users/users-settings", [], ["user", ["subexpr", "@mut", [["get", "model", ["loc", [null, [16, 38], [16, 43]]], 0, 0, 0, 0]], [], [], 0, 0]], ["loc", [null, [16, 10], [16, 45]]], 0, 0], ["content", "outlet", ["loc", [null, [20, 8], [20, 18]]], 0, 0, 0, 0], ["content", "user.name", ["loc", [null, [25, 16], [25, 29]]], 0, 0, 0, 0], ["content", "user.email", ["loc", [null, [30, 16], [30, 30]]], 0, 0, 0, 0]],
+      statements: [["content", "layout/side-bar", ["loc", [null, [3, 4], [3, 23]]], 0, 0, 0, 0], ["content", "layout/secondary-nav-bar", ["loc", [null, [6, 4], [6, 32]]], 0, 0, 0, 0], ["content", "user.name", ["loc", [null, [12, 12], [12, 25]]], 0, 0, 0, 0], ["inline", "users/users-settings", [], ["user", ["subexpr", "@mut", [["get", "model", ["loc", [null, [16, 38], [16, 43]]], 0, 0, 0, 0]], [], [], 0, 0]], ["loc", [null, [16, 10], [16, 45]]], 0, 0], ["content", "outlet", ["loc", [null, [20, 8], [20, 18]]], 0, 0, 0, 0], ["content", "user.email", ["loc", [null, [25, 16], [25, 30]]], 0, 0, 0, 0]],
       locals: [],
       templates: []
     };
