@@ -10,16 +10,5 @@
     "/api/": {
       "origin": "https://hub-server.herokuapp.com/api"
     }
-  },
-  "headers": {
-    "/": {
-      "Cache-Control": "no-store, no-cache"
-    },
-    "/assets/**": {
-      "Cache-Control": "public, max-age=512000"
-    },
-    "/assets/fonts/*": {
-      "Access-Control-Allow-Origin": "*"
-    }
   }
 }
