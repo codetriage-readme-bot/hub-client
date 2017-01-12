@@ -2,11 +2,24 @@
   "root": "dist/",
   "https_only": true,
   "routes": {
+    "/assets/*": "/assets/",
     "/**": "index.html"
   },
+  "clean_urls": true,
   "proxies": {
     "/api/": {
-      "origin": "https://hub-server.herokuapp.com/api/v1/users"
+      "origin": "https://hub-server.herokuapp.com/api"
+    }
+  },
+  "headers": {
+    "/": {
+      "Cache-Control": "no-store, no-cache"
+    },
+    "/assets/**": {
+      "Cache-Control": "public, max-age=512000"
+    },
+    "/assets/webfonts/*": {
+      "Access-Control-Allow-Origin": "*"
     }
   }
 }
