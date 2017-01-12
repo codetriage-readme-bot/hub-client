@@ -2181,7 +2181,7 @@ define("client/templates/card/new", ["exports"], function (exports) {
           var el1 = dom.createTextNode("                  ");
           dom.appendChild(el0, el1);
           var el1 = dom.createElement("img");
-          dom.setAttribute(el1, "src", "/assets/fonts/edit.svg");
+          dom.setAttribute(el1, "src", "/assets/fonts/edit-symbol.svg");
           dom.setAttribute(el1, "class", "c-card-edit__icon");
           dom.setAttribute(el1, "alt", "Your awesome description!");
           dom.appendChild(el0, el1);
@@ -7114,7 +7114,7 @@ define("client/templates/project/new", ["exports"], function (exports) {
           var el1 = dom.createTextNode("                  ");
           dom.appendChild(el0, el1);
           var el1 = dom.createElement("img");
-          dom.setAttribute(el1, "src", "/assets/fonts/edit.svg");
+          dom.setAttribute(el1, "src", "/assets/fonts/edit-symbol.svg");
           dom.setAttribute(el1, "class", "c-card-edit__icon");
           dom.setAttribute(el1, "alt", "Your awesome description!");
           dom.appendChild(el0, el1);
@@ -7894,7 +7894,7 @@ define("client/templates/team/new", ["exports"], function (exports) {
           var el1 = dom.createTextNode("                  ");
           dom.appendChild(el0, el1);
           var el1 = dom.createElement("img");
-          dom.setAttribute(el1, "src", "/assets/fonts/edit.svg");
+          dom.setAttribute(el1, "src", "/assets/fonts/edit-symbol.svg");
           dom.setAttribute(el1, "class", "c-card-edit__icon");
           dom.setAttribute(el1, "alt", "Your awesome description!");
           dom.appendChild(el0, el1);
@@ -8991,7 +8991,7 @@ catch(err) {
 /* jshint ignore:start */
 
 if (!runningTests) {
-  require("client/app")["default"].create({"name":"client","version":"0.0.0+f643df2c"});
+  require("client/app")["default"].create({"name":"client","version":"0.0.0+03e5e45f"});
 }
 
 /* jshint ignore:end */
